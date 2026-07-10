@@ -1,85 +1,51 @@
+import 'package:comics/AmbientGlowBackground.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-import '../../../app/app_theme.dart';
+import 'home_sections.dart';
+import 'large_title_helpers.dart';
 
 class LibraryPage extends HookConsumerWidget {
   const LibraryPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CustomScrollView(
-      key: const PageStorageKey<String>('library-scroll'),
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        SliverToBoxAdapter(
-          child: Padding(
+    final titleController = useGlassLargeTitleController();
+
+    return GlassScaffold(
+      edgeToEdge: true,
+      contentAwareBrightness: true,
+      statusBarStyle: GlassStatusBarStyle.auto,
+      background: const AmbientGlowBackground(),
+      topEdgeFade: true,
+      bottomEdgeFade: true,
+      topEdgeFadeExtent: 64,
+      bottomEdgeFadeExtent: 64,
+      headerScrollController: titleController.scrollController,
+      body: CustomScrollView(
+        controller: titleController.scrollController,
+        key: const PageStorageKey<String>('library-scroll'),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
+        slivers: [
+          GlassLargeTitle(
+            text: '书架',
+            controller: titleController,
             padding: EdgeInsets.fromLTRB(
-              20,
-              MediaQuery.paddingOf(context).top + 12,
               16,
-              20,
-            ),
-            child: Text(
-              '书架',
-              style: TextStyle(
-                color: CupertinoColors.label.resolveFrom(context),
-                fontSize: 34,
-                fontWeight: FontWeight.w700,
-                letterSpacing: -0.6,
-              ),
+              MediaQuery.paddingOf(context).top + 16,
+              16,
+              8,
             ),
           ),
-        ),
-        const SliverFillRemaining(
-          hasScrollBody: false,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 120),
-            child: _EmptyState(
-              icon: CupertinoIcons.book,
-              title: '你的书架',
-              subtitle: '收藏的漫画和阅读记录会出现在这里',
-            ),
+          const HomeStateView.empty(
+            icon: CupertinoIcons.book,
+            title: '你的书架',
+            message: '收藏的漫画和阅读记录会出现在这里',
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 42, color: CopyColors.accent),
-            const SizedBox(height: 15),
-            Text(title, style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 7),
-            Text(
-              subtitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

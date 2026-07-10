@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comics/AmbientGlowBackground.dart';
+import 'package:comics/features/home/presentation/comic_detail_page.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-import '../../../app/app_theme.dart';
 import '../../../copy_manga/copy_manga.dart';
+import '../application/home_provider.dart';
 import 'home_sections.dart';
+import 'large_title_helpers.dart';
 
 class ThemeComicsPage extends HookConsumerWidget {
   const ThemeComicsPage({
@@ -21,140 +22,72 @@ class ThemeComicsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const pageSize = 30;
-    final scrollController = useScrollController();
-    final comics = useState<List<ComicDto>>(<ComicDto>[]);
-    final total = useState(0);
-    final loading = useState(false);
-    final error = useState<Object?>(null);
-
-    Future<void> loadMore() async {
-      final hasMore = comics.value.isEmpty || comics.value.length < total.value;
-      if (loading.value || (!hasMore && comics.value.isNotEmpty)) return;
-      loading.value = true;
-      error.value = null;
-
-      try {
-        final page = await ref
-            .read(copyMangaRepositoryProvider)
-            .api
-            .comics(
-              limit: pageSize,
-              offset: comics.value.length,
-              ordering: '-popular',
-              theme: themeSlug,
-            );
-        if (!context.mounted) return;
-        comics.value = [...comics.value, ...page.list];
-        total.value = page.total;
-      } catch (caught) {
-        if (context.mounted) error.value = caught;
-      } finally {
-        if (context.mounted) loading.value = false;
-      }
-    }
-
-    useEffect(() {
-      Future<void>.microtask(loadMore);
-      return null;
-    }, const []);
+    final titleController = useGlassLargeTitleController();
+    final comics = ref.watch(themeComicsProvider(themeSlug));
 
     return GlassScaffold(
       statusBarStyle: GlassStatusBarStyle.auto,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      background: const AmbientGlowBackground(),
       appBar: GlassAppBar(
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: CupertinoColors.label.resolveFrom(context),
+          ),
+        ),
+        centerTitle: false,
+        largeTitleController: titleController,
         leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back, size: 21),
-          size: 40,
+          icon: const Icon(CupertinoIcons.chevron_back),
           useOwnLayer: true,
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          if (notification.metrics.extentAfter < 500) loadMore();
-          return false;
-        },
-        child: CustomScrollView(
-          controller: scrollController,
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                  20,
-                  MediaQuery.paddingOf(context).top + 56,
-                  16,
-                  20,
-                ),
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: CupertinoColors.label.resolveFrom(context),
-                    fontSize: 34,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.6,
-                  ),
-                ),
-              ),
-            ),
-            _ThemeComicsBody(
-              comics: comics.value,
-              total: total.value,
-              loading: loading.value,
-              error: error.value,
-              onLoadMore: loadMore,
-            ),
-          ],
+      body: CustomScrollView(
+        controller: titleController.scrollController,
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
         ),
+        slivers: [
+          GlassLargeTitle(
+            text: title,
+            controller: titleController,
+            padding: EdgeInsets.fromLTRB(
+              24,
+              MediaQuery.paddingOf(context).top + 44,
+              24,
+              8,
+            ),
+          ),
+          _ThemeComicsBody(comics: comics),
+        ],
       ),
     );
   }
 }
 
 class _ThemeComicsBody extends StatelessWidget {
-  const _ThemeComicsBody({
-    required this.comics,
-    required this.total,
-    required this.loading,
-    required this.error,
-    required this.onLoadMore,
-  });
+  const _ThemeComicsBody({required this.comics});
 
-  final List<ComicDto> comics;
-  final int total;
-  final bool loading;
-  final Object? error;
-  final Future<void> Function() onLoadMore;
+  final AsyncValue<ComicPageResultDto> comics;
 
   @override
   Widget build(BuildContext context) {
-    if (comics.isEmpty && loading) {
-      return const SliverFillRemaining(
-        hasScrollBody: false,
-        child: Center(child: GlassProgressIndicator.circular(size: 30)),
-      );
-    }
-    if (comics.isEmpty && error != null) {
-      return SliverFillRemaining(
-        hasScrollBody: false,
-        child: HomeErrorView(message: error.toString(), onRetry: onLoadMore),
-      );
-    }
-    if (comics.isEmpty) {
-      return const SliverFillRemaining(
-        hasScrollBody: false,
-        child: _EmptyState(
-          icon: CupertinoIcons.square_grid_2x2,
-          title: '暂无漫画',
-          subtitle: '这个分类暂时没有可显示的作品',
-        ),
-      );
-    }
+    return comics.when(
+      loading: () => const HomeStateView.loading(),
+      error: (error, _) => HomeStateView.error(error),
+      data: (page) {
+        if (page.list.isEmpty) {
+          return const HomeStateView.empty(
+            icon: CupertinoIcons.square_grid_2x2,
+            title: '暂无漫画',
+            message: '这个分类暂时没有可显示的作品',
+          );
+        }
 
-    return SliverMainAxisGroup(
-      slivers: [
-        SliverPadding(
+        return SliverPadding(
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 32),
           sliver: SliverGrid(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -163,124 +96,30 @@ class _ThemeComicsBody extends StatelessWidget {
               mainAxisSpacing: 20,
               childAspectRatio: .61,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => _ThemeComicCard(comic: comics[index]),
-              childCount: comics.length,
-            ),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 70,
-            child: Center(
-              child: error != null
-                  ? GlassButton.custom(
-                      onTap: onLoadMore,
-                      width: 190,
-                      height: 44,
-                      useOwnLayer: true,
-                      child: const Text('加载失败，点击重试'),
-                    )
-                  : loading
-                  ? const GlassProgressIndicator.circular()
-                  : Text(
-                      '共 $total 部',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final comic = page.list[index];
+              return ComicCoverCard(
+                cover: comic.cover,
+                name: comic.name,
+                author: comic.authors.map((author) => author.name).join(','),
+                badge: null,
+                onTap: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute<void>(
+                      builder: (_) => ComicDetailPage(
+                        comicId: comic.pathWord,
+                        name: comic.name,
+                        cover: comic.cover,
                       ),
                     ),
-            ),
+                  );
+                },
+              );
+            }, childCount: page.list.length),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }
 
-class _ThemeComicCard extends StatelessWidget {
-  const _ThemeComicCard({required this.comic});
-
-  final ComicDto comic;
-
-  @override
-  Widget build(BuildContext context) {
-    final author = comic.authors.map((item) => item.name).join(' · ');
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(18),
-            child: CachedNetworkImage(
-              imageUrl: comic.cover,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: (context, _) => ColoredBox(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: const Center(child: GlassProgressIndicator.circular()),
-              ),
-              errorWidget: (context, _, _) => ColoredBox(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: const Center(child: Icon(CupertinoIcons.book, size: 30)),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 9),
-        Text(
-          comic.name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          author.isEmpty ? comic.datetimeUpdated : author,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-            fontSize: 12,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 42, color: CopyColors.accent),
-            const SizedBox(height: 15),
-            Text(title, style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 7),
-            Text(
-              subtitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

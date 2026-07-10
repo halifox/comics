@@ -31,7 +31,7 @@ abstract class CopyMangaApi {
     @Query('offset') int offset,
     @Query('_update') bool update,
     @Query('type') int type,
-    @Query('audience_type') String? audienceType,
+    @Query('audience_type') String audienceType,
     @Query('date_type') String dateType,
   );
 
@@ -101,10 +101,10 @@ abstract class CopyMangaApi {
     @Path('id') String id,
     @Path('group') String group,
     @Query('limit') int limit,
-    @Query('offset') int offset, {
-    @Query('in_mainland') bool? inMainland,
-    @Query('request_id') String? requestId,
-  });
+    @Query('offset') int offset,
+    @Query('in_mainland') bool inMainland,
+    @Query('request_id') String requestId,
+  );
 
   /// 获取指定章节的图片内容及阅读顺序。
   @GET('/api/v3/comic/{comicId}/chapter2/{chapterId}')

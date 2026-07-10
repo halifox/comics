@@ -1,6 +1,9 @@
+import 'package:comics/AmbientGlowBackground.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
+import 'large_title_helpers.dart';
 import 'theme_comics_page.dart';
 
 class SearchPage extends HookConsumerWidget {
@@ -10,45 +13,49 @@ class SearchPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        transitionBuilder: (child, animation) =>
-            FadeTransition(opacity: animation, child: child),
+    final titleController = useGlassLargeTitleController();
+
+    return GlassScaffold(
+      edgeToEdge: true,
+      contentAwareBrightness: true,
+      statusBarStyle: GlassStatusBarStyle.auto,
+      background: const AmbientGlowBackground(),
+      topEdgeFade: true,
+      bottomEdgeFade: true,
+      topEdgeFadeExtent: 64,
+      bottomEdgeFadeExtent: 64,
+      headerScrollController: titleController.scrollController,
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: fieldFocused
-            ? const _NoRecentSearches(key: ValueKey('no-recent'))
-            : const _SearchBrowseView(key: ValueKey('search-browse')),
+            ? _NoRecentSearches(titleController: titleController)
+            : _SearchBrowseView(titleController: titleController),
       ),
     );
   }
 }
 
 class _SearchBrowseView extends StatelessWidget {
-  const _SearchBrowseView({super.key});
+  const _SearchBrowseView({required this.titleController});
+
+  final GlassLargeTitleController titleController;
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
+      controller: titleController.scrollController,
+      physics: const AlwaysScrollableScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
       slivers: [
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              20,
-              MediaQuery.paddingOf(context).top + 12,
-              16,
-              20,
-            ),
-            child: Text(
-              '搜索',
-              style: TextStyle(
-                color: CupertinoColors.label.resolveFrom(context),
-                fontSize: 34,
-                fontWeight: FontWeight.w700,
-                letterSpacing: -0.6,
-              ),
-            ),
+        GlassLargeTitle(
+          text: '搜索',
+          controller: titleController,
+          padding: EdgeInsets.fromLTRB(
+            16,
+            MediaQuery.paddingOf(context).top + 16,
+            16,
+            8,
           ),
         ),
         SliverPadding(
@@ -76,52 +83,68 @@ class _SearchBrowseView extends StatelessWidget {
 }
 
 class _NoRecentSearches extends StatelessWidget {
-  const _NoRecentSearches({super.key});
+  const _NoRecentSearches({required this.titleController});
+
+  final GlassLargeTitleController titleController;
 
   @override
   Widget build(BuildContext context) {
     final keyboardHeight = MediaQuery.viewInsetsOf(context).bottom;
-    return Container(
-      color: CupertinoDynamicColor.withBrightness(
-        color: const Color(0xFFF2F2F7),
-        darkColor: const Color(0xFF000000),
-      ).resolveFrom(context),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: keyboardHeight + 50),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  CupertinoIcons.search,
-                  size: 64,
-                  color: CupertinoColors.tertiaryLabel.resolveFrom(context),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '暂无最近搜索',
-                  style: TextStyle(
-                    color: CupertinoColors.label.resolveFrom(context),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.3,
+    return CustomScrollView(
+      controller: titleController.scrollController,
+      physics: const AlwaysScrollableScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
+      slivers: [
+        GlassLargeTitle(
+          text: '搜索',
+          controller: titleController,
+          padding: EdgeInsets.fromLTRB(
+            24,
+            MediaQuery.paddingOf(context).top + 16,
+            24,
+            8,
+          ),
+        ),
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: keyboardHeight + 50),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    CupertinoIcons.search,
+                    size: 64,
+                    color: CupertinoColors.tertiaryLabel.resolveFrom(context),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  '你的最近搜索记录会显示在这里。',
-                  style: TextStyle(
-                    color: CupertinoColors.secondaryLabel.resolveFrom(context),
-                    fontSize: 15,
+                  const SizedBox(height: 16),
+                  Text(
+                    '暂无最近搜索',
+                    style: TextStyle(
+                      color: CupertinoColors.label.resolveFrom(context),
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Text(
+                    '你的最近搜索记录会显示在这里。',
+                    style: TextStyle(
+                      color: CupertinoColors.secondaryLabel.resolveFrom(
+                        context,
+                      ),
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -223,27 +246,32 @@ class _BrowseCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: '$name分类',
-      child: GestureDetector(
-        onTap: () => Navigator.of(context).push(
-          CupertinoPageRoute<void>(
-            builder: (_) => ThemeComicsPage(title: name, themeSlug: slug),
-          ),
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        CupertinoPageRoute<void>(
+          builder: (_) => ThemeComicsPage(title: name, themeSlug: slug),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            color: color,
-            alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.all(12),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          color: color,
+          alignment: Alignment.bottomLeft,
+          padding: EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 8),
+          child: GlassContainer(
+            padding: EdgeInsetsDirectional.symmetric(
+              horizontal: 12,
+              vertical: 4,
+            ),
+            quality: GlassQuality.minimal,
+            useOwnLayer: true,
             child: Text(
               name,
               style: TextStyle(
-                color: CupertinoColors.label.resolveFrom(context),
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
+                color: CupertinoColors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFeatures: [FontFeature.tabularFigures()],
               ),
             ),
           ),

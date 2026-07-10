@@ -94,7 +94,7 @@ class _CopyMangaApi implements CopyMangaApi {
     int offset,
     bool update,
     int type,
-    String? audienceType,
+    String audienceType,
     String dateType,
   ) async {
     final _extra = <String, dynamic>{};
@@ -106,7 +106,6 @@ class _CopyMangaApi implements CopyMangaApi {
       r'audience_type': audienceType,
       r'date_type': dateType,
     };
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<RankPageResultDto>(
@@ -383,10 +382,10 @@ class _CopyMangaApi implements CopyMangaApi {
     String id,
     String group,
     int limit,
-    int offset, {
-    bool? inMainland,
-    String? requestId,
-  }) async {
+    int offset,
+    bool inMainland,
+    String requestId,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'limit': limit,
@@ -394,7 +393,6 @@ class _CopyMangaApi implements CopyMangaApi {
       r'in_mainland': inMainland,
       r'request_id': requestId,
     };
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ChapterListResultDto>(

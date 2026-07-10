@@ -1,0 +1,47 @@
+{
+  "code": 200,
+  "message": "请求成功",
+  "results": {
+    "static": "s3.mangafunb.fun",
+    "image": "",
+    "share": [
+      "www.copymanga.fun"
+    ],
+    "api": [
+      [
+        "api.copy202601.com"
+      ],
+      [
+        "api.copy202601.com"
+      ]
+    ],
+    "ads": [
+      [
+        "marketing.aiacgn.com"
+      ],
+      [
+        "marketing.aiacgn.com"
+      ]
+    ],
+    "host_comic": "comic.zaimanhua.com",
+    "host_cartoon": "cartoon.zaimanhua.com",
+    "host_novel": "novel.zaimanhua.com",
+    "day_downloads_total": 5,
+    "ads_reward_downloads": 5,
+    "ads_reward_day_show": 3,
+    "ads_screen_show": 0,
+    "ads_read_express_show": 0,
+    "ads_home_seconds": 0,
+    "ads_restart_seconds": 0,
+    "ads_comic_show": 0,
+    "ads_cartoon_show": 0,
+    "day_downloads": 5,
+    "vip_downloads": 0,
+    "reward_downloads": 0,
+    "ads_vip_end": null,
+    "ads_stat_switch": false,
+    "ads_stat_switch2": true,
+    "ads_reward_seconds": 1200,
+    "in_mainland": true
+  }
+}

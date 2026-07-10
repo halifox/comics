@@ -1,0 +1,22 @@
+{
+  "list": [
+    {
+      "index": 0,
+      "uuid": "1ae39112-67f8-11ed-a66e-024352452ce0",
+      "count": 79,
+      "ordered": 10,
+      "size": 37,
+      "name": "第1话",
+      "comic_id": "10454458-67f8-11ed-a66e-024352452ce0",
+      "comic_path_word": "taozibingao",
+      "group_id": null,
+      "group_path_word": "default",
+      "type": 1,
+      "news": "success",
+      "datetime_created": "2022-11-19",
+      "prev": null,
+      "next": "ff1cecd8-6b1e-11ed-abe5-024352452ce0"
+    }
+  ],
+  "total": 1
+}

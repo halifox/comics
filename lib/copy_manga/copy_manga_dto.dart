@@ -281,8 +281,15 @@ abstract class RankPageResultDto with _$RankPageResultDto {
 
 @freezed
 abstract class ComicInfoResultDto with _$ComicInfoResultDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ComicInfoResultDto({
-    required ComicDto comic,
+    @Default(false) bool isBanned,
+    @Default(false) bool isLock,
+    @Default(false) bool isLogin,
+    @Default(false) bool isMobileBind,
+    @Default(false) bool isVip,
+    required ComicInfoDto comic,
+    @Default(0) int popular,
     required Map<String, ChapterGroupDto> groups,
   }) = _ComicInfoResultDto;
 
@@ -291,11 +298,60 @@ abstract class ComicInfoResultDto with _$ComicInfoResultDto {
 }
 
 @freezed
+abstract class ComicInfoDto with _$ComicInfoDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ComicInfoDto({
+    @Default('') String uuid,
+    @Default(false) bool b404,
+    @Default(false) bool bHidden,
+    @Default(0) int ban,
+    @Default('') String name,
+    @Default('') String alias,
+    @Default('') String pathWord,
+    @Default(false) bool closeComment,
+    @Default(false) bool closeRoast,
+    LabeledValueDto? freeType,
+    LabeledValueDto? restrict,
+    LabeledValueDto? reclass,
+    @Default([]) List<NamedPathDto> females,
+    @Default([]) List<NamedPathDto> males,
+    @Default([]) List<NamedPathDto> clubs,
+    @Default('') String seoBaidu,
+    LabeledValueDto? region,
+    ComicStatusDto? status,
+    @JsonKey(name: 'author') @Default([]) List<NamedPathDto> authors,
+    @JsonKey(name: 'theme') @Default([]) List<NamedPathDto> themes,
+    @Default([]) List<NamedPathDto> parodies,
+    @Default('') String brief,
+    @Default('') String datetimeUpdated,
+    @Default('') String cover,
+    ChapterDto? lastChapter,
+    @Default(0) int popular,
+    Object? channel,
+  }) = _ComicInfoDto;
+
+  factory ComicInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$ComicInfoDtoFromJson(json);
+}
+
+@freezed
+abstract class LabeledValueDto with _$LabeledValueDto {
+  const factory LabeledValueDto({
+    @Default(0) int value,
+    @Default('') String display,
+  }) = _LabeledValueDto;
+
+  factory LabeledValueDto.fromJson(Map<String, dynamic> json) =>
+      _$LabeledValueDtoFromJson(json);
+}
+
+@freezed
 abstract class ChapterGroupDto with _$ChapterGroupDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ChapterGroupDto({
     @Default('') String name,
     @Default('') String pathWord,
+    @Default(0) int count,
   }) = _ChapterGroupDto;
 
   factory ChapterGroupDto.fromJson(Map<String, dynamic> json) =>
@@ -314,8 +370,8 @@ abstract class FavoriteStatusResultDto with _$FavoriteStatusResultDto {
 @freezed
 abstract class ChapterListResultDto with _$ChapterListResultDto {
   const factory ChapterListResultDto({
-    required List<ChapterDto> list,
-    required int total,
+    @Default([]) List<ChapterDto> list,
+    @Default(0) int total,
   }) = _ChapterListResultDto;
 
   factory ChapterListResultDto.fromJson(Map<String, dynamic> json) =>
@@ -324,9 +380,23 @@ abstract class ChapterListResultDto with _$ChapterListResultDto {
 
 @freezed
 abstract class ChapterDto with _$ChapterDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ChapterDto({
+    @Default(0) int index,
     @Default('') String uuid,
+    @Default(0) int count,
+    @Default(0) int ordered,
+    @Default(0) int size,
     @Default('') String name,
+    @Default('') String comicId,
+    @Default('') String comicPathWord,
+    String? groupId,
+    @Default('') String groupPathWord,
+    @Default(0) int type,
+    @Default('') String news,
+    @Default('') String datetimeCreated,
+    String? prev,
+    String? next,
   }) = _ChapterDto;
 
   factory ChapterDto.fromJson(Map<String, dynamic> json) =>

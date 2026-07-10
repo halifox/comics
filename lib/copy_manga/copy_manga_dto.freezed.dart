@@ -5829,7 +5829,7 @@ as int,
 /// @nodoc
 mixin _$ComicInfoResultDto {
 
- ComicDto get comic; Map<String, ChapterGroupDto> get groups;
+ bool get isBanned; bool get isLock; bool get isLogin; bool get isMobileBind; bool get isVip; ComicInfoDto get comic; int get popular; Map<String, ChapterGroupDto> get groups;
 /// Create a copy of ComicInfoResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5842,16 +5842,16 @@ $ComicInfoResultDtoCopyWith<ComicInfoResultDto> get copyWith => _$ComicInfoResul
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ComicInfoResultDto&&(identical(other.comic, comic) || other.comic == comic)&&const DeepCollectionEquality().equals(other.groups, groups));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ComicInfoResultDto&&(identical(other.isBanned, isBanned) || other.isBanned == isBanned)&&(identical(other.isLock, isLock) || other.isLock == isLock)&&(identical(other.isLogin, isLogin) || other.isLogin == isLogin)&&(identical(other.isMobileBind, isMobileBind) || other.isMobileBind == isMobileBind)&&(identical(other.isVip, isVip) || other.isVip == isVip)&&(identical(other.comic, comic) || other.comic == comic)&&(identical(other.popular, popular) || other.popular == popular)&&const DeepCollectionEquality().equals(other.groups, groups));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,comic,const DeepCollectionEquality().hash(groups));
+int get hashCode => Object.hash(runtimeType,isBanned,isLock,isLogin,isMobileBind,isVip,comic,popular,const DeepCollectionEquality().hash(groups));
 
 @override
 String toString() {
-  return 'ComicInfoResultDto(comic: $comic, groups: $groups)';
+  return 'ComicInfoResultDto(isBanned: $isBanned, isLock: $isLock, isLogin: $isLogin, isMobileBind: $isMobileBind, isVip: $isVip, comic: $comic, popular: $popular, groups: $groups)';
 }
 
 
@@ -5862,11 +5862,11 @@ abstract mixin class $ComicInfoResultDtoCopyWith<$Res>  {
   factory $ComicInfoResultDtoCopyWith(ComicInfoResultDto value, $Res Function(ComicInfoResultDto) _then) = _$ComicInfoResultDtoCopyWithImpl;
 @useResult
 $Res call({
- ComicDto comic, Map<String, ChapterGroupDto> groups
+ bool isBanned, bool isLock, bool isLogin, bool isMobileBind, bool isVip, ComicInfoDto comic, int popular, Map<String, ChapterGroupDto> groups
 });
 
 
-$ComicDtoCopyWith<$Res> get comic;
+$ComicInfoDtoCopyWith<$Res> get comic;
 
 }
 /// @nodoc
@@ -5879,10 +5879,16 @@ class _$ComicInfoResultDtoCopyWithImpl<$Res>
 
 /// Create a copy of ComicInfoResultDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? comic = null,Object? groups = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isBanned = null,Object? isLock = null,Object? isLogin = null,Object? isMobileBind = null,Object? isVip = null,Object? comic = null,Object? popular = null,Object? groups = null,}) {
   return _then(_self.copyWith(
-comic: null == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
-as ComicDto,groups: null == groups ? _self.groups : groups // ignore: cast_nullable_to_non_nullable
+isBanned: null == isBanned ? _self.isBanned : isBanned // ignore: cast_nullable_to_non_nullable
+as bool,isLock: null == isLock ? _self.isLock : isLock // ignore: cast_nullable_to_non_nullable
+as bool,isLogin: null == isLogin ? _self.isLogin : isLogin // ignore: cast_nullable_to_non_nullable
+as bool,isMobileBind: null == isMobileBind ? _self.isMobileBind : isMobileBind // ignore: cast_nullable_to_non_nullable
+as bool,isVip: null == isVip ? _self.isVip : isVip // ignore: cast_nullable_to_non_nullable
+as bool,comic: null == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
+as ComicInfoDto,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
+as int,groups: null == groups ? _self.groups : groups // ignore: cast_nullable_to_non_nullable
 as Map<String, ChapterGroupDto>,
   ));
 }
@@ -5890,9 +5896,9 @@ as Map<String, ChapterGroupDto>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ComicDtoCopyWith<$Res> get comic {
+$ComicInfoDtoCopyWith<$Res> get comic {
   
-  return $ComicDtoCopyWith<$Res>(_self.comic, (value) {
+  return $ComicInfoDtoCopyWith<$Res>(_self.comic, (value) {
     return _then(_self.copyWith(comic: value));
   });
 }
@@ -5977,10 +5983,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ComicDto comic,  Map<String, ChapterGroupDto> groups)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isBanned,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ComicInfoDto comic,  int popular,  Map<String, ChapterGroupDto> groups)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicInfoResultDto() when $default != null:
-return $default(_that.comic,_that.groups);case _:
+return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.popular,_that.groups);case _:
   return orElse();
 
 }
@@ -5998,10 +6004,10 @@ return $default(_that.comic,_that.groups);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ComicDto comic,  Map<String, ChapterGroupDto> groups)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isBanned,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ComicInfoDto comic,  int popular,  Map<String, ChapterGroupDto> groups)  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoResultDto():
-return $default(_that.comic,_that.groups);case _:
+return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.popular,_that.groups);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -6018,10 +6024,10 @@ return $default(_that.comic,_that.groups);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ComicDto comic,  Map<String, ChapterGroupDto> groups)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isBanned,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ComicInfoDto comic,  int popular,  Map<String, ChapterGroupDto> groups)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoResultDto() when $default != null:
-return $default(_that.comic,_that.groups);case _:
+return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.popular,_that.groups);case _:
   return null;
 
 }
@@ -6030,13 +6036,19 @@ return $default(_that.comic,_that.groups);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicInfoResultDto implements ComicInfoResultDto {
-  const _ComicInfoResultDto({required this.comic, required final  Map<String, ChapterGroupDto> groups}): _groups = groups;
+  const _ComicInfoResultDto({this.isBanned = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, required this.comic, this.popular = 0, required final  Map<String, ChapterGroupDto> groups}): _groups = groups;
   factory _ComicInfoResultDto.fromJson(Map<String, dynamic> json) => _$ComicInfoResultDtoFromJson(json);
 
-@override final  ComicDto comic;
+@override@JsonKey() final  bool isBanned;
+@override@JsonKey() final  bool isLock;
+@override@JsonKey() final  bool isLogin;
+@override@JsonKey() final  bool isMobileBind;
+@override@JsonKey() final  bool isVip;
+@override final  ComicInfoDto comic;
+@override@JsonKey() final  int popular;
  final  Map<String, ChapterGroupDto> _groups;
 @override Map<String, ChapterGroupDto> get groups {
   if (_groups is EqualUnmodifiableMapView) return _groups;
@@ -6058,16 +6070,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ComicInfoResultDto&&(identical(other.comic, comic) || other.comic == comic)&&const DeepCollectionEquality().equals(other._groups, _groups));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ComicInfoResultDto&&(identical(other.isBanned, isBanned) || other.isBanned == isBanned)&&(identical(other.isLock, isLock) || other.isLock == isLock)&&(identical(other.isLogin, isLogin) || other.isLogin == isLogin)&&(identical(other.isMobileBind, isMobileBind) || other.isMobileBind == isMobileBind)&&(identical(other.isVip, isVip) || other.isVip == isVip)&&(identical(other.comic, comic) || other.comic == comic)&&(identical(other.popular, popular) || other.popular == popular)&&const DeepCollectionEquality().equals(other._groups, _groups));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,comic,const DeepCollectionEquality().hash(_groups));
+int get hashCode => Object.hash(runtimeType,isBanned,isLock,isLogin,isMobileBind,isVip,comic,popular,const DeepCollectionEquality().hash(_groups));
 
 @override
 String toString() {
-  return 'ComicInfoResultDto(comic: $comic, groups: $groups)';
+  return 'ComicInfoResultDto(isBanned: $isBanned, isLock: $isLock, isLogin: $isLogin, isMobileBind: $isMobileBind, isVip: $isVip, comic: $comic, popular: $popular, groups: $groups)';
 }
 
 
@@ -6078,11 +6090,11 @@ abstract mixin class _$ComicInfoResultDtoCopyWith<$Res> implements $ComicInfoRes
   factory _$ComicInfoResultDtoCopyWith(_ComicInfoResultDto value, $Res Function(_ComicInfoResultDto) _then) = __$ComicInfoResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- ComicDto comic, Map<String, ChapterGroupDto> groups
+ bool isBanned, bool isLock, bool isLogin, bool isMobileBind, bool isVip, ComicInfoDto comic, int popular, Map<String, ChapterGroupDto> groups
 });
 
 
-@override $ComicDtoCopyWith<$Res> get comic;
+@override $ComicInfoDtoCopyWith<$Res> get comic;
 
 }
 /// @nodoc
@@ -6095,10 +6107,16 @@ class __$ComicInfoResultDtoCopyWithImpl<$Res>
 
 /// Create a copy of ComicInfoResultDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? comic = null,Object? groups = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isBanned = null,Object? isLock = null,Object? isLogin = null,Object? isMobileBind = null,Object? isVip = null,Object? comic = null,Object? popular = null,Object? groups = null,}) {
   return _then(_ComicInfoResultDto(
-comic: null == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
-as ComicDto,groups: null == groups ? _self._groups : groups // ignore: cast_nullable_to_non_nullable
+isBanned: null == isBanned ? _self.isBanned : isBanned // ignore: cast_nullable_to_non_nullable
+as bool,isLock: null == isLock ? _self.isLock : isLock // ignore: cast_nullable_to_non_nullable
+as bool,isLogin: null == isLogin ? _self.isLogin : isLogin // ignore: cast_nullable_to_non_nullable
+as bool,isMobileBind: null == isMobileBind ? _self.isMobileBind : isMobileBind // ignore: cast_nullable_to_non_nullable
+as bool,isVip: null == isVip ? _self.isVip : isVip // ignore: cast_nullable_to_non_nullable
+as bool,comic: null == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
+as ComicInfoDto,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
+as int,groups: null == groups ? _self._groups : groups // ignore: cast_nullable_to_non_nullable
 as Map<String, ChapterGroupDto>,
   ));
 }
@@ -6107,9 +6125,9 @@ as Map<String, ChapterGroupDto>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ComicDtoCopyWith<$Res> get comic {
+$ComicInfoDtoCopyWith<$Res> get comic {
   
-  return $ComicDtoCopyWith<$Res>(_self.comic, (value) {
+  return $ComicInfoDtoCopyWith<$Res>(_self.comic, (value) {
     return _then(_self.copyWith(comic: value));
   });
 }
@@ -6117,9 +6135,794 @@ $ComicDtoCopyWith<$Res> get comic {
 
 
 /// @nodoc
+mixin _$ComicInfoDto {
+
+ String get uuid; bool get b404; bool get bHidden; int get ban; String get name; String get alias; String get pathWord; bool get closeComment; bool get closeRoast; LabeledValueDto? get freeType; LabeledValueDto? get restrict; LabeledValueDto? get reclass; List<NamedPathDto> get females; List<NamedPathDto> get males; List<NamedPathDto> get clubs; String get seoBaidu; LabeledValueDto? get region; ComicStatusDto? get status;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get parodies; String get brief; String get datetimeUpdated; String get cover; ChapterDto? get lastChapter; int get popular; Object? get channel;
+/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ComicInfoDtoCopyWith<ComicInfoDto> get copyWith => _$ComicInfoDtoCopyWithImpl<ComicInfoDto>(this as ComicInfoDto, _$identity);
+
+  /// Serializes this ComicInfoDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ComicInfoDto&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.b404, b404) || other.b404 == b404)&&(identical(other.bHidden, bHidden) || other.bHidden == bHidden)&&(identical(other.ban, ban) || other.ban == ban)&&(identical(other.name, name) || other.name == name)&&(identical(other.alias, alias) || other.alias == alias)&&(identical(other.pathWord, pathWord) || other.pathWord == pathWord)&&(identical(other.closeComment, closeComment) || other.closeComment == closeComment)&&(identical(other.closeRoast, closeRoast) || other.closeRoast == closeRoast)&&(identical(other.freeType, freeType) || other.freeType == freeType)&&(identical(other.restrict, restrict) || other.restrict == restrict)&&(identical(other.reclass, reclass) || other.reclass == reclass)&&const DeepCollectionEquality().equals(other.females, females)&&const DeepCollectionEquality().equals(other.males, males)&&const DeepCollectionEquality().equals(other.clubs, clubs)&&(identical(other.seoBaidu, seoBaidu) || other.seoBaidu == seoBaidu)&&(identical(other.region, region) || other.region == region)&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.authors, authors)&&const DeepCollectionEquality().equals(other.themes, themes)&&const DeepCollectionEquality().equals(other.parodies, parodies)&&(identical(other.brief, brief) || other.brief == brief)&&(identical(other.datetimeUpdated, datetimeUpdated) || other.datetimeUpdated == datetimeUpdated)&&(identical(other.cover, cover) || other.cover == cover)&&(identical(other.lastChapter, lastChapter) || other.lastChapter == lastChapter)&&(identical(other.popular, popular) || other.popular == popular)&&const DeepCollectionEquality().equals(other.channel, channel));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hashAll([runtimeType,uuid,b404,bHidden,ban,name,alias,pathWord,closeComment,closeRoast,freeType,restrict,reclass,const DeepCollectionEquality().hash(females),const DeepCollectionEquality().hash(males),const DeepCollectionEquality().hash(clubs),seoBaidu,region,status,const DeepCollectionEquality().hash(authors),const DeepCollectionEquality().hash(themes),const DeepCollectionEquality().hash(parodies),brief,datetimeUpdated,cover,lastChapter,popular,const DeepCollectionEquality().hash(channel)]);
+
+@override
+String toString() {
+  return 'ComicInfoDto(uuid: $uuid, b404: $b404, bHidden: $bHidden, ban: $ban, name: $name, alias: $alias, pathWord: $pathWord, closeComment: $closeComment, closeRoast: $closeRoast, freeType: $freeType, restrict: $restrict, reclass: $reclass, females: $females, males: $males, clubs: $clubs, seoBaidu: $seoBaidu, region: $region, status: $status, authors: $authors, themes: $themes, parodies: $parodies, brief: $brief, datetimeUpdated: $datetimeUpdated, cover: $cover, lastChapter: $lastChapter, popular: $popular, channel: $channel)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ComicInfoDtoCopyWith<$Res>  {
+  factory $ComicInfoDtoCopyWith(ComicInfoDto value, $Res Function(ComicInfoDto) _then) = _$ComicInfoDtoCopyWithImpl;
+@useResult
+$Res call({
+ String uuid, bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto? freeType, LabeledValueDto? restrict, LabeledValueDto? reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto? region, ComicStatusDto? status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto? lastChapter, int popular, Object? channel
+});
+
+
+$LabeledValueDtoCopyWith<$Res>? get freeType;$LabeledValueDtoCopyWith<$Res>? get restrict;$LabeledValueDtoCopyWith<$Res>? get reclass;$LabeledValueDtoCopyWith<$Res>? get region;$ComicStatusDtoCopyWith<$Res>? get status;$ChapterDtoCopyWith<$Res>? get lastChapter;
+
+}
+/// @nodoc
+class _$ComicInfoDtoCopyWithImpl<$Res>
+    implements $ComicInfoDtoCopyWith<$Res> {
+  _$ComicInfoDtoCopyWithImpl(this._self, this._then);
+
+  final ComicInfoDto _self;
+  final $Res Function(ComicInfoDto) _then;
+
+/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? uuid = null,Object? b404 = null,Object? bHidden = null,Object? ban = null,Object? name = null,Object? alias = null,Object? pathWord = null,Object? closeComment = null,Object? closeRoast = null,Object? freeType = freezed,Object? restrict = freezed,Object? reclass = freezed,Object? females = null,Object? males = null,Object? clubs = null,Object? seoBaidu = null,Object? region = freezed,Object? status = freezed,Object? authors = null,Object? themes = null,Object? parodies = null,Object? brief = null,Object? datetimeUpdated = null,Object? cover = null,Object? lastChapter = freezed,Object? popular = null,Object? channel = freezed,}) {
+  return _then(_self.copyWith(
+uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,b404: null == b404 ? _self.b404 : b404 // ignore: cast_nullable_to_non_nullable
+as bool,bHidden: null == bHidden ? _self.bHidden : bHidden // ignore: cast_nullable_to_non_nullable
+as bool,ban: null == ban ? _self.ban : ban // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,alias: null == alias ? _self.alias : alias // ignore: cast_nullable_to_non_nullable
+as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
+as String,closeComment: null == closeComment ? _self.closeComment : closeComment // ignore: cast_nullable_to_non_nullable
+as bool,closeRoast: null == closeRoast ? _self.closeRoast : closeRoast // ignore: cast_nullable_to_non_nullable
+as bool,freeType: freezed == freeType ? _self.freeType : freeType // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,restrict: freezed == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,reclass: freezed == reclass ? _self.reclass : reclass // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,females: null == females ? _self.females : females // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,males: null == males ? _self.males : males // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,clubs: null == clubs ? _self.clubs : clubs // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,seoBaidu: null == seoBaidu ? _self.seoBaidu : seoBaidu // ignore: cast_nullable_to_non_nullable
+as String,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as ComicStatusDto?,authors: null == authors ? _self.authors : authors // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,themes: null == themes ? _self.themes : themes // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,parodies: null == parodies ? _self.parodies : parodies // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,brief: null == brief ? _self.brief : brief // ignore: cast_nullable_to_non_nullable
+as String,datetimeUpdated: null == datetimeUpdated ? _self.datetimeUpdated : datetimeUpdated // ignore: cast_nullable_to_non_nullable
+as String,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
+as String,lastChapter: freezed == lastChapter ? _self.lastChapter : lastChapter // ignore: cast_nullable_to_non_nullable
+as ChapterDto?,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
+as int,channel: freezed == channel ? _self.channel : channel ,
+  ));
+}
+/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get freeType {
+    if (_self.freeType == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.freeType!, (value) {
+    return _then(_self.copyWith(freeType: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get restrict {
+    if (_self.restrict == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.restrict!, (value) {
+    return _then(_self.copyWith(restrict: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get reclass {
+    if (_self.reclass == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.reclass!, (value) {
+    return _then(_self.copyWith(reclass: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get region {
+    if (_self.region == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.region!, (value) {
+    return _then(_self.copyWith(region: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ComicStatusDtoCopyWith<$Res>? get status {
+    if (_self.status == null) {
+    return null;
+  }
+
+  return $ComicStatusDtoCopyWith<$Res>(_self.status!, (value) {
+    return _then(_self.copyWith(status: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ChapterDtoCopyWith<$Res>? get lastChapter {
+    if (_self.lastChapter == null) {
+    return null;
+  }
+
+  return $ChapterDtoCopyWith<$Res>(_self.lastChapter!, (value) {
+    return _then(_self.copyWith(lastChapter: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [ComicInfoDto].
+extension ComicInfoDtoPatterns on ComicInfoDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ComicInfoDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ComicInfoDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ComicInfoDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ComicInfoDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ComicInfoDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ComicInfoDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uuid,  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto? freeType,  LabeledValueDto? restrict,  LabeledValueDto? reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto? region,  ComicStatusDto? status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto? lastChapter,  int popular,  Object? channel)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ComicInfoDto() when $default != null:
+return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uuid,  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto? freeType,  LabeledValueDto? restrict,  LabeledValueDto? reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto? region,  ComicStatusDto? status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto? lastChapter,  int popular,  Object? channel)  $default,) {final _that = this;
+switch (_that) {
+case _ComicInfoDto():
+return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uuid,  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto? freeType,  LabeledValueDto? restrict,  LabeledValueDto? reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto? region,  ComicStatusDto? status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto? lastChapter,  int popular,  Object? channel)?  $default,) {final _that = this;
+switch (_that) {
+case _ComicInfoDto() when $default != null:
+return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _ComicInfoDto implements ComicInfoDto {
+  const _ComicInfoDto({this.uuid = '', this.b404 = false, this.bHidden = false, this.ban = 0, this.name = '', this.alias = '', this.pathWord = '', this.closeComment = false, this.closeRoast = false, this.freeType, this.restrict, this.reclass, final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], final  List<NamedPathDto> clubs = const [], this.seoBaidu = '', this.region, this.status, @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> parodies = const [], this.brief = '', this.datetimeUpdated = '', this.cover = '', this.lastChapter, this.popular = 0, this.channel}): _females = females,_males = males,_clubs = clubs,_authors = authors,_themes = themes,_parodies = parodies;
+  factory _ComicInfoDto.fromJson(Map<String, dynamic> json) => _$ComicInfoDtoFromJson(json);
+
+@override@JsonKey() final  String uuid;
+@override@JsonKey() final  bool b404;
+@override@JsonKey() final  bool bHidden;
+@override@JsonKey() final  int ban;
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String alias;
+@override@JsonKey() final  String pathWord;
+@override@JsonKey() final  bool closeComment;
+@override@JsonKey() final  bool closeRoast;
+@override final  LabeledValueDto? freeType;
+@override final  LabeledValueDto? restrict;
+@override final  LabeledValueDto? reclass;
+ final  List<NamedPathDto> _females;
+@override@JsonKey() List<NamedPathDto> get females {
+  if (_females is EqualUnmodifiableListView) return _females;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_females);
+}
+
+ final  List<NamedPathDto> _males;
+@override@JsonKey() List<NamedPathDto> get males {
+  if (_males is EqualUnmodifiableListView) return _males;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_males);
+}
+
+ final  List<NamedPathDto> _clubs;
+@override@JsonKey() List<NamedPathDto> get clubs {
+  if (_clubs is EqualUnmodifiableListView) return _clubs;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_clubs);
+}
+
+@override@JsonKey() final  String seoBaidu;
+@override final  LabeledValueDto? region;
+@override final  ComicStatusDto? status;
+ final  List<NamedPathDto> _authors;
+@override@JsonKey(name: 'author') List<NamedPathDto> get authors {
+  if (_authors is EqualUnmodifiableListView) return _authors;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_authors);
+}
+
+ final  List<NamedPathDto> _themes;
+@override@JsonKey(name: 'theme') List<NamedPathDto> get themes {
+  if (_themes is EqualUnmodifiableListView) return _themes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_themes);
+}
+
+ final  List<NamedPathDto> _parodies;
+@override@JsonKey() List<NamedPathDto> get parodies {
+  if (_parodies is EqualUnmodifiableListView) return _parodies;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_parodies);
+}
+
+@override@JsonKey() final  String brief;
+@override@JsonKey() final  String datetimeUpdated;
+@override@JsonKey() final  String cover;
+@override final  ChapterDto? lastChapter;
+@override@JsonKey() final  int popular;
+@override final  Object? channel;
+
+/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ComicInfoDtoCopyWith<_ComicInfoDto> get copyWith => __$ComicInfoDtoCopyWithImpl<_ComicInfoDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ComicInfoDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ComicInfoDto&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.b404, b404) || other.b404 == b404)&&(identical(other.bHidden, bHidden) || other.bHidden == bHidden)&&(identical(other.ban, ban) || other.ban == ban)&&(identical(other.name, name) || other.name == name)&&(identical(other.alias, alias) || other.alias == alias)&&(identical(other.pathWord, pathWord) || other.pathWord == pathWord)&&(identical(other.closeComment, closeComment) || other.closeComment == closeComment)&&(identical(other.closeRoast, closeRoast) || other.closeRoast == closeRoast)&&(identical(other.freeType, freeType) || other.freeType == freeType)&&(identical(other.restrict, restrict) || other.restrict == restrict)&&(identical(other.reclass, reclass) || other.reclass == reclass)&&const DeepCollectionEquality().equals(other._females, _females)&&const DeepCollectionEquality().equals(other._males, _males)&&const DeepCollectionEquality().equals(other._clubs, _clubs)&&(identical(other.seoBaidu, seoBaidu) || other.seoBaidu == seoBaidu)&&(identical(other.region, region) || other.region == region)&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._authors, _authors)&&const DeepCollectionEquality().equals(other._themes, _themes)&&const DeepCollectionEquality().equals(other._parodies, _parodies)&&(identical(other.brief, brief) || other.brief == brief)&&(identical(other.datetimeUpdated, datetimeUpdated) || other.datetimeUpdated == datetimeUpdated)&&(identical(other.cover, cover) || other.cover == cover)&&(identical(other.lastChapter, lastChapter) || other.lastChapter == lastChapter)&&(identical(other.popular, popular) || other.popular == popular)&&const DeepCollectionEquality().equals(other.channel, channel));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hashAll([runtimeType,uuid,b404,bHidden,ban,name,alias,pathWord,closeComment,closeRoast,freeType,restrict,reclass,const DeepCollectionEquality().hash(_females),const DeepCollectionEquality().hash(_males),const DeepCollectionEquality().hash(_clubs),seoBaidu,region,status,const DeepCollectionEquality().hash(_authors),const DeepCollectionEquality().hash(_themes),const DeepCollectionEquality().hash(_parodies),brief,datetimeUpdated,cover,lastChapter,popular,const DeepCollectionEquality().hash(channel)]);
+
+@override
+String toString() {
+  return 'ComicInfoDto(uuid: $uuid, b404: $b404, bHidden: $bHidden, ban: $ban, name: $name, alias: $alias, pathWord: $pathWord, closeComment: $closeComment, closeRoast: $closeRoast, freeType: $freeType, restrict: $restrict, reclass: $reclass, females: $females, males: $males, clubs: $clubs, seoBaidu: $seoBaidu, region: $region, status: $status, authors: $authors, themes: $themes, parodies: $parodies, brief: $brief, datetimeUpdated: $datetimeUpdated, cover: $cover, lastChapter: $lastChapter, popular: $popular, channel: $channel)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ComicInfoDtoCopyWith<$Res> implements $ComicInfoDtoCopyWith<$Res> {
+  factory _$ComicInfoDtoCopyWith(_ComicInfoDto value, $Res Function(_ComicInfoDto) _then) = __$ComicInfoDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String uuid, bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto? freeType, LabeledValueDto? restrict, LabeledValueDto? reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto? region, ComicStatusDto? status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto? lastChapter, int popular, Object? channel
+});
+
+
+@override $LabeledValueDtoCopyWith<$Res>? get freeType;@override $LabeledValueDtoCopyWith<$Res>? get restrict;@override $LabeledValueDtoCopyWith<$Res>? get reclass;@override $LabeledValueDtoCopyWith<$Res>? get region;@override $ComicStatusDtoCopyWith<$Res>? get status;@override $ChapterDtoCopyWith<$Res>? get lastChapter;
+
+}
+/// @nodoc
+class __$ComicInfoDtoCopyWithImpl<$Res>
+    implements _$ComicInfoDtoCopyWith<$Res> {
+  __$ComicInfoDtoCopyWithImpl(this._self, this._then);
+
+  final _ComicInfoDto _self;
+  final $Res Function(_ComicInfoDto) _then;
+
+/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? uuid = null,Object? b404 = null,Object? bHidden = null,Object? ban = null,Object? name = null,Object? alias = null,Object? pathWord = null,Object? closeComment = null,Object? closeRoast = null,Object? freeType = freezed,Object? restrict = freezed,Object? reclass = freezed,Object? females = null,Object? males = null,Object? clubs = null,Object? seoBaidu = null,Object? region = freezed,Object? status = freezed,Object? authors = null,Object? themes = null,Object? parodies = null,Object? brief = null,Object? datetimeUpdated = null,Object? cover = null,Object? lastChapter = freezed,Object? popular = null,Object? channel = freezed,}) {
+  return _then(_ComicInfoDto(
+uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,b404: null == b404 ? _self.b404 : b404 // ignore: cast_nullable_to_non_nullable
+as bool,bHidden: null == bHidden ? _self.bHidden : bHidden // ignore: cast_nullable_to_non_nullable
+as bool,ban: null == ban ? _self.ban : ban // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,alias: null == alias ? _self.alias : alias // ignore: cast_nullable_to_non_nullable
+as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
+as String,closeComment: null == closeComment ? _self.closeComment : closeComment // ignore: cast_nullable_to_non_nullable
+as bool,closeRoast: null == closeRoast ? _self.closeRoast : closeRoast // ignore: cast_nullable_to_non_nullable
+as bool,freeType: freezed == freeType ? _self.freeType : freeType // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,restrict: freezed == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,reclass: freezed == reclass ? _self.reclass : reclass // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,females: null == females ? _self._females : females // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,males: null == males ? _self._males : males // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,clubs: null == clubs ? _self._clubs : clubs // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,seoBaidu: null == seoBaidu ? _self.seoBaidu : seoBaidu // ignore: cast_nullable_to_non_nullable
+as String,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as ComicStatusDto?,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,themes: null == themes ? _self._themes : themes // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,parodies: null == parodies ? _self._parodies : parodies // ignore: cast_nullable_to_non_nullable
+as List<NamedPathDto>,brief: null == brief ? _self.brief : brief // ignore: cast_nullable_to_non_nullable
+as String,datetimeUpdated: null == datetimeUpdated ? _self.datetimeUpdated : datetimeUpdated // ignore: cast_nullable_to_non_nullable
+as String,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
+as String,lastChapter: freezed == lastChapter ? _self.lastChapter : lastChapter // ignore: cast_nullable_to_non_nullable
+as ChapterDto?,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
+as int,channel: freezed == channel ? _self.channel : channel ,
+  ));
+}
+
+/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get freeType {
+    if (_self.freeType == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.freeType!, (value) {
+    return _then(_self.copyWith(freeType: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get restrict {
+    if (_self.restrict == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.restrict!, (value) {
+    return _then(_self.copyWith(restrict: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get reclass {
+    if (_self.reclass == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.reclass!, (value) {
+    return _then(_self.copyWith(reclass: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<$Res>? get region {
+    if (_self.region == null) {
+    return null;
+  }
+
+  return $LabeledValueDtoCopyWith<$Res>(_self.region!, (value) {
+    return _then(_self.copyWith(region: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ComicStatusDtoCopyWith<$Res>? get status {
+    if (_self.status == null) {
+    return null;
+  }
+
+  return $ComicStatusDtoCopyWith<$Res>(_self.status!, (value) {
+    return _then(_self.copyWith(status: value));
+  });
+}/// Create a copy of ComicInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ChapterDtoCopyWith<$Res>? get lastChapter {
+    if (_self.lastChapter == null) {
+    return null;
+  }
+
+  return $ChapterDtoCopyWith<$Res>(_self.lastChapter!, (value) {
+    return _then(_self.copyWith(lastChapter: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$LabeledValueDto {
+
+ int get value; String get display;
+/// Create a copy of LabeledValueDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LabeledValueDtoCopyWith<LabeledValueDto> get copyWith => _$LabeledValueDtoCopyWithImpl<LabeledValueDto>(this as LabeledValueDto, _$identity);
+
+  /// Serializes this LabeledValueDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LabeledValueDto&&(identical(other.value, value) || other.value == value)&&(identical(other.display, display) || other.display == display));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,value,display);
+
+@override
+String toString() {
+  return 'LabeledValueDto(value: $value, display: $display)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LabeledValueDtoCopyWith<$Res>  {
+  factory $LabeledValueDtoCopyWith(LabeledValueDto value, $Res Function(LabeledValueDto) _then) = _$LabeledValueDtoCopyWithImpl;
+@useResult
+$Res call({
+ int value, String display
+});
+
+
+
+
+}
+/// @nodoc
+class _$LabeledValueDtoCopyWithImpl<$Res>
+    implements $LabeledValueDtoCopyWith<$Res> {
+  _$LabeledValueDtoCopyWithImpl(this._self, this._then);
+
+  final LabeledValueDto _self;
+  final $Res Function(LabeledValueDto) _then;
+
+/// Create a copy of LabeledValueDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? value = null,Object? display = null,}) {
+  return _then(_self.copyWith(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as int,display: null == display ? _self.display : display // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [LabeledValueDto].
+extension LabeledValueDtoPatterns on LabeledValueDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LabeledValueDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _LabeledValueDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LabeledValueDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _LabeledValueDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LabeledValueDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _LabeledValueDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int value,  String display)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _LabeledValueDto() when $default != null:
+return $default(_that.value,_that.display);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int value,  String display)  $default,) {final _that = this;
+switch (_that) {
+case _LabeledValueDto():
+return $default(_that.value,_that.display);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int value,  String display)?  $default,) {final _that = this;
+switch (_that) {
+case _LabeledValueDto() when $default != null:
+return $default(_that.value,_that.display);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _LabeledValueDto implements LabeledValueDto {
+  const _LabeledValueDto({this.value = 0, this.display = ''});
+  factory _LabeledValueDto.fromJson(Map<String, dynamic> json) => _$LabeledValueDtoFromJson(json);
+
+@override@JsonKey() final  int value;
+@override@JsonKey() final  String display;
+
+/// Create a copy of LabeledValueDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LabeledValueDtoCopyWith<_LabeledValueDto> get copyWith => __$LabeledValueDtoCopyWithImpl<_LabeledValueDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$LabeledValueDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LabeledValueDto&&(identical(other.value, value) || other.value == value)&&(identical(other.display, display) || other.display == display));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,value,display);
+
+@override
+String toString() {
+  return 'LabeledValueDto(value: $value, display: $display)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$LabeledValueDtoCopyWith<$Res> implements $LabeledValueDtoCopyWith<$Res> {
+  factory _$LabeledValueDtoCopyWith(_LabeledValueDto value, $Res Function(_LabeledValueDto) _then) = __$LabeledValueDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ int value, String display
+});
+
+
+
+
+}
+/// @nodoc
+class __$LabeledValueDtoCopyWithImpl<$Res>
+    implements _$LabeledValueDtoCopyWith<$Res> {
+  __$LabeledValueDtoCopyWithImpl(this._self, this._then);
+
+  final _LabeledValueDto _self;
+  final $Res Function(_LabeledValueDto) _then;
+
+/// Create a copy of LabeledValueDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? display = null,}) {
+  return _then(_LabeledValueDto(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as int,display: null == display ? _self.display : display // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$ChapterGroupDto {
 
- String get name; String get pathWord;
+ String get name; String get pathWord; int get count;
 /// Create a copy of ChapterGroupDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6132,16 +6935,16 @@ $ChapterGroupDtoCopyWith<ChapterGroupDto> get copyWith => _$ChapterGroupDtoCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChapterGroupDto&&(identical(other.name, name) || other.name == name)&&(identical(other.pathWord, pathWord) || other.pathWord == pathWord));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChapterGroupDto&&(identical(other.name, name) || other.name == name)&&(identical(other.pathWord, pathWord) || other.pathWord == pathWord)&&(identical(other.count, count) || other.count == count));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,pathWord);
+int get hashCode => Object.hash(runtimeType,name,pathWord,count);
 
 @override
 String toString() {
-  return 'ChapterGroupDto(name: $name, pathWord: $pathWord)';
+  return 'ChapterGroupDto(name: $name, pathWord: $pathWord, count: $count)';
 }
 
 
@@ -6152,7 +6955,7 @@ abstract mixin class $ChapterGroupDtoCopyWith<$Res>  {
   factory $ChapterGroupDtoCopyWith(ChapterGroupDto value, $Res Function(ChapterGroupDto) _then) = _$ChapterGroupDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String pathWord
+ String name, String pathWord, int count
 });
 
 
@@ -6169,11 +6972,12 @@ class _$ChapterGroupDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterGroupDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? pathWord = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? pathWord = null,Object? count = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
-as String,
+as String,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -6258,10 +7062,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord,  int count)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterGroupDto() when $default != null:
-return $default(_that.name,_that.pathWord);case _:
+return $default(_that.name,_that.pathWord,_that.count);case _:
   return orElse();
 
 }
@@ -6279,10 +7083,10 @@ return $default(_that.name,_that.pathWord);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord,  int count)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterGroupDto():
-return $default(_that.name,_that.pathWord);case _:
+return $default(_that.name,_that.pathWord,_that.count);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -6299,10 +7103,10 @@ return $default(_that.name,_that.pathWord);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord,  int count)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterGroupDto() when $default != null:
-return $default(_that.name,_that.pathWord);case _:
+return $default(_that.name,_that.pathWord,_that.count);case _:
   return null;
 
 }
@@ -6314,11 +7118,12 @@ return $default(_that.name,_that.pathWord);case _:
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterGroupDto implements ChapterGroupDto {
-  const _ChapterGroupDto({this.name = '', this.pathWord = ''});
+  const _ChapterGroupDto({this.name = '', this.pathWord = '', this.count = 0});
   factory _ChapterGroupDto.fromJson(Map<String, dynamic> json) => _$ChapterGroupDtoFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String pathWord;
+@override@JsonKey() final  int count;
 
 /// Create a copy of ChapterGroupDto
 /// with the given fields replaced by the non-null parameter values.
@@ -6333,16 +7138,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChapterGroupDto&&(identical(other.name, name) || other.name == name)&&(identical(other.pathWord, pathWord) || other.pathWord == pathWord));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChapterGroupDto&&(identical(other.name, name) || other.name == name)&&(identical(other.pathWord, pathWord) || other.pathWord == pathWord)&&(identical(other.count, count) || other.count == count));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,pathWord);
+int get hashCode => Object.hash(runtimeType,name,pathWord,count);
 
 @override
 String toString() {
-  return 'ChapterGroupDto(name: $name, pathWord: $pathWord)';
+  return 'ChapterGroupDto(name: $name, pathWord: $pathWord, count: $count)';
 }
 
 
@@ -6353,7 +7158,7 @@ abstract mixin class _$ChapterGroupDtoCopyWith<$Res> implements $ChapterGroupDto
   factory _$ChapterGroupDtoCopyWith(_ChapterGroupDto value, $Res Function(_ChapterGroupDto) _then) = __$ChapterGroupDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String pathWord
+ String name, String pathWord, int count
 });
 
 
@@ -6370,11 +7175,12 @@ class __$ChapterGroupDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterGroupDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? pathWord = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? pathWord = null,Object? count = null,}) {
   return _then(_ChapterGroupDto(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
-as String,
+as String,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -6841,17 +7647,17 @@ return $default(_that.list,_that.total);case _:
 @JsonSerializable()
 
 class _ChapterListResultDto implements ChapterListResultDto {
-  const _ChapterListResultDto({required final  List<ChapterDto> list, required this.total}): _list = list;
+  const _ChapterListResultDto({final  List<ChapterDto> list = const [], this.total = 0}): _list = list;
   factory _ChapterListResultDto.fromJson(Map<String, dynamic> json) => _$ChapterListResultDtoFromJson(json);
 
  final  List<ChapterDto> _list;
-@override List<ChapterDto> get list {
+@override@JsonKey() List<ChapterDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override final  int total;
+@override@JsonKey() final  int total;
 
 /// Create a copy of ChapterListResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -6918,7 +7724,7 @@ as int,
 /// @nodoc
 mixin _$ChapterDto {
 
- String get uuid; String get name;
+ int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String? get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String? get prev; String? get next;
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6931,16 +7737,16 @@ $ChapterDtoCopyWith<ChapterDto> get copyWith => _$ChapterDtoCopyWithImpl<Chapter
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChapterDto&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChapterDto&&(identical(other.index, index) || other.index == index)&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.count, count) || other.count == count)&&(identical(other.ordered, ordered) || other.ordered == ordered)&&(identical(other.size, size) || other.size == size)&&(identical(other.name, name) || other.name == name)&&(identical(other.comicId, comicId) || other.comicId == comicId)&&(identical(other.comicPathWord, comicPathWord) || other.comicPathWord == comicPathWord)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.groupPathWord, groupPathWord) || other.groupPathWord == groupPathWord)&&(identical(other.type, type) || other.type == type)&&(identical(other.news, news) || other.news == news)&&(identical(other.datetimeCreated, datetimeCreated) || other.datetimeCreated == datetimeCreated)&&(identical(other.prev, prev) || other.prev == prev)&&(identical(other.next, next) || other.next == next));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uuid,name);
+int get hashCode => Object.hash(runtimeType,index,uuid,count,ordered,size,name,comicId,comicPathWord,groupId,groupPathWord,type,news,datetimeCreated,prev,next);
 
 @override
 String toString() {
-  return 'ChapterDto(uuid: $uuid, name: $name)';
+  return 'ChapterDto(index: $index, uuid: $uuid, count: $count, ordered: $ordered, size: $size, name: $name, comicId: $comicId, comicPathWord: $comicPathWord, groupId: $groupId, groupPathWord: $groupPathWord, type: $type, news: $news, datetimeCreated: $datetimeCreated, prev: $prev, next: $next)';
 }
 
 
@@ -6951,7 +7757,7 @@ abstract mixin class $ChapterDtoCopyWith<$Res>  {
   factory $ChapterDtoCopyWith(ChapterDto value, $Res Function(ChapterDto) _then) = _$ChapterDtoCopyWithImpl;
 @useResult
 $Res call({
- String uuid, String name
+ int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String? groupId, String groupPathWord, int type, String news, String datetimeCreated, String? prev, String? next
 });
 
 
@@ -6968,11 +7774,24 @@ class _$ChapterDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uuid = null,Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = freezed,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = freezed,Object? next = freezed,}) {
   return _then(_self.copyWith(
-uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,ordered: null == ordered ? _self.ordered : ordered // ignore: cast_nullable_to_non_nullable
+as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,comicId: null == comicId ? _self.comicId : comicId // ignore: cast_nullable_to_non_nullable
+as String,comicPathWord: null == comicPathWord ? _self.comicPathWord : comicPathWord // ignore: cast_nullable_to_non_nullable
+as String,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as String?,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as int,news: null == news ? _self.news : news // ignore: cast_nullable_to_non_nullable
+as String,datetimeCreated: null == datetimeCreated ? _self.datetimeCreated : datetimeCreated // ignore: cast_nullable_to_non_nullable
+as String,prev: freezed == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
+as String?,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -7057,10 +7876,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uuid,  String name)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterDto() when $default != null:
-return $default(_that.uuid,_that.name);case _:
+return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
   return orElse();
 
 }
@@ -7078,10 +7897,10 @@ return $default(_that.uuid,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uuid,  String name)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterDto():
-return $default(_that.uuid,_that.name);case _:
+return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -7098,10 +7917,10 @@ return $default(_that.uuid,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uuid,  String name)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterDto() when $default != null:
-return $default(_that.uuid,_that.name);case _:
+return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
   return null;
 
 }
@@ -7110,14 +7929,27 @@ return $default(_that.uuid,_that.name);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterDto implements ChapterDto {
-  const _ChapterDto({this.uuid = '', this.name = ''});
+  const _ChapterDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId, this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev, this.next});
   factory _ChapterDto.fromJson(Map<String, dynamic> json) => _$ChapterDtoFromJson(json);
 
+@override@JsonKey() final  int index;
 @override@JsonKey() final  String uuid;
+@override@JsonKey() final  int count;
+@override@JsonKey() final  int ordered;
+@override@JsonKey() final  int size;
 @override@JsonKey() final  String name;
+@override@JsonKey() final  String comicId;
+@override@JsonKey() final  String comicPathWord;
+@override final  String? groupId;
+@override@JsonKey() final  String groupPathWord;
+@override@JsonKey() final  int type;
+@override@JsonKey() final  String news;
+@override@JsonKey() final  String datetimeCreated;
+@override final  String? prev;
+@override final  String? next;
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
@@ -7132,16 +7964,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChapterDto&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChapterDto&&(identical(other.index, index) || other.index == index)&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.count, count) || other.count == count)&&(identical(other.ordered, ordered) || other.ordered == ordered)&&(identical(other.size, size) || other.size == size)&&(identical(other.name, name) || other.name == name)&&(identical(other.comicId, comicId) || other.comicId == comicId)&&(identical(other.comicPathWord, comicPathWord) || other.comicPathWord == comicPathWord)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.groupPathWord, groupPathWord) || other.groupPathWord == groupPathWord)&&(identical(other.type, type) || other.type == type)&&(identical(other.news, news) || other.news == news)&&(identical(other.datetimeCreated, datetimeCreated) || other.datetimeCreated == datetimeCreated)&&(identical(other.prev, prev) || other.prev == prev)&&(identical(other.next, next) || other.next == next));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uuid,name);
+int get hashCode => Object.hash(runtimeType,index,uuid,count,ordered,size,name,comicId,comicPathWord,groupId,groupPathWord,type,news,datetimeCreated,prev,next);
 
 @override
 String toString() {
-  return 'ChapterDto(uuid: $uuid, name: $name)';
+  return 'ChapterDto(index: $index, uuid: $uuid, count: $count, ordered: $ordered, size: $size, name: $name, comicId: $comicId, comicPathWord: $comicPathWord, groupId: $groupId, groupPathWord: $groupPathWord, type: $type, news: $news, datetimeCreated: $datetimeCreated, prev: $prev, next: $next)';
 }
 
 
@@ -7152,7 +7984,7 @@ abstract mixin class _$ChapterDtoCopyWith<$Res> implements $ChapterDtoCopyWith<$
   factory _$ChapterDtoCopyWith(_ChapterDto value, $Res Function(_ChapterDto) _then) = __$ChapterDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String uuid, String name
+ int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String? groupId, String groupPathWord, int type, String news, String datetimeCreated, String? prev, String? next
 });
 
 
@@ -7169,11 +8001,24 @@ class __$ChapterDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uuid = null,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = freezed,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = freezed,Object? next = freezed,}) {
   return _then(_ChapterDto(
-uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,ordered: null == ordered ? _self.ordered : ordered // ignore: cast_nullable_to_non_nullable
+as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,comicId: null == comicId ? _self.comicId : comicId // ignore: cast_nullable_to_non_nullable
+as String,comicPathWord: null == comicPathWord ? _self.comicPathWord : comicPathWord // ignore: cast_nullable_to_non_nullable
+as String,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as String?,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as int,news: null == news ? _self.news : news // ignore: cast_nullable_to_non_nullable
+as String,datetimeCreated: null == datetimeCreated ? _self.datetimeCreated : datetimeCreated // ignore: cast_nullable_to_non_nullable
+as String,prev: freezed == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
+as String?,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

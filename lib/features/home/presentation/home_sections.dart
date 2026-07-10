@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import '../../../app/app_theme.dart';
 import '../../../copy_manga/copy_manga.dart';
+import 'comic_detail_page.dart';
 
 const _horizontalPadding = 20.0;
 
@@ -17,127 +19,233 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverMainAxisGroup(
       slivers: [
-        const _SectionHeader('首页推荐'),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 324,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _horizontalPadding,
-              ),
-              itemCount: data.recommended.list.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 12),
-              itemBuilder: (_, index) =>
-                  _UpNextCard(comic: data.recommended.list[index].comic),
-            ),
-          ),
+        _HorizontalComicSection(
+          title: '首页推荐',
+          comics: data.recommended.list.map((item) => item.comic).toList(),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
-        const _SectionHeader('热门更新'),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 160,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _horizontalPadding,
-              ),
-              itemCount: data.hot.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 12),
-              itemBuilder: (_, index) => _WideUpdateCard(item: data.hot[index]),
-            ),
-          ),
+        _HorizontalComicSection(
+          title: '热门更新',
+          comics: data.hot.map((item) => item.comic).toList(),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
-        const _SectionHeader('最新更新'),
-        const SliverToBoxAdapter(child: SizedBox(height: 8)),
-        SliverList.separated(
-          itemCount: data.latest.length,
-          separatorBuilder: (_, _) => Divider(
-            height: 1,
-            indent: 76,
-            color: CupertinoColors.separator.resolveFrom(context),
-          ),
-          itemBuilder: (_, index) => _RecentRow(item: data.latest[index]),
+        _HorizontalComicSection(
+          title: '最新更新',
+          comics: data.latest.map((item) => item.comic).toList(),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
-        const _SectionHeader('已完结'),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 155,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _horizontalPadding,
-              ),
-              itemCount: data.finished.list.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 14),
-              itemBuilder: (_, index) =>
-                  _ComicCard(comic: data.finished.list[index]),
-            ),
-          ),
+        _HorizontalComicSection(title: '已完结', comics: data.finished.list),
+        _HorizontalComicSection(
+          title: '日榜',
+          comics: data.rankDay.list.map((item) => item.comic).toList(),
+          badges: data.rankDay.list.map((item) => '${item.sort}').toList(),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
-        const _SectionHeader('日榜'),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 155,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _horizontalPadding,
-              ),
-              itemCount: data.rankDay.list.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 14),
-              itemBuilder: (_, index) =>
-                  _RankCard(item: data.rankDay.list[index]),
-            ),
-          ),
+        _HorizontalComicSection(
+          title: '周榜',
+          comics: data.rankWeek.list.map((item) => item.comic).toList(),
+          badges: data.rankWeek.list.map((item) => '${item.sort}').toList(),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
-        const _SectionHeader('周榜'),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 155,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _horizontalPadding,
-              ),
-              itemCount: data.rankWeek.list.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 14),
-              itemBuilder: (_, index) =>
-                  _RankCard(item: data.rankWeek.list[index]),
-            ),
-          ),
+        _HorizontalComicSection(
+          title: '月榜',
+          comics: data.rankMonth.list.map((item) => item.comic).toList(),
+          badges: data.rankMonth.list.map((item) => '${item.sort}').toList(),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
-        const _SectionHeader('月榜'),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 155,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _horizontalPadding,
-              ),
-              itemCount: data.rankMonth.list.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 14),
-              itemBuilder: (_, index) =>
-                  _RankCard(item: data.rankMonth.list[index]),
-            ),
-          ),
-        ),
-        const SliverToBoxAdapter(child: SizedBox(height: 124)),
+        const SliverToBoxAdapter(child: SizedBox(height: 92)),
       ],
     );
+  }
+}
+
+class _HorizontalComicSection extends HookWidget {
+  const _HorizontalComicSection({
+    required this.title,
+    required this.comics,
+    this.badges,
+  });
+
+  final String title;
+  final List<HomeComicDto> comics;
+  final List<String>? badges;
+
+  @override
+  Widget build(BuildContext context) {
+    final pageController = usePageController(viewportFraction: .88);
+
+    return SliverMainAxisGroup(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 12),
+            child: Row(
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: CupertinoColors.label.resolveFrom(context),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Icon(
+                  CupertinoIcons.chevron_right,
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 300,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: _horizontalPadding,
+              ),
+              child: PageView.builder(
+                key: PageStorageKey<String>('PageView-${title}'),
+                controller: pageController,
+                padEnds: false,
+                physics: const _LeadingAlignedPagePhysics(
+                  viewportFraction: .82,
+                ),
+                itemCount: comics.isEmpty ? 0 : comics.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == comics.length) {
+                    return const _EndOfCarouselCard();
+                  }
+
+                  final comic = comics[index];
+
+                  return AnimatedBuilder(
+                    animation: pageController,
+                    builder: (context, child) {
+                      final page = pageController.hasClients
+                          ? pageController.page ?? 0
+                          : 0.0;
+                      final distance = (page - index).abs().clamp(0.0, 1.0);
+
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 14, bottom: 12),
+                        child: Transform.scale(
+                          alignment: Alignment.centerLeft,
+                          scale: 1 - distance * .1,
+                          child: Opacity(
+                            opacity: 1 - distance * .18,
+                            child: child,
+                          ),
+                        ),
+                      );
+                    },
+                    child: ComicCoverCard(
+                      cover: comic.cover,
+                      name: comic.name,
+                      author: comic.authors
+                          .map((author) => author.name)
+                          .join(','),
+                      badge: null,
+                      onTap: () async {
+                        final page = pageController.hasClients
+                            ? pageController.page ?? 0
+                            : 0.0;
+                        final isLeading = (page - index).abs() < .01;
+
+                        if (!isLeading) {
+                          await pageController.animateToPage(
+                            index,
+                            duration: const Duration(milliseconds: 350),
+                            curve: Curves.easeOutCubic,
+                          );
+                          return;
+                        }
+
+                        if (comic.pathWord.isEmpty) return;
+                        Navigator.of(context).push(
+                          CupertinoPageRoute<void>(
+                            builder: (_) => ComicDetailPage(
+                              comicId: comic.pathWord,
+                              name: comic.name,
+                              cover: comic.cover,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: 12)),
+      ],
+    );
+  }
+}
+
+class _EndOfCarouselCard extends StatelessWidget {
+  const _EndOfCarouselCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 2, bottom: 12),
+        child: SizedBox(
+          width: 62,
+          height: double.infinity,
+          child: GlassContainer(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+            shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+            quality: GlassQuality.minimal,
+            useOwnLayer: true,
+            alignment: .center,
+            child: Text(
+              '没\n有\n更\n多\n了',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                fontWeight: FontWeight.w600,
+                height: 1.25,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LeadingAlignedPagePhysics extends PageScrollPhysics {
+  const _LeadingAlignedPagePhysics({
+    required this.viewportFraction,
+    super.parent,
+  });
+
+  final double viewportFraction;
+
+  @override
+  _LeadingAlignedPagePhysics applyTo(ScrollPhysics? ancestor) {
+    return _LeadingAlignedPagePhysics(
+      viewportFraction: viewportFraction,
+      parent: buildParent(ancestor),
+    );
+  }
+
+  @override
+  double applyBoundaryConditions(ScrollMetrics position, double value) {
+    final trailingPlaceholderExtent =
+        position.viewportDimension * (2 * viewportFraction - 1);
+    final maxLeadingOffset =
+        position.maxScrollExtent - trailingPlaceholderExtent;
+
+    if (value > maxLeadingOffset && position.pixels <= maxLeadingOffset) {
+      return value - maxLeadingOffset;
+    }
+    if (position.pixels > maxLeadingOffset && value > position.pixels) {
+      return value - position.pixels;
+    }
+
+    return super.applyBoundaryConditions(position, value);
   }
 }
 
@@ -174,327 +282,330 @@ class _SectionHeader extends StatelessWidget {
   }
 }
 
-class _UpNextCard extends StatelessWidget {
-  const _UpNextCard({required this.comic});
-
-  final HomeComicDto comic;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 220,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: SizedBox(
-              width: 220,
-              height: 238,
-              child: _NetworkImage(url: comic.cover),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            comic.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 3),
-          Text(
-            _authorOf(comic),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: CupertinoColors.secondaryLabel.resolveFrom(context),
-              fontSize: 13,
-            ),
-          ),
-          const SizedBox(height: 3),
-          Text(
-            comic.lastChapterName,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: CopyColors.violet,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WideUpdateCard extends StatelessWidget {
-  const _WideUpdateCard({required this.item});
-
-  final HomeUpdateDto item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 245,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: CupertinoColors.secondarySystemBackground.resolveFrom(context),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: SizedBox(
-              width: 96,
-              height: 140,
-              child: _NetworkImage(url: item.comic.cover),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  item.comic.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    height: 1.15,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  item.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: CupertinoColors.secondaryLabel.resolveFrom(context),
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RankCard extends StatelessWidget {
-  const _RankCard({required this.item});
-
-  final HomeRankItemDto item;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 108,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(14),
-            child: SizedBox(
-              width: 108,
-              height: 108,
-              child: _NetworkImage(url: item.comic.cover),
-            ),
-          ),
-          const SizedBox(height: 7),
-          Text(
-            item.comic.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ComicCard extends StatelessWidget {
-  const _ComicCard({required this.comic});
-
-  final HomeComicDto comic;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 108,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(14),
-            child: SizedBox(
-              width: 108,
-              height: 108,
-              child: _NetworkImage(url: comic.cover),
-            ),
-          ),
-          const SizedBox(height: 7),
-          Text(
-            comic.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RecentRow extends StatelessWidget {
-  const _RecentRow({required this.item});
-
-  final HomeUpdateDto item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(_horizontalPadding, 10, 16, 10),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SizedBox(
-              width: 48,
-              height: 64,
-              child: _NetworkImage(url: item.comic.cover),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.comic.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  item.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: CupertinoColors.secondaryLabel.resolveFrom(context),
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _NetworkImage extends StatelessWidget {
-  const _NetworkImage({required this.url});
-
-  final String url;
-
-  @override
-  Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      fit: BoxFit.cover,
-      filterQuality: FilterQuality.medium,
-      placeholder: (context, _) => ColoredBox(
-        color: CupertinoColors.secondarySystemBackground.resolveFrom(context),
-        child: const Center(child: GlassProgressIndicator.circular()),
-      ),
-      errorWidget: (context, _, _) => ColoredBox(
-        color: CupertinoColors.secondarySystemBackground.resolveFrom(context),
-        child: Icon(
-          CupertinoIcons.book,
-          color: CupertinoColors.tertiaryLabel.resolveFrom(context),
-          size: 28,
-        ),
-      ),
-    );
-  }
-}
-
-String _authorOf(HomeComicDto comic) {
-  if (comic.authorAlias.isNotEmpty) return comic.authorAlias;
-  return comic.authors.map((author) => author.name).join(' · ');
-}
-
-class HomeLoadingView extends StatelessWidget {
-  const HomeLoadingView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: GlassProgressIndicator.circular(size: 30));
-  }
-}
-
-class HomeErrorView extends StatelessWidget {
-  const HomeErrorView({
-    required this.message,
-    required this.onRetry,
+class ComicCoverCard extends StatelessWidget {
+  const ComicCoverCard({
+    required this.cover,
+    required this.name,
+    required this.author,
+    required this.badge,
+    required this.onTap,
     super.key,
   });
 
-  final String message;
-  final VoidCallback onRetry;
+  final String cover;
+  final String name;
+  final String author;
+  final String? badge;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      minSize: 0,
+      pressedOpacity: .72,
+      borderRadius: BorderRadius.circular(26),
+      onPressed: onTap,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(26),
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            const Icon(
-              CupertinoIcons.wifi_exclamationmark,
-              size: 42,
-              color: CopyColors.violet,
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              '首页暂时走丢了',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              message,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: CupertinoColors.secondaryLabel.resolveFrom(context),
+            CachedNetworkImage(
+              imageUrl: cover,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+              errorWidget: (_, _, _) => ColoredBox(
+                color: CupertinoColors.systemFill.resolveFrom(context),
+                child: const Icon(CupertinoIcons.book, size: 42),
               ),
             ),
-            const SizedBox(height: 20),
-            GlassButton.custom(
-              onTap: onRetry,
-              width: 132,
-              height: 44,
-              useOwnLayer: true,
-              child: const Text('重新加载'),
+            const DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0, .55, 1],
+                  colors: [
+                    Color(0x00000000),
+                    Color(0x12000000),
+                    Color(0x5F000000),
+                  ],
+                ),
+              ),
+            ),
+            if (badge != null)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: GlassContainer(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
+                  shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                  quality: GlassQuality.minimal,
+                  useOwnLayer: true,
+                  child: Text(
+                    badge!,
+                    style: const TextStyle(
+                      color: CupertinoColors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      fontFeatures: [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                ),
+              ),
+            Positioned(
+              left: 4,
+              right: 4,
+              bottom: 4,
+              child: GlassContainer(
+                padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
+                shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                quality: GlassQuality.minimal,
+                useOwnLayer: true,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: CupertinoColors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      author,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: CupertinoColors.white.withValues(alpha: .9),
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+typedef _ErrorPresentation = (IconData icon, String title, String message);
+
+class HomeStateView extends StatelessWidget {
+  const HomeStateView.loading({super.key})
+    : icon = CupertinoIcons.circle,
+      title = '正在加载',
+      message = '正在获取内容，请稍候',
+      iconColor = CopyColors.accent,
+      loading = true;
+
+  factory HomeStateView.error(Object error, {Key? key}) {
+    final presentation = _errorPresentation(error);
+    return HomeStateView._(
+      key: key,
+      icon: presentation.$1,
+      title: presentation.$2,
+      message: presentation.$3,
+      iconColor: CopyColors.violet,
+      loading: false,
+    );
+  }
+
+  const HomeStateView._({
+    required this.icon,
+    required this.title,
+    required this.message,
+    required this.iconColor,
+    required this.loading,
+    super.key,
+  });
+
+  const HomeStateView.empty({
+    required IconData icon,
+    required String title,
+    required String message,
+    super.key,
+  }) : icon = icon,
+       title = title,
+       message = message,
+       iconColor = CopyColors.accent,
+       loading = false;
+
+  final IconData icon;
+  final String title;
+  final String message;
+  final Color iconColor;
+  final bool loading;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillRemaining(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              loading
+                  ? const Center(
+                      child: GlassProgressIndicator.circular(
+                        size: 40,
+                        useOwnLayer: true,
+                      ),
+                    )
+                  : Icon(icon, size: 48, color: iconColor),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static _ErrorPresentation _errorPresentation(Object error) {
+    if (error is DioException) {
+      final message = _responsePayloadMessage(error);
+
+      if (error.type == DioExceptionType.badResponse) {
+        return switch (error.response?.statusCode) {
+          210 => (CupertinoIcons.shield_fill, '访问受限', message),
+          400 => (
+            CupertinoIcons.exclamationmark_triangle_fill,
+            '请求有误',
+            message,
+          ),
+          401 => (
+            CupertinoIcons.person_crop_circle_badge_exclam,
+            '登录已失效',
+            message,
+          ),
+          403 => (CupertinoIcons.lock_shield_fill, '无权访问', message),
+          404 => (CupertinoIcons.search_circle, '内容不存在', message),
+          405 => (
+            CupertinoIcons.exclamationmark_triangle_fill,
+            '请求不受支持',
+            message,
+          ),
+          408 => (CupertinoIcons.clock_fill, '请求超时', message),
+          409 => (
+            CupertinoIcons.exclamationmark_triangle_fill,
+            '请求冲突',
+            message,
+          ),
+          422 => (CupertinoIcons.doc_text_search, '内容无法处理', message),
+          429 => (CupertinoIcons.hourglass, '请求过于频繁', message),
+          int code when code >= 500 => (
+            CupertinoIcons.gear_solid,
+            '服务异常',
+            message,
+          ),
+          _ => (CupertinoIcons.exclamationmark_triangle_fill, '加载失败', message),
+        };
+      }
+
+      return switch (error.type) {
+        DioExceptionType.connectionTimeout => (
+          CupertinoIcons.clock_fill,
+          '连接超时',
+          message,
+        ),
+        DioExceptionType.sendTimeout => (
+          CupertinoIcons.arrow_up_circle_fill,
+          '发送超时',
+          message,
+        ),
+        DioExceptionType.receiveTimeout => (
+          CupertinoIcons.arrow_down_circle_fill,
+          '响应超时',
+          message,
+        ),
+        DioExceptionType.connectionError => (
+          CupertinoIcons.wifi_exclamationmark,
+          '网络不可用',
+          message,
+        ),
+        DioExceptionType.badCertificate => (
+          CupertinoIcons.lock_shield_fill,
+          '安全连接失败',
+          message,
+        ),
+        DioExceptionType.cancel => (
+          CupertinoIcons.xmark_circle_fill,
+          '请求已取消',
+          message,
+        ),
+        DioExceptionType.transformTimeout => (
+          CupertinoIcons.clock_fill,
+          '数据处理超时',
+          message,
+        ),
+        DioExceptionType.badResponse => (
+          CupertinoIcons.exclamationmark_triangle_fill,
+          '加载失败',
+          message,
+        ),
+        DioExceptionType.unknown => (
+          error.error is FormatException || error.error is TypeError
+              ? CupertinoIcons.doc_text_search
+              : CupertinoIcons.exclamationmark_triangle_fill,
+          error.error is FormatException || error.error is TypeError
+              ? '数据异常'
+              : '网络异常',
+          message,
+        ),
+      };
+    }
+
+    return switch (error) {
+      FormatException() ||
+      TypeError() => (CupertinoIcons.doc_text_search, '数据异常', ''),
+      StateError() => (CupertinoIcons.gear_solid, '状态异常', ''),
+      _ => (CupertinoIcons.exclamationmark_triangle_fill, '出现问题', ''),
+    };
+  }
+
+  static String _responsePayloadMessage(DioException error) {
+    final data = error.response?.data;
+    if (data is Map) {
+      for (final key in const ['message', 'detail', 'error']) {
+        final value = data[key];
+        if (value is String && value.trim().isNotEmpty) {
+          return value.trim();
+        }
+      }
+    }
+
+    final statusMessage = error.response?.statusMessage?.trim();
+    if (statusMessage != null && statusMessage.isNotEmpty) {
+      return statusMessage;
+    }
+
+    return "";
   }
 }

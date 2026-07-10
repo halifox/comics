@@ -10,6 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LiquidGlassWidgets.initialize();
   final sharedPreferences = await SharedPreferences.getInstance();
+  await sharedPreferences.clear();
   runApp(
     LiquidGlassWidgets.wrap(
       adaptiveQuality: true,
@@ -17,6 +18,7 @@ Future<void> main() async {
         overrides: [
           sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         ],
+        retry: (retryCount, error) => null,
         child: const CopyMangaApp(),
       ),
     ),

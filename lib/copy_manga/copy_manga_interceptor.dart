@@ -4,7 +4,6 @@ import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 
 import 'copy_manga_dto.dart';
-import 'copy_manga_exception.dart';
 import 'copy_manga_preferences.dart';
 
 class CopyMangaInterceptor extends Interceptor {
@@ -13,7 +12,12 @@ class CopyMangaInterceptor extends Interceptor {
   final CopyMangaPreferences preferences;
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+
     final now = DateTime.now();
     final timestamp = now.millisecondsSinceEpoch ~/ 1000;
     final secret = base64Decode('M2FmMDg1OTAzMTEwMzJlZmUwNjYwNTUwYTA1NjNhNTM=');
@@ -71,7 +75,7 @@ class CopyMangaInterceptor extends Interceptor {
         requestOptions: response.requestOptions,
         response: errorResponse,
         type: DioExceptionType.badResponse,
-        error: CopyMangaException(result.message, statusCode: result.code),
+        error: result.message,
         message: result.message,
       ),
     );
