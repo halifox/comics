@@ -11,6 +11,12 @@
 
 ## Flutter 页面规范
 
+- 每个承担完整页面或路由职责的 Dart 文件只能定义一个页面 Widget；不同页面必须拆分到不同 Dart 文件。
+- 页面专属且不会复用的组件可以保留在对应页面文件中；被多个页面或功能复用的组件必须拆分到独立 Dart 文件。
+- 仅被单个页面使用的 Provider 及其专属状态类型、参数类型和 Notifier 应放在对应页面的 Dart 文件中。
+- 被多个页面或功能复用的 Provider 及其共享状态类型、参数类型和 Notifier 必须拆分到独立 Dart 文件。
+- 手写 Dart 代码中的类名、typedef 名、变量名、字段名、常量名和方法名均不得以下划线开头。
+- 上述下划线命名限制不适用于 `.g.dart`、`.freezed.dart` 等生成文件，也不适用于 Freezed、Retrofit 等代码生成器在手写源码中强制要求的生成类工厂声明。
 - 所有承担完整页面或路由职责的 Widget 必须继承 `HookConsumerWidget`。
 - 页面不得使用 `StatefulWidget`、`ConsumerStatefulWidget`、`State`、`ConsumerState` 或 `setState`。
 - 页面局部 UI 状态使用 `flutter_hooks`，例如 `useState`、`useEffect`、`useMemoized`、`useTextEditingController`、`useFocusNode` 和 `useScrollController`。

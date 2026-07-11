@@ -1,0 +1,1413 @@
+{
+  "code": 200,
+  "message": "请求成功",
+  "results": {
+    "topics": {
+      "list": [
+        {
+          "title": "這本漫畫真厲害2026獲獎作品 必看熱門漫畫推薦第39期",
+          "series": null,
+          "journal": "2026",
+          "cover": "https://s3.mangafunb.fun/topic/cover/zhebenmanhuazhenlihai2026/17746252607598.jpg.200x80.jpg",
+          "period": "第39期",
+          "type": 1,
+          "brief": "",
+          "path_word": "zhebenmanhuazhenlihai2026",
+          "datetime_created": "2026-03-27"
+        },
+        {
+          "title": "最期待2026動畫化的漫畫 必看熱門漫畫推薦第38期",
+          "series": null,
+          "journal": "2026",
+          "cover": "https://s3.mangafunb.fun/topic/cover/remenmanhua202509/17746250508583.jpg.200x80.jpg",
+          "period": "第38期",
+          "type": 1,
+          "brief": "",
+          "path_word": "remenmanhua202509",
+          "datetime_created": "2026-03-27"
+        },
+        {
+          "title": "冬番漫畫2026 必看熱門漫畫推薦第37期",
+          "series": null,
+          "journal": "2026",
+          "cover": "https://s3.mangafunb.fun/topic/cover/remenmanhua202601/17746248574099.jpg.200x80.jpg",
+          "period": "第37期",
+          "type": 1,
+          "brief": "",
+          "path_word": "remenmanhua202601",
+          "datetime_created": "2026-03-18"
+        },
+        {
+          "title": "秋番漫畫2025 必看熱門漫畫推薦第36期",
+          "series": null,
+          "journal": "2025",
+          "cover": "https://s3.mangafunb.fun/topic/cover/remenmanhua202508/17642407475414.jpg.200x80.jpg",
+          "period": "第36期",
+          "type": 1,
+          "brief": "",
+          "path_word": "remenmanhua202508",
+          "datetime_created": "2025-11-21"
+        }
+      ],
+      "total": 39,
+      "limit": 4,
+      "offset": 0
+    },
+    "topicsList": {
+      "list": [
+        {
+          "title": "這本漫畫真厲害2026獲獎作品 必看熱門漫畫推薦第39期",
+          "series": null,
+          "journal": "2026",
+          "cover": "https://s3.mangafunb.fun/topic/cover/zhebenmanhuazhenlihai2026/17746252607598.jpg.200x80.jpg",
+          "period": "第39期",
+          "type": 1,
+          "brief": "",
+          "path_word": "zhebenmanhuazhenlihai2026",
+          "datetime_created": "2026-03-27"
+        },
+        {
+          "title": "最期待2026動畫化的漫畫 必看熱門漫畫推薦第38期",
+          "series": null,
+          "journal": "2026",
+          "cover": "https://s3.mangafunb.fun/topic/cover/remenmanhua202509/17746250508583.jpg.200x80.jpg",
+          "period": "第38期",
+          "type": 1,
+          "brief": "",
+          "path_word": "remenmanhua202509",
+          "datetime_created": "2026-03-27"
+        },
+        {
+          "title": "冬番漫畫2026 必看熱門漫畫推薦第37期",
+          "series": null,
+          "journal": "2026",
+          "cover": "https://s3.mangafunb.fun/topic/cover/remenmanhua202601/17746248574099.jpg.200x80.jpg",
+          "period": "第37期",
+          "type": 1,
+          "brief": "",
+          "path_word": "remenmanhua202601",
+          "datetime_created": "2026-03-18"
+        },
+        {
+          "title": "11月獨家授權寫真推薦 美女寫真集第24期",
+          "series": null,
+          "journal": "2025",
+          "cover": "https://s3.mangafunb.fun/topic/cover/xiezhen24/17674970647601.jpg.200x80.jpg",
+          "period": "第24期",
+          "type": 4,
+          "brief": "",
+          "path_word": "xiezhen24",
+          "datetime_created": "2025-12-26"
+        }
+      ],
+      "total": 63,
+      "limit": 4,
+      "offset": 0
+    },
+    "recComics": {
+      "list": [
+        {
+          "type": 1,
+          "comic": {
+            "name": "公主的秘密與秘密的私生子",
+            "females": [],
+            "males": [],
+            "theme": [],
+            "path_word": "gongzhudemimiyumimidesishengzi",
+            "author": [
+              {
+                "name": "つくものい",
+                "path_word": "tsukumonoi"
+              }
+            ],
+            "cover": "https://sg.mangafunb.fun/g/gongzhudemimiyumimidesishengzi/cover/1778602381.jpg.328x422.jpg",
+            "popular": 41451,
+            "author_alias": "つくものい"
+          }
+        },
+        {
+          "type": 1,
+          "comic": {
+            "name": "後宮繼承錄",
+            "females": [],
+            "males": [],
+            "theme": [],
+            "path_word": "hougongjichenglu",
+            "author": [
+              {
+                "name": "あしもとよいか",
+                "path_word": "asimotoyoika"
+              },
+              {
+                "name": "マサイ",
+                "path_word": "masai"
+              }
+            ],
+            "cover": "https://sh.mangafunb.fun/h/hougongjichenglu/cover/1776838156.jpg.328x422.jpg",
+            "popular": 988137,
+            "author_alias": "あしもとよいか,マサイ"
+          }
+        },
+        {
+          "type": 1,
+          "comic": {
+            "name": "明明我妹才是頂流VTuber，結果自己卻火出圈的本哥哥",
+            "females": [],
+            "males": [],
+            "theme": [],
+            "path_word": "mmwmcsdlvtbjgzjqhcqbgg",
+            "author": [
+              {
+                "name": "茨木野",
+                "path_word": "cimuye"
+              }
+            ],
+            "cover": "https://sm.mangafunb.fun/m/mmwmcsdlvtbjgzjqhcqbgg/cover/1739171475.jpg.328x422.jpg",
+            "popular": 241667,
+            "author_alias": "茨木野"
+          }
+        }
+      ],
+      "total": 1764,
+      "limit": 3,
+      "offset": 0
+    },
+    "rankDayComics": {
+      "list": [
+        {
+          "sort": 1,
+          "sort_last": 1,
+          "rise_sort": 0,
+          "rise_num": 82349,
+          "date_type": 1,
+          "popular": 10943994,
+          "comic": {
+            "name": "被追放的轉生重騎士用遊戲知識開無雙",
+            "path_word": "bzfdzszqsyyxzskws",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "猫子",
+                "path_word": "maozi"
+              },
+              {
+                "name": "武六甲理衣",
+                "path_word": "wuliujialiyi"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sb.mangafunb.fun/b/bzfdzszqsyyxzskws/cover/1664888025.jpg.328x422.jpg",
+            "popular": 10944395,
+            "author_alias": "猫子,武六甲理衣"
+          }
+        },
+        {
+          "sort": 2,
+          "sort_last": 2,
+          "rise_sort": 0,
+          "rise_num": 45745,
+          "date_type": 1,
+          "popular": 788669,
+          "comic": {
+            "name": "突然成爲公寓管理員",
+            "path_word": "turanchengweigongyuguanliyuan",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "farmer",
+                "path_word": "farmerhm"
+              }
+            ],
+            "theme": [],
+            "cover": "https://st.mangafunb.fun/t/turanchengweigongyuguanliyuan/cover/1781749712.png.328x422.jpg",
+            "popular": 788967,
+            "author_alias": "farmer"
+          }
+        },
+        {
+          "sort": 3,
+          "sort_last": 3,
+          "rise_sort": 0,
+          "rise_num": 28355,
+          "date_type": 1,
+          "popular": 460077,
+          "comic": {
+            "name": "雅尼貓",
+            "path_word": "yanimao",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "にゃんにゃんファクトリー",
+                "path_word": "nyannyanfactory"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sy.mangafunb.fun/y/yanimao/cover/1756703739.jpg.328x422.jpg",
+            "popular": 460363,
+            "author_alias": "にゃんにゃんファクトリー"
+          }
+        },
+        {
+          "sort": 4,
+          "sort_last": 0,
+          "rise_sort": 197,
+          "rise_num": 23783,
+          "date_type": 1,
+          "popular": 977468,
+          "comic": {
+            "name": "後宮繼承錄",
+            "path_word": "hougongjichenglu",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "あしもとよいか",
+                "path_word": "asimotoyoika"
+              },
+              {
+                "name": "マサイ",
+                "path_word": "masai"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sh.mangafunb.fun/h/hougongjichenglu/cover/1776838156.jpg.328x422.jpg",
+            "popular": 978267,
+            "author_alias": "あしもとよいか,マサイ"
+          }
+        },
+        {
+          "sort": 5,
+          "sort_last": 29,
+          "rise_sort": 24,
+          "rise_num": 23752,
+          "date_type": 1,
+          "popular": 30865681,
+          "comic": {
+            "name": "香格裡拉·弗隴提亞~屎作獵人向神作發起挑戰~",
+            "path_word": "xianggelilafulongtiyashizuolierenxiangshenzuofaqit",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "不二凉介",
+                "path_word": "buerliangjie"
+              },
+              {
+                "name": "硬梨菜",
+                "path_word": "yinglicai"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sx.mangafunb.fun/x/xianggelilafulongtiyashizuolierenxiangshenzuofaqit/cover/1657687797.jpg.328x422.jpg",
+            "popular": 30865753,
+            "author_alias": "不二凉介,硬梨菜"
+          }
+        },
+        {
+          "sort": 6,
+          "sort_last": 49,
+          "rise_sort": 43,
+          "rise_num": 19900,
+          "date_type": 1,
+          "popular": 944577,
+          "comic": {
+            "name": "轉生在男性禁入的遊戲世界",
+            "path_word": "zhuanshengzainanxingjinrudeyouxishijie",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "端桜了",
+                "path_word": "duanyingle"
+              },
+              {
+                "name": "久园龟代",
+                "path_word": "jiuyuanguidai"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sz.mangafunb.fun/z/zhuanshengzainanxingjinrudeyouxishijie/cover/1735221758.jpg.328x422.jpg",
+            "popular": 944665,
+            "author_alias": "端桜了,久园龟代"
+          }
+        }
+      ],
+      "total": 199,
+      "limit": 6,
+      "offset": 0
+    },
+    "rankWeekComics": {
+      "list": [
+        {
+          "sort": 1,
+          "sort_last": 7,
+          "rise_sort": 6,
+          "rise_num": 573460,
+          "date_type": 2,
+          "popular": 10550081,
+          "comic": {
+            "name": "被追放的轉生重騎士用遊戲知識開無雙",
+            "path_word": "bzfdzszqsyyxzskws",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "猫子",
+                "path_word": "maozi"
+              },
+              {
+                "name": "武六甲理衣",
+                "path_word": "wuliujialiyi"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sb.mangafunb.fun/b/bzfdzszqsyyxzskws/cover/1664888025.jpg.328x422.jpg",
+            "popular": 10944397,
+            "author_alias": "猫子,武六甲理衣"
+          }
+        },
+        {
+          "sort": 2,
+          "sort_last": 13,
+          "rise_sort": 11,
+          "rise_num": 408625,
+          "date_type": 2,
+          "popular": 548256,
+          "comic": {
+            "name": "突然成爲公寓管理員",
+            "path_word": "turanchengweigongyuguanliyuan",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "farmer",
+                "path_word": "farmerhm"
+              }
+            ],
+            "theme": [],
+            "cover": "https://st.mangafunb.fun/t/turanchengweigongyuguanliyuan/cover/1781749712.png.328x422.jpg",
+            "popular": 788967,
+            "author_alias": "farmer"
+          }
+        },
+        {
+          "sort": 3,
+          "sort_last": 1,
+          "rise_sort": -2,
+          "rise_num": 171635,
+          "date_type": 2,
+          "popular": 1540963,
+          "comic": {
+            "name": "地元最高！",
+            "path_word": "diyuanzuigao",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "usagi",
+                "path_word": "usagi1"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sd.mangafunb.fun/d/diyuanzuigao/cover/1735006567.jpg.328x422.jpg",
+            "popular": 1606960,
+            "author_alias": "usagi"
+          }
+        },
+        {
+          "sort": 4,
+          "sort_last": 0,
+          "rise_sort": 197,
+          "rise_num": 150187,
+          "date_type": 2,
+          "popular": 450601,
+          "comic": {
+            "name": "亂世千金妮雅·利斯頓",
+            "path_word": "luanshiqianjinliyalisidun",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "南野海風",
+                "path_word": "nanyehaifeng"
+              },
+              {
+                "name": "宗一郎",
+                "path_word": "zyl"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sl.mangafunb.fun/l/luanshiqianjinliyalisidun/cover/1703580385.jpg.328x422.jpg",
+            "popular": 528524,
+            "author_alias": "南野海風,宗一郎"
+          }
+        },
+        {
+          "sort": 5,
+          "sort_last": 12,
+          "rise_sort": 7,
+          "rise_num": 148367,
+          "date_type": 2,
+          "popular": 76638631,
+          "comic": {
+            "name": "魔都精兵的奴隸",
+            "path_word": "modujingbingdenuli",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "竹村洋平",
+                "path_word": "zcyp"
+              },
+              {
+                "name": "タカヒロ",
+                "path_word": "takahiro"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sm.mangafunb.fun/m/modujingbingdenuli/cover/1684896820.jpg.328x422.jpg",
+            "popular": 76710190,
+            "author_alias": "竹村洋平,タカヒロ"
+          }
+        },
+        {
+          "sort": 6,
+          "sort_last": 4,
+          "rise_sort": -2,
+          "rise_num": 124891,
+          "date_type": 2,
+          "popular": 26124460,
+          "comic": {
+            "name": "古見同學有交流障礙症",
+            "path_word": "gujiantongxueyoujiaoliuzhangaizheng",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "オダトモヒト",
+                "path_word": "odatomohito"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sg.mangafunb.fun/g/gujiantongxueyoujiaoliuzhangaizheng/cover/1651423072.jpg.328x422.jpg",
+            "popular": 26203155,
+            "author_alias": "オダトモヒト"
+          }
+        }
+      ],
+      "total": 200,
+      "limit": 6,
+      "offset": 0
+    },
+    "rankMonthComics": {
+      "list": [
+        {
+          "sort": 1,
+          "sort_last": 34,
+          "rise_sort": 33,
+          "rise_num": 2042211,
+          "date_type": 3,
+          "popular": 9125610,
+          "comic": {
+            "name": "在超市後門吸煙的二人",
+            "path_word": "zaichaoshihoumenxiyandeerren",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "地主",
+                "path_word": "dizhu"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sz.mangafunb.fun/z/zaichaoshihoumenxiyandeerren/cover/1769605539.jpg.328x422.jpg",
+            "popular": 9225023,
+            "author_alias": "地主"
+          }
+        },
+        {
+          "sort": 2,
+          "sort_last": 45,
+          "rise_sort": 43,
+          "rise_num": 723255,
+          "date_type": 3,
+          "popular": 1461416,
+          "comic": {
+            "name": "108P！~1年後絕對要完成108P的故事~",
+            "path_word": "108p1nianhoujueduiyaowancheng108degushi",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "zensori",
+                "path_word": "zensori"
+              }
+            ],
+            "theme": [],
+            "cover": "https://s0.mangafunb.fun/1/108p1nianhoujueduiyaowancheng108degushi/cover/1760355303.jpg.328x422.jpg",
+            "popular": 1564998,
+            "author_alias": "zensori"
+          }
+        },
+        {
+          "sort": 3,
+          "sort_last": 7,
+          "rise_sort": 4,
+          "rise_num": 636609,
+          "date_type": 3,
+          "popular": 26041363,
+          "comic": {
+            "name": "古見同學有交流障礙症",
+            "path_word": "gujiantongxueyoujiaoliuzhangaizheng",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "オダトモヒト",
+                "path_word": "odatomohito"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sg.mangafunb.fun/g/gujiantongxueyoujiaoliuzhangaizheng/cover/1651423072.jpg.328x422.jpg",
+            "popular": 26203156,
+            "author_alias": "オダトモヒト"
+          }
+        },
+        {
+          "sort": 4,
+          "sort_last": 0,
+          "rise_sort": 197,
+          "rise_num": 601365,
+          "date_type": 3,
+          "popular": 1429942,
+          "comic": {
+            "name": "地元最高！",
+            "path_word": "diyuanzuigao",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "usagi",
+                "path_word": "usagi1"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sd.mangafunb.fun/d/diyuanzuigao/cover/1735006567.jpg.328x422.jpg",
+            "popular": 1606960,
+            "author_alias": "usagi"
+          }
+        },
+        {
+          "sort": 5,
+          "sort_last": 9,
+          "rise_sort": 4,
+          "rise_num": 591004,
+          "date_type": 3,
+          "popular": 76517964,
+          "comic": {
+            "name": "魔都精兵的奴隸",
+            "path_word": "modujingbingdenuli",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "竹村洋平",
+                "path_word": "zcyp"
+              },
+              {
+                "name": "タカヒロ",
+                "path_word": "takahiro"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sm.mangafunb.fun/m/modujingbingdenuli/cover/1684896820.jpg.328x422.jpg",
+            "popular": 76710190,
+            "author_alias": "竹村洋平,タカヒロ"
+          }
+        },
+        {
+          "sort": 6,
+          "sort_last": 2,
+          "rise_sort": -4,
+          "rise_num": 558084,
+          "date_type": 3,
+          "popular": 33190198,
+          "comic": {
+            "name": "全知讀者視角",
+            "path_word": "quanzhiduzheshijiao",
+            "females": [],
+            "males": [],
+            "author": [
+              {
+                "name": "Sleep-C",
+                "path_word": "sleepc"
+              },
+              {
+                "name": "SingSyong",
+                "path_word": "singsyong"
+              }
+            ],
+            "theme": [],
+            "cover": "https://sq.mangafunb.fun/q/quanzhiduzheshijiao/cover/1668303887.jpg.328x422.jpg",
+            "popular": 33358351,
+            "author_alias": "Sleep-C,SingSyong"
+          }
+        }
+      ],
+      "total": 200,
+      "limit": 6,
+      "offset": 0
+    },
+    "hotComics": [
+      {
+        "name": "第20話",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "汪！",
+          "path_word": "wang",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "麦原伸太郎",
+              "path_word": "maiyuanshentailang"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sw.mangafunb.fun/w/wang/cover/1748889189.jpg.328x422.jpg",
+          "popular": 7992,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第20話",
+          "author_alias": "麦原伸太郎"
+        }
+      },
+      {
+        "name": "第3.1話",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "靈獄",
+          "path_word": "lingyu",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "アナ・Ｃ・サンチェス",
+              "path_word": "anacsanchez01"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sl.mangafunb.fun/l/lingyu/cover/1778865313.jpg.328x422.jpg",
+          "popular": 2959,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第3.1話",
+          "author_alias": "アナ・Ｃ・サンチェス"
+        }
+      },
+      {
+        "name": "第80话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "雖然剛出生就被拋棄了，可畢竟前世是大賢者，就淡定地活下去吧",
+          "path_word": "srgcsjbpqlkbjqssdxzjdddhxqb",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "九頭七尾",
+              "path_word": "jiutouqiwei"
+            },
+            {
+              "name": "远田マリモ",
+              "path_word": "endamarimo"
+            },
+            {
+              "name": "锅岛テツヒロ",
+              "path_word": "guodaotetsuhiro"
+            }
+          ],
+          "theme": [],
+          "cover": "https://ss.mangafunb.fun/s/srgcsjbpqlkbjqssdxzjdddhxqb/cover/1771329380.jpg.328x422.jpg",
+          "popular": 1948639,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第80话",
+          "author_alias": "九頭七尾,远田マリモ,锅岛テツヒロ"
+        }
+      },
+      {
+        "name": "第30话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "請務必讓我開掛",
+          "path_word": "qqbrwkg",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "山田xリョウ",
+              "path_word": "ymtryu"
+            },
+            {
+              "name": "温泉卵",
+              "path_word": "wenquanruan"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sq.mangafunb.fun/q/qqbrwkg/cover/1651556154.jpg.328x422.jpg",
+          "popular": 167990,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第30话",
+          "author_alias": "山田xリョウ,温泉卵"
+        }
+      },
+      {
+        "name": "第108话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "作為被背叛了的S級冒險者的我、決定成立一個只有我所愛的奴隸女孩子們的後宮公會",
+          "path_word": "zwbbpldsjmxzdwjdclygzywsadnlnhzmdhggh",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "川田曉生",
+              "path_word": "chuantianxiaosheng"
+            },
+            {
+              "name": "柊咲",
+              "path_word": "zhongxiao"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sz.mangafunb.fun/z/zwbbpldsjmxzdwjdclygzywsadnlnhzmdhggh/cover/1651153492.jpg.328x422.jpg",
+          "popular": 5368592,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第108话",
+          "author_alias": "川田曉生,柊咲"
+        }
+      },
+      {
+        "name": "第13話",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "明眸珠子的自由研究",
+          "path_word": "mingmouzhuzideziyouyanjiu",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "乃木坂太郎",
+              "path_word": "nmbtl"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sm.mangafunb.fun/m/mingmouzhuzideziyouyanjiu/cover/1780826808.png.328x422.jpg",
+          "popular": 17469,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第13話",
+          "author_alias": "乃木坂太郎"
+        }
+      },
+      {
+        "name": "第62話",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "賽馬娘：星光綻放",
+          "path_word": "saimaniangyinghuazhanfang",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "文殊咲",
+              "path_word": "wenshuxiao"
+            },
+            {
+              "name": "保谷伸",
+              "path_word": "baogushen"
+            }
+          ],
+          "theme": [],
+          "cover": "https://ss.mangafunb.fun/s/saimaniangyinghuazhanfang/cover/1681142235.jpg.328x422.jpg",
+          "popular": 79231,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第62話",
+          "author_alias": "文殊咲,保谷伸"
+        }
+      },
+      {
+        "name": "第78话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "S級獵頭不想成為反派公女",
+          "path_word": "sjltbxcwfpgn",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "롱내",
+              "path_word": "longnae"
+            },
+            {
+              "name": "푸른칸나",
+              "path_word": "puleunkanna"
+            },
+            {
+              "name": "해강",
+              "path_word": "haegang"
+            },
+            {
+              "name": "ASSAM",
+              "path_word": "ASSAM"
+            }
+          ],
+          "theme": [],
+          "cover": "https://ss.mangafunb.fun/s/sjltbxcwfpgn/cover/1708407717.jpg.328x422.jpg",
+          "popular": 548459,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第78话",
+          "author_alias": "롱내,푸른칸나,해강,ASSAM"
+        }
+      },
+      {
+        "name": "第3季 第72话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "叢林果汁",
+          "path_word": "conglinguozhi",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "형은",
+              "path_word": "hyeongeun"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sc.mangafunb.fun/c/conglinguozhi/cover/1651548533.jpg.328x422.jpg",
+          "popular": 473315,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第3季 第72话",
+          "author_alias": "형은"
+        }
+      },
+      {
+        "name": "第614话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "看臉時代",
+          "path_word": "kannianshidai",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "泰俊",
+              "path_word": "taijun"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sk.mangafunb.fun/k/kannianshidai/cover/1651560929.jpg.328x422.jpg",
+          "popular": 7179407,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第614话",
+          "author_alias": "泰俊"
+        }
+      },
+      {
+        "name": "第164话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "武神回歸錄",
+          "path_word": "wushenhuiguilu",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "Rough",
+              "path_word": "rough"
+            },
+            {
+              "name": "Myosu",
+              "path_word": "myosu"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sw.mangafunb.fun/w/wushenhuiguilu/cover/1670594829.jpg.328x422.jpg",
+          "popular": 661827,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第164话",
+          "author_alias": "Rough,Myosu"
+        }
+      },
+      {
+        "name": "第222话",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "今生我會成為家主",
+          "path_word": "jinshengwohuichengweijiazu",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "김로아",
+              "path_word": "jly"
+            },
+            {
+              "name": "AntStudio",
+              "path_word": "AntStudio"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sj.mangafunb.fun/j/jinshengwohuichengweijiazu/cover/1703591356.jpg.328x422.jpg",
+          "popular": 11768435,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第222话",
+          "author_alias": "김로아,AntStudio"
+        }
+      }
+    ],
+    "newComics": [
+      {
+        "name": "第02卷",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "採集人的野賬",
+          "path_word": "caijirendeyezhang",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "英張",
+              "path_word": "yingzhang"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sc.mangafunb.fun/c/caijirendeyezhang/cover/1783713640.jpg.328x422.jpg",
+          "popular": 228,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第02卷",
+          "author_alias": "英張"
+        }
+      },
+      {
+        "name": "下卷",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "海賊王劇場版 紅髮歌姬",
+          "path_word": "haizewangjuchangbanhongfageji",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "尾田栄一郎",
+              "path_word": "weitianrongyilang"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sh.mangafunb.fun/h/haizewangjuchangbanhongfageji/cover/1783713436.jpg.328x422.jpg",
+          "popular": 125,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "下卷",
+          "author_alias": "尾田栄一郎"
+        }
+      },
+      {
+        "name": "第02卷",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "探險時光（2025）",
+          "path_word": "tanxianshiguang2025",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "ONI PRESS",
+              "path_word": "onipress"
+            }
+          ],
+          "theme": [],
+          "cover": "https://st.mangafunb.fun/t/tanxianshiguang2025/cover/1783704261.jpg.328x422.jpg",
+          "popular": 228,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第02卷",
+          "author_alias": "ONI PRESS"
+        }
+      },
+      {
+        "name": "短篇",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "點心是什麼？",
+          "path_word": "dianxinshishenme",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "シャム",
+              "path_word": "shamu2"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sd.mangafunb.fun/d/dianxinshishenme/cover/1783704119.jpg.328x422.jpg",
+          "popular": 570,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "短篇",
+          "author_alias": "シャム"
+        }
+      },
+      {
+        "name": "第1.1話",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "魔王軍四天王太可愛了根本下不去手",
+          "path_word": "mowangjunstwtkalgbxbqs",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "藤川いより",
+              "path_word": "fujikawaiyori"
+            },
+            {
+              "name": "守木涼",
+              "path_word": "shoumuliang"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sm.mangafunb.fun/m/mowangjunstwtkalgbxbqs/cover/1783703943.jpg.328x422.jpg",
+          "popular": 746,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "第1.1話",
+          "author_alias": "藤川いより,守木涼"
+        }
+      },
+      {
+        "name": "短篇",
+        "datetime_created": "2026-07-11",
+        "comic": {
+          "name": "租借管家",
+          "path_word": "zujieguanjia",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "カヂロ",
+              "path_word": "kaqiro"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sz.mangafunb.fun/z/zujieguanjia/cover/1783703710.jpg.328x422.jpg",
+          "popular": 255,
+          "datetime_updated": "2026-07-11",
+          "last_chapter_name": "短篇",
+          "author_alias": "カヂロ"
+        }
+      },
+      {
+        "name": "第01話",
+        "datetime_created": "2026-07-10",
+        "comic": {
+          "name": "欢迎入职!这里是连恶魔都觉得温馨舒适的职场!",
+          "path_word": "hyrzzlslemdjdwxssdzc",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "たるはる",
+              "path_word": "mutong"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sh.mangafunb.fun/h/hyrzzlslemdjdwxssdzc/cover/1783691048.jpg.328x422.jpg",
+          "popular": 475,
+          "datetime_updated": "2026-07-10",
+          "last_chapter_name": "第01話",
+          "author_alias": "たるはる"
+        }
+      },
+      {
+        "name": "第1話",
+        "datetime_created": "2026-07-10",
+        "comic": {
+          "name": "空霸",
+          "path_word": "kongba",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "柴田ヨクサル",
+              "path_word": "chaitianyukusaru"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sk.mangafunb.fun/k/kongba/cover/1783665474.jpg.328x422.jpg",
+          "popular": 459,
+          "datetime_updated": "2026-07-10",
+          "last_chapter_name": "第1話",
+          "author_alias": "柴田ヨクサル"
+        }
+      },
+      {
+        "name": "第01話",
+        "datetime_created": "2026-07-10",
+        "comic": {
+          "name": "虎對女僕束牙無策",
+          "path_word": "huduinvpusuyawuce",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "たこまっちょ",
+              "path_word": "takomaccho"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sh.mangafunb.fun/h/huduinvpusuyawuce/cover/1783659604.jpg.328x422.jpg",
+          "popular": 4113,
+          "datetime_updated": "2026-07-10",
+          "last_chapter_name": "第01話",
+          "author_alias": "たこまっちょ"
+        }
+      },
+      {
+        "name": "第01話",
+        "datetime_created": "2026-07-10",
+        "comic": {
+          "name": "巷子裡的艾莉絲",
+          "path_word": "xiangzilideailisi",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "施川ユウキ(ハジメ)",
+              "path_word": "dhajime"
+            },
+            {
+              "name": "森野昼",
+              "path_word": "asenyezhou"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sx.mangafunb.fun/x/xiangzilideailisi/cover/1783624503.jpg.328x422.jpg",
+          "popular": 1131,
+          "datetime_updated": "2026-07-10",
+          "last_chapter_name": "第01話",
+          "author_alias": "施川ユウキ(ハジメ),森野昼"
+        }
+      },
+      {
+        "name": "短篇",
+        "datetime_created": "2026-07-10",
+        "comic": {
+          "name": "銀行搶劫模擬",
+          "path_word": "yinghangqiangjiemoni",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "しろme",
+              "path_word": "xime"
+            }
+          ],
+          "theme": [],
+          "cover": "https://sy.mangafunb.fun/y/yinghangqiangjiemoni/cover/1783624350.jpg.328x422.jpg",
+          "popular": 3174,
+          "datetime_updated": "2026-07-10",
+          "last_chapter_name": "短篇",
+          "author_alias": "しろme"
+        }
+      },
+      {
+        "name": "短篇",
+        "datetime_created": "2026-07-10",
+        "comic": {
+          "name": "嗜癖者的瑪麗亞",
+          "path_word": "shipizhedemaliya",
+          "females": [],
+          "males": [],
+          "author": [
+            {
+              "name": "万屋タタラ",
+              "path_word": "wanwutatara"
+            }
+          ],
+          "theme": [],
+          "cover": "https://ss.mangafunb.fun/s/shipizhedemaliya/cover/1783624194.jpg.328x422.jpg",
+          "popular": 689,
+          "datetime_updated": "2026-07-10",
+          "last_chapter_name": "短篇",
+          "author_alias": "万屋タタラ"
+        }
+      }
+    ],
+    "finishComics": {
+      "list": [
+        {
+          "name": "海賊王劇場版 紅髮歌姬",
+          "path_word": "haizewangjuchangbanhongfageji",
+          "author": [
+            {
+              "name": "尾田栄一郎",
+              "path_word": ""
+            }
+          ],
+          "author_alias": "尾田栄一郎",
+          "cover": "https://sh.mangafunb.fun/h/haizewangjuchangbanhongfageji/cover/1783713436.jpg.328x422.jpg",
+          "free_type": null,
+          "popular": 125,
+          "datetime_updated": "2026-07-11"
+        },
+        {
+          "name": "冤家路窄",
+          "path_word": "yuanjialuzhaibl",
+          "author": [
+            {
+              "name": "琢磨",
+              "path_word": ""
+            }
+          ],
+          "author_alias": "琢磨",
+          "cover": "https://sy.mangafunb.fun/y/yuanjialuzhaibl/cover/1759044358.jpg.328x422.jpg",
+          "free_type": null,
+          "popular": 19234,
+          "datetime_updated": "2026-07-11"
+        },
+        {
+          "name": "現實闖關",
+          "path_word": "xianshichuangguan",
+          "author": [
+            {
+              "name": "Joowoon Lee",
+              "path_word": ""
+            },
+            {
+              "name": "太成",
+              "path_word": ""
+            }
+          ],
+          "author_alias": "Joowoon Lee,太成",
+          "cover": "https://sx.mangafunb.fun/x/xianshichuangguan/cover/1655217147.jpg.328x422.jpg",
+          "free_type": null,
+          "popular": 1244437,
+          "datetime_updated": "2026-07-10"
+        },
+        {
+          "name": "遠離渣男守則",
+          "path_word": "yuanlizhananshouze",
+          "author": [
+            {
+              "name": "Seo Yeon",
+              "path_word": ""
+            }
+          ],
+          "author_alias": "Seo Yeon",
+          "cover": "https://sy.mangafunb.fun/y/yuanlizhananshouze/cover/1759820999.jfif.328x422.jpg",
+          "free_type": null,
+          "popular": 257846,
+          "datetime_updated": "2026-07-09"
+        },
+        {
+          "name": "今朝搖曳依舊",
+          "path_word": "jzyyyj",
+          "author": [
+            {
+              "name": "增田英二",
+              "path_word": ""
+            }
+          ],
+          "author_alias": "增田英二",
+          "cover": "https://sj.mangafunb.fun/j/jzyyyj/cover/1724481063.jpg.328x422.jpg",
+          "free_type": null,
+          "popular": 1059099,
+          "datetime_updated": "2026-07-09"
+        },
+        {
+          "name": "迷宮之王",
+          "path_word": "migongzhiwang",
+          "author": [
+            {
+              "name": "K9",
+              "path_word": ""
+            },
+            {
+              "name": "支援BIS",
+              "path_word": ""
+            },
+            {
+              "name": "小林裕和",
+              "path_word": ""
+            }
+          ],
+          "author_alias": "K9,支援BIS,小林裕和",
+          "cover": "https://sm.mangafunb.fun/m/migongzhiwang/cover/1651197689.jpg.328x422.jpg",
+          "free_type": null,
+          "popular": 403532,
+          "datetime_updated": "2026-07-09"
+        }
+      ],
+      "total": 15932,
+      "limit": 6,
+      "offset": 0,
+      "path_word": "finish",
+      "name": "已完结",
+      "type": "top"
+    },
+    "banners": [
+      {
+        "type": 6,
+        "cover": "https://s3.mangafunb.fun/recommend/2026/07/17833076862606.jpg",
+        "brief": "看新番、看里番、看本子的点这里(下载不了请更新至最新版)",
+        "out_uuid": "https://www.manga2026.xyz/download",
+        "comic": null
+      },
+      {
+        "type": 3,
+        "cover": "https://s3.mangafunb.fun/recommend/2026/06/17821290204758.png",
+        "brief": "章節評論 & 蘋果機閱讀器",
+        "out_uuid": "/download",
+        "comic": null
+      },
+      {
+        "type": 1,
+        "cover": "https://s3.mangafunb.fun/recommend/2026/07/17830760729856.jpg",
+        "brief": "生日特供的糖！",
+        "out_uuid": "759bcf6a-b8d2-11f0-9205-fa163e02432f",
+        "comic": {
+          "name": "二人巴士",
+          "path_word": "errenbashi"
+        }
+      },
+      {
+        "type": 1,
+        "cover": "https://s3.mangafunb.fun/recommend/2022/03/16540561698508.jpg",
+        "brief": "這漫畫連載化、編輯部大丈夫？",
+        "out_uuid": "7a53a408-a6eb-11ec-a009-024352452ce0",
+        "comic": {
+          "name": "我的牛牛變成了美少女",
+          "path_word": "wodeniuniubianchenglemeishaonv"
+        }
+      },
+      {
+        "type": 1,
+        "cover": "https://s3.mangafunb.fun/recommend/2026/06/17806563771958.jpg",
+        "brief": "追趕兔耳獸人、和水蛇對決！",
+        "out_uuid": "0647fd30-6140-11eb-b4ab-00163e0ca5bd",
+        "comic": {
+          "name": "朦朧的異世界轉生日常~升級到頂與道具繼承之後！我是最強幼女",
+          "path_word": "menglongdeyishijiezhuanshengrichangshengjidaodingy"
+        }
+      },
+      {
+        "type": 1,
+        "cover": "https://s3.mangafunb.fun/recommend/2026/06/17806561516799.jpg",
+        "brief": "搬家到隔壁的是魔王的女兒！",
+        "out_uuid": "a6fa808a-2912-11f1-b59d-fa163e02432f",
+        "comic": {
+          "name": "梅森死亡公寓～虽然是魔王之女但请收我为徒～",
+          "path_word": "meisensiwanggongyu"
+        }
+      }
+    ]
+  }
+}

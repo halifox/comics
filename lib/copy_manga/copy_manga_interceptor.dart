@@ -4,19 +4,14 @@ import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 
 import 'copy_manga_dto.dart';
-import 'copy_manga_preferences.dart';
 
 class CopyMangaInterceptor extends Interceptor {
-  CopyMangaInterceptor(this.preferences);
-
-  final CopyMangaPreferences preferences;
-
   @override
   Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    await Future<void>.delayed(const Duration(seconds: 3));
+    // await Future<void>.delayed(const Duration(seconds: 3));
 
     final now = DateTime.now();
     final timestamp = now.millisecondsSinceEpoch ~/ 1000;
@@ -25,23 +20,26 @@ class CopyMangaInterceptor extends Interceptor {
       sha256,
       secret,
     ).convert(utf8.encode(timestamp.toString())).toString();
-    final token = preferences.token;
-
     options.headers.addAll({
-      'User-Agent': 'COPY/3.0.6',
-      'source': 'copyApp',
-      'deviceinfo': preferences.getOrCreateDeviceInfo(),
-      'dt':
-          '${now.year}.${now.month.toString().padLeft(2, '0')}.${now.day.toString().padLeft(2, '0')}',
-      'platform': '3',
-      'referer': 'com.copymanga.app-3.0.6',
-      'version': '3.0.6',
-      'device': preferences.getOrCreateDevice(),
-      'pseudoid': preferences.getOrCreatePseudoId(),
-      'Accept': 'application/json',
-      'region': preferences.region,
-      'authorization': token == null ? 'Token' : 'Token $token',
-      'umstring': 'b4c89ca4104ea9a97750314d791520ac',
+      // "accept": "application/json",
+      // "accept-encoding": "gzip",
+      // "accept-language": "",
+      // "authorization": "Token",
+      // "content-type": "application/x-www-form-urlencoded",
+      "device": "SP1A.210812.016.C2",
+      "deviceinfo": "Pixel 3-blueline",
+      "dt": "2026.07.11",
+      "host": "api.copy-manga.com",
+      "platform": "3",
+      "pseudoid": "zo8UmdTAkNZRJ7Vs",
+      "referer": "com.copymanga.app-3.0.9",
+      "region": "0",
+      "source": "copyApp",
+      "umstring": "b4c89ca4104ea9a97750314d791520ac",
+      "user-agent": "COPY/3.0.9",
+      "version": "3.0.9",
+      "versioncode": "83",
+      "webp": "1",
       'x-auth-timestamp': timestamp.toString(),
       'x-auth-signature': signature,
     });

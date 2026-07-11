@@ -16,14 +16,6 @@ abstract class CopyMangaResponse with _$CopyMangaResponse {
 }
 
 @freezed
-abstract class LoginResultDto with _$LoginResultDto {
-  const factory LoginResultDto({required String token}) = _LoginResultDto;
-
-  factory LoginResultDto.fromJson(Map<String, dynamic> json) =>
-      _$LoginResultDtoFromJson(json);
-}
-
-@freezed
 abstract class NamedPathDto with _$NamedPathDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory NamedPathDto({
@@ -37,7 +29,10 @@ abstract class NamedPathDto with _$NamedPathDto {
 
 @freezed
 abstract class ComicStatusDto with _$ComicStatusDto {
-  const factory ComicStatusDto({@Default('') String display}) = _ComicStatusDto;
+  const factory ComicStatusDto({
+    @Default(0) int value,
+    @Default('') String display,
+  }) = _ComicStatusDto;
 
   factory ComicStatusDto.fromJson(Map<String, dynamic> json) =>
       _$ComicStatusDtoFromJson(json);
@@ -55,6 +50,10 @@ abstract class ComicDto with _$ComicDto {
     @Default('') String datetimeUpdated,
     @JsonKey(name: 'author') @Default([]) List<NamedPathDto> authors,
     @JsonKey(name: 'theme') @Default([]) List<NamedPathDto> themes,
+    @Default([]) List<NamedPathDto> females,
+    @Default([]) List<NamedPathDto> males,
+    @Default('') String authorAlias,
+    @Default(0) int popular,
     ComicStatusDto? status,
   }) = _ComicDto;
 
@@ -68,21 +67,15 @@ abstract class RankedComicDto with _$RankedComicDto {
   const factory RankedComicDto({
     required ComicDto comic,
     required int sort,
+    @Default(0) int sortLast,
     @Default(0) int riseSort,
+    @Default(0) int riseNum,
+    @Default(0) int dateType,
     @Default(0) int popular,
   }) = _RankedComicDto;
 
   factory RankedComicDto.fromJson(Map<String, dynamic> json) =>
       _$RankedComicDtoFromJson(json);
-}
-
-@freezed
-abstract class ComicSectionDto with _$ComicSectionDto {
-  const factory ComicSectionDto({required List<ComicDto> list}) =
-      _ComicSectionDto;
-
-  factory ComicSectionDto.fromJson(Map<String, dynamic> json) =>
-      _$ComicSectionDtoFromJson(json);
 }
 
 @freezed
@@ -271,8 +264,10 @@ abstract class ComicPageResultDto with _$ComicPageResultDto {
 @freezed
 abstract class RankPageResultDto with _$RankPageResultDto {
   const factory RankPageResultDto({
-    required List<RankedComicDto> list,
-    required int total,
+    @Default([]) List<RankedComicDto> list,
+    @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
   }) = _RankPageResultDto;
 
   factory RankPageResultDto.fromJson(Map<String, dynamic> json) =>
@@ -302,7 +297,7 @@ abstract class ComicInfoDto with _$ComicInfoDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ComicInfoDto({
     @Default('') String uuid,
-    @Default(false) bool b404,
+    @JsonKey(name: 'b_404') @Default(false) bool b404,
     @Default(false) bool bHidden,
     @Default(0) int ban,
     @Default('') String name,
@@ -359,19 +354,12 @@ abstract class ChapterGroupDto with _$ChapterGroupDto {
 }
 
 @freezed
-abstract class FavoriteStatusResultDto with _$FavoriteStatusResultDto {
-  const factory FavoriteStatusResultDto({Object? collect}) =
-      _FavoriteStatusResultDto;
-
-  factory FavoriteStatusResultDto.fromJson(Map<String, dynamic> json) =>
-      _$FavoriteStatusResultDtoFromJson(json);
-}
-
-@freezed
 abstract class ChapterListResultDto with _$ChapterListResultDto {
   const factory ChapterListResultDto({
     @Default([]) List<ChapterDto> list,
     @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
   }) = _ChapterListResultDto;
 
   factory ChapterListResultDto.fromJson(Map<String, dynamic> json) =>
@@ -405,18 +393,58 @@ abstract class ChapterDto with _$ChapterDto {
 
 @freezed
 abstract class ChapterContentResultDto with _$ChapterContentResultDto {
-  const factory ChapterContentResultDto({required ChapterContentDto chapter}) =
-      _ChapterContentResultDto;
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ChapterContentResultDto({
+    @Default(false) bool showApp,
+    @Default(false) bool isLock,
+    @Default(false) bool isLogin,
+    @Default(false) bool isMobileBind,
+    @Default(false) bool isVip,
+    required ChapterComicDto comic,
+    required ChapterContentDto chapter,
+    @Default(false) bool isBanned,
+  }) = _ChapterContentResultDto;
 
   factory ChapterContentResultDto.fromJson(Map<String, dynamic> json) =>
       _$ChapterContentResultDtoFromJson(json);
 }
 
 @freezed
+abstract class ChapterComicDto with _$ChapterComicDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ChapterComicDto({
+    @Default('') String name,
+    @Default('') String uuid,
+    @Default('') String pathWord,
+    LabeledValueDto? restrict,
+  }) = _ChapterComicDto;
+
+  factory ChapterComicDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterComicDtoFromJson(json);
+}
+
+@freezed
 abstract class ChapterContentDto with _$ChapterContentDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ChapterContentDto({
-    required List<ChapterImageDto> contents,
-    required List<int> words,
+    @Default(0) int index,
+    @Default('') String uuid,
+    @Default(0) int count,
+    @Default(0) int ordered,
+    @Default(0) int size,
+    @Default('') String name,
+    @Default('') String comicId,
+    @Default('') String comicPathWord,
+    String? groupId,
+    @Default('') String groupPathWord,
+    @Default(0) int type,
+    @Default('') String news,
+    @Default('') String datetimeCreated,
+    String? prev,
+    String? next,
+    @Default([]) List<ChapterImageDto> contents,
+    @Default([]) List<int> words,
+    @Default(false) bool isLong,
   }) = _ChapterContentDto;
 
   factory ChapterContentDto.fromJson(Map<String, dynamic> json) =>
@@ -429,34 +457,6 @@ abstract class ChapterImageDto with _$ChapterImageDto {
 
   factory ChapterImageDto.fromJson(Map<String, dynamic> json) =>
       _$ChapterImageDtoFromJson(json);
-}
-
-@freezed
-abstract class CommentPageResultDto with _$CommentPageResultDto {
-  const factory CommentPageResultDto({
-    required List<CommentDto> list,
-    required int total,
-  }) = _CommentPageResultDto;
-
-  factory CommentPageResultDto.fromJson(Map<String, dynamic> json) =>
-      _$CommentPageResultDtoFromJson(json);
-}
-
-@freezed
-abstract class CommentDto with _$CommentDto {
-  @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory CommentDto({
-    @Default('') String userName,
-    @Default('') String parentUserName,
-    @Default('') String userAvatar,
-    @Default('') String comment,
-    @Default('') String createAt,
-    int? count,
-    Object? id,
-  }) = _CommentDto;
-
-  factory CommentDto.fromJson(Map<String, dynamic> json) =>
-      _$CommentDtoFromJson(json);
 }
 
 @freezed
@@ -502,83 +502,4 @@ abstract class RequestIdResultDto with _$RequestIdResultDto {
 
   factory RequestIdResultDto.fromJson(Map<String, dynamic> json) =>
       _$RequestIdResultDtoFromJson(json);
-}
-
-@freezed
-abstract class ComicSummary with _$ComicSummary {
-  const factory ComicSummary({
-    required String id,
-    required String title,
-    required String cover,
-    String? subtitle,
-    @Default([]) List<String> tags,
-    String? description,
-  }) = _ComicSummary;
-
-  factory ComicSummary.fromJson(Map<String, dynamic> json) =>
-      _$ComicSummaryFromJson(json);
-}
-
-@Freezed(genericArgumentFactories: true)
-abstract class PagedResult<T> with _$PagedResult<T> {
-  const factory PagedResult(List<T> items, int total, int pageSize) =
-      _PagedResult<T>;
-
-  factory PagedResult.fromJson(
-    Map<String, dynamic> json,
-    T Function(Object?) fromJsonT,
-  ) => _$PagedResultFromJson(json, fromJsonT);
-}
-
-@freezed
-abstract class ChapterGroup with _$ChapterGroup {
-  const factory ChapterGroup({
-    required String name,
-    required Map<String, String> chapters,
-  }) = _ChapterGroup;
-
-  factory ChapterGroup.fromJson(Map<String, dynamic> json) =>
-      _$ChapterGroupFromJson(json);
-}
-
-@freezed
-abstract class ComicDetails with _$ComicDetails {
-  const factory ComicDetails({
-    required String title,
-    required String cover,
-    required String description,
-    required List<String> authors,
-    required List<String> tags,
-    required String updateTime,
-    required String status,
-    required List<ChapterGroup> chapterGroups,
-    required bool isFavorite,
-    required String uuid,
-  }) = _ComicDetails;
-
-  factory ComicDetails.fromJson(Map<String, dynamic> json) =>
-      _$ComicDetailsFromJson(json);
-}
-
-@freezed
-abstract class Comment with _$Comment {
-  const factory Comment({
-    required String userName,
-    required String avatar,
-    required String content,
-    required String time,
-    int? replyCount,
-    String? id,
-  }) = _Comment;
-
-  factory Comment.fromJson(Map<String, dynamic> json) =>
-      _$CommentFromJson(json);
-}
-
-@freezed
-abstract class ChapterImages with _$ChapterImages {
-  const factory ChapterImages(List<String> images) = _ChapterImages;
-
-  factory ChapterImages.fromJson(Map<String, dynamic> json) =>
-      _$ChapterImagesFromJson(json);
 }

@@ -1,0 +1,185 @@
+import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+
+import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
+
+import '../application/reader_settings_provider.dart';
+
+class ReaderSettingsPage extends HookConsumerWidget {
+  const ReaderSettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(readerSettingsProvider);
+    final titleController = useGlassLargeTitleController();
+
+    return GlassScaffold(
+      statusBarStyle: GlassStatusBarStyle.auto,
+      background: const AmbientGlowBackground(),
+      appBar: GlassAppBar(
+        title: const Text(
+          '阅读设置',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: false,
+        largeTitleController: titleController,
+        leading: GlassIconButton(
+          icon: const Icon(CupertinoIcons.chevron_back),
+          useOwnLayer: true,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: CustomScrollView(
+        controller: titleController.scrollController,
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
+        slivers: [
+          GlassLargeTitle(
+            text: '阅读设置',
+            controller: titleController,
+            padding: EdgeInsets.fromLTRB(
+              24,
+              MediaQuery.paddingOf(context).top + 56,
+              24,
+              16,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: GlassGroupedSection(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                GlassListTile(
+                  leading: const Icon(CupertinoIcons.book),
+                  title: const Text('阅读模式'),
+                  trailing: ReaderModeSelector(
+                    value: settings.mode,
+                    onChanged: (value) {
+                      ref.read(readerSettingsProvider.notifier).setMode(value);
+                    },
+                  ),
+                ),
+                GlassListTile(
+                  leading: const Icon(CupertinoIcons.paintbrush),
+                  title: const Text('阅读背景'),
+                  trailing: ReaderBackgroundSelector(
+                    value: settings.background,
+                    onChanged: (value) {
+                      ref
+                          .read(readerSettingsProvider.notifier)
+                          .setBackground(value);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ReaderModeSelector extends StatelessWidget {
+  const ReaderModeSelector({required this.value, required this.onChanged});
+
+  final ReaderMode value;
+  final ValueChanged<ReaderMode> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return GlassMenu(
+      trigger: CompactDropdownLabel(value.label),
+      menuWidth: 210,
+      menuAlignment: GlassMenuAlignment.topRight,
+      autoAdjustToScreen: true,
+      quality: GlassQuality.minimal,
+      items: [
+        for (final option in ReaderMode.values)
+          GlassMenuItem(
+            title: option.label,
+            isSelected: value == option,
+            trailing: value == option
+                ? const Icon(CupertinoIcons.checkmark, size: 18)
+                : null,
+            onTap: () => onChanged(option),
+          ),
+      ],
+    );
+  }
+}
+
+class ReaderBackgroundSelector extends StatelessWidget {
+  const ReaderBackgroundSelector({
+    required this.value,
+    required this.onChanged,
+  });
+
+  final ReaderBackground value;
+  final ValueChanged<ReaderBackground> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return GlassMenu(
+      trigger: CompactDropdownLabel(value.label),
+      menuWidth: 210,
+      menuAlignment: GlassMenuAlignment.topRight,
+      autoAdjustToScreen: true,
+      quality: GlassQuality.minimal,
+      items: [
+        for (final option in ReaderBackground.values)
+          GlassMenuItem(
+            title: '${option.label}  ${option.hex}',
+            icon: Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                color: option.color,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: CupertinoColors.separator.resolveFrom(context),
+                ),
+              ),
+            ),
+            isSelected: value == option,
+            trailing: value == option
+                ? const Icon(CupertinoIcons.checkmark, size: 18)
+                : null,
+            onTap: () => onChanged(option),
+          ),
+      ],
+    );
+  }
+}
+
+class CompactDropdownLabel extends StatelessWidget {
+  const CompactDropdownLabel(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = CupertinoColors.secondaryLabel.resolveFrom(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Icon(CupertinoIcons.chevron_down, size: 14, color: color),
+        ],
+      ),
+    );
+  }
+}

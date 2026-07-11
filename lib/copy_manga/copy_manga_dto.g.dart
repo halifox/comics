@@ -20,12 +20,6 @@ Map<String, dynamic> _$CopyMangaResponseToJson(_CopyMangaResponse instance) =>
       'results': instance.results,
     };
 
-_LoginResultDto _$LoginResultDtoFromJson(Map<String, dynamic> json) =>
-    _LoginResultDto(token: json['token'] as String);
-
-Map<String, dynamic> _$LoginResultDtoToJson(_LoginResultDto instance) =>
-    <String, dynamic>{'token': instance.token};
-
 _NamedPathDto _$NamedPathDtoFromJson(Map<String, dynamic> json) =>
     _NamedPathDto(
       name: json['name'] as String? ?? '',
@@ -36,10 +30,13 @@ Map<String, dynamic> _$NamedPathDtoToJson(_NamedPathDto instance) =>
     <String, dynamic>{'name': instance.name, 'path_word': instance.pathWord};
 
 _ComicStatusDto _$ComicStatusDtoFromJson(Map<String, dynamic> json) =>
-    _ComicStatusDto(display: json['display'] as String? ?? '');
+    _ComicStatusDto(
+      value: (json['value'] as num?)?.toInt() ?? 0,
+      display: json['display'] as String? ?? '',
+    );
 
 Map<String, dynamic> _$ComicStatusDtoToJson(_ComicStatusDto instance) =>
-    <String, dynamic>{'display': instance.display};
+    <String, dynamic>{'value': instance.value, 'display': instance.display};
 
 _ComicDto _$ComicDtoFromJson(Map<String, dynamic> json) => _ComicDto(
   pathWord: json['path_word'] as String? ?? '',
@@ -58,6 +55,18 @@ _ComicDto _$ComicDtoFromJson(Map<String, dynamic> json) => _ComicDto(
           ?.map((e) => NamedPathDto.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  females:
+      (json['females'] as List<dynamic>?)
+          ?.map((e) => NamedPathDto.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  males:
+      (json['males'] as List<dynamic>?)
+          ?.map((e) => NamedPathDto.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  authorAlias: json['author_alias'] as String? ?? '',
+  popular: (json['popular'] as num?)?.toInt() ?? 0,
   status: json['status'] == null
       ? null
       : ComicStatusDto.fromJson(json['status'] as Map<String, dynamic>),
@@ -72,6 +81,10 @@ Map<String, dynamic> _$ComicDtoToJson(_ComicDto instance) => <String, dynamic>{
   'datetime_updated': instance.datetimeUpdated,
   'author': instance.authors,
   'theme': instance.themes,
+  'females': instance.females,
+  'males': instance.males,
+  'author_alias': instance.authorAlias,
+  'popular': instance.popular,
   'status': instance.status,
 };
 
@@ -79,7 +92,10 @@ _RankedComicDto _$RankedComicDtoFromJson(Map<String, dynamic> json) =>
     _RankedComicDto(
       comic: ComicDto.fromJson(json['comic'] as Map<String, dynamic>),
       sort: (json['sort'] as num).toInt(),
+      sortLast: (json['sort_last'] as num?)?.toInt() ?? 0,
       riseSort: (json['rise_sort'] as num?)?.toInt() ?? 0,
+      riseNum: (json['rise_num'] as num?)?.toInt() ?? 0,
+      dateType: (json['date_type'] as num?)?.toInt() ?? 0,
       popular: (json['popular'] as num?)?.toInt() ?? 0,
     );
 
@@ -87,19 +103,12 @@ Map<String, dynamic> _$RankedComicDtoToJson(_RankedComicDto instance) =>
     <String, dynamic>{
       'comic': instance.comic,
       'sort': instance.sort,
+      'sort_last': instance.sortLast,
       'rise_sort': instance.riseSort,
+      'rise_num': instance.riseNum,
+      'date_type': instance.dateType,
       'popular': instance.popular,
     };
-
-_ComicSectionDto _$ComicSectionDtoFromJson(Map<String, dynamic> json) =>
-    _ComicSectionDto(
-      list: (json['list'] as List<dynamic>)
-          .map((e) => ComicDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$ComicSectionDtoToJson(_ComicSectionDto instance) =>
-    <String, dynamic>{'list': instance.list};
 
 _HomeResultDto _$HomeResultDtoFromJson(Map<String, dynamic> json) =>
     _HomeResultDto(
@@ -385,14 +394,23 @@ Map<String, dynamic> _$ComicPageResultDtoToJson(_ComicPageResultDto instance) =>
 
 _RankPageResultDto _$RankPageResultDtoFromJson(Map<String, dynamic> json) =>
     _RankPageResultDto(
-      list: (json['list'] as List<dynamic>)
-          .map((e) => RankedComicDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      total: (json['total'] as num).toInt(),
+      list:
+          (json['list'] as List<dynamic>?)
+              ?.map((e) => RankedComicDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      limit: (json['limit'] as num?)?.toInt() ?? 0,
+      offset: (json['offset'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$RankPageResultDtoToJson(_RankPageResultDto instance) =>
-    <String, dynamic>{'list': instance.list, 'total': instance.total};
+    <String, dynamic>{
+      'list': instance.list,
+      'total': instance.total,
+      'limit': instance.limit,
+      'offset': instance.offset,
+    };
 
 _ComicInfoResultDto _$ComicInfoResultDtoFromJson(Map<String, dynamic> json) =>
     _ComicInfoResultDto(
@@ -424,7 +442,7 @@ Map<String, dynamic> _$ComicInfoResultDtoToJson(_ComicInfoResultDto instance) =>
 _ComicInfoDto _$ComicInfoDtoFromJson(Map<String, dynamic> json) =>
     _ComicInfoDto(
       uuid: json['uuid'] as String? ?? '',
-      b404: json['b404'] as bool? ?? false,
+      b404: json['b_404'] as bool? ?? false,
       bHidden: json['b_hidden'] as bool? ?? false,
       ban: (json['ban'] as num?)?.toInt() ?? 0,
       name: json['name'] as String? ?? '',
@@ -491,7 +509,7 @@ _ComicInfoDto _$ComicInfoDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ComicInfoDtoToJson(_ComicInfoDto instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
-      'b404': instance.b404,
+      'b_404': instance.b404,
       'b_hidden': instance.bHidden,
       'ban': instance.ban,
       'name': instance.name,
@@ -542,14 +560,6 @@ Map<String, dynamic> _$ChapterGroupDtoToJson(_ChapterGroupDto instance) =>
       'count': instance.count,
     };
 
-_FavoriteStatusResultDto _$FavoriteStatusResultDtoFromJson(
-  Map<String, dynamic> json,
-) => _FavoriteStatusResultDto(collect: json['collect']);
-
-Map<String, dynamic> _$FavoriteStatusResultDtoToJson(
-  _FavoriteStatusResultDto instance,
-) => <String, dynamic>{'collect': instance.collect};
-
 _ChapterListResultDto _$ChapterListResultDtoFromJson(
   Map<String, dynamic> json,
 ) => _ChapterListResultDto(
@@ -559,11 +569,18 @@ _ChapterListResultDto _$ChapterListResultDtoFromJson(
           .toList() ??
       const [],
   total: (json['total'] as num?)?.toInt() ?? 0,
+  limit: (json['limit'] as num?)?.toInt() ?? 0,
+  offset: (json['offset'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$ChapterListResultDtoToJson(
   _ChapterListResultDto instance,
-) => <String, dynamic>{'list': instance.list, 'total': instance.total};
+) => <String, dynamic>{
+  'list': instance.list,
+  'total': instance.total,
+  'limit': instance.limit,
+  'offset': instance.offset,
+};
 
 _ChapterDto _$ChapterDtoFromJson(Map<String, dynamic> json) => _ChapterDto(
   index: (json['index'] as num?)?.toInt() ?? 0,
@@ -605,65 +622,104 @@ Map<String, dynamic> _$ChapterDtoToJson(_ChapterDto instance) =>
 _ChapterContentResultDto _$ChapterContentResultDtoFromJson(
   Map<String, dynamic> json,
 ) => _ChapterContentResultDto(
+  showApp: json['show_app'] as bool? ?? false,
+  isLock: json['is_lock'] as bool? ?? false,
+  isLogin: json['is_login'] as bool? ?? false,
+  isMobileBind: json['is_mobile_bind'] as bool? ?? false,
+  isVip: json['is_vip'] as bool? ?? false,
+  comic: ChapterComicDto.fromJson(json['comic'] as Map<String, dynamic>),
   chapter: ChapterContentDto.fromJson(json['chapter'] as Map<String, dynamic>),
+  isBanned: json['is_banned'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$ChapterContentResultDtoToJson(
   _ChapterContentResultDto instance,
-) => <String, dynamic>{'chapter': instance.chapter};
+) => <String, dynamic>{
+  'show_app': instance.showApp,
+  'is_lock': instance.isLock,
+  'is_login': instance.isLogin,
+  'is_mobile_bind': instance.isMobileBind,
+  'is_vip': instance.isVip,
+  'comic': instance.comic,
+  'chapter': instance.chapter,
+  'is_banned': instance.isBanned,
+};
+
+_ChapterComicDto _$ChapterComicDtoFromJson(Map<String, dynamic> json) =>
+    _ChapterComicDto(
+      name: json['name'] as String? ?? '',
+      uuid: json['uuid'] as String? ?? '',
+      pathWord: json['path_word'] as String? ?? '',
+      restrict: json['restrict'] == null
+          ? null
+          : LabeledValueDto.fromJson(json['restrict'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ChapterComicDtoToJson(_ChapterComicDto instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'uuid': instance.uuid,
+      'path_word': instance.pathWord,
+      'restrict': instance.restrict,
+    };
 
 _ChapterContentDto _$ChapterContentDtoFromJson(Map<String, dynamic> json) =>
     _ChapterContentDto(
-      contents: (json['contents'] as List<dynamic>)
-          .map((e) => ChapterImageDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      words: (json['words'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
-          .toList(),
+      index: (json['index'] as num?)?.toInt() ?? 0,
+      uuid: json['uuid'] as String? ?? '',
+      count: (json['count'] as num?)?.toInt() ?? 0,
+      ordered: (json['ordered'] as num?)?.toInt() ?? 0,
+      size: (json['size'] as num?)?.toInt() ?? 0,
+      name: json['name'] as String? ?? '',
+      comicId: json['comic_id'] as String? ?? '',
+      comicPathWord: json['comic_path_word'] as String? ?? '',
+      groupId: json['group_id'] as String?,
+      groupPathWord: json['group_path_word'] as String? ?? '',
+      type: (json['type'] as num?)?.toInt() ?? 0,
+      news: json['news'] as String? ?? '',
+      datetimeCreated: json['datetime_created'] as String? ?? '',
+      prev: json['prev'] as String?,
+      next: json['next'] as String?,
+      contents:
+          (json['contents'] as List<dynamic>?)
+              ?.map((e) => ChapterImageDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      words:
+          (json['words'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          const [],
+      isLong: json['is_long'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ChapterContentDtoToJson(_ChapterContentDto instance) =>
-    <String, dynamic>{'contents': instance.contents, 'words': instance.words};
+    <String, dynamic>{
+      'index': instance.index,
+      'uuid': instance.uuid,
+      'count': instance.count,
+      'ordered': instance.ordered,
+      'size': instance.size,
+      'name': instance.name,
+      'comic_id': instance.comicId,
+      'comic_path_word': instance.comicPathWord,
+      'group_id': instance.groupId,
+      'group_path_word': instance.groupPathWord,
+      'type': instance.type,
+      'news': instance.news,
+      'datetime_created': instance.datetimeCreated,
+      'prev': instance.prev,
+      'next': instance.next,
+      'contents': instance.contents,
+      'words': instance.words,
+      'is_long': instance.isLong,
+    };
 
 _ChapterImageDto _$ChapterImageDtoFromJson(Map<String, dynamic> json) =>
     _ChapterImageDto(url: json['url'] as String? ?? '');
 
 Map<String, dynamic> _$ChapterImageDtoToJson(_ChapterImageDto instance) =>
     <String, dynamic>{'url': instance.url};
-
-_CommentPageResultDto _$CommentPageResultDtoFromJson(
-  Map<String, dynamic> json,
-) => _CommentPageResultDto(
-  list: (json['list'] as List<dynamic>)
-      .map((e) => CommentDto.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  total: (json['total'] as num).toInt(),
-);
-
-Map<String, dynamic> _$CommentPageResultDtoToJson(
-  _CommentPageResultDto instance,
-) => <String, dynamic>{'list': instance.list, 'total': instance.total};
-
-_CommentDto _$CommentDtoFromJson(Map<String, dynamic> json) => _CommentDto(
-  userName: json['user_name'] as String? ?? '',
-  parentUserName: json['parent_user_name'] as String? ?? '',
-  userAvatar: json['user_avatar'] as String? ?? '',
-  comment: json['comment'] as String? ?? '',
-  createAt: json['create_at'] as String? ?? '',
-  count: (json['count'] as num?)?.toInt(),
-  id: json['id'],
-);
-
-Map<String, dynamic> _$CommentDtoToJson(_CommentDto instance) =>
-    <String, dynamic>{
-      'user_name': instance.userName,
-      'parent_user_name': instance.parentUserName,
-      'user_avatar': instance.userAvatar,
-      'comment': instance.comment,
-      'create_at': instance.createAt,
-      'count': instance.count,
-      'id': instance.id,
-    };
 
 _NetworkResultDto _$NetworkResultDtoFromJson(Map<String, dynamic> json) =>
     _NetworkResultDto(
@@ -732,110 +788,3 @@ _RequestIdResultDto _$RequestIdResultDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RequestIdResultDtoToJson(_RequestIdResultDto instance) =>
     <String, dynamic>{'request_id': instance.requestId};
-
-_ComicSummary _$ComicSummaryFromJson(Map<String, dynamic> json) =>
-    _ComicSummary(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      cover: json['cover'] as String,
-      subtitle: json['subtitle'] as String?,
-      tags:
-          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-          const [],
-      description: json['description'] as String?,
-    );
-
-Map<String, dynamic> _$ComicSummaryToJson(_ComicSummary instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'cover': instance.cover,
-      'subtitle': instance.subtitle,
-      'tags': instance.tags,
-      'description': instance.description,
-    };
-
-_PagedResult<T> _$PagedResultFromJson<T>(
-  Map<String, dynamic> json,
-  T Function(Object? json) fromJsonT,
-) => _PagedResult<T>(
-  (json['items'] as List<dynamic>).map(fromJsonT).toList(),
-  (json['total'] as num).toInt(),
-  (json['pageSize'] as num).toInt(),
-);
-
-Map<String, dynamic> _$PagedResultToJson<T>(
-  _PagedResult<T> instance,
-  Object? Function(T value) toJsonT,
-) => <String, dynamic>{
-  'items': instance.items.map(toJsonT).toList(),
-  'total': instance.total,
-  'pageSize': instance.pageSize,
-};
-
-_ChapterGroup _$ChapterGroupFromJson(Map<String, dynamic> json) =>
-    _ChapterGroup(
-      name: json['name'] as String,
-      chapters: Map<String, String>.from(json['chapters'] as Map),
-    );
-
-Map<String, dynamic> _$ChapterGroupToJson(_ChapterGroup instance) =>
-    <String, dynamic>{'name': instance.name, 'chapters': instance.chapters};
-
-_ComicDetails _$ComicDetailsFromJson(Map<String, dynamic> json) =>
-    _ComicDetails(
-      title: json['title'] as String,
-      cover: json['cover'] as String,
-      description: json['description'] as String,
-      authors: (json['authors'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      updateTime: json['updateTime'] as String,
-      status: json['status'] as String,
-      chapterGroups: (json['chapterGroups'] as List<dynamic>)
-          .map((e) => ChapterGroup.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      isFavorite: json['isFavorite'] as bool,
-      uuid: json['uuid'] as String,
-    );
-
-Map<String, dynamic> _$ComicDetailsToJson(_ComicDetails instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'cover': instance.cover,
-      'description': instance.description,
-      'authors': instance.authors,
-      'tags': instance.tags,
-      'updateTime': instance.updateTime,
-      'status': instance.status,
-      'chapterGroups': instance.chapterGroups,
-      'isFavorite': instance.isFavorite,
-      'uuid': instance.uuid,
-    };
-
-_Comment _$CommentFromJson(Map<String, dynamic> json) => _Comment(
-  userName: json['userName'] as String,
-  avatar: json['avatar'] as String,
-  content: json['content'] as String,
-  time: json['time'] as String,
-  replyCount: (json['replyCount'] as num?)?.toInt(),
-  id: json['id'] as String?,
-);
-
-Map<String, dynamic> _$CommentToJson(_Comment instance) => <String, dynamic>{
-  'userName': instance.userName,
-  'avatar': instance.avatar,
-  'content': instance.content,
-  'time': instance.time,
-  'replyCount': instance.replyCount,
-  'id': instance.id,
-};
-
-_ChapterImages _$ChapterImagesFromJson(Map<String, dynamic> json) =>
-    _ChapterImages(
-      (json['images'] as List<dynamic>).map((e) => e as String).toList(),
-    );
-
-Map<String, dynamic> _$ChapterImagesToJson(_ChapterImages instance) =>
-    <String, dynamic>{'images': instance.images};
