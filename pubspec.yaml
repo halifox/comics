@@ -51,6 +51,7 @@ dependencies:
   drift: ^2.34.1
   drift_flutter: ^0.3.1
   scrollable_positioned_list: ^0.3.8
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -105,3 +106,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
