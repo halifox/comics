@@ -1,10 +1,12 @@
+import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
+import 'package:comics/features/library/application/comic_library_providers.dart';
+import 'package:comics/features/search/application/search_history_provider.dart';
+import 'package:comics/features/search/presentation/search_results_page.dart';
+import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-
-import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
-import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 
 class SearchPage extends HookConsumerWidget {
   const SearchPage({required this.fieldFocused, super.key});
@@ -28,7 +30,7 @@ class SearchPage extends HookConsumerWidget {
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: fieldFocused
-            ? EmptySearchHistory(titleController: titleController)
+            ? SearchHistory(titleController: titleController)
             : SearchCategoryGrid(titleController: titleController),
       ),
     );
@@ -71,7 +73,10 @@ class SearchCategoryGrid extends StatelessWidget {
               (context, index) => ComicCategoryCard(
                 name: comicCategories[index].name,
                 slug: comicCategories[index].slug,
-                color: comicCategoryColor(context, comicCategories[index].slug),
+                color: comicCategoryColor(
+                  context: context,
+                  seed: comicCategories[index].slug,
+                ),
               ),
               childCount: comicCategories.length,
             ),
@@ -82,13 +87,14 @@ class SearchCategoryGrid extends StatelessWidget {
   }
 }
 
-class EmptySearchHistory extends StatelessWidget {
-  const EmptySearchHistory({required this.titleController});
+class SearchHistory extends ConsumerWidget {
+  const SearchHistory({required this.titleController});
 
   final GlassLargeTitleController titleController;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final history = ref.watch(searchHistoryProvider).value ?? const [];
     final keyboardHeight = MediaQuery.viewInsetsOf(context).bottom;
     return CustomScrollView(
       controller: titleController.scrollController,
@@ -106,120 +112,197 @@ class EmptySearchHistory extends StatelessWidget {
             8,
           ),
         ),
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: keyboardHeight + 50),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    CupertinoIcons.search,
-                    size: 64,
-                    color: CupertinoColors.tertiaryLabel.resolveFrom(context),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '暂无最近搜索',
-                    style: TextStyle(
-                      color: CupertinoColors.label.resolveFrom(context),
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: -0.3,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    '你的最近搜索记录会显示在这里。',
-                    style: TextStyle(
-                      color: CupertinoColors.secondaryLabel.resolveFrom(
-                        context,
+        if (history.isEmpty)
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: keyboardHeight + 50),
+              child: const SearchHistoryEmptyState(),
+            ),
+          )
+        else
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                18,
+                16,
+                18,
+                MediaQuery.paddingOf(context).bottom + keyboardHeight + 72,
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: GlassGroupedSection(
+                  margin: EdgeInsets.zero,
+                  shape: const LiquidRoundedSuperellipse(borderRadius: 28),
+                  useOwnLayer: true,
+                  quality: GlassQuality.premium,
+                  children: [
+                    for (final query in history.reversed)
+                      GlassListTile(
+                        title: Text(
+                          query,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        contentPadding: const EdgeInsets.only(
+                          top: 6,
+                          bottom: 6,
+                          left: 26,
+                          right: 6,
+                        ),
+                        titleStyle: TextStyle(
+                          color: CupertinoColors.label.resolveFrom(context),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        onTap: () {
+                          ref
+                              .read(libraryDatabaseProvider)
+                              .recordSearch(query: query);
+                          Navigator.of(context).push(
+                            CupertinoPageRoute<void>(
+                              builder: (routeContext) =>
+                                  SearchResultsPage(query: query),
+                            ),
+                          );
+                        },
+                        trailing: Semantics(
+                          button: true,
+                          label: '删除搜索记录：$query',
+                          child: GlassIconButton(
+                            icon: const Icon(
+                              CupertinoIcons.trash,
+                              color: CupertinoColors.systemRed,
+                            ),
+                            onPressed: () => ref
+                                .read(libraryDatabaseProvider)
+                                .removeSearch(query: query),
+                          ),
+                        ),
                       ),
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
 }
 
+class SearchHistoryEmptyState extends StatelessWidget {
+  const SearchHistoryEmptyState();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            CupertinoIcons.search,
+            size: 64,
+            color: CupertinoColors.tertiaryLabel.resolveFrom(context),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '暂无最近搜索',
+            style: TextStyle(
+              color: CupertinoColors.label.resolveFrom(context),
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.3,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            '你的最近搜索记录会显示在这里。',
+            style: TextStyle(
+              color: CupertinoColors.secondaryLabel.resolveFrom(context),
+              fontSize: 15,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ComicCategoryData {
-  const ComicCategoryData(this.name, this.slug);
+  const ComicCategoryData({required this.name, required this.slug});
 
   final String name;
   final String slug;
 }
 
 const comicCategories = [
-  ComicCategoryData('爱情', 'aiqing'),
-  ComicCategoryData('热血', 'rexue'),
-  ComicCategoryData('搞笑', 'gaoxiao'),
-  ComicCategoryData('冒险', 'maoxian'),
-  ComicCategoryData('奇幻', 'qihuan'),
-  ComicCategoryData('校园', 'xiaoyuan'),
-  ComicCategoryData('都市', 'dushi'),
-  ComicCategoryData('异世界', 'yishijie'),
-  ComicCategoryData('穿越', 'chuanyue'),
-  ComicCategoryData('重生', 'chongsheng'),
-  ComicCategoryData('后宫', 'hougong'),
-  ComicCategoryData('悬疑', 'xuanyi'),
-  ComicCategoryData('恐怖', 'kongbu'),
-  ComicCategoryData('惊悚', 'jingsong'),
-  ComicCategoryData('科幻', 'kehuan'),
-  ComicCategoryData('格斗', 'gedou'),
-  ComicCategoryData('竞技', 'jingji'),
-  ComicCategoryData('武侠', 'wuxia'),
-  ComicCategoryData('仙侠', 'xianxia'),
-  ComicCategoryData('魔幻', 'mohuan'),
-  ComicCategoryData('神鬼', 'shengui'),
-  ComicCategoryData('转生', 'zhuansheng'),
-  ComicCategoryData('生活', 'shenghuo'),
-  ComicCategoryData('欢乐向', 'huanlexiang'),
-  ComicCategoryData('治愈', 'zhiyu'),
-  ComicCategoryData('美食', 'meishi'),
-  ComicCategoryData('职场', 'zhichang'),
-  ComicCategoryData('历史', 'lishi'),
-  ComicCategoryData('战争', 'zhanzheng'),
-  ComicCategoryData('机战', 'jizhan'),
-  ComicCategoryData('侦探', 'zhentan'),
-  ComicCategoryData('励志', 'lizhi'),
-  ComicCategoryData('音乐舞蹈', 'yinyuewudao'),
-  ComicCategoryData('百合', 'baihe'),
-  ComicCategoryData('耽美', 'danmei'),
-  ComicCategoryData('萌系', 'mengxi'),
-  ComicCategoryData('轻小说', 'qingxiaoshuo'),
-  ComicCategoryData('东方', 'dongfang'),
-  ComicCategoryData('彩色', 'COLOR'),
-  ComicCategoryData('长条', 'changtiao'),
-  ComicCategoryData('四格', 'sige'),
-  ComicCategoryData('舰娘', 'jianniang'),
-  ComicCategoryData('伪娘', 'weiniang'),
-  ComicCategoryData('性转换', 'xingzhuanhuan'),
-  ComicCategoryData('生存', 'shengcun'),
-  ComicCategoryData('宅系', 'zhaixi'),
-  ComicCategoryData('节操', 'jiecao'),
-  ComicCategoryData('FATE', 'fate'),
-  ComicCategoryData('LoveLive', 'loveLive'),
-  ComicCategoryData('TL', 'teenslove'),
-  ComicCategoryData('AA', 'aa'),
-  ComicCategoryData('无修正', 'Uncensored'),
-  ComicCategoryData('C101', 'comiket101'),
-  ComicCategoryData('C100', 'comiket100'),
-  ComicCategoryData('C99', 'comiket99'),
-  ComicCategoryData('C98', 'C98'),
-  ComicCategoryData('C97', 'comiket97'),
-  ComicCategoryData('C96', 'comiket96'),
-  ComicCategoryData('C95', 'comiket95'),
-  ComicCategoryData('其他', 'qita'),
+  ComicCategoryData(name: '爱情', slug: 'aiqing'),
+  ComicCategoryData(name: '热血', slug: 'rexue'),
+  ComicCategoryData(name: '搞笑', slug: 'gaoxiao'),
+  ComicCategoryData(name: '冒险', slug: 'maoxian'),
+  ComicCategoryData(name: '奇幻', slug: 'qihuan'),
+  ComicCategoryData(name: '校园', slug: 'xiaoyuan'),
+  ComicCategoryData(name: '都市', slug: 'dushi'),
+  ComicCategoryData(name: '异世界', slug: 'yishijie'),
+  ComicCategoryData(name: '穿越', slug: 'chuanyue'),
+  ComicCategoryData(name: '重生', slug: 'chongsheng'),
+  ComicCategoryData(name: '后宫', slug: 'hougong'),
+  ComicCategoryData(name: '悬疑', slug: 'xuanyi'),
+  ComicCategoryData(name: '恐怖', slug: 'kongbu'),
+  ComicCategoryData(name: '惊悚', slug: 'jingsong'),
+  ComicCategoryData(name: '科幻', slug: 'kehuan'),
+  ComicCategoryData(name: '格斗', slug: 'gedou'),
+  ComicCategoryData(name: '竞技', slug: 'jingji'),
+  ComicCategoryData(name: '武侠', slug: 'wuxia'),
+  ComicCategoryData(name: '仙侠', slug: 'xianxia'),
+  ComicCategoryData(name: '魔幻', slug: 'mohuan'),
+  ComicCategoryData(name: '神鬼', slug: 'shengui'),
+  ComicCategoryData(name: '转生', slug: 'zhuansheng'),
+  ComicCategoryData(name: '生活', slug: 'shenghuo'),
+  ComicCategoryData(name: '欢乐向', slug: 'huanlexiang'),
+  ComicCategoryData(name: '治愈', slug: 'zhiyu'),
+  ComicCategoryData(name: '美食', slug: 'meishi'),
+  ComicCategoryData(name: '职场', slug: 'zhichang'),
+  ComicCategoryData(name: '历史', slug: 'lishi'),
+  ComicCategoryData(name: '战争', slug: 'zhanzheng'),
+  ComicCategoryData(name: '机战', slug: 'jizhan'),
+  ComicCategoryData(name: '侦探', slug: 'zhentan'),
+  ComicCategoryData(name: '励志', slug: 'lizhi'),
+  ComicCategoryData(name: '音乐舞蹈', slug: 'yinyuewudao'),
+  ComicCategoryData(name: '百合', slug: 'baihe'),
+  ComicCategoryData(name: '耽美', slug: 'danmei'),
+  ComicCategoryData(name: '萌系', slug: 'mengxi'),
+  ComicCategoryData(name: '轻小说', slug: 'qingxiaoshuo'),
+  ComicCategoryData(name: '东方', slug: 'dongfang'),
+  ComicCategoryData(name: '彩色', slug: 'COLOR'),
+  ComicCategoryData(name: '长条', slug: 'changtiao'),
+  ComicCategoryData(name: '四格', slug: 'sige'),
+  ComicCategoryData(name: '舰娘', slug: 'jianniang'),
+  ComicCategoryData(name: '伪娘', slug: 'weiniang'),
+  ComicCategoryData(name: '性转换', slug: 'xingzhuanhuan'),
+  ComicCategoryData(name: '生存', slug: 'shengcun'),
+  ComicCategoryData(name: '宅系', slug: 'zhaixi'),
+  ComicCategoryData(name: '节操', slug: 'jiecao'),
+  ComicCategoryData(name: 'FATE', slug: 'fate'),
+  ComicCategoryData(name: 'LoveLive', slug: 'loveLive'),
+  ComicCategoryData(name: 'TL', slug: 'teenslove'),
+  ComicCategoryData(name: 'AA', slug: 'aa'),
+  ComicCategoryData(name: '无修正', slug: 'Uncensored'),
+  ComicCategoryData(name: 'C101', slug: 'comiket101'),
+  ComicCategoryData(name: 'C100', slug: 'comiket100'),
+  ComicCategoryData(name: 'C99', slug: 'comiket99'),
+  ComicCategoryData(name: 'C98', slug: 'C98'),
+  ComicCategoryData(name: 'C97', slug: 'comiket97'),
+  ComicCategoryData(name: 'C96', slug: 'comiket96'),
+  ComicCategoryData(name: 'C95', slug: 'comiket95'),
+  ComicCategoryData(name: '其他', slug: 'qita'),
 ];
 
-Color comicCategoryColor(BuildContext context, String seed) {
+Color comicCategoryColor({
+  required BuildContext context,
+  required String seed,
+}) {
   var hash = 0x811C9DC5;
   for (final codeUnit in seed.codeUnits) {
     hash ^= codeUnit;
@@ -229,7 +312,8 @@ Color comicCategoryColor(BuildContext context, String seed) {
   final hue = (hash * 0.618033988749895 * 360) % 360;
   return CupertinoDynamicColor.withBrightness(
     color: HSLColor.fromAHSL(1, hue, .58, .74).toColor(),
-    darkColor: HSLColor.fromAHSL(1, hue, .52, .3).toColor(),
+    darkColor: HSLColor.fromAHSL(1, hue, .58, .74).toColor(),
+    // darkColor: HSLColor.fromAHSL(1, hue, .52, .3).toColor(),
   ).resolveFrom(context);
 }
 
@@ -268,7 +352,7 @@ class ComicCategoryCard extends StatelessWidget {
             child: Text(
               name,
               style: TextStyle(
-                color: CupertinoColors.white,
+                color: CupertinoColors.label.resolveFrom(context),
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 fontFeatures: [FontFeature.tabularFigures()],

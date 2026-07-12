@@ -1,10 +1,9 @@
-import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/navigation/presentation/main_navigation_page.dart';
 import 'package:comics/shared/application/shared_preferences_provider.dart';
-import 'package:flutter/material.dart';
+import 'package:comics/shared/presentation/theme/app_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -30,20 +29,8 @@ class ComicsApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-      theme: ThemeData(
-        extensions: [
-          PagingHelperViewTheme(
-            sliverLoadingViewBuilder: (_) => const ContentStateSliver.loading(),
-            endLoadingViewBuilder: (_) => Center(
-              child: const GlassProgressIndicator.circular(
-                size: 40,
-                useOwnLayer: true,
-              ),
-            ),
-          ),
-        ],
-      ),
+    return CupertinoApp(
+      theme: AppTheme.system(),
       home: const MainNavigationPage(),
     );
   }

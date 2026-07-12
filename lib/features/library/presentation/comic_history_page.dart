@@ -26,14 +26,53 @@ class ComicHistoryPage extends HookConsumerWidget {
       bottomEdgeFadeExtent: 64,
       headerScrollController: titleController.scrollController,
       appBar: GlassAppBar(
-        title: const Text('阅读历史'),
+        title: const Text('历史'),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back),
-          useOwnLayer: true,
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Semantics(
+          button: true,
+          label: '返回',
+          child: GlassIconButton(
+            icon: const Icon(CupertinoIcons.chevron_back),
+            useOwnLayer: true,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
+        actions: [
+          Semantics(
+            button: true,
+            label: '清空阅读历史',
+            child: GlassIconButton(
+              icon: const Icon(
+                CupertinoIcons.trash,
+                color: CupertinoColors.systemRed,
+              ),
+              useOwnLayer: true,
+              onPressed: () async {
+                final shouldClear = await GlassDialog.show<bool>(
+                  context: context,
+                  title: '清空历史？',
+                  message: '此操作无法撤销。',
+                  actions: [
+                    GlassDialogAction(
+                      label: '取消',
+                      onPressed: () => Navigator.of(context).pop(false),
+                    ),
+                    GlassDialogAction(
+                      label: '清空',
+                      isDestructive: true,
+                      onPressed: () => Navigator.of(context).pop(true),
+                    ),
+                  ],
+                );
+                if (shouldClear != true || !context.mounted) {
+                  return;
+                }
+                await ref.read(libraryDatabaseProvider).clearReadingHistory();
+              },
+            ),
+          ),
+        ],
       ),
       body: CustomScrollView(
         controller: titleController.scrollController,
@@ -42,7 +81,7 @@ class ComicHistoryPage extends HookConsumerWidget {
         ),
         slivers: [
           GlassLargeTitle(
-            text: '阅读历史',
+            text: '历史',
             controller: titleController,
             padding: EdgeInsets.fromLTRB(
               16,
@@ -56,6 +95,7 @@ class ComicHistoryPage extends HookConsumerWidget {
             emptyIcon: CupertinoIcons.clock,
             emptyTitle: '暂无阅读历史',
             emptyMessage: '阅读过的漫画会显示在这里',
+            onRetry: () => ref.invalidate(comicHistoryProvider),
           ),
         ],
       ),

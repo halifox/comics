@@ -90,14 +90,14 @@ class ReaderSettingsNotifier extends Notifier<ReaderSettings> {
     );
   }
 
-  void setMode(ReaderMode value) {
+  void setMode({required ReaderMode value}) {
     state = state.copyWith(mode: value);
     unawaited(
       ref.read(sharedPreferencesProvider).setString(modeKey, value.name),
     );
   }
 
-  void setBackground(ReaderBackground value) {
+  void setBackground({required ReaderBackground value}) {
     state = state.copyWith(background: value);
     unawaited(
       ref.read(sharedPreferencesProvider).setString(backgroundKey, value.name),

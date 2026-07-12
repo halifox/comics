@@ -3,6 +3,7 @@ import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/library/application/comic_library_providers.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/features/reader/presentation/continue_reading_button.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
@@ -37,7 +38,12 @@ class ComicChapterListNotifier extends AsyncNotifier<PagePagingData<ChapterDto>>
 
     final result = await ref
         .read(comicsApiProvider)
-        .chapters(query.comicId, query.groupPathWord, pageSize, offset);
+        .chapters(
+          comicId: query.comicId,
+          groupId: query.groupPathWord,
+          limit: pageSize,
+          offset: offset,
+        );
 
     return PagePagingData(
       items: result.list,
@@ -109,10 +115,14 @@ class ComicChapterListPage extends HookConsumerWidget {
         ),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back),
-          useOwnLayer: true,
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Semantics(
+          button: true,
+          label: '返回',
+          child: GlassIconButton(
+            icon: const Icon(CupertinoIcons.chevron_back),
+            useOwnLayer: true,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
       ),
       bottomBar: groupProgress == null
@@ -171,10 +181,10 @@ class ComicChapterListPage extends HookConsumerWidget {
               ),
             ),
           ),
-          PagingHelperSliverView(
-            provider: provider,
-            futureRefreshable: provider.future,
-            notifierRefreshable: provider.notifier,
+          CupertinoPagingSliverView(
+            state: ref.watch(provider),
+            onLoadNext: () => ref.read(provider.notifier).loadNext(),
+            onRetry: () => ref.read(provider.notifier).forceRefresh(),
             contentBuilder: (data, widgetCount, endItemView) {
               if (data.items.isEmpty) {
                 return const ContentStateSliver.empty(

@@ -10,6 +10,7 @@ class ComicLibraryGrid extends StatelessWidget {
     required this.emptyIcon,
     required this.emptyTitle,
     required this.emptyMessage,
+    this.onRetry,
     super.key,
   });
 
@@ -17,12 +18,14 @@ class ComicLibraryGrid extends StatelessWidget {
   final IconData emptyIcon;
   final String emptyTitle;
   final String emptyMessage;
+  final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
     return items.when(
       loading: () => const ContentStateSliver.loading(),
-      error: (error, _) => ContentStateSliver.error(error),
+      error: (error, stackTrace) =>
+          ContentStateSliver.error(error: error, onRetry: onRetry),
       data: (comics) {
         if (comics.isEmpty) {
           return ContentStateSliver.empty(
@@ -48,7 +51,6 @@ class ComicLibraryGrid extends StatelessWidget {
                 cover: item.comic.cover,
                 name: item.comic.name,
                 author: item.comic.author,
-                badge: null,
                 onTap: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute<void>(

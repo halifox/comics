@@ -29,7 +29,11 @@ class ContinueReadingButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             children: [
-              const Icon(CupertinoIcons.play_fill, size: 20),
+              Icon(
+                CupertinoIcons.book_fill,
+                size: 20,
+                color: CupertinoColors.label.resolveFrom(context),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -40,9 +44,10 @@ class ContinueReadingButton extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
+                        color: CupertinoColors.label.resolveFrom(context),
                       ),
                     ),
                     Text(
@@ -60,7 +65,11 @@ class ContinueReadingButton extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              const Icon(CupertinoIcons.chevron_right, size: 18),
+              Icon(
+                CupertinoIcons.chevron_right,
+                size: 18,
+                color: CupertinoColors.secondaryLabel.resolveFrom(context),
+              ),
             ],
           ),
         ),

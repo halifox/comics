@@ -1,6 +1,7 @@
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,10 +25,8 @@ enum ComicCatalogScope {
 }
 
 enum ComicCatalogOrdering {
-  updatedDescending(value: '-datetime_updated', label: '时间倒序'),
-  updatedAscending(value: 'datetime_updated', label: '时间正序'),
-  popularDescending(value: '-popular', label: '热度倒序'),
-  popularAscending(value: 'popular', label: '热度正序');
+  updatedDescending(value: '-datetime_updated', label: '最近更新'),
+  popularDescending(value: '-popular', label: '热门更新');
 
   const ComicCatalogOrdering({required this.value, required this.label});
 
@@ -66,12 +65,12 @@ class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicDto>>
     final result = await ref
         .read(comicsApiProvider)
         .comics(
-          pageSize,
-          offset,
-          filter.ordering,
-          filter.theme,
-          filter.top,
-          filter.author,
+          limit: pageSize,
+          offset: offset,
+          ordering: filter.ordering,
+          theme: filter.theme,
+          top: filter.top,
+          author: filter.author,
         );
 
     return PagePagingData(
@@ -85,22 +84,28 @@ class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicDto>>
 class ComicCatalogPage extends HookConsumerWidget {
   const ComicCatalogPage({
     required this.title,
+    this.initialScope = ComicCatalogScope.all,
+    this.initialOrdering = ComicCatalogOrdering.updatedDescending,
+    this.showActions = true,
     this.theme,
     this.author,
     super.key,
   }) : assert(
-         (theme != null) != (author != null),
-         '必须且只能提供 theme 或 author 其中一个参数',
+         theme == null || author == null,
+         'theme 和 author 不能同时提供',
        );
 
   final String title;
+  final ComicCatalogScope initialScope;
+  final ComicCatalogOrdering initialOrdering;
+  final bool showActions;
   final String? theme;
   final String? author;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scope = useState(ComicCatalogScope.all);
-    final ordering = useState(ComicCatalogOrdering.updatedDescending);
+    final scope = useState(initialScope);
+    final ordering = useState(initialOrdering);
     final titleController = useGlassLargeTitleController();
     final filter = (
       theme: theme,
@@ -124,47 +129,63 @@ class ComicCatalogPage extends HookConsumerWidget {
         ),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back),
-          useOwnLayer: true,
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Semantics(
+          button: true,
+          label: '返回',
+          child: GlassIconButton(
+            icon: const Icon(CupertinoIcons.chevron_back),
+            useOwnLayer: true,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
-        actions: [
-          GlassPullDownButton(
-            icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
-            menuWidth: 200,
-            menuAlignment: GlassMenuAlignment.topRight,
-            quality: GlassQuality.minimal,
-            items: [
-              for (final option in ComicCatalogScope.values)
-                GlassMenuItem(
-                  title: option.label,
-                  isSelected: scope.value == option,
-                  trailing: scope.value == option
-                      ? const Icon(CupertinoIcons.checkmark, size: 18)
-                      : null,
-                  onTap: () => scope.value = option,
+        actions: showActions
+            ? [
+                Semantics(
+                  button: true,
+                  label: '筛选范围，当前${scope.value.label}',
+                  child: GlassPullDownButton(
+                    icon: const Icon(
+                      CupertinoIcons.line_horizontal_3_decrease,
+                    ),
+                    menuWidth: 200,
+                    menuAlignment: GlassMenuAlignment.topRight,
+                    quality: GlassQuality.minimal,
+                    items: [
+                      for (final option in ComicCatalogScope.values)
+                        GlassMenuItem(
+                          title: option.label,
+                          isSelected: scope.value == option,
+                          trailing: scope.value == option
+                              ? const Icon(CupertinoIcons.checkmark, size: 18)
+                              : null,
+                          onTap: () => scope.value = option,
+                        ),
+                    ],
+                  ),
                 ),
-            ],
-          ),
-          GlassPullDownButton(
-            icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
-            menuWidth: 220,
-            menuAlignment: GlassMenuAlignment.topRight,
-            quality: GlassQuality.minimal,
-            items: [
-              for (final option in ComicCatalogOrdering.values)
-                GlassMenuItem(
-                  title: option.label,
-                  isSelected: ordering.value == option,
-                  trailing: ordering.value == option
-                      ? const Icon(CupertinoIcons.checkmark, size: 18)
-                      : null,
-                  onTap: () => ordering.value = option,
+                Semantics(
+                  button: true,
+                  label: '排序方式，当前${ordering.value.label}',
+                  child: GlassPullDownButton(
+                    icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
+                    menuWidth: 220,
+                    menuAlignment: GlassMenuAlignment.topRight,
+                    quality: GlassQuality.minimal,
+                    items: [
+                      for (final option in ComicCatalogOrdering.values)
+                        GlassMenuItem(
+                          title: option.label,
+                          isSelected: ordering.value == option,
+                          trailing: ordering.value == option
+                              ? const Icon(CupertinoIcons.checkmark, size: 18)
+                              : null,
+                          onTap: () => ordering.value = option,
+                        ),
+                    ],
+                  ),
                 ),
-            ],
-          ),
-        ],
+              ]
+            : const [],
       ),
       body: CustomScrollView(
         controller: titleController.scrollController,
@@ -182,10 +203,10 @@ class ComicCatalogPage extends HookConsumerWidget {
               8,
             ),
           ),
-          PagingHelperSliverView(
-            provider: provider,
-            futureRefreshable: provider.future,
-            notifierRefreshable: provider.notifier,
+          CupertinoPagingSliverView(
+            state: ref.watch(provider),
+            onLoadNext: () => ref.read(provider.notifier).loadNext(),
+            onRetry: () => ref.read(provider.notifier).forceRefresh(),
             contentBuilder: (data, widgetCount, endItemView) {
               if (data.items.isEmpty) {
                 return const ContentStateSliver.empty(
@@ -217,7 +238,6 @@ class ComicCatalogPage extends HookConsumerWidget {
                       author: comic.authors
                           .map((author) => author.name)
                           .join(','),
-                      badge: null,
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute<void>(

@@ -8,6 +8,8 @@ import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
+import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 
 enum ComicRankingAudience {
@@ -15,18 +17,6 @@ enum ComicRankingAudience {
   female(value: 'female', label: '女频');
 
   const ComicRankingAudience({required this.value, required this.label});
-
-  final String value;
-  final String label;
-}
-
-enum ComicRankingPeriod {
-  day(value: 'day', label: '日榜'),
-  week(value: 'week', label: '周榜'),
-  month(value: 'month', label: '月榜'),
-  total(value: 'total', label: '总榜');
-
-  const ComicRankingPeriod({required this.value, required this.label});
 
   final String value;
   final String label;
@@ -60,7 +50,13 @@ class ComicRankingNotifier extends AsyncNotifier<PagePagingData<RankedComicDto>>
     final offset = (page - 1) * pageSize;
     final result = await ref
         .read(comicsApiProvider)
-        .ranks(pageSize, offset, 1, filter.audience.value, filter.period.value);
+        .ranks(
+          limit: pageSize,
+          offset: offset,
+          type: 1,
+          audienceType: filter.audience.value,
+          dateType: filter.period.value,
+        );
 
     return PagePagingData(
       items: result.list,
@@ -71,12 +67,21 @@ class ComicRankingNotifier extends AsyncNotifier<PagePagingData<RankedComicDto>>
 }
 
 class ComicRankingPage extends HookConsumerWidget {
-  const ComicRankingPage({super.key});
+  const ComicRankingPage({
+    required this.onPeriodChanged,
+    this.initialPeriod = ComicRankingPeriod.day,
+    this.scrollResetToken = 0,
+    super.key,
+  });
+
+  final ComicRankingPeriod initialPeriod;
+  final int scrollResetToken;
+  final ValueChanged<ComicRankingPeriod> onPeriodChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audience = useState(ComicRankingAudience.male);
-    final period = useState(ComicRankingPeriod.day);
+    final period = useState(initialPeriod);
     final filter = (audience: audience.value, period: period.value);
     final provider = rankingProvider(filter);
     final titleController = useGlassLargeTitleController();
@@ -93,29 +98,36 @@ class ComicRankingPage extends HookConsumerWidget {
       headerScrollController: titleController.scrollController,
       header: GlassAppBar(
         actions: [
-          GlassPullDownButton(
-            icon: const Icon(CupertinoIcons.calendar),
-            menuWidth: 220,
-            menuAlignment: GlassMenuAlignment.topRight,
-            quality: GlassQuality.minimal,
-            items: [
-              for (final option in ComicRankingPeriod.values)
-                GlassMenuItem(
-                  title: option.label,
-                  isSelected: period.value == option,
-                  trailing: period.value == option
-                      ? const Icon(CupertinoIcons.checkmark, size: 18)
-                      : null,
-                  onTap: () => period.value = option,
-                ),
-            ],
+          Semantics(
+            button: true,
+            label: '排行周期，当前${period.value.label}',
+            child: GlassPullDownButton(
+              icon: const Icon(CupertinoIcons.calendar),
+              menuWidth: 220,
+              menuAlignment: GlassMenuAlignment.topRight,
+              quality: GlassQuality.minimal,
+              items: [
+                for (final option in ComicRankingPeriod.values)
+                  GlassMenuItem(
+                    title: option.label,
+                    isSelected: period.value == option,
+                    trailing: period.value == option
+                        ? const Icon(CupertinoIcons.checkmark, size: 18)
+                        : null,
+                    onTap: () {
+                      period.value = option;
+                      onPeriodChanged(option);
+                    },
+                  ),
+              ],
+            ),
           ),
         ],
       ),
 
       body: CustomScrollView(
         controller: titleController.scrollController,
-        key: const PageStorageKey<String>('ranking-scroll'),
+        key: PageStorageKey<String>('ranking-scroll-$scrollResetToken'),
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),
@@ -147,10 +159,10 @@ class ComicRankingPage extends HookConsumerWidget {
               ),
             ),
           ),
-          PagingHelperSliverView(
-            provider: provider,
-            futureRefreshable: provider.future,
-            notifierRefreshable: provider.notifier,
+          CupertinoPagingSliverView(
+            state: ref.watch(provider),
+            onLoadNext: () => ref.read(provider.notifier).loadNext(),
+            onRetry: () => ref.read(provider.notifier).forceRefresh(),
             contentBuilder: (data, widgetCount, endItemView) {
               if (data.items.isEmpty) {
                 return const ContentStateSliver.empty(
@@ -179,7 +191,7 @@ class ComicRankingPage extends HookConsumerWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute<void>(
-                            builder: (_) => ComicDetailPage(
+                            builder: (routeContext) => ComicDetailPage(
                               comicId: comic.pathWord,
                               name: comic.name,
                               cover: comic.cover,

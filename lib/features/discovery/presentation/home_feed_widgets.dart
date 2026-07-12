@@ -1,50 +1,67 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/presentation/comic_detail_page.dart';
+import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
+import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-import 'package:comics/copy_manga/copy_manga.dart';
-import 'package:comics/features/comic/presentation/comic_detail_page.dart';
+import 'home_featured_ads.dart';
 
 const horizontalPadding = 20.0;
 
 class HomeFeedContent extends StatelessWidget {
-  const HomeFeedContent({required this.data, super.key});
+  const HomeFeedContent({
+    required this.data,
+    required this.onFinishedTap,
+    required this.onNewReleaseTap,
+    required this.onRankingPeriodSelected,
+    super.key,
+  });
 
   final HomeResultDto data;
+  final VoidCallback onFinishedTap;
+  final VoidCallback onNewReleaseTap;
+  final ValueChanged<ComicRankingPeriod> onRankingPeriodSelected;
 
   @override
   Widget build(BuildContext context) {
     return SliverMainAxisGroup(
       slivers: [
-        HorizontalComicSection(
-          title: '推荐',
-          comics: data.recommended.list.map((item) => item.comic).toList(),
-        ),
+        HomeFeaturedAds(recommendations: data.recommended.list),
         HorizontalComicSection(
           title: '热门更新',
           comics: data.hot.map((item) => item.comic).toList(),
         ),
         HorizontalComicSection(
-          title: '最新更新',
+          title: '全新上架',
           comics: data.latest.map((item) => item.comic).toList(),
+          onTitleTap: onNewReleaseTap,
         ),
-        HorizontalComicSection(title: '已完结', comics: data.finished.list),
+        HorizontalComicSection(
+          title: '已完结',
+          comics: data.finished.list,
+          onTitleTap: onFinishedTap,
+        ),
         HorizontalComicSection(
           title: '日榜',
           comics: data.rankDay.list.map((item) => item.comic).toList(),
           badges: data.rankDay.list.map((item) => '${item.sort}').toList(),
+          onTitleTap: () => onRankingPeriodSelected(ComicRankingPeriod.day),
         ),
         HorizontalComicSection(
           title: '周榜',
           comics: data.rankWeek.list.map((item) => item.comic).toList(),
           badges: data.rankWeek.list.map((item) => '${item.sort}').toList(),
+          onTitleTap: () => onRankingPeriodSelected(ComicRankingPeriod.week),
         ),
         HorizontalComicSection(
           title: '月榜',
           comics: data.rankMonth.list.map((item) => item.comic).toList(),
           badges: data.rankMonth.list.map((item) => '${item.sort}').toList(),
+          onTitleTap: () => onRankingPeriodSelected(ComicRankingPeriod.month),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 92)),
       ],
@@ -57,38 +74,53 @@ class HorizontalComicSection extends HookWidget {
     required this.title,
     required this.comics,
     this.badges,
+    this.onTitleTap,
   });
 
   final String title;
   final List<HomeComicDto> comics;
   final List<String>? badges;
+  final VoidCallback? onTitleTap;
 
   @override
   Widget build(BuildContext context) {
-    final pageController = usePageController(viewportFraction: .88);
+    final pageController = usePageController(viewportFraction: .77);
 
     return SliverMainAxisGroup(
       slivers: [
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 12),
-            child: Row(
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: CupertinoColors.label.resolveFrom(context),
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTitleTap,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 8,
+                top: 12,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: CupertinoColors.label.resolveFrom(context),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 6),
-                Icon(
-                  CupertinoIcons.chevron_right,
-                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
-                  size: 16,
-                ),
-              ],
+                  if (onTitleTap != null) ...[
+                    const SizedBox(width: 6),
+                    Icon(
+                      CupertinoIcons.chevron_right,
+                      color: CupertinoColors.secondaryLabel.resolveFrom(
+                        context,
+                      ),
+                      size: 16,
+                    ),
+                  ],
+                ],
+              ),
             ),
           ),
         ),
@@ -102,12 +134,19 @@ class HorizontalComicSection extends HookWidget {
               child: PageView.builder(
                 key: PageStorageKey<String>('PageView-${title}'),
                 controller: pageController,
+                clipBehavior: Clip.none,
                 padEnds: false,
-                physics: const LeadingAlignedPagePhysics(viewportFraction: .82),
-                itemCount: comics.isEmpty ? 0 : comics.length + 1,
+                physics: const LeadingAlignedPagePhysics(viewportFraction: .77),
+                itemCount: comics.length + 1,
                 itemBuilder: (context, index) {
                   if (index == comics.length) {
-                    return const EndOfCarouselCard();
+                    if (onTitleTap == null) {
+                      return const EndOfCarouselCard();
+                    }
+                    return MoreComicsCard(
+                      sectionTitle: title,
+                      onTap: onTitleTap!,
+                    );
                   }
 
                   final comic = comics[index];
@@ -138,7 +177,6 @@ class HorizontalComicSection extends HookWidget {
                       author: comic.authors
                           .map((author) => author.name)
                           .join(','),
-                      badge: null,
                       onTap: () async {
                         final page = pageController.hasClients
                             ? pageController.page ?? 0
@@ -172,8 +210,52 @@ class HorizontalComicSection extends HookWidget {
             ),
           ),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
       ],
+    );
+  }
+}
+
+class MoreComicsCard extends StatelessWidget {
+  const MoreComicsCard({
+    required this.sectionTitle,
+    required this.onTap,
+  });
+
+  final String sectionTitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: '查看更多$sectionTitle',
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 2, bottom: 12),
+            child: SizedBox(
+              width: 62,
+              height: double.infinity,
+              child: GlassContainer(
+                padding: const EdgeInsets.all(12),
+                shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                quality: GlassQuality.minimal,
+                useOwnLayer: true,
+                alignment: .center,
+                child: Icon(
+                  CupertinoIcons.chevron_forward,
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                  size: 24,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -247,7 +329,7 @@ class LeadingAlignedPagePhysics extends PageScrollPhysics {
 }
 
 class SectionHeader extends StatelessWidget {
-  const SectionHeader(this.title);
+  const SectionHeader({required this.title});
 
   final String title;
 
@@ -266,12 +348,6 @@ class SectionHeader extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(width: 6),
-            Icon(
-              CupertinoIcons.chevron_right,
-              color: CupertinoColors.secondaryLabel.resolveFrom(context),
-              size: 16,
-            ),
           ],
         ),
       ),
@@ -284,8 +360,8 @@ class ComicCoverCard extends StatelessWidget {
     required this.cover,
     required this.name,
     required this.author,
-    required this.badge,
     required this.onTap,
+    this.badge,
     super.key,
   });
 
@@ -297,35 +373,35 @@ class ComicCoverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      minSize: 0,
-      pressedOpacity: .72,
-      borderRadius: BorderRadius.circular(26),
-      onPressed: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(26),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
+    return Semantics(
+      button: true,
+      label: name,
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(26),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
             CachedNetworkImage(
               imageUrl: cover,
               fit: BoxFit.cover,
               alignment: Alignment.center,
-              errorWidget: (_, _, _) => ColoredBox(
-                color: CupertinoColors.systemFill.resolveFrom(context),
-                child: const Icon(CupertinoIcons.book, size: 42),
-              ),
+              progressIndicatorBuilder: buildCachedImageLoading,
+              errorWidget: buildCachedImageError,
             ),
             const DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  stops: [0, .55, 1],
+                  stops: [0, .1, .7, 1],
                   colors: [
-                    Color(0x00000000),
                     Color(0x12000000),
+                    Color(0x00000000),
+                    Color(0x00000000),
                     Color(0x5F000000),
                   ],
                 ),
@@ -345,8 +421,8 @@ class ComicCoverCard extends StatelessWidget {
                   useOwnLayer: true,
                   child: Text(
                     badge!,
-                    style: const TextStyle(
-                      color: CupertinoColors.white,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       fontFeatures: [FontFeature.tabularFigures()],
@@ -371,8 +447,8 @@ class ComicCoverCard extends StatelessWidget {
                       name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: CupertinoColors.white,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
@@ -382,7 +458,7 @@ class ComicCoverCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: CupertinoColors.white.withValues(alpha: .9),
+                        color: Color.fromARGB(153, 235, 235, 245),
                         fontSize: 11,
                       ),
                     ),
@@ -390,7 +466,8 @@ class ComicCoverCard extends StatelessWidget {
                 ),
               ),
             ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -405,10 +482,15 @@ class ContentStateSliver extends StatelessWidget {
       title = '正在加载',
       message = '正在获取内容，请稍候',
       iconColor = const Color(0xFFFF5A5F),
-      loading = true;
+      loading = true,
+      onRetry = null;
 
-  factory ContentStateSliver.error(Object error, {Key? key}) {
-    final presentation = errorPresentation(error);
+  factory ContentStateSliver.error({
+    required Object error,
+    VoidCallback? onRetry,
+    Key? key,
+  }) {
+    final presentation = errorPresentation(error: error);
     return ContentStateSliver.internal(
       key: key,
       icon: presentation.$1,
@@ -416,6 +498,7 @@ class ContentStateSliver extends StatelessWidget {
       message: presentation.$3,
       iconColor: Color(0xFF8B5CF6),
       loading: false,
+      onRetry: onRetry,
     );
   }
 
@@ -425,6 +508,7 @@ class ContentStateSliver extends StatelessWidget {
     required this.message,
     required this.iconColor,
     required this.loading,
+    this.onRetry,
     super.key,
   });
 
@@ -437,13 +521,15 @@ class ContentStateSliver extends StatelessWidget {
        title = title,
        message = message,
        iconColor = const Color(0xFFFF5A5F),
-       loading = false;
+       loading = false,
+       onRetry = null;
 
   final IconData icon;
   final String title;
   final String message;
   final Color iconColor;
   final bool loading;
+  final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -465,9 +551,10 @@ class ContentStateSliver extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: CupertinoColors.label.resolveFrom(context),
                 ),
               ),
               const SizedBox(height: 8),
@@ -478,6 +565,28 @@ class ContentStateSliver extends StatelessWidget {
                   color: CupertinoColors.secondaryLabel.resolveFrom(context),
                 ),
               ),
+              if (onRetry != null) ...[
+                const SizedBox(height: 20),
+                GlassButton.custom(
+                  width: 132,
+                  height: 44,
+                  shape: const LiquidRoundedSuperellipse(borderRadius: 44),
+                  quality: GlassQuality.standard,
+                  useOwnLayer: true,
+                  onTap: onRetry!,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(CupertinoIcons.refresh, size: 18),
+                      SizedBox(width: 8),
+                      Text(
+                        '重新加载',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -485,9 +594,9 @@ class ContentStateSliver extends StatelessWidget {
     );
   }
 
-  static ErrorPresentation errorPresentation(Object error) {
+  static ErrorPresentation errorPresentation({required Object error}) {
     if (error is DioException) {
-      final message = responsePayloadMessage(error);
+      final message = responsePayloadMessage(error: error);
 
       if (error.type == DioExceptionType.badResponse) {
         return switch (error.response?.statusCode) {
@@ -518,7 +627,7 @@ class ContentStateSliver extends StatelessWidget {
           422 => (CupertinoIcons.doc_text_search, '内容无法处理', message),
           429 => (CupertinoIcons.hourglass, '请求过于频繁', message),
           int code when code >= 500 => (
-            CupertinoIcons.gear_solid,
+            CupertinoIcons.exclamationmark_triangle_fill,
             '服务异常',
             message,
           ),
@@ -582,12 +691,16 @@ class ContentStateSliver extends StatelessWidget {
     return switch (error) {
       FormatException() ||
       TypeError() => (CupertinoIcons.doc_text_search, '数据异常', ''),
-      StateError() => (CupertinoIcons.gear_solid, '状态异常', ''),
+      StateError() => (
+        CupertinoIcons.exclamationmark_triangle_fill,
+        '状态异常',
+        '',
+      ),
       _ => (CupertinoIcons.exclamationmark_triangle_fill, '出现问题', ''),
     };
   }
 
-  static String responsePayloadMessage(DioException error) {
+  static String responsePayloadMessage({required DioException error}) {
     final data = error.response?.data;
     if (data is Map) {
       for (final key in const ['message', 'detail', 'error']) {

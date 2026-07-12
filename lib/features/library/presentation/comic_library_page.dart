@@ -29,16 +29,20 @@ class ComicLibraryPage extends HookConsumerWidget {
       headerScrollController: titleController.scrollController,
       header: GlassAppBar(
         actions: [
-          GlassIconButton(
-            icon: const Icon(CupertinoIcons.clock),
-            useOwnLayer: true,
-            onPressed: () {
-              Navigator.of(context).push(
-                CupertinoPageRoute<void>(
-                  builder: (_) => const ComicHistoryPage(),
-                ),
-              );
-            },
+          Semantics(
+            button: true,
+            label: '阅读历史',
+            child: GlassIconButton(
+              icon: const Icon(CupertinoIcons.clock),
+              useOwnLayer: true,
+              onPressed: () {
+                Navigator.of(context).push(
+                  CupertinoPageRoute<void>(
+                    builder: (_) => const ComicHistoryPage(),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -64,6 +68,7 @@ class ComicLibraryPage extends HookConsumerWidget {
             emptyIcon: CupertinoIcons.book,
             emptyTitle: '你的书架是空的',
             emptyMessage: '收藏的漫画会显示在这里',
+            onRetry: () => ref.invalidate(favoriteComicsProvider),
           ),
         ],
       ),

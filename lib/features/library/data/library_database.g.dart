@@ -2024,6 +2024,280 @@ class ComicGroupReadingProgressesCompanion
   }
 }
 
+class $SearchHistoriesTable extends SearchHistories
+    with TableInfo<$SearchHistoriesTable, SearchHistory> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SearchHistoriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _normalizedQueryMeta = const VerificationMeta(
+    'normalizedQuery',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedQuery = GeneratedColumn<String>(
+    'normalized_query',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _queryMeta = const VerificationMeta('query');
+  @override
+  late final GeneratedColumn<String> query = GeneratedColumn<String>(
+    'query',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _searchedAtMeta = const VerificationMeta(
+    'searchedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> searchedAt = GeneratedColumn<DateTime>(
+    'searched_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [normalizedQuery, query, searchedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'search_histories';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SearchHistory> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('normalized_query')) {
+      context.handle(
+        _normalizedQueryMeta,
+        normalizedQuery.isAcceptableOrUnknown(
+          data['normalized_query']!,
+          _normalizedQueryMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedQueryMeta);
+    }
+    if (data.containsKey('query')) {
+      context.handle(
+        _queryMeta,
+        query.isAcceptableOrUnknown(data['query']!, _queryMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_queryMeta);
+    }
+    if (data.containsKey('searched_at')) {
+      context.handle(
+        _searchedAtMeta,
+        searchedAt.isAcceptableOrUnknown(data['searched_at']!, _searchedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_searchedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {normalizedQuery};
+  @override
+  SearchHistory map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SearchHistory(
+      normalizedQuery: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_query'],
+      )!,
+      query: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}query'],
+      )!,
+      searchedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}searched_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SearchHistoriesTable createAlias(String alias) {
+    return $SearchHistoriesTable(attachedDatabase, alias);
+  }
+}
+
+class SearchHistory extends DataClass implements Insertable<SearchHistory> {
+  final String normalizedQuery;
+  final String query;
+  final DateTime searchedAt;
+  const SearchHistory({
+    required this.normalizedQuery,
+    required this.query,
+    required this.searchedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['normalized_query'] = Variable<String>(normalizedQuery);
+    map['query'] = Variable<String>(query);
+    map['searched_at'] = Variable<DateTime>(searchedAt);
+    return map;
+  }
+
+  SearchHistoriesCompanion toCompanion(bool nullToAbsent) {
+    return SearchHistoriesCompanion(
+      normalizedQuery: Value(normalizedQuery),
+      query: Value(query),
+      searchedAt: Value(searchedAt),
+    );
+  }
+
+  factory SearchHistory.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SearchHistory(
+      normalizedQuery: serializer.fromJson<String>(json['normalizedQuery']),
+      query: serializer.fromJson<String>(json['query']),
+      searchedAt: serializer.fromJson<DateTime>(json['searchedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'normalizedQuery': serializer.toJson<String>(normalizedQuery),
+      'query': serializer.toJson<String>(query),
+      'searchedAt': serializer.toJson<DateTime>(searchedAt),
+    };
+  }
+
+  SearchHistory copyWith({
+    String? normalizedQuery,
+    String? query,
+    DateTime? searchedAt,
+  }) => SearchHistory(
+    normalizedQuery: normalizedQuery ?? this.normalizedQuery,
+    query: query ?? this.query,
+    searchedAt: searchedAt ?? this.searchedAt,
+  );
+  SearchHistory copyWithCompanion(SearchHistoriesCompanion data) {
+    return SearchHistory(
+      normalizedQuery: data.normalizedQuery.present
+          ? data.normalizedQuery.value
+          : this.normalizedQuery,
+      query: data.query.present ? data.query.value : this.query,
+      searchedAt: data.searchedAt.present
+          ? data.searchedAt.value
+          : this.searchedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SearchHistory(')
+          ..write('normalizedQuery: $normalizedQuery, ')
+          ..write('query: $query, ')
+          ..write('searchedAt: $searchedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(normalizedQuery, query, searchedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SearchHistory &&
+          other.normalizedQuery == this.normalizedQuery &&
+          other.query == this.query &&
+          other.searchedAt == this.searchedAt);
+}
+
+class SearchHistoriesCompanion extends UpdateCompanion<SearchHistory> {
+  final Value<String> normalizedQuery;
+  final Value<String> query;
+  final Value<DateTime> searchedAt;
+  final Value<int> rowid;
+  const SearchHistoriesCompanion({
+    this.normalizedQuery = const Value.absent(),
+    this.query = const Value.absent(),
+    this.searchedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SearchHistoriesCompanion.insert({
+    required String normalizedQuery,
+    required String query,
+    required DateTime searchedAt,
+    this.rowid = const Value.absent(),
+  }) : normalizedQuery = Value(normalizedQuery),
+       query = Value(query),
+       searchedAt = Value(searchedAt);
+  static Insertable<SearchHistory> custom({
+    Expression<String>? normalizedQuery,
+    Expression<String>? query,
+    Expression<DateTime>? searchedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (normalizedQuery != null) 'normalized_query': normalizedQuery,
+      if (query != null) 'query': query,
+      if (searchedAt != null) 'searched_at': searchedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SearchHistoriesCompanion copyWith({
+    Value<String>? normalizedQuery,
+    Value<String>? query,
+    Value<DateTime>? searchedAt,
+    Value<int>? rowid,
+  }) {
+    return SearchHistoriesCompanion(
+      normalizedQuery: normalizedQuery ?? this.normalizedQuery,
+      query: query ?? this.query,
+      searchedAt: searchedAt ?? this.searchedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (normalizedQuery.present) {
+      map['normalized_query'] = Variable<String>(normalizedQuery.value);
+    }
+    if (query.present) {
+      map['query'] = Variable<String>(query.value);
+    }
+    if (searchedAt.present) {
+      map['searched_at'] = Variable<DateTime>(searchedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SearchHistoriesCompanion(')
+          ..write('normalizedQuery: $normalizedQuery, ')
+          ..write('query: $query, ')
+          ..write('searchedAt: $searchedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$LibraryDatabase extends GeneratedDatabase {
   _$LibraryDatabase(QueryExecutor e) : super(e);
   $LibraryDatabaseManager get managers => $LibraryDatabaseManager(this);
@@ -2035,6 +2309,9 @@ abstract class _$LibraryDatabase extends GeneratedDatabase {
       $ComicChapterReadingProgressesTable(this);
   late final $ComicGroupReadingProgressesTable comicGroupReadingProgresses =
       $ComicGroupReadingProgressesTable(this);
+  late final $SearchHistoriesTable searchHistories = $SearchHistoriesTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2045,6 +2322,7 @@ abstract class _$LibraryDatabase extends GeneratedDatabase {
     comicReadingProgresses,
     comicChapterReadingProgresses,
     comicGroupReadingProgresses,
+    searchHistories,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -4160,6 +4438,178 @@ typedef $$ComicGroupReadingProgressesTableProcessedTableManager =
       ComicGroupReadingProgressesData,
       PrefetchHooks Function({bool comicPathWord})
     >;
+typedef $$SearchHistoriesTableCreateCompanionBuilder =
+    SearchHistoriesCompanion Function({
+      required String normalizedQuery,
+      required String query,
+      required DateTime searchedAt,
+      Value<int> rowid,
+    });
+typedef $$SearchHistoriesTableUpdateCompanionBuilder =
+    SearchHistoriesCompanion Function({
+      Value<String> normalizedQuery,
+      Value<String> query,
+      Value<DateTime> searchedAt,
+      Value<int> rowid,
+    });
+
+class $$SearchHistoriesTableFilterComposer
+    extends Composer<_$LibraryDatabase, $SearchHistoriesTable> {
+  $$SearchHistoriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get normalizedQuery => $composableBuilder(
+    column: $table.normalizedQuery,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get query => $composableBuilder(
+    column: $table.query,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get searchedAt => $composableBuilder(
+    column: $table.searchedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SearchHistoriesTableOrderingComposer
+    extends Composer<_$LibraryDatabase, $SearchHistoriesTable> {
+  $$SearchHistoriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get normalizedQuery => $composableBuilder(
+    column: $table.normalizedQuery,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get query => $composableBuilder(
+    column: $table.query,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get searchedAt => $composableBuilder(
+    column: $table.searchedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SearchHistoriesTableAnnotationComposer
+    extends Composer<_$LibraryDatabase, $SearchHistoriesTable> {
+  $$SearchHistoriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get normalizedQuery => $composableBuilder(
+    column: $table.normalizedQuery,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get query =>
+      $composableBuilder(column: $table.query, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get searchedAt => $composableBuilder(
+    column: $table.searchedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$SearchHistoriesTableTableManager
+    extends
+        RootTableManager<
+          _$LibraryDatabase,
+          $SearchHistoriesTable,
+          SearchHistory,
+          $$SearchHistoriesTableFilterComposer,
+          $$SearchHistoriesTableOrderingComposer,
+          $$SearchHistoriesTableAnnotationComposer,
+          $$SearchHistoriesTableCreateCompanionBuilder,
+          $$SearchHistoriesTableUpdateCompanionBuilder,
+          (
+            SearchHistory,
+            BaseReferences<
+              _$LibraryDatabase,
+              $SearchHistoriesTable,
+              SearchHistory
+            >,
+          ),
+          SearchHistory,
+          PrefetchHooks Function()
+        > {
+  $$SearchHistoriesTableTableManager(
+    _$LibraryDatabase db,
+    $SearchHistoriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SearchHistoriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SearchHistoriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SearchHistoriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> normalizedQuery = const Value.absent(),
+                Value<String> query = const Value.absent(),
+                Value<DateTime> searchedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SearchHistoriesCompanion(
+                normalizedQuery: normalizedQuery,
+                query: query,
+                searchedAt: searchedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String normalizedQuery,
+                required String query,
+                required DateTime searchedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => SearchHistoriesCompanion.insert(
+                normalizedQuery: normalizedQuery,
+                query: query,
+                searchedAt: searchedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SearchHistoriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$LibraryDatabase,
+      $SearchHistoriesTable,
+      SearchHistory,
+      $$SearchHistoriesTableFilterComposer,
+      $$SearchHistoriesTableOrderingComposer,
+      $$SearchHistoriesTableAnnotationComposer,
+      $$SearchHistoriesTableCreateCompanionBuilder,
+      $$SearchHistoriesTableUpdateCompanionBuilder,
+      (
+        SearchHistory,
+        BaseReferences<_$LibraryDatabase, $SearchHistoriesTable, SearchHistory>,
+      ),
+      SearchHistory,
+      PrefetchHooks Function()
+    >;
 
 class $LibraryDatabaseManager {
   final _$LibraryDatabase _db;
@@ -4185,4 +4635,6 @@ class $LibraryDatabaseManager {
         _db,
         _db.comicGroupReadingProgresses,
       );
+  $$SearchHistoriesTableTableManager get searchHistories =>
+      $$SearchHistoriesTableTableManager(_db, _db.searchHistories);
 }

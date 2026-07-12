@@ -103,12 +103,12 @@ class _CopyMangaApi implements CopyMangaApi {
   }
 
   @override
-  Future<RankPageResultDto> ranks(
-    int limit,
-    int offset,
-    int type,
-    String audienceType,
-    String dateType, {
+  Future<RankPageResultDto> ranks({
+    required int limit,
+    required int offset,
+    required int type,
+    required String audienceType,
+    required String dateType,
     int platform = 3,
   }) async {
     final _extra = <String, dynamic>{};
@@ -144,13 +144,13 @@ class _CopyMangaApi implements CopyMangaApi {
   }
 
   @override
-  Future<ComicPageResultDto> comics(
-    int limit,
-    int offset,
+  Future<ComicPageResultDto> comics({
+    required int limit,
+    required int offset,
     String? ordering,
     String? theme,
     String? top,
-    String? author, {
+    String? author,
     int freeType = 1,
     int platform = 3,
   }) async {
@@ -190,11 +190,11 @@ class _CopyMangaApi implements CopyMangaApi {
   }
 
   @override
-  Future<ComicPageResultDto> search(
-    int limit,
-    int offset,
-    String query,
-    String queryType, {
+  Future<ComicPageResultDto> search({
+    required int limit,
+    required int offset,
+    required String query,
+    required String queryType,
     int platform = 3,
   }) async {
     final _extra = <String, dynamic>{};
@@ -229,8 +229,8 @@ class _CopyMangaApi implements CopyMangaApi {
   }
 
   @override
-  Future<ComicInfoResultDto> comicInfo(
-    String comicId, {
+  Future<ComicInfoResultDto> comicInfo({
+    required String comicId,
     bool inMainland = false,
     String requestId = "",
     int platform = 3,
@@ -265,11 +265,11 @@ class _CopyMangaApi implements CopyMangaApi {
   }
 
   @override
-  Future<ChapterListResultDto> chapters(
-    String comicId,
-    String groupId,
-    int limit,
-    int offset, {
+  Future<ChapterListResultDto> chapters({
+    required String comicId,
+    required String groupId,
+    required int limit,
+    required int offset,
     bool inMainland = false,
     String requestId = "",
     int platform = 3,
@@ -306,9 +306,9 @@ class _CopyMangaApi implements CopyMangaApi {
   }
 
   @override
-  Future<ChapterContentResultDto> chapter(
-    String comicId,
-    String chapterId, {
+  Future<ChapterContentResultDto> chapter({
+    required String comicId,
+    required String chapterId,
     bool inMainland = false,
     String requestId = "",
     int platform = 3,
@@ -384,7 +384,10 @@ class _CopyMangaRequestIdApi implements CopyMangaRequestIdApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<RequestIdResultDto> query(String format, String ident) async {
+  Future<RequestIdResultDto> query({
+    required String format,
+    required String ident,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'format': format,

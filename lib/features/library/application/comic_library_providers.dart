@@ -17,31 +17,33 @@ final comicHistoryProvider = StreamProvider<List<ComicLibraryItem>>((ref) {
 
 final comicLibraryItemProvider =
     StreamProvider.family<ComicLibraryItem?, String>((ref, pathWord) {
-      return ref.watch(libraryDatabaseProvider).watchComic(pathWord);
+      return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
     });
 
-typedef ComicGroupProgressKey = ({
-  String comicPathWord,
-  String groupPathWord,
-});
+typedef ComicGroupProgressKey = ({String comicPathWord, String groupPathWord});
 
 final comicGroupProgressProvider =
     StreamProvider.family<ComicReadingProgress?, ComicGroupProgressKey>((
       ref,
       key,
     ) {
-      return ref.watch(libraryDatabaseProvider).watchGroupProgress(
-        comicPathWord: key.comicPathWord,
-        groupPathWord: key.groupPathWord,
-      );
+      return ref
+          .watch(libraryDatabaseProvider)
+          .watchGroupProgress(
+            comicPathWord: key.comicPathWord,
+            groupPathWord: key.groupPathWord,
+          );
     });
 
-final comicChapterProgressesProvider = StreamProvider.family<
-  Map<String, ComicReadingProgress>,
-  ComicGroupProgressKey
->((ref, key) {
-  return ref.watch(libraryDatabaseProvider).watchChapterProgresses(
-    comicPathWord: key.comicPathWord,
-    groupPathWord: key.groupPathWord,
-  );
-});
+final comicChapterProgressesProvider =
+    StreamProvider.family<
+      Map<String, ComicReadingProgress>,
+      ComicGroupProgressKey
+    >((ref, key) {
+      return ref
+          .watch(libraryDatabaseProvider)
+          .watchChapterProgresses(
+            comicPathWord: key.comicPathWord,
+            groupPathWord: key.groupPathWord,
+          );
+    });

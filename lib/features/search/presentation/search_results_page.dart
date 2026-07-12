@@ -8,6 +8,7 @@ import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 
 enum ComicSearchField {
@@ -47,7 +48,12 @@ class ComicSearchResultsNotifier extends AsyncNotifier<PagePagingData<ComicDto>>
     final offset = (page - 1) * pageSize;
     final result = await ref
         .read(comicsApiProvider)
-        .search(pageSize, offset, query.query, query.queryType);
+        .search(
+          limit: pageSize,
+          offset: offset,
+          query: query.query,
+          queryType: query.queryType,
+        );
 
     return PagePagingData(
       items: result.list,
@@ -85,28 +91,36 @@ class SearchResultsPage extends HookConsumerWidget {
         ),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back),
-          useOwnLayer: true,
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Semantics(
+          button: true,
+          label: '返回',
+          child: GlassIconButton(
+            icon: const Icon(CupertinoIcons.chevron_back),
+            useOwnLayer: true,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
         actions: [
-          GlassPullDownButton(
-            icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
-            menuWidth: 200,
-            menuAlignment: GlassMenuAlignment.topRight,
-            quality: GlassQuality.minimal,
-            items: [
-              for (final option in ComicSearchField.values)
-                GlassMenuItem(
-                  title: option.label,
-                  isSelected: queryType.value == option,
-                  trailing: queryType.value == option
-                      ? const Icon(CupertinoIcons.checkmark, size: 18)
-                      : null,
-                  onTap: () => queryType.value = option,
-                ),
-            ],
+          Semantics(
+            button: true,
+            label: '搜索范围，当前${queryType.value.label}',
+            child: GlassPullDownButton(
+              icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
+              menuWidth: 200,
+              menuAlignment: GlassMenuAlignment.topRight,
+              quality: GlassQuality.minimal,
+              items: [
+                for (final option in ComicSearchField.values)
+                  GlassMenuItem(
+                    title: option.label,
+                    isSelected: queryType.value == option,
+                    trailing: queryType.value == option
+                        ? const Icon(CupertinoIcons.checkmark, size: 18)
+                        : null,
+                    onTap: () => queryType.value = option,
+                  ),
+              ],
+            ),
           ),
         ],
       ),
@@ -126,10 +140,10 @@ class SearchResultsPage extends HookConsumerWidget {
               8,
             ),
           ),
-          PagingHelperSliverView(
-            provider: provider,
-            futureRefreshable: provider.future,
-            notifierRefreshable: provider.notifier,
+          CupertinoPagingSliverView(
+            state: ref.watch(provider),
+            onLoadNext: () => ref.read(provider.notifier).loadNext(),
+            onRetry: () => ref.read(provider.notifier).forceRefresh(),
             contentBuilder: (data, widgetCount, endItemView) {
               if (data.items.isEmpty) {
                 return ContentStateSliver.empty(
@@ -161,7 +175,6 @@ class SearchResultsPage extends HookConsumerWidget {
                       author: comic.authors
                           .map((author) => author.name)
                           .join(','),
-                      badge: null,
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute<void>(

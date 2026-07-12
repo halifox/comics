@@ -8,9 +8,9 @@ part of 'copy_manga_dto.dart';
 
 _CopyMangaResponse _$CopyMangaResponseFromJson(Map<String, dynamic> json) =>
     _CopyMangaResponse(
-      code: (json['code'] as num).toInt(),
+      code: (json['code'] as num?)?.toInt() ?? 0,
       message: json['message'] as String? ?? '请求失败',
-      results: json['results'],
+      results: json['results'] as Object? ?? const <String, dynamic>{},
     );
 
 Map<String, dynamic> _$CopyMangaResponseToJson(_CopyMangaResponse instance) =>
@@ -68,7 +68,7 @@ _ComicDto _$ComicDtoFromJson(Map<String, dynamic> json) => _ComicDto(
   authorAlias: json['author_alias'] as String? ?? '',
   popular: (json['popular'] as num?)?.toInt() ?? 0,
   status: json['status'] == null
-      ? null
+      ? const ComicStatusDto()
       : ComicStatusDto.fromJson(json['status'] as Map<String, dynamic>),
 );
 
@@ -90,8 +90,10 @@ Map<String, dynamic> _$ComicDtoToJson(_ComicDto instance) => <String, dynamic>{
 
 _RankedComicDto _$RankedComicDtoFromJson(Map<String, dynamic> json) =>
     _RankedComicDto(
-      comic: ComicDto.fromJson(json['comic'] as Map<String, dynamic>),
-      sort: (json['sort'] as num).toInt(),
+      comic: json['comic'] == null
+          ? const ComicDto()
+          : ComicDto.fromJson(json['comic'] as Map<String, dynamic>),
+      sort: (json['sort'] as num?)?.toInt() ?? 0,
       sortLast: (json['sort_last'] as num?)?.toInt() ?? 0,
       riseSort: (json['rise_sort'] as num?)?.toInt() ?? 0,
       riseNum: (json['rise_num'] as num?)?.toInt() ?? 0,
@@ -112,36 +114,56 @@ Map<String, dynamic> _$RankedComicDtoToJson(_RankedComicDto instance) =>
 
 _HomeResultDto _$HomeResultDtoFromJson(Map<String, dynamic> json) =>
     _HomeResultDto(
-      topics: HomeTopicSectionDto.fromJson(
-        json['topics'] as Map<String, dynamic>,
-      ),
-      topicsList: HomeTopicSectionDto.fromJson(
-        json['topicsList'] as Map<String, dynamic>,
-      ),
-      recommended: HomeRecommendedSectionDto.fromJson(
-        json['recComics'] as Map<String, dynamic>,
-      ),
-      hot: (json['hotComics'] as List<dynamic>)
-          .map((e) => HomeUpdateDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      latest: (json['newComics'] as List<dynamic>)
-          .map((e) => HomeUpdateDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      finished: HomeComicSectionDto.fromJson(
-        json['finishComics'] as Map<String, dynamic>,
-      ),
-      rankDay: HomeRankSectionDto.fromJson(
-        json['rankDayComics'] as Map<String, dynamic>,
-      ),
-      rankWeek: HomeRankSectionDto.fromJson(
-        json['rankWeekComics'] as Map<String, dynamic>,
-      ),
-      rankMonth: HomeRankSectionDto.fromJson(
-        json['rankMonthComics'] as Map<String, dynamic>,
-      ),
-      banners: (json['banners'] as List<dynamic>)
-          .map((e) => HomeBannerDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      topics: json['topics'] == null
+          ? const HomeTopicSectionDto()
+          : HomeTopicSectionDto.fromJson(
+              json['topics'] as Map<String, dynamic>,
+            ),
+      topicsList: json['topicsList'] == null
+          ? const HomeTopicSectionDto()
+          : HomeTopicSectionDto.fromJson(
+              json['topicsList'] as Map<String, dynamic>,
+            ),
+      recommended: json['recComics'] == null
+          ? const HomeRecommendedSectionDto()
+          : HomeRecommendedSectionDto.fromJson(
+              json['recComics'] as Map<String, dynamic>,
+            ),
+      hot:
+          (json['hotComics'] as List<dynamic>?)
+              ?.map((e) => HomeUpdateDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      latest:
+          (json['newComics'] as List<dynamic>?)
+              ?.map((e) => HomeUpdateDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      finished: json['finishComics'] == null
+          ? const HomeComicSectionDto()
+          : HomeComicSectionDto.fromJson(
+              json['finishComics'] as Map<String, dynamic>,
+            ),
+      rankDay: json['rankDayComics'] == null
+          ? const HomeRankSectionDto()
+          : HomeRankSectionDto.fromJson(
+              json['rankDayComics'] as Map<String, dynamic>,
+            ),
+      rankWeek: json['rankWeekComics'] == null
+          ? const HomeRankSectionDto()
+          : HomeRankSectionDto.fromJson(
+              json['rankWeekComics'] as Map<String, dynamic>,
+            ),
+      rankMonth: json['rankMonthComics'] == null
+          ? const HomeRankSectionDto()
+          : HomeRankSectionDto.fromJson(
+              json['rankMonthComics'] as Map<String, dynamic>,
+            ),
+      banners:
+          (json['banners'] as List<dynamic>?)
+              ?.map((e) => HomeBannerDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$HomeResultDtoToJson(_HomeResultDto instance) =>
@@ -160,12 +182,14 @@ Map<String, dynamic> _$HomeResultDtoToJson(_HomeResultDto instance) =>
 
 _HomeTopicSectionDto _$HomeTopicSectionDtoFromJson(Map<String, dynamic> json) =>
     _HomeTopicSectionDto(
-      list: (json['list'] as List<dynamic>)
-          .map((e) => HomeTopicDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      total: (json['total'] as num).toInt(),
-      limit: (json['limit'] as num).toInt(),
-      offset: (json['offset'] as num).toInt(),
+      list:
+          (json['list'] as List<dynamic>?)
+              ?.map((e) => HomeTopicDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      limit: (json['limit'] as num?)?.toInt() ?? 0,
+      offset: (json['offset'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$HomeTopicSectionDtoToJson(
@@ -179,15 +203,15 @@ Map<String, dynamic> _$HomeTopicSectionDtoToJson(
 
 _HomeTopicDto _$HomeTopicDtoFromJson(Map<String, dynamic> json) =>
     _HomeTopicDto(
-      title: json['title'] as String,
-      series: json['series'] as String?,
-      journal: json['journal'] as String,
-      cover: json['cover'] as String,
-      period: json['period'] as String,
-      type: (json['type'] as num).toInt(),
+      title: json['title'] as String? ?? '',
+      series: json['series'] as String? ?? '',
+      journal: json['journal'] as String? ?? '',
+      cover: json['cover'] as String? ?? '',
+      period: json['period'] as String? ?? '',
+      type: (json['type'] as num?)?.toInt() ?? 0,
       brief: json['brief'] as String? ?? '',
-      pathWord: json['path_word'] as String,
-      datetimeCreated: json['datetime_created'] as String,
+      pathWord: json['path_word'] as String? ?? '',
+      datetimeCreated: json['datetime_created'] as String? ?? '',
     );
 
 Map<String, dynamic> _$HomeTopicDtoToJson(_HomeTopicDto instance) =>
@@ -206,12 +230,16 @@ Map<String, dynamic> _$HomeTopicDtoToJson(_HomeTopicDto instance) =>
 _HomeRecommendedSectionDto _$HomeRecommendedSectionDtoFromJson(
   Map<String, dynamic> json,
 ) => _HomeRecommendedSectionDto(
-  list: (json['list'] as List<dynamic>)
-      .map((e) => HomeRecommendedItemDto.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  total: (json['total'] as num).toInt(),
-  limit: (json['limit'] as num).toInt(),
-  offset: (json['offset'] as num).toInt(),
+  list:
+      (json['list'] as List<dynamic>?)
+          ?.map(
+            (e) => HomeRecommendedItemDto.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  total: (json['total'] as num?)?.toInt() ?? 0,
+  limit: (json['limit'] as num?)?.toInt() ?? 0,
+  offset: (json['offset'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$HomeRecommendedSectionDtoToJson(
@@ -226,8 +254,10 @@ Map<String, dynamic> _$HomeRecommendedSectionDtoToJson(
 _HomeRecommendedItemDto _$HomeRecommendedItemDtoFromJson(
   Map<String, dynamic> json,
 ) => _HomeRecommendedItemDto(
-  type: (json['type'] as num).toInt(),
-  comic: HomeComicDto.fromJson(json['comic'] as Map<String, dynamic>),
+  type: (json['type'] as num?)?.toInt() ?? 0,
+  comic: json['comic'] == null
+      ? const HomeComicDto()
+      : HomeComicDto.fromJson(json['comic'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$HomeRecommendedItemDtoToJson(
@@ -236,9 +266,11 @@ Map<String, dynamic> _$HomeRecommendedItemDtoToJson(
 
 _HomeUpdateDto _$HomeUpdateDtoFromJson(Map<String, dynamic> json) =>
     _HomeUpdateDto(
-      name: json['name'] as String,
-      datetimeCreated: json['datetime_created'] as String,
-      comic: HomeComicDto.fromJson(json['comic'] as Map<String, dynamic>),
+      name: json['name'] as String? ?? '',
+      datetimeCreated: json['datetime_created'] as String? ?? '',
+      comic: json['comic'] == null
+          ? const HomeComicDto()
+          : HomeComicDto.fromJson(json['comic'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$HomeUpdateDtoToJson(_HomeUpdateDto instance) =>
@@ -250,15 +282,17 @@ Map<String, dynamic> _$HomeUpdateDtoToJson(_HomeUpdateDto instance) =>
 
 _HomeComicSectionDto _$HomeComicSectionDtoFromJson(Map<String, dynamic> json) =>
     _HomeComicSectionDto(
-      name: json['name'] as String,
-      pathWord: json['path_word'] as String,
-      type: json['type'] as String,
-      list: (json['list'] as List<dynamic>)
-          .map((e) => HomeComicDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      total: (json['total'] as num).toInt(),
-      limit: (json['limit'] as num).toInt(),
-      offset: (json['offset'] as num).toInt(),
+      name: json['name'] as String? ?? '',
+      pathWord: json['path_word'] as String? ?? '',
+      type: json['type'] as String? ?? '',
+      list:
+          (json['list'] as List<dynamic>?)
+              ?.map((e) => HomeComicDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      limit: (json['limit'] as num?)?.toInt() ?? 0,
+      offset: (json['offset'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$HomeComicSectionDtoToJson(
@@ -275,12 +309,14 @@ Map<String, dynamic> _$HomeComicSectionDtoToJson(
 
 _HomeRankSectionDto _$HomeRankSectionDtoFromJson(Map<String, dynamic> json) =>
     _HomeRankSectionDto(
-      list: (json['list'] as List<dynamic>)
-          .map((e) => HomeRankItemDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      total: (json['total'] as num).toInt(),
-      limit: (json['limit'] as num).toInt(),
-      offset: (json['offset'] as num).toInt(),
+      list:
+          (json['list'] as List<dynamic>?)
+              ?.map((e) => HomeRankItemDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      limit: (json['limit'] as num?)?.toInt() ?? 0,
+      offset: (json['offset'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$HomeRankSectionDtoToJson(_HomeRankSectionDto instance) =>
@@ -293,13 +329,15 @@ Map<String, dynamic> _$HomeRankSectionDtoToJson(_HomeRankSectionDto instance) =>
 
 _HomeRankItemDto _$HomeRankItemDtoFromJson(Map<String, dynamic> json) =>
     _HomeRankItemDto(
-      comic: HomeComicDto.fromJson(json['comic'] as Map<String, dynamic>),
-      sort: (json['sort'] as num).toInt(),
-      sortLast: (json['sort_last'] as num).toInt(),
-      riseSort: (json['rise_sort'] as num).toInt(),
-      riseNum: (json['rise_num'] as num).toInt(),
-      popular: (json['popular'] as num).toInt(),
-      dateType: (json['date_type'] as num).toInt(),
+      comic: json['comic'] == null
+          ? const HomeComicDto()
+          : HomeComicDto.fromJson(json['comic'] as Map<String, dynamic>),
+      sort: (json['sort'] as num?)?.toInt() ?? 0,
+      sortLast: (json['sort_last'] as num?)?.toInt() ?? 0,
+      riseSort: (json['rise_sort'] as num?)?.toInt() ?? 0,
+      riseNum: (json['rise_num'] as num?)?.toInt() ?? 0,
+      popular: (json['popular'] as num?)?.toInt() ?? 0,
+      dateType: (json['date_type'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$HomeRankItemDtoToJson(_HomeRankItemDto instance) =>
@@ -315,9 +353,9 @@ Map<String, dynamic> _$HomeRankItemDtoToJson(_HomeRankItemDto instance) =>
 
 _HomeComicDto _$HomeComicDtoFromJson(Map<String, dynamic> json) =>
     _HomeComicDto(
-      name: json['name'] as String,
-      pathWord: json['path_word'] as String,
-      cover: json['cover'] as String,
+      name: json['name'] as String? ?? '',
+      pathWord: json['path_word'] as String? ?? '',
+      cover: json['cover'] as String? ?? '',
       authors:
           (json['author'] as List<dynamic>?)
               ?.map((e) => NamedPathDto.fromJson(e as Map<String, dynamic>))
@@ -342,7 +380,7 @@ _HomeComicDto _$HomeComicDtoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => NamedPathDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      freeType: json['free_type'],
+      freeType: json['free_type'] as Object? ?? '',
     );
 
 Map<String, dynamic> _$HomeComicDtoToJson(_HomeComicDto instance) =>
@@ -363,12 +401,12 @@ Map<String, dynamic> _$HomeComicDtoToJson(_HomeComicDto instance) =>
 
 _HomeBannerDto _$HomeBannerDtoFromJson(Map<String, dynamic> json) =>
     _HomeBannerDto(
-      cover: json['cover'] as String,
+      cover: json['cover'] as String? ?? '',
       brief: json['brief'] as String? ?? '',
-      type: (json['type'] as num).toInt(),
-      outUuid: json['out_uuid'] as String,
+      type: (json['type'] as num?)?.toInt() ?? 0,
+      outUuid: json['out_uuid'] as String? ?? '',
       comic: json['comic'] == null
-          ? null
+          ? const NamedPathDto()
           : NamedPathDto.fromJson(json['comic'] as Map<String, dynamic>),
     );
 
@@ -383,10 +421,12 @@ Map<String, dynamic> _$HomeBannerDtoToJson(_HomeBannerDto instance) =>
 
 _ComicPageResultDto _$ComicPageResultDtoFromJson(Map<String, dynamic> json) =>
     _ComicPageResultDto(
-      list: (json['list'] as List<dynamic>)
-          .map((e) => ComicDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      total: (json['total'] as num).toInt(),
+      list:
+          (json['list'] as List<dynamic>?)
+              ?.map((e) => ComicDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      total: (json['total'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$ComicPageResultDtoToJson(_ComicPageResultDto instance) =>
@@ -419,12 +459,18 @@ _ComicInfoResultDto _$ComicInfoResultDtoFromJson(Map<String, dynamic> json) =>
       isLogin: json['is_login'] as bool? ?? false,
       isMobileBind: json['is_mobile_bind'] as bool? ?? false,
       isVip: json['is_vip'] as bool? ?? false,
-      comic: ComicInfoDto.fromJson(json['comic'] as Map<String, dynamic>),
+      comic: json['comic'] == null
+          ? const ComicInfoDto()
+          : ComicInfoDto.fromJson(json['comic'] as Map<String, dynamic>),
       popular: (json['popular'] as num?)?.toInt() ?? 0,
-      groups: (json['groups'] as Map<String, dynamic>).map(
-        (k, e) =>
-            MapEntry(k, ChapterGroupDto.fromJson(e as Map<String, dynamic>)),
-      ),
+      groups:
+          (json['groups'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+              k,
+              ChapterGroupDto.fromJson(e as Map<String, dynamic>),
+            ),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$ComicInfoResultDtoToJson(_ComicInfoResultDto instance) =>
@@ -451,13 +497,13 @@ _ComicInfoDto _$ComicInfoDtoFromJson(Map<String, dynamic> json) =>
       closeComment: json['close_comment'] as bool? ?? false,
       closeRoast: json['close_roast'] as bool? ?? false,
       freeType: json['free_type'] == null
-          ? null
+          ? const LabeledValueDto()
           : LabeledValueDto.fromJson(json['free_type'] as Map<String, dynamic>),
       restrict: json['restrict'] == null
-          ? null
+          ? const LabeledValueDto()
           : LabeledValueDto.fromJson(json['restrict'] as Map<String, dynamic>),
       reclass: json['reclass'] == null
-          ? null
+          ? const LabeledValueDto()
           : LabeledValueDto.fromJson(json['reclass'] as Map<String, dynamic>),
       females:
           (json['females'] as List<dynamic>?)
@@ -476,10 +522,10 @@ _ComicInfoDto _$ComicInfoDtoFromJson(Map<String, dynamic> json) =>
           const [],
       seoBaidu: json['seo_baidu'] as String? ?? '',
       region: json['region'] == null
-          ? null
+          ? const LabeledValueDto()
           : LabeledValueDto.fromJson(json['region'] as Map<String, dynamic>),
       status: json['status'] == null
-          ? null
+          ? const ComicStatusDto()
           : ComicStatusDto.fromJson(json['status'] as Map<String, dynamic>),
       authors:
           (json['author'] as List<dynamic>?)
@@ -500,10 +546,10 @@ _ComicInfoDto _$ComicInfoDtoFromJson(Map<String, dynamic> json) =>
       datetimeUpdated: json['datetime_updated'] as String? ?? '',
       cover: json['cover'] as String? ?? '',
       lastChapter: json['last_chapter'] == null
-          ? null
+          ? const ChapterDto()
           : ChapterDto.fromJson(json['last_chapter'] as Map<String, dynamic>),
       popular: (json['popular'] as num?)?.toInt() ?? 0,
-      channel: json['channel'],
+      channel: json['channel'] as Object? ?? '',
     );
 
 Map<String, dynamic> _$ComicInfoDtoToJson(_ComicInfoDto instance) =>
@@ -591,13 +637,13 @@ _ChapterDto _$ChapterDtoFromJson(Map<String, dynamic> json) => _ChapterDto(
   name: json['name'] as String? ?? '',
   comicId: json['comic_id'] as String? ?? '',
   comicPathWord: json['comic_path_word'] as String? ?? '',
-  groupId: json['group_id'] as String?,
+  groupId: json['group_id'] as String? ?? '',
   groupPathWord: json['group_path_word'] as String? ?? '',
   type: (json['type'] as num?)?.toInt() ?? 0,
   news: json['news'] as String? ?? '',
   datetimeCreated: json['datetime_created'] as String? ?? '',
-  prev: json['prev'] as String?,
-  next: json['next'] as String?,
+  prev: json['prev'] as String? ?? '',
+  next: json['next'] as String? ?? '',
 );
 
 Map<String, dynamic> _$ChapterDtoToJson(_ChapterDto instance) =>
@@ -627,8 +673,12 @@ _ChapterContentResultDto _$ChapterContentResultDtoFromJson(
   isLogin: json['is_login'] as bool? ?? false,
   isMobileBind: json['is_mobile_bind'] as bool? ?? false,
   isVip: json['is_vip'] as bool? ?? false,
-  comic: ChapterComicDto.fromJson(json['comic'] as Map<String, dynamic>),
-  chapter: ChapterContentDto.fromJson(json['chapter'] as Map<String, dynamic>),
+  comic: json['comic'] == null
+      ? const ChapterComicDto()
+      : ChapterComicDto.fromJson(json['comic'] as Map<String, dynamic>),
+  chapter: json['chapter'] == null
+      ? const ChapterContentDto()
+      : ChapterContentDto.fromJson(json['chapter'] as Map<String, dynamic>),
   isBanned: json['is_banned'] as bool? ?? false,
 );
 
@@ -651,7 +701,7 @@ _ChapterComicDto _$ChapterComicDtoFromJson(Map<String, dynamic> json) =>
       uuid: json['uuid'] as String? ?? '',
       pathWord: json['path_word'] as String? ?? '',
       restrict: json['restrict'] == null
-          ? null
+          ? const LabeledValueDto()
           : LabeledValueDto.fromJson(json['restrict'] as Map<String, dynamic>),
     );
 
@@ -673,13 +723,13 @@ _ChapterContentDto _$ChapterContentDtoFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String? ?? '',
       comicId: json['comic_id'] as String? ?? '',
       comicPathWord: json['comic_path_word'] as String? ?? '',
-      groupId: json['group_id'] as String?,
+      groupId: json['group_id'] as String? ?? '',
       groupPathWord: json['group_path_word'] as String? ?? '',
       type: (json['type'] as num?)?.toInt() ?? 0,
       news: json['news'] as String? ?? '',
       datetimeCreated: json['datetime_created'] as String? ?? '',
-      prev: json['prev'] as String?,
-      next: json['next'] as String?,
+      prev: json['prev'] as String? ?? '',
+      next: json['next'] as String? ?? '',
       contents:
           (json['contents'] as List<dynamic>?)
               ?.map((e) => ChapterImageDto.fromJson(e as Map<String, dynamic>))
@@ -721,38 +771,45 @@ _ChapterImageDto _$ChapterImageDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ChapterImageDtoToJson(_ChapterImageDto instance) =>
     <String, dynamic>{'url': instance.url};
 
-_NetworkResultDto _$NetworkResultDtoFromJson(Map<String, dynamic> json) =>
-    _NetworkResultDto(
-      staticHost: json['static'] as String,
-      imageHost: json['image'] as String,
-      share: (json['share'] as List<dynamic>).map((e) => e as String).toList(),
-      api: (json['api'] as List<dynamic>)
-          .map((e) => (e as List<dynamic>).map((e) => e as String).toList())
-          .toList(),
-      ads: (json['ads'] as List<dynamic>)
-          .map((e) => (e as List<dynamic>).map((e) => e as String).toList())
-          .toList(),
-      hostComic: json['host_comic'] as String,
-      hostCartoon: json['host_cartoon'] as String,
-      hostNovel: json['host_novel'] as String,
-      dayDownloadsTotal: (json['day_downloads_total'] as num).toInt(),
-      adsRewardDownloads: (json['ads_reward_downloads'] as num).toInt(),
-      adsRewardDayShow: (json['ads_reward_day_show'] as num).toInt(),
-      adsScreenShow: (json['ads_screen_show'] as num).toInt(),
-      adsReadExpressShow: (json['ads_read_express_show'] as num).toInt(),
-      adsHomeSeconds: (json['ads_home_seconds'] as num).toInt(),
-      adsRestartSeconds: (json['ads_restart_seconds'] as num).toInt(),
-      adsComicShow: (json['ads_comic_show'] as num).toInt(),
-      adsCartoonShow: (json['ads_cartoon_show'] as num).toInt(),
-      dayDownloads: (json['day_downloads'] as num).toInt(),
-      vipDownloads: (json['vip_downloads'] as num).toInt(),
-      rewardDownloads: (json['reward_downloads'] as num).toInt(),
-      adsVipEnd: json['ads_vip_end'],
-      adsStatSwitch: json['ads_stat_switch'] as bool,
-      adsStatSwitch2: json['ads_stat_switch2'] as bool,
-      adsRewardSeconds: (json['ads_reward_seconds'] as num).toInt(),
-      inMainland: json['in_mainland'] as bool,
-    );
+_NetworkResultDto _$NetworkResultDtoFromJson(
+  Map<String, dynamic> json,
+) => _NetworkResultDto(
+  staticHost: json['static'] as String? ?? '',
+  imageHost: json['image'] as String? ?? '',
+  share:
+      (json['share'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  api:
+      (json['api'] as List<dynamic>?)
+          ?.map((e) => (e as List<dynamic>).map((e) => e as String).toList())
+          .toList() ??
+      const [],
+  ads:
+      (json['ads'] as List<dynamic>?)
+          ?.map((e) => (e as List<dynamic>).map((e) => e as String).toList())
+          .toList() ??
+      const [],
+  hostComic: json['host_comic'] as String? ?? '',
+  hostCartoon: json['host_cartoon'] as String? ?? '',
+  hostNovel: json['host_novel'] as String? ?? '',
+  dayDownloadsTotal: (json['day_downloads_total'] as num?)?.toInt() ?? 0,
+  adsRewardDownloads: (json['ads_reward_downloads'] as num?)?.toInt() ?? 0,
+  adsRewardDayShow: (json['ads_reward_day_show'] as num?)?.toInt() ?? 0,
+  adsScreenShow: (json['ads_screen_show'] as num?)?.toInt() ?? 0,
+  adsReadExpressShow: (json['ads_read_express_show'] as num?)?.toInt() ?? 0,
+  adsHomeSeconds: (json['ads_home_seconds'] as num?)?.toInt() ?? 0,
+  adsRestartSeconds: (json['ads_restart_seconds'] as num?)?.toInt() ?? 0,
+  adsComicShow: (json['ads_comic_show'] as num?)?.toInt() ?? 0,
+  adsCartoonShow: (json['ads_cartoon_show'] as num?)?.toInt() ?? 0,
+  dayDownloads: (json['day_downloads'] as num?)?.toInt() ?? 0,
+  vipDownloads: (json['vip_downloads'] as num?)?.toInt() ?? 0,
+  rewardDownloads: (json['reward_downloads'] as num?)?.toInt() ?? 0,
+  adsVipEnd: json['ads_vip_end'] as Object? ?? '',
+  adsStatSwitch: json['ads_stat_switch'] as bool? ?? false,
+  adsStatSwitch2: json['ads_stat_switch2'] as bool? ?? false,
+  adsRewardSeconds: (json['ads_reward_seconds'] as num?)?.toInt() ?? 0,
+  inMainland: json['in_mainland'] as bool? ?? false,
+);
 
 Map<String, dynamic> _$NetworkResultDtoToJson(_NetworkResultDto instance) =>
     <String, dynamic>{

@@ -6,8 +6,8 @@ import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
 import 'package:comics/features/reader/presentation/continue_reading_button.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
+import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
@@ -20,7 +20,7 @@ final comicInfoProvider = FutureProvider.family<ComicInfoResultDto, String>((
   ref,
   comicId,
 ) async {
-  return ref.watch(comicsApiProvider).comicInfo(comicId);
+  return ref.watch(comicsApiProvider).comicInfo(comicId: comicId);
 });
 
 class ComicDetailPage extends HookConsumerWidget {
@@ -67,47 +67,84 @@ class ComicDetailPage extends HookConsumerWidget {
       };
     }, [scrollController]);
 
+    Future<void> toggleFavorite() async {
+      final data = switch (info) {
+        AsyncData(:final value) => value,
+        _ => null,
+      };
+      if (data == null) {
+        return;
+      }
+
+      await ref
+          .read(libraryDatabaseProvider)
+          .toggleFavorite(
+            comic: ComicMetadata(
+              pathWord: data.comic.pathWord,
+              name: data.comic.name,
+              cover: data.comic.cover,
+              author: data.comic.authors
+                  .map((author) => author.name)
+                  .join(','),
+            ),
+          );
+    }
+
+    Future<void> handleFavoritePressed() async {
+      if (isFavorite) {
+        final shouldRemove = await GlassDialog.show<bool>(
+          context: context,
+          title: '移出书架？',
+          message: '确定要将《$name》从书架中移除吗？',
+          actions: [
+            GlassDialogAction(
+              label: '取消',
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            GlassDialogAction(
+              label: '移除',
+              isDestructive: true,
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+          ],
+        );
+        if (shouldRemove != true || !context.mounted) {
+          return;
+        }
+      }
+
+      await toggleFavorite();
+    }
+
     return GlassScaffold(
       edgeToEdge: true,
       contentAwareBrightness: true,
       statusBarStyle: GlassStatusBarStyle.auto,
       background: const AmbientGlowBackground(),
       appBar: GlassAppBar(
-        leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back),
-          useOwnLayer: true,
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Semantics(
+          button: true,
+          label: '返回',
+          child: GlassIconButton(
+            icon: const Icon(CupertinoIcons.chevron_back),
+            useOwnLayer: true,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
         actions: [
-          GlassIconButton(
-            icon: Icon(
-              isFavorite
-                  ? CupertinoIcons.bookmark_fill
-                  : CupertinoIcons.bookmark,
+          Semantics(
+            button: true,
+            label: isFavorite ? '从书架移除' : '添加到书架',
+            toggled: isFavorite,
+            child: GlassIconButton(
+              icon: Icon(
+                isFavorite
+                    ? CupertinoIcons.rectangle_stack_fill
+                    : CupertinoIcons.rectangle_stack_badge_plus,
+              ),
+              useOwnLayer: true,
+              onPressed: handleFavoritePressed,
             ),
-            useOwnLayer: true,
-            onPressed: () async {
-              final data = switch (info) {
-                AsyncData(:final value) => value,
-                _ => null,
-              };
-              if (data == null) {
-                return;
-              }
-
-              await ref
-                  .read(libraryDatabaseProvider)
-                  .toggleFavorite(
-                    ComicMetadata(
-                      pathWord: data.comic.pathWord,
-                      name: data.comic.name,
-                      cover: data.comic.cover,
-                      author: data.comic.authors
-                          .map((author) => author.name)
-                          .join(','),
-                    ),
-                  );
-            },
           ),
         ],
       ),
@@ -146,18 +183,19 @@ class ComicDetailPage extends HookConsumerWidget {
           parent: BouncingScrollPhysics(),
         ),
         slivers: [
-          SliverAppBar(
-            expandedHeight: 500,
-            pinned: false,
-            backgroundColor: CupertinoColors.transparent,
-            automaticallyImplyLeading: false,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Transform.translate(
-                offset: Offset(0, scrollOffset.value * .5),
-                child: CachedNetworkImage(
-                  imageUrl: cover,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
+          SliverToBoxAdapter(
+            child: ClipRect(
+              child: SizedBox(
+                height: 500,
+                child: Transform.translate(
+                  offset: Offset(0, scrollOffset.value * .5),
+                  child: CachedNetworkImage(
+                    imageUrl: cover,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                    progressIndicatorBuilder: buildCachedImageLoading,
+                    errorWidget: buildCachedImageError,
+                  ),
                 ),
               ),
             ),
@@ -167,6 +205,13 @@ class ComicDetailPage extends HookConsumerWidget {
               final author = data.comic.authors
                   .map((author) => author.name)
                   .join(',');
+              final statusIcon = switch (data.comic.status.display) {
+                String display when display.contains('完结') =>
+                  CupertinoIcons.checkmark_seal,
+                String display when display.contains('连载') =>
+                  CupertinoIcons.clock,
+                _ => CupertinoIcons.info_circle,
+              };
               return SliverLayoutBuilder(
                 builder: (context, constraints) {
                   return SliverToBoxAdapter(
@@ -187,8 +232,10 @@ class ComicDetailPage extends HookConsumerWidget {
                           children: [
                             Text(
                               data.comic.name,
-                              style: const TextStyle(
-                                color: CupertinoColors.black,
+                              style: TextStyle(
+                                color: CupertinoColors.label.resolveFrom(
+                                  context,
+                                ),
                                 fontSize: 32,
                                 fontWeight: FontWeight.w700,
                                 height: 1.2,
@@ -209,6 +256,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                             builder: (_) => ComicCatalogPage(
                                               title: author.name,
                                               author: author.pathWord,
+                                              showActions: false,
                                             ),
                                           ),
                                         );
@@ -223,10 +271,8 @@ class ComicDetailPage extends HookConsumerWidget {
                               runSpacing: 8,
                               children: [
                                 GlassChip(
-                                  icon: const Icon(
-                                    CupertinoIcons.checkmark_seal,
-                                  ),
-                                  label: data.comic.status?.display ?? '',
+                                  icon: Icon(statusIcon),
+                                  label: data.comic.status.display,
                                   onTap: () {},
                                 ),
                                 GlassChip(
@@ -236,7 +282,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                 ),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.globe),
-                                  label: data.comic.region?.display ?? '',
+                                  label: data.comic.region.display,
                                   onTap: () {},
                                 ),
                               ],
@@ -265,24 +311,6 @@ class ComicDetailPage extends HookConsumerWidget {
                                   .toList(),
                             ),
 
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: data.comic.alias
-                                  .split(',')
-                                  .map((alias) => alias.trim())
-                                  .where((alias) => alias.isNotEmpty)
-                                  .map(
-                                    (alias) => GlassChip(
-                                      icon: const Icon(
-                                        CupertinoIcons.text_badge_plus,
-                                      ),
-                                      label: alias,
-                                      onTap: () {},
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
                             GlassGroupedSection(
                               margin: .zero,
                               children: data.groups.values.map((e) {
@@ -312,7 +340,7 @@ class ComicDetailPage extends HookConsumerWidget {
                               padding: EdgeInsets.zero,
                               child: GlassListTile(
                                 title: const Text(
-                                  'About',
+                                  '关于',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(data.comic.brief),
@@ -327,7 +355,10 @@ class ComicDetailPage extends HookConsumerWidget {
               );
             },
             loading: () => const ContentStateSliver.loading(),
-            error: (error, _) => ContentStateSliver.error(error),
+            error: (error, stackTrace) => ContentStateSliver.error(
+              error: error,
+              onRetry: () => ref.invalidate(comicInfoProvider(comicId)),
+            ),
           ),
         ],
       ),

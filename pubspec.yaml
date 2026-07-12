@@ -46,6 +46,7 @@ dependencies:
   liquid_glass_widgets: ^0.21.3
   cached_network_image: ^3.4.1
   riverpod_paging_utils: ^1.0.0
+  visibility_detector: ^0.4.0+2
   path_provider: ^2.1.6
   drift: ^2.34.1
   drift_flutter: ^0.3.1
@@ -73,11 +74,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
-  uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -4,7 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'package:comics/features/discovery/presentation/home_page.dart';
+import 'package:comics/features/library/application/comic_library_providers.dart';
 import 'package:comics/features/library/presentation/comic_library_page.dart';
+import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
 import 'package:comics/features/ranking/presentation/comic_ranking_page.dart';
 import 'package:comics/features/search/presentation/search_page.dart';
 import 'package:comics/features/search/presentation/search_results_page.dart';
@@ -14,7 +16,6 @@ enum MainNavigationTab {
     label: '首页',
     icon: CupertinoIcons.house,
     activeIcon: CupertinoIcons.house_fill,
-    glowColor: const Color(0xFFFF5A5F),
   ),
   ranking(
     label: '排行',
@@ -41,9 +42,19 @@ enum MainNavigationTab {
   final IconData activeIcon;
   final Color? glowColor;
 
-  Widget buildPage() => switch (this) {
-    MainNavigationTab.home => const HomePage(),
-    MainNavigationTab.ranking => const ComicRankingPage(),
+  Widget buildPage({
+    required ComicRankingPeriod rankingPeriod,
+    required int rankingScrollResetToken,
+    required ValueChanged<ComicRankingPeriod> onRankingPeriodSelected,
+  }) => switch (this) {
+    MainNavigationTab.home => HomePage(
+      onRankingPeriodSelected: onRankingPeriodSelected,
+    ),
+    MainNavigationTab.ranking => ComicRankingPage(
+      initialPeriod: rankingPeriod,
+      scrollResetToken: rankingScrollResetToken,
+      onPeriodChanged: onRankingPeriodSelected,
+    ),
     MainNavigationTab.library => const ComicLibraryPage(),
   };
 }
@@ -55,6 +66,8 @@ class MainNavigationPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedTab = useState(MainNavigationTab.home);
     final lastContentTab = useState(MainNavigationTab.home);
+    final rankingPeriod = useState(ComicRankingPeriod.day);
+    final rankingScrollResetToken = useState(0);
     final isSearching = useState(false);
     final searchFieldFocused = useState(false);
     final searchController = useTextEditingController();
@@ -62,7 +75,20 @@ class MainNavigationPage extends HookConsumerWidget {
       children: [
         isSearching.value
             ? SearchPage(fieldFocused: searchFieldFocused.value)
-            : selectedTab.value.buildPage(),
+            : selectedTab.value.buildPage(
+                rankingPeriod: rankingPeriod.value,
+                rankingScrollResetToken: rankingScrollResetToken.value,
+                onRankingPeriodSelected: (period) {
+                  if (selectedTab.value != MainNavigationTab.ranking) {
+                    rankingScrollResetToken.value++;
+                  }
+                  rankingPeriod.value = period;
+                  selectedTab.value = MainNavigationTab.ranking;
+                  lastContentTab.value = MainNavigationTab.ranking;
+                  isSearching.value = false;
+                  searchFieldFocused.value = false;
+                },
+              ),
         Positioned(
           left: 0,
           right: 0,
@@ -90,6 +116,9 @@ class MainNavigationPage extends HookConsumerWidget {
                   if (query.isEmpty) {
                     return;
                   }
+                  ref
+                      .read(libraryDatabaseProvider)
+                      .recordSearch(query: query);
                   searchController.clear();
                   FocusManager.instance.primaryFocus?.unfocus();
                   Navigator.of(context).push(
@@ -117,15 +146,20 @@ class MainNavigationPage extends HookConsumerWidget {
               searchBarHeight: 52,
               verticalPadding: 12,
               horizontalPadding: 18,
-              indicatorColor: const Color(0xFFFF5A5F).withValues(alpha: .18),
-              interactionGlowColor: const Color(0xFFFF5A5F),
+              indicatorColor: CupertinoTheme.of(
+                context,
+              ).primaryColor.withValues(alpha: .18),
+              interactionGlowColor: CupertinoTheme.of(context).primaryColor,
+              selectedIconColor: CupertinoColors.label.resolveFrom(context),
+              unselectedIconColor: CupertinoColors.label.resolveFrom(context),
               tabs: [
                 for (final tab in MainNavigationTab.values)
                   GlassTab(
                     icon: Icon(tab.icon),
                     activeIcon: Icon(tab.activeIcon),
                     label: tab.label,
-                    glowColor: tab.glowColor,
+                    glowColor:
+                        tab.glowColor ?? CupertinoTheme.of(context).primaryColor,
                   ),
               ],
             ),

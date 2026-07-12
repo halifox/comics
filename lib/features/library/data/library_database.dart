@@ -90,6 +90,17 @@ class ComicGroupReadingProgresses extends Table {
   Set<Column<Object>> get primaryKey => {comicPathWord, groupPathWord};
 }
 
+class SearchHistories extends Table {
+  TextColumn get normalizedQuery => text()();
+
+  TextColumn get query => text()();
+
+  DateTimeColumn get searchedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {normalizedQuery};
+}
+
 class ComicMetadata {
   const ComicMetadata({
     required this.pathWord,
@@ -143,13 +154,73 @@ class ComicLibraryItem {
     ComicReadingProgresses,
     ComicChapterReadingProgresses,
     ComicGroupReadingProgresses,
+    SearchHistories,
   ],
 )
 class LibraryDatabase extends _$LibraryDatabase {
   LibraryDatabase() : super(driftDatabase(name: 'comic_library'));
 
+  static const maximumSearchHistoryEntries = 12;
+
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (migrator) => migrator.createAll(),
+    onUpgrade: (migrator, from, to) async {
+      if (from < 2) {
+        await migrator.createTable(searchHistories);
+      }
+    },
+  );
+
+  Stream<List<String>> watchSearchHistory() {
+    final query = select(searchHistories)
+      ..orderBy([(row) => OrderingTerm.desc(row.searchedAt)]);
+    return query.watch().map(
+      (entries) => entries.map((entry) => entry.query).toList(growable: false),
+    );
+  }
+
+  Future<void> recordSearch({required String query}) async {
+    final normalizedQuery = query.trim().toLowerCase();
+    if (normalizedQuery.isEmpty) {
+      return;
+    }
+
+    await transaction(() async {
+      await into(searchHistories).insertOnConflictUpdate(
+        SearchHistoriesCompanion.insert(
+          normalizedQuery: normalizedQuery,
+          query: query.trim(),
+          searchedAt: DateTime.now(),
+        ),
+      );
+
+      final overflow = await (select(searchHistories)
+            ..orderBy([(row) => OrderingTerm.desc(row.searchedAt)])
+            ..limit(1000, offset: maximumSearchHistoryEntries))
+          .get();
+      if (overflow.isNotEmpty) {
+        await (delete(searchHistories)..where(
+              (row) => row.normalizedQuery.isIn(
+                overflow.map((entry) => entry.normalizedQuery),
+              ),
+            ))
+            .go();
+      }
+    });
+  }
+
+  Future<void> removeSearch({required String query}) async {
+    await (delete(searchHistories)..where(
+          (row) => row.normalizedQuery.equals(query.trim().toLowerCase()),
+        ))
+        .go();
+  }
+
+  Future<void> clearSearchHistory() => delete(searchHistories).go();
 
   Stream<List<ComicLibraryItem>> watchFavoriteComics() {
     final query = select(storedComics).join([
@@ -164,7 +235,8 @@ class LibraryDatabase extends _$LibraryDatabase {
     ])..orderBy([OrderingTerm.desc(comicFavorites.createdAt)]);
 
     return query.watch().map(
-      (rows) => rows.map(libraryItemFromRow).toList(growable: false),
+      (rows) =>
+          rows.map((e) => libraryItemFromRow(row: e)).toList(growable: false),
     );
   }
 
@@ -181,11 +253,14 @@ class LibraryDatabase extends _$LibraryDatabase {
     ])..orderBy([OrderingTerm.desc(comicReadingProgresses.updatedAt)]);
 
     return query.watch().map(
-      (rows) => rows.map(libraryItemFromRow).toList(growable: false),
+      (rows) =>
+          rows.map((e) => libraryItemFromRow(row: e)).toList(growable: false),
     );
   }
 
-  Stream<ComicLibraryItem?> watchComic(String pathWord) {
+  Future<void> clearReadingHistory() => delete(comicReadingProgresses).go();
+
+  Stream<ComicLibraryItem?> watchComic({required String pathWord}) {
     final query = select(storedComics).join([
       leftOuterJoin(
         comicFavorites,
@@ -198,7 +273,7 @@ class LibraryDatabase extends _$LibraryDatabase {
     ])..where(storedComics.pathWord.equals(pathWord));
 
     return query.watchSingleOrNull().map(
-      (row) => row == null ? null : libraryItemFromRow(row),
+      (row) => row == null ? null : libraryItemFromRow(row: row),
     );
   }
 
@@ -253,9 +328,9 @@ class LibraryDatabase extends _$LibraryDatabase {
     );
   }
 
-  Future<void> toggleFavorite(ComicMetadata comic) async {
+  Future<void> toggleFavorite({required ComicMetadata comic}) async {
     await transaction(() async {
-      await upsertComic(comic);
+      await upsertComic(comic: comic);
       final favorite =
           await (select(comicFavorites)
                 ..where((row) => row.comicPathWord.equals(comic.pathWord)))
@@ -285,7 +360,7 @@ class LibraryDatabase extends _$LibraryDatabase {
     required int pageIndex,
   }) async {
     await transaction(() async {
-      await upsertComic(comic);
+      await upsertComic(comic: comic);
       await into(comicReadingProgresses).insertOnConflictUpdate(
         ComicReadingProgressesCompanion.insert(
           comicPathWord: comic.pathWord,
@@ -322,7 +397,7 @@ class LibraryDatabase extends _$LibraryDatabase {
     });
   }
 
-  Future<void> upsertComic(ComicMetadata comic) async {
+  Future<void> upsertComic({required ComicMetadata comic}) async {
     await into(storedComics).insertOnConflictUpdate(
       StoredComicsCompanion.insert(
         pathWord: comic.pathWord,
@@ -333,7 +408,7 @@ class LibraryDatabase extends _$LibraryDatabase {
     );
   }
 
-  ComicLibraryItem libraryItemFromRow(TypedResult row) {
+  ComicLibraryItem libraryItemFromRow({required TypedResult row}) {
     final comic = row.readTable(storedComics);
     final favorite = row.readTableOrNull(comicFavorites);
     final progress = row.readTableOrNull(comicReadingProgresses);

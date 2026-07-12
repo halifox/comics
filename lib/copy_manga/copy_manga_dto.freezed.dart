@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CopyMangaResponse {
 
- int get code; String get message; Object? get results;
+ int get code; String get message; Object get results;
 /// Create a copy of CopyMangaResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CopyMangaResponseCopyWith<$Res>  {
   factory $CopyMangaResponseCopyWith(CopyMangaResponse value, $Res Function(CopyMangaResponse) _then) = _$CopyMangaResponseCopyWithImpl;
 @useResult
 $Res call({
- int code, String message, Object? results
+ int code, String message, Object results
 });
 
 
@@ -65,11 +65,11 @@ class _$CopyMangaResponseCopyWithImpl<$Res>
 
 /// Create a copy of CopyMangaResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? message = null,Object? results = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? message = null,Object? results = null,}) {
   return _then(_self.copyWith(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as int,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,results: freezed == results ? _self.results : results ,
+as String,results: null == results ? _self.results : results ,
   ));
 }
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int code,  String message,  Object? results)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int code,  String message,  Object results)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CopyMangaResponse() when $default != null:
 return $default(_that.code,_that.message,_that.results);case _:
@@ -175,7 +175,7 @@ return $default(_that.code,_that.message,_that.results);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int code,  String message,  Object? results)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int code,  String message,  Object results)  $default,) {final _that = this;
 switch (_that) {
 case _CopyMangaResponse():
 return $default(_that.code,_that.message,_that.results);case _:
@@ -195,7 +195,7 @@ return $default(_that.code,_that.message,_that.results);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int code,  String message,  Object? results)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int code,  String message,  Object results)?  $default,) {final _that = this;
 switch (_that) {
 case _CopyMangaResponse() when $default != null:
 return $default(_that.code,_that.message,_that.results);case _:
@@ -210,12 +210,12 @@ return $default(_that.code,_that.message,_that.results);case _:
 @JsonSerializable()
 
 class _CopyMangaResponse implements CopyMangaResponse {
-  const _CopyMangaResponse({required this.code, this.message = '请求失败', this.results});
+  const _CopyMangaResponse({this.code = 0, this.message = '请求失败', this.results = const <String, dynamic>{}});
   factory _CopyMangaResponse.fromJson(Map<String, dynamic> json) => _$CopyMangaResponseFromJson(json);
 
-@override final  int code;
+@override@JsonKey() final  int code;
 @override@JsonKey() final  String message;
-@override final  Object? results;
+@override@JsonKey() final  Object results;
 
 /// Create a copy of CopyMangaResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -250,7 +250,7 @@ abstract mixin class _$CopyMangaResponseCopyWith<$Res> implements $CopyMangaResp
   factory _$CopyMangaResponseCopyWith(_CopyMangaResponse value, $Res Function(_CopyMangaResponse) _then) = __$CopyMangaResponseCopyWithImpl;
 @override @useResult
 $Res call({
- int code, String message, Object? results
+ int code, String message, Object results
 });
 
 
@@ -267,11 +267,11 @@ class __$CopyMangaResponseCopyWithImpl<$Res>
 
 /// Create a copy of CopyMangaResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? code = null,Object? message = null,Object? results = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? code = null,Object? message = null,Object? results = null,}) {
   return _then(_CopyMangaResponse(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as int,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,results: freezed == results ? _self.results : results ,
+as String,results: null == results ? _self.results : results ,
   ));
 }
 
@@ -814,7 +814,7 @@ as String,
 /// @nodoc
 mixin _$ComicDto {
 
- String get pathWord; String get uuid; String get name; String get cover; String get brief; String get datetimeUpdated;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get females; List<NamedPathDto> get males; String get authorAlias; int get popular; ComicStatusDto? get status;
+ String get pathWord; String get uuid; String get name; String get cover; String get brief; String get datetimeUpdated;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get females; List<NamedPathDto> get males; String get authorAlias; int get popular; ComicStatusDto get status;
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -847,11 +847,11 @@ abstract mixin class $ComicDtoCopyWith<$Res>  {
   factory $ComicDtoCopyWith(ComicDto value, $Res Function(ComicDto) _then) = _$ComicDtoCopyWithImpl;
 @useResult
 $Res call({
- String pathWord, String uuid, String name, String cover, String brief, String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> females, List<NamedPathDto> males, String authorAlias, int popular, ComicStatusDto? status
+ String pathWord, String uuid, String name, String cover, String brief, String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> females, List<NamedPathDto> males, String authorAlias, int popular, ComicStatusDto status
 });
 
 
-$ComicStatusDtoCopyWith<$Res>? get status;
+$ComicStatusDtoCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -864,7 +864,7 @@ class _$ComicDtoCopyWithImpl<$Res>
 
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? pathWord = null,Object? uuid = null,Object? name = null,Object? cover = null,Object? brief = null,Object? datetimeUpdated = null,Object? authors = null,Object? themes = null,Object? females = null,Object? males = null,Object? authorAlias = null,Object? popular = null,Object? status = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? pathWord = null,Object? uuid = null,Object? name = null,Object? cover = null,Object? brief = null,Object? datetimeUpdated = null,Object? authors = null,Object? themes = null,Object? females = null,Object? males = null,Object? authorAlias = null,Object? popular = null,Object? status = null,}) {
   return _then(_self.copyWith(
 pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -878,20 +878,17 @@ as List<NamedPathDto>,females: null == females ? _self.females : females // igno
 as List<NamedPathDto>,males: null == males ? _self.males : males // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,authorAlias: null == authorAlias ? _self.authorAlias : authorAlias // ignore: cast_nullable_to_non_nullable
 as String,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
-as int,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as ComicStatusDto?,
+as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as ComicStatusDto,
   ));
 }
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ComicStatusDtoCopyWith<$Res>? get status {
-    if (_self.status == null) {
-    return null;
-  }
-
-  return $ComicStatusDtoCopyWith<$Res>(_self.status!, (value) {
+$ComicStatusDtoCopyWith<$Res> get status {
+  
+  return $ComicStatusDtoCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }
@@ -976,7 +973,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto? status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto status)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicDto() when $default != null:
 return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_that.datetimeUpdated,_that.authors,_that.themes,_that.females,_that.males,_that.authorAlias,_that.popular,_that.status);case _:
@@ -997,7 +994,7 @@ return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto? status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto status)  $default,) {final _that = this;
 switch (_that) {
 case _ComicDto():
 return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_that.datetimeUpdated,_that.authors,_that.themes,_that.females,_that.males,_that.authorAlias,_that.popular,_that.status);case _:
@@ -1017,7 +1014,7 @@ return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto? status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto status)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicDto() when $default != null:
 return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_that.datetimeUpdated,_that.authors,_that.themes,_that.females,_that.males,_that.authorAlias,_that.popular,_that.status);case _:
@@ -1032,7 +1029,7 @@ return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_th
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicDto implements ComicDto {
-  const _ComicDto({this.pathWord = '', this.uuid = '', this.name = '', this.cover = '', this.brief = '', this.datetimeUpdated = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], this.authorAlias = '', this.popular = 0, this.status}): _authors = authors,_themes = themes,_females = females,_males = males;
+  const _ComicDto({this.pathWord = '', this.uuid = '', this.name = '', this.cover = '', this.brief = '', this.datetimeUpdated = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], this.authorAlias = '', this.popular = 0, this.status = const ComicStatusDto()}): _authors = authors,_themes = themes,_females = females,_males = males;
   factory _ComicDto.fromJson(Map<String, dynamic> json) => _$ComicDtoFromJson(json);
 
 @override@JsonKey() final  String pathWord;
@@ -1071,7 +1068,7 @@ class _ComicDto implements ComicDto {
 
 @override@JsonKey() final  String authorAlias;
 @override@JsonKey() final  int popular;
-@override final  ComicStatusDto? status;
+@override@JsonKey() final  ComicStatusDto status;
 
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -1106,11 +1103,11 @@ abstract mixin class _$ComicDtoCopyWith<$Res> implements $ComicDtoCopyWith<$Res>
   factory _$ComicDtoCopyWith(_ComicDto value, $Res Function(_ComicDto) _then) = __$ComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String pathWord, String uuid, String name, String cover, String brief, String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> females, List<NamedPathDto> males, String authorAlias, int popular, ComicStatusDto? status
+ String pathWord, String uuid, String name, String cover, String brief, String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> females, List<NamedPathDto> males, String authorAlias, int popular, ComicStatusDto status
 });
 
 
-@override $ComicStatusDtoCopyWith<$Res>? get status;
+@override $ComicStatusDtoCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -1123,7 +1120,7 @@ class __$ComicDtoCopyWithImpl<$Res>
 
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? pathWord = null,Object? uuid = null,Object? name = null,Object? cover = null,Object? brief = null,Object? datetimeUpdated = null,Object? authors = null,Object? themes = null,Object? females = null,Object? males = null,Object? authorAlias = null,Object? popular = null,Object? status = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? pathWord = null,Object? uuid = null,Object? name = null,Object? cover = null,Object? brief = null,Object? datetimeUpdated = null,Object? authors = null,Object? themes = null,Object? females = null,Object? males = null,Object? authorAlias = null,Object? popular = null,Object? status = null,}) {
   return _then(_ComicDto(
 pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -1137,8 +1134,8 @@ as List<NamedPathDto>,females: null == females ? _self._females : females // ign
 as List<NamedPathDto>,males: null == males ? _self._males : males // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,authorAlias: null == authorAlias ? _self.authorAlias : authorAlias // ignore: cast_nullable_to_non_nullable
 as String,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
-as int,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as ComicStatusDto?,
+as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as ComicStatusDto,
   ));
 }
 
@@ -1146,12 +1143,9 @@ as ComicStatusDto?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ComicStatusDtoCopyWith<$Res>? get status {
-    if (_self.status == null) {
-    return null;
-  }
-
-  return $ComicStatusDtoCopyWith<$Res>(_self.status!, (value) {
+$ComicStatusDtoCopyWith<$Res> get status {
+  
+  return $ComicStatusDtoCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }
@@ -1370,11 +1364,11 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _RankedComicDto implements RankedComicDto {
-  const _RankedComicDto({required this.comic, required this.sort, this.sortLast = 0, this.riseSort = 0, this.riseNum = 0, this.dateType = 0, this.popular = 0});
+  const _RankedComicDto({this.comic = const ComicDto(), this.sort = 0, this.sortLast = 0, this.riseSort = 0, this.riseNum = 0, this.dateType = 0, this.popular = 0});
   factory _RankedComicDto.fromJson(Map<String, dynamic> json) => _$RankedComicDtoFromJson(json);
 
-@override final  ComicDto comic;
-@override final  int sort;
+@override@JsonKey() final  ComicDto comic;
+@override@JsonKey() final  int sort;
 @override@JsonKey() final  int sortLast;
 @override@JsonKey() final  int riseSort;
 @override@JsonKey() final  int riseNum;
@@ -1726,11 +1720,11 @@ return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.
 @JsonSerializable()
 
 class _HomeResultDto implements HomeResultDto {
-  const _HomeResultDto({required this.topics, required this.topicsList, @JsonKey(name: 'recComics') required this.recommended, @JsonKey(name: 'hotComics') required final  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics') required final  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics') required this.finished, @JsonKey(name: 'rankDayComics') required this.rankDay, @JsonKey(name: 'rankWeekComics') required this.rankWeek, @JsonKey(name: 'rankMonthComics') required this.rankMonth, required final  List<HomeBannerDto> banners}): _hot = hot,_latest = latest,_banners = banners;
+  const _HomeResultDto({this.topics = const HomeTopicSectionDto(), this.topicsList = const HomeTopicSectionDto(), @JsonKey(name: 'recComics') this.recommended = const HomeRecommendedSectionDto(), @JsonKey(name: 'hotComics') final  List<HomeUpdateDto> hot = const [], @JsonKey(name: 'newComics') final  List<HomeUpdateDto> latest = const [], @JsonKey(name: 'finishComics') this.finished = const HomeComicSectionDto(), @JsonKey(name: 'rankDayComics') this.rankDay = const HomeRankSectionDto(), @JsonKey(name: 'rankWeekComics') this.rankWeek = const HomeRankSectionDto(), @JsonKey(name: 'rankMonthComics') this.rankMonth = const HomeRankSectionDto(), final  List<HomeBannerDto> banners = const []}): _hot = hot,_latest = latest,_banners = banners;
   factory _HomeResultDto.fromJson(Map<String, dynamic> json) => _$HomeResultDtoFromJson(json);
 
-@override final  HomeTopicSectionDto topics;
-@override final  HomeTopicSectionDto topicsList;
+@override@JsonKey() final  HomeTopicSectionDto topics;
+@override@JsonKey() final  HomeTopicSectionDto topicsList;
 @override@JsonKey(name: 'recComics') final  HomeRecommendedSectionDto recommended;
  final  List<HomeUpdateDto> _hot;
 @override@JsonKey(name: 'hotComics') List<HomeUpdateDto> get hot {
@@ -1751,7 +1745,7 @@ class _HomeResultDto implements HomeResultDto {
 @override@JsonKey(name: 'rankWeekComics') final  HomeRankSectionDto rankWeek;
 @override@JsonKey(name: 'rankMonthComics') final  HomeRankSectionDto rankMonth;
  final  List<HomeBannerDto> _banners;
-@override List<HomeBannerDto> get banners {
+@override@JsonKey() List<HomeBannerDto> get banners {
   if (_banners is EqualUnmodifiableListView) return _banners;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_banners);
@@ -2091,19 +2085,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _HomeTopicSectionDto implements HomeTopicSectionDto {
-  const _HomeTopicSectionDto({required final  List<HomeTopicDto> list, required this.total, required this.limit, required this.offset}): _list = list;
+  const _HomeTopicSectionDto({final  List<HomeTopicDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
   factory _HomeTopicSectionDto.fromJson(Map<String, dynamic> json) => _$HomeTopicSectionDtoFromJson(json);
 
  final  List<HomeTopicDto> _list;
-@override List<HomeTopicDto> get list {
+@override@JsonKey() List<HomeTopicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override final  int total;
-@override final  int limit;
-@override final  int offset;
+@override@JsonKey() final  int total;
+@override@JsonKey() final  int limit;
+@override@JsonKey() final  int offset;
 
 /// Create a copy of HomeTopicSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2172,7 +2166,7 @@ as int,
 /// @nodoc
 mixin _$HomeTopicDto {
 
- String get title; String? get series; String get journal; String get cover; String get period; int get type; String get brief; String get pathWord; String get datetimeCreated;
+ String get title; String get series; String get journal; String get cover; String get period; int get type; String get brief; String get pathWord; String get datetimeCreated;
 /// Create a copy of HomeTopicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2205,7 +2199,7 @@ abstract mixin class $HomeTopicDtoCopyWith<$Res>  {
   factory $HomeTopicDtoCopyWith(HomeTopicDto value, $Res Function(HomeTopicDto) _then) = _$HomeTopicDtoCopyWithImpl;
 @useResult
 $Res call({
- String title, String? series, String journal, String cover, String period, int type, String brief, String pathWord, String datetimeCreated
+ String title, String series, String journal, String cover, String period, int type, String brief, String pathWord, String datetimeCreated
 });
 
 
@@ -2222,11 +2216,11 @@ class _$HomeTopicDtoCopyWithImpl<$Res>
 
 /// Create a copy of HomeTopicDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? series = freezed,Object? journal = null,Object? cover = null,Object? period = null,Object? type = null,Object? brief = null,Object? pathWord = null,Object? datetimeCreated = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? series = null,Object? journal = null,Object? cover = null,Object? period = null,Object? type = null,Object? brief = null,Object? pathWord = null,Object? datetimeCreated = null,}) {
   return _then(_self.copyWith(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,series: freezed == series ? _self.series : series // ignore: cast_nullable_to_non_nullable
-as String?,journal: null == journal ? _self.journal : journal // ignore: cast_nullable_to_non_nullable
+as String,series: null == series ? _self.series : series // ignore: cast_nullable_to_non_nullable
+as String,journal: null == journal ? _self.journal : journal // ignore: cast_nullable_to_non_nullable
 as String,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
 as String,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -2318,7 +2312,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String? series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeTopicDto() when $default != null:
 return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,_that.type,_that.brief,_that.pathWord,_that.datetimeCreated);case _:
@@ -2339,7 +2333,7 @@ return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String? series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)  $default,) {final _that = this;
 switch (_that) {
 case _HomeTopicDto():
 return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,_that.type,_that.brief,_that.pathWord,_that.datetimeCreated);case _:
@@ -2359,7 +2353,7 @@ return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String? series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeTopicDto() when $default != null:
 return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,_that.type,_that.brief,_that.pathWord,_that.datetimeCreated);case _:
@@ -2374,18 +2368,18 @@ return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeTopicDto implements HomeTopicDto {
-  const _HomeTopicDto({required this.title, this.series, required this.journal, required this.cover, required this.period, required this.type, this.brief = '', required this.pathWord, required this.datetimeCreated});
+  const _HomeTopicDto({this.title = '', this.series = '', this.journal = '', this.cover = '', this.period = '', this.type = 0, this.brief = '', this.pathWord = '', this.datetimeCreated = ''});
   factory _HomeTopicDto.fromJson(Map<String, dynamic> json) => _$HomeTopicDtoFromJson(json);
 
-@override final  String title;
-@override final  String? series;
-@override final  String journal;
-@override final  String cover;
-@override final  String period;
-@override final  int type;
+@override@JsonKey() final  String title;
+@override@JsonKey() final  String series;
+@override@JsonKey() final  String journal;
+@override@JsonKey() final  String cover;
+@override@JsonKey() final  String period;
+@override@JsonKey() final  int type;
 @override@JsonKey() final  String brief;
-@override final  String pathWord;
-@override final  String datetimeCreated;
+@override@JsonKey() final  String pathWord;
+@override@JsonKey() final  String datetimeCreated;
 
 /// Create a copy of HomeTopicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2420,7 +2414,7 @@ abstract mixin class _$HomeTopicDtoCopyWith<$Res> implements $HomeTopicDtoCopyWi
   factory _$HomeTopicDtoCopyWith(_HomeTopicDto value, $Res Function(_HomeTopicDto) _then) = __$HomeTopicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String title, String? series, String journal, String cover, String period, int type, String brief, String pathWord, String datetimeCreated
+ String title, String series, String journal, String cover, String period, int type, String brief, String pathWord, String datetimeCreated
 });
 
 
@@ -2437,11 +2431,11 @@ class __$HomeTopicDtoCopyWithImpl<$Res>
 
 /// Create a copy of HomeTopicDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? series = freezed,Object? journal = null,Object? cover = null,Object? period = null,Object? type = null,Object? brief = null,Object? pathWord = null,Object? datetimeCreated = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? series = null,Object? journal = null,Object? cover = null,Object? period = null,Object? type = null,Object? brief = null,Object? pathWord = null,Object? datetimeCreated = null,}) {
   return _then(_HomeTopicDto(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,series: freezed == series ? _self.series : series // ignore: cast_nullable_to_non_nullable
-as String?,journal: null == journal ? _self.journal : journal // ignore: cast_nullable_to_non_nullable
+as String,series: null == series ? _self.series : series // ignore: cast_nullable_to_non_nullable
+as String,journal: null == journal ? _self.journal : journal // ignore: cast_nullable_to_non_nullable
 as String,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
 as String,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -2656,19 +2650,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _HomeRecommendedSectionDto implements HomeRecommendedSectionDto {
-  const _HomeRecommendedSectionDto({required final  List<HomeRecommendedItemDto> list, required this.total, required this.limit, required this.offset}): _list = list;
+  const _HomeRecommendedSectionDto({final  List<HomeRecommendedItemDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
   factory _HomeRecommendedSectionDto.fromJson(Map<String, dynamic> json) => _$HomeRecommendedSectionDtoFromJson(json);
 
  final  List<HomeRecommendedItemDto> _list;
-@override List<HomeRecommendedItemDto> get list {
+@override@JsonKey() List<HomeRecommendedItemDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override final  int total;
-@override final  int limit;
-@override final  int offset;
+@override@JsonKey() final  int total;
+@override@JsonKey() final  int limit;
+@override@JsonKey() final  int offset;
 
 /// Create a copy of HomeRecommendedSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2941,11 +2935,11 @@ return $default(_that.type,_that.comic);case _:
 @JsonSerializable()
 
 class _HomeRecommendedItemDto implements HomeRecommendedItemDto {
-  const _HomeRecommendedItemDto({required this.type, required this.comic});
+  const _HomeRecommendedItemDto({this.type = 0, this.comic = const HomeComicDto()});
   factory _HomeRecommendedItemDto.fromJson(Map<String, dynamic> json) => _$HomeRecommendedItemDtoFromJson(json);
 
-@override final  int type;
-@override final  HomeComicDto comic;
+@override@JsonKey() final  int type;
+@override@JsonKey() final  HomeComicDto comic;
 
 /// Create a copy of HomeRecommendedItemDto
 /// with the given fields replaced by the non-null parameter values.
@@ -3226,12 +3220,12 @@ return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeUpdateDto implements HomeUpdateDto {
-  const _HomeUpdateDto({required this.name, required this.datetimeCreated, required this.comic});
+  const _HomeUpdateDto({this.name = '', this.datetimeCreated = '', this.comic = const HomeComicDto()});
   factory _HomeUpdateDto.fromJson(Map<String, dynamic> json) => _$HomeUpdateDtoFromJson(json);
 
-@override final  String name;
-@override final  String datetimeCreated;
-@override final  HomeComicDto comic;
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String datetimeCreated;
+@override@JsonKey() final  HomeComicDto comic;
 
 /// Create a copy of HomeUpdateDto
 /// with the given fields replaced by the non-null parameter values.
@@ -3508,22 +3502,22 @@ return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_tha
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeComicSectionDto implements HomeComicSectionDto {
-  const _HomeComicSectionDto({required this.name, required this.pathWord, required this.type, required final  List<HomeComicDto> list, required this.total, required this.limit, required this.offset}): _list = list;
+  const _HomeComicSectionDto({this.name = '', this.pathWord = '', this.type = '', final  List<HomeComicDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
   factory _HomeComicSectionDto.fromJson(Map<String, dynamic> json) => _$HomeComicSectionDtoFromJson(json);
 
-@override final  String name;
-@override final  String pathWord;
-@override final  String type;
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String pathWord;
+@override@JsonKey() final  String type;
  final  List<HomeComicDto> _list;
-@override List<HomeComicDto> get list {
+@override@JsonKey() List<HomeComicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override final  int total;
-@override final  int limit;
-@override final  int offset;
+@override@JsonKey() final  int total;
+@override@JsonKey() final  int limit;
+@override@JsonKey() final  int offset;
 
 /// Create a copy of HomeComicSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -3792,19 +3786,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _HomeRankSectionDto implements HomeRankSectionDto {
-  const _HomeRankSectionDto({required final  List<HomeRankItemDto> list, required this.total, required this.limit, required this.offset}): _list = list;
+  const _HomeRankSectionDto({final  List<HomeRankItemDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
   factory _HomeRankSectionDto.fromJson(Map<String, dynamic> json) => _$HomeRankSectionDtoFromJson(json);
 
  final  List<HomeRankItemDto> _list;
-@override List<HomeRankItemDto> get list {
+@override@JsonKey() List<HomeRankItemDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override final  int total;
-@override final  int limit;
-@override final  int offset;
+@override@JsonKey() final  int total;
+@override@JsonKey() final  int limit;
+@override@JsonKey() final  int offset;
 
 /// Create a copy of HomeRankSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4082,16 +4076,16 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeRankItemDto implements HomeRankItemDto {
-  const _HomeRankItemDto({required this.comic, required this.sort, required this.sortLast, required this.riseSort, required this.riseNum, required this.popular, required this.dateType});
+  const _HomeRankItemDto({this.comic = const HomeComicDto(), this.sort = 0, this.sortLast = 0, this.riseSort = 0, this.riseNum = 0, this.popular = 0, this.dateType = 0});
   factory _HomeRankItemDto.fromJson(Map<String, dynamic> json) => _$HomeRankItemDtoFromJson(json);
 
-@override final  HomeComicDto comic;
-@override final  int sort;
-@override final  int sortLast;
-@override final  int riseSort;
-@override final  int riseNum;
-@override final  int popular;
-@override final  int dateType;
+@override@JsonKey() final  HomeComicDto comic;
+@override@JsonKey() final  int sort;
+@override@JsonKey() final  int sortLast;
+@override@JsonKey() final  int riseSort;
+@override@JsonKey() final  int riseNum;
+@override@JsonKey() final  int popular;
+@override@JsonKey() final  int dateType;
 
 /// Create a copy of HomeRankItemDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4172,7 +4166,7 @@ $HomeComicDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$HomeComicDto {
 
- String get name; String get pathWord; String get cover;@JsonKey(name: 'author') List<NamedPathDto> get authors; String get authorAlias; int get popular; String get datetimeUpdated; String get lastChapterName; List<NamedPathDto> get females; List<NamedPathDto> get males;@JsonKey(name: 'theme') List<NamedPathDto> get themes; Object? get freeType;
+ String get name; String get pathWord; String get cover;@JsonKey(name: 'author') List<NamedPathDto> get authors; String get authorAlias; int get popular; String get datetimeUpdated; String get lastChapterName; List<NamedPathDto> get females; List<NamedPathDto> get males;@JsonKey(name: 'theme') List<NamedPathDto> get themes; Object get freeType;
 /// Create a copy of HomeComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4205,7 +4199,7 @@ abstract mixin class $HomeComicDtoCopyWith<$Res>  {
   factory $HomeComicDtoCopyWith(HomeComicDto value, $Res Function(HomeComicDto) _then) = _$HomeComicDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String pathWord, String cover,@JsonKey(name: 'author') List<NamedPathDto> authors, String authorAlias, int popular, String datetimeUpdated, String lastChapterName, List<NamedPathDto> females, List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes, Object? freeType
+ String name, String pathWord, String cover,@JsonKey(name: 'author') List<NamedPathDto> authors, String authorAlias, int popular, String datetimeUpdated, String lastChapterName, List<NamedPathDto> females, List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes, Object freeType
 });
 
 
@@ -4222,7 +4216,7 @@ class _$HomeComicDtoCopyWithImpl<$Res>
 
 /// Create a copy of HomeComicDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? pathWord = null,Object? cover = null,Object? authors = null,Object? authorAlias = null,Object? popular = null,Object? datetimeUpdated = null,Object? lastChapterName = null,Object? females = null,Object? males = null,Object? themes = null,Object? freeType = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? pathWord = null,Object? cover = null,Object? authors = null,Object? authorAlias = null,Object? popular = null,Object? datetimeUpdated = null,Object? lastChapterName = null,Object? females = null,Object? males = null,Object? themes = null,Object? freeType = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
@@ -4235,7 +4229,7 @@ as String,lastChapterName: null == lastChapterName ? _self.lastChapterName : las
 as String,females: null == females ? _self.females : females // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,males: null == males ? _self.males : males // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,themes: null == themes ? _self.themes : themes // ignore: cast_nullable_to_non_nullable
-as List<NamedPathDto>,freeType: freezed == freeType ? _self.freeType : freeType ,
+as List<NamedPathDto>,freeType: null == freeType ? _self.freeType : freeType ,
   ));
 }
 
@@ -4320,7 +4314,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object? freeType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object freeType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeComicDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.authorAlias,_that.popular,_that.datetimeUpdated,_that.lastChapterName,_that.females,_that.males,_that.themes,_that.freeType);case _:
@@ -4341,7 +4335,7 @@ return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.author
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object? freeType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object freeType)  $default,) {final _that = this;
 switch (_that) {
 case _HomeComicDto():
 return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.authorAlias,_that.popular,_that.datetimeUpdated,_that.lastChapterName,_that.females,_that.males,_that.themes,_that.freeType);case _:
@@ -4361,7 +4355,7 @@ return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.author
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object? freeType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object freeType)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeComicDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.authorAlias,_that.popular,_that.datetimeUpdated,_that.lastChapterName,_that.females,_that.males,_that.themes,_that.freeType);case _:
@@ -4376,12 +4370,12 @@ return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.author
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeComicDto implements HomeComicDto {
-  const _HomeComicDto({required this.name, required this.pathWord, required this.cover, @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], this.authorAlias = '', this.popular = 0, this.datetimeUpdated = '', this.lastChapterName = '', final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], this.freeType}): _authors = authors,_females = females,_males = males,_themes = themes;
+  const _HomeComicDto({this.name = '', this.pathWord = '', this.cover = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], this.authorAlias = '', this.popular = 0, this.datetimeUpdated = '', this.lastChapterName = '', final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], this.freeType = ''}): _authors = authors,_females = females,_males = males,_themes = themes;
   factory _HomeComicDto.fromJson(Map<String, dynamic> json) => _$HomeComicDtoFromJson(json);
 
-@override final  String name;
-@override final  String pathWord;
-@override final  String cover;
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String pathWord;
+@override@JsonKey() final  String cover;
  final  List<NamedPathDto> _authors;
 @override@JsonKey(name: 'author') List<NamedPathDto> get authors {
   if (_authors is EqualUnmodifiableListView) return _authors;
@@ -4414,7 +4408,7 @@ class _HomeComicDto implements HomeComicDto {
   return EqualUnmodifiableListView(_themes);
 }
 
-@override final  Object? freeType;
+@override@JsonKey() final  Object freeType;
 
 /// Create a copy of HomeComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4449,7 +4443,7 @@ abstract mixin class _$HomeComicDtoCopyWith<$Res> implements $HomeComicDtoCopyWi
   factory _$HomeComicDtoCopyWith(_HomeComicDto value, $Res Function(_HomeComicDto) _then) = __$HomeComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String pathWord, String cover,@JsonKey(name: 'author') List<NamedPathDto> authors, String authorAlias, int popular, String datetimeUpdated, String lastChapterName, List<NamedPathDto> females, List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes, Object? freeType
+ String name, String pathWord, String cover,@JsonKey(name: 'author') List<NamedPathDto> authors, String authorAlias, int popular, String datetimeUpdated, String lastChapterName, List<NamedPathDto> females, List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes, Object freeType
 });
 
 
@@ -4466,7 +4460,7 @@ class __$HomeComicDtoCopyWithImpl<$Res>
 
 /// Create a copy of HomeComicDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? pathWord = null,Object? cover = null,Object? authors = null,Object? authorAlias = null,Object? popular = null,Object? datetimeUpdated = null,Object? lastChapterName = null,Object? females = null,Object? males = null,Object? themes = null,Object? freeType = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? pathWord = null,Object? cover = null,Object? authors = null,Object? authorAlias = null,Object? popular = null,Object? datetimeUpdated = null,Object? lastChapterName = null,Object? females = null,Object? males = null,Object? themes = null,Object? freeType = null,}) {
   return _then(_HomeComicDto(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
@@ -4479,7 +4473,7 @@ as String,lastChapterName: null == lastChapterName ? _self.lastChapterName : las
 as String,females: null == females ? _self._females : females // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,males: null == males ? _self._males : males // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,themes: null == themes ? _self._themes : themes // ignore: cast_nullable_to_non_nullable
-as List<NamedPathDto>,freeType: freezed == freeType ? _self.freeType : freeType ,
+as List<NamedPathDto>,freeType: null == freeType ? _self.freeType : freeType ,
   ));
 }
 
@@ -4490,7 +4484,7 @@ as List<NamedPathDto>,freeType: freezed == freeType ? _self.freeType : freeType 
 /// @nodoc
 mixin _$HomeBannerDto {
 
- String get cover; String get brief; int get type; String get outUuid; NamedPathDto? get comic;
+ String get cover; String get brief; int get type; String get outUuid; NamedPathDto get comic;
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4523,11 +4517,11 @@ abstract mixin class $HomeBannerDtoCopyWith<$Res>  {
   factory $HomeBannerDtoCopyWith(HomeBannerDto value, $Res Function(HomeBannerDto) _then) = _$HomeBannerDtoCopyWithImpl;
 @useResult
 $Res call({
- String cover, String brief, int type, String outUuid, NamedPathDto? comic
+ String cover, String brief, int type, String outUuid, NamedPathDto comic
 });
 
 
-$NamedPathDtoCopyWith<$Res>? get comic;
+$NamedPathDtoCopyWith<$Res> get comic;
 
 }
 /// @nodoc
@@ -4540,26 +4534,23 @@ class _$HomeBannerDtoCopyWithImpl<$Res>
 
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? cover = null,Object? brief = null,Object? type = null,Object? outUuid = null,Object? comic = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? cover = null,Object? brief = null,Object? type = null,Object? outUuid = null,Object? comic = null,}) {
   return _then(_self.copyWith(
 cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
 as String,brief: null == brief ? _self.brief : brief // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as int,outUuid: null == outUuid ? _self.outUuid : outUuid // ignore: cast_nullable_to_non_nullable
-as String,comic: freezed == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
-as NamedPathDto?,
+as String,comic: null == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
+as NamedPathDto,
   ));
 }
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$NamedPathDtoCopyWith<$Res>? get comic {
-    if (_self.comic == null) {
-    return null;
-  }
-
-  return $NamedPathDtoCopyWith<$Res>(_self.comic!, (value) {
+$NamedPathDtoCopyWith<$Res> get comic {
+  
+  return $NamedPathDtoCopyWith<$Res>(_self.comic, (value) {
     return _then(_self.copyWith(comic: value));
   });
 }
@@ -4644,7 +4635,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto? comic)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeBannerDto() when $default != null:
 return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);case _:
@@ -4665,7 +4656,7 @@ return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto? comic)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto comic)  $default,) {final _that = this;
 switch (_that) {
 case _HomeBannerDto():
 return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);case _:
@@ -4685,7 +4676,7 @@ return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto? comic)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto comic)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeBannerDto() when $default != null:
 return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);case _:
@@ -4700,14 +4691,14 @@ return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);ca
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeBannerDto implements HomeBannerDto {
-  const _HomeBannerDto({required this.cover, this.brief = '', required this.type, required this.outUuid, this.comic});
+  const _HomeBannerDto({this.cover = '', this.brief = '', this.type = 0, this.outUuid = '', this.comic = const NamedPathDto()});
   factory _HomeBannerDto.fromJson(Map<String, dynamic> json) => _$HomeBannerDtoFromJson(json);
 
-@override final  String cover;
+@override@JsonKey() final  String cover;
 @override@JsonKey() final  String brief;
-@override final  int type;
-@override final  String outUuid;
-@override final  NamedPathDto? comic;
+@override@JsonKey() final  int type;
+@override@JsonKey() final  String outUuid;
+@override@JsonKey() final  NamedPathDto comic;
 
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4742,11 +4733,11 @@ abstract mixin class _$HomeBannerDtoCopyWith<$Res> implements $HomeBannerDtoCopy
   factory _$HomeBannerDtoCopyWith(_HomeBannerDto value, $Res Function(_HomeBannerDto) _then) = __$HomeBannerDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String cover, String brief, int type, String outUuid, NamedPathDto? comic
+ String cover, String brief, int type, String outUuid, NamedPathDto comic
 });
 
 
-@override $NamedPathDtoCopyWith<$Res>? get comic;
+@override $NamedPathDtoCopyWith<$Res> get comic;
 
 }
 /// @nodoc
@@ -4759,14 +4750,14 @@ class __$HomeBannerDtoCopyWithImpl<$Res>
 
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? cover = null,Object? brief = null,Object? type = null,Object? outUuid = null,Object? comic = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? cover = null,Object? brief = null,Object? type = null,Object? outUuid = null,Object? comic = null,}) {
   return _then(_HomeBannerDto(
 cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
 as String,brief: null == brief ? _self.brief : brief // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as int,outUuid: null == outUuid ? _self.outUuid : outUuid // ignore: cast_nullable_to_non_nullable
-as String,comic: freezed == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
-as NamedPathDto?,
+as String,comic: null == comic ? _self.comic : comic // ignore: cast_nullable_to_non_nullable
+as NamedPathDto,
   ));
 }
 
@@ -4774,12 +4765,9 @@ as NamedPathDto?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$NamedPathDtoCopyWith<$Res>? get comic {
-    if (_self.comic == null) {
-    return null;
-  }
-
-  return $NamedPathDtoCopyWith<$Res>(_self.comic!, (value) {
+$NamedPathDtoCopyWith<$Res> get comic {
+  
+  return $NamedPathDtoCopyWith<$Res>(_self.comic, (value) {
     return _then(_self.copyWith(comic: value));
   });
 }
@@ -4984,17 +4972,17 @@ return $default(_that.list,_that.total);case _:
 @JsonSerializable()
 
 class _ComicPageResultDto implements ComicPageResultDto {
-  const _ComicPageResultDto({required final  List<ComicDto> list, required this.total}): _list = list;
+  const _ComicPageResultDto({final  List<ComicDto> list = const [], this.total = 0}): _list = list;
   factory _ComicPageResultDto.fromJson(Map<String, dynamic> json) => _$ComicPageResultDtoFromJson(json);
 
  final  List<ComicDto> _list;
-@override List<ComicDto> get list {
+@override@JsonKey() List<ComicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override final  int total;
+@override@JsonKey() final  int total;
 
 /// Create a copy of ComicPageResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -5549,7 +5537,7 @@ return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_th
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicInfoResultDto implements ComicInfoResultDto {
-  const _ComicInfoResultDto({this.isBanned = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, required this.comic, this.popular = 0, required final  Map<String, ChapterGroupDto> groups}): _groups = groups;
+  const _ComicInfoResultDto({this.isBanned = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, this.comic = const ComicInfoDto(), this.popular = 0, final  Map<String, ChapterGroupDto> groups = const {}}): _groups = groups;
   factory _ComicInfoResultDto.fromJson(Map<String, dynamic> json) => _$ComicInfoResultDtoFromJson(json);
 
 @override@JsonKey() final  bool isBanned;
@@ -5557,10 +5545,10 @@ class _ComicInfoResultDto implements ComicInfoResultDto {
 @override@JsonKey() final  bool isLogin;
 @override@JsonKey() final  bool isMobileBind;
 @override@JsonKey() final  bool isVip;
-@override final  ComicInfoDto comic;
+@override@JsonKey() final  ComicInfoDto comic;
 @override@JsonKey() final  int popular;
  final  Map<String, ChapterGroupDto> _groups;
-@override Map<String, ChapterGroupDto> get groups {
+@override@JsonKey() Map<String, ChapterGroupDto> get groups {
   if (_groups is EqualUnmodifiableMapView) return _groups;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_groups);
@@ -5647,7 +5635,7 @@ $ComicInfoDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$ComicInfoDto {
 
- String get uuid;@JsonKey(name: 'b_404') bool get b404; bool get bHidden; int get ban; String get name; String get alias; String get pathWord; bool get closeComment; bool get closeRoast; LabeledValueDto? get freeType; LabeledValueDto? get restrict; LabeledValueDto? get reclass; List<NamedPathDto> get females; List<NamedPathDto> get males; List<NamedPathDto> get clubs; String get seoBaidu; LabeledValueDto? get region; ComicStatusDto? get status;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get parodies; String get brief; String get datetimeUpdated; String get cover; ChapterDto? get lastChapter; int get popular; Object? get channel;
+ String get uuid;@JsonKey(name: 'b_404') bool get b404; bool get bHidden; int get ban; String get name; String get alias; String get pathWord; bool get closeComment; bool get closeRoast; LabeledValueDto get freeType; LabeledValueDto get restrict; LabeledValueDto get reclass; List<NamedPathDto> get females; List<NamedPathDto> get males; List<NamedPathDto> get clubs; String get seoBaidu; LabeledValueDto get region; ComicStatusDto get status;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get parodies; String get brief; String get datetimeUpdated; String get cover; ChapterDto get lastChapter; int get popular; Object get channel;
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5680,11 +5668,11 @@ abstract mixin class $ComicInfoDtoCopyWith<$Res>  {
   factory $ComicInfoDtoCopyWith(ComicInfoDto value, $Res Function(ComicInfoDto) _then) = _$ComicInfoDtoCopyWithImpl;
 @useResult
 $Res call({
- String uuid,@JsonKey(name: 'b_404') bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto? freeType, LabeledValueDto? restrict, LabeledValueDto? reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto? region, ComicStatusDto? status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto? lastChapter, int popular, Object? channel
+ String uuid,@JsonKey(name: 'b_404') bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto freeType, LabeledValueDto restrict, LabeledValueDto reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto region, ComicStatusDto status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto lastChapter, int popular, Object channel
 });
 
 
-$LabeledValueDtoCopyWith<$Res>? get freeType;$LabeledValueDtoCopyWith<$Res>? get restrict;$LabeledValueDtoCopyWith<$Res>? get reclass;$LabeledValueDtoCopyWith<$Res>? get region;$ComicStatusDtoCopyWith<$Res>? get status;$ChapterDtoCopyWith<$Res>? get lastChapter;
+$LabeledValueDtoCopyWith<$Res> get freeType;$LabeledValueDtoCopyWith<$Res> get restrict;$LabeledValueDtoCopyWith<$Res> get reclass;$LabeledValueDtoCopyWith<$Res> get region;$ComicStatusDtoCopyWith<$Res> get status;$ChapterDtoCopyWith<$Res> get lastChapter;
 
 }
 /// @nodoc
@@ -5697,7 +5685,7 @@ class _$ComicInfoDtoCopyWithImpl<$Res>
 
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uuid = null,Object? b404 = null,Object? bHidden = null,Object? ban = null,Object? name = null,Object? alias = null,Object? pathWord = null,Object? closeComment = null,Object? closeRoast = null,Object? freeType = freezed,Object? restrict = freezed,Object? reclass = freezed,Object? females = null,Object? males = null,Object? clubs = null,Object? seoBaidu = null,Object? region = freezed,Object? status = freezed,Object? authors = null,Object? themes = null,Object? parodies = null,Object? brief = null,Object? datetimeUpdated = null,Object? cover = null,Object? lastChapter = freezed,Object? popular = null,Object? channel = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? uuid = null,Object? b404 = null,Object? bHidden = null,Object? ban = null,Object? name = null,Object? alias = null,Object? pathWord = null,Object? closeComment = null,Object? closeRoast = null,Object? freeType = null,Object? restrict = null,Object? reclass = null,Object? females = null,Object? males = null,Object? clubs = null,Object? seoBaidu = null,Object? region = null,Object? status = null,Object? authors = null,Object? themes = null,Object? parodies = null,Object? brief = null,Object? datetimeUpdated = null,Object? cover = null,Object? lastChapter = null,Object? popular = null,Object? channel = null,}) {
   return _then(_self.copyWith(
 uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
 as String,b404: null == b404 ? _self.b404 : b404 // ignore: cast_nullable_to_non_nullable
@@ -5708,96 +5696,78 @@ as String,alias: null == alias ? _self.alias : alias // ignore: cast_nullable_to
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
 as String,closeComment: null == closeComment ? _self.closeComment : closeComment // ignore: cast_nullable_to_non_nullable
 as bool,closeRoast: null == closeRoast ? _self.closeRoast : closeRoast // ignore: cast_nullable_to_non_nullable
-as bool,freeType: freezed == freeType ? _self.freeType : freeType // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,restrict: freezed == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,reclass: freezed == reclass ? _self.reclass : reclass // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,females: null == females ? _self.females : females // ignore: cast_nullable_to_non_nullable
+as bool,freeType: null == freeType ? _self.freeType : freeType // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,restrict: null == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,reclass: null == reclass ? _self.reclass : reclass // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,females: null == females ? _self.females : females // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,males: null == males ? _self.males : males // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,clubs: null == clubs ? _self.clubs : clubs // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,seoBaidu: null == seoBaidu ? _self.seoBaidu : seoBaidu // ignore: cast_nullable_to_non_nullable
-as String,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as ComicStatusDto?,authors: null == authors ? _self.authors : authors // ignore: cast_nullable_to_non_nullable
+as String,region: null == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as ComicStatusDto,authors: null == authors ? _self.authors : authors // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,themes: null == themes ? _self.themes : themes // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,parodies: null == parodies ? _self.parodies : parodies // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,brief: null == brief ? _self.brief : brief // ignore: cast_nullable_to_non_nullable
 as String,datetimeUpdated: null == datetimeUpdated ? _self.datetimeUpdated : datetimeUpdated // ignore: cast_nullable_to_non_nullable
 as String,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
-as String,lastChapter: freezed == lastChapter ? _self.lastChapter : lastChapter // ignore: cast_nullable_to_non_nullable
-as ChapterDto?,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
-as int,channel: freezed == channel ? _self.channel : channel ,
+as String,lastChapter: null == lastChapter ? _self.lastChapter : lastChapter // ignore: cast_nullable_to_non_nullable
+as ChapterDto,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
+as int,channel: null == channel ? _self.channel : channel ,
   ));
 }
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get freeType {
-    if (_self.freeType == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.freeType!, (value) {
+$LabeledValueDtoCopyWith<$Res> get freeType {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.freeType, (value) {
     return _then(_self.copyWith(freeType: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get restrict {
-    if (_self.restrict == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.restrict!, (value) {
+$LabeledValueDtoCopyWith<$Res> get restrict {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.restrict, (value) {
     return _then(_self.copyWith(restrict: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get reclass {
-    if (_self.reclass == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.reclass!, (value) {
+$LabeledValueDtoCopyWith<$Res> get reclass {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.reclass, (value) {
     return _then(_self.copyWith(reclass: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get region {
-    if (_self.region == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.region!, (value) {
+$LabeledValueDtoCopyWith<$Res> get region {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.region, (value) {
     return _then(_self.copyWith(region: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ComicStatusDtoCopyWith<$Res>? get status {
-    if (_self.status == null) {
-    return null;
-  }
-
-  return $ComicStatusDtoCopyWith<$Res>(_self.status!, (value) {
+$ComicStatusDtoCopyWith<$Res> get status {
+  
+  return $ComicStatusDtoCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ChapterDtoCopyWith<$Res>? get lastChapter {
-    if (_self.lastChapter == null) {
-    return null;
-  }
-
-  return $ChapterDtoCopyWith<$Res>(_self.lastChapter!, (value) {
+$ChapterDtoCopyWith<$Res> get lastChapter {
+  
+  return $ChapterDtoCopyWith<$Res>(_self.lastChapter, (value) {
     return _then(_self.copyWith(lastChapter: value));
   });
 }
@@ -5882,7 +5852,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto? freeType,  LabeledValueDto? restrict,  LabeledValueDto? reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto? region,  ComicStatusDto? status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto? lastChapter,  int popular,  Object? channel)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto freeType,  LabeledValueDto restrict,  LabeledValueDto reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto region,  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto lastChapter,  int popular,  Object channel)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicInfoDto() when $default != null:
 return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
@@ -5903,7 +5873,7 @@ return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto? freeType,  LabeledValueDto? restrict,  LabeledValueDto? reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto? region,  ComicStatusDto? status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto? lastChapter,  int popular,  Object? channel)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto freeType,  LabeledValueDto restrict,  LabeledValueDto reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto region,  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto lastChapter,  int popular,  Object channel)  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoDto():
 return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
@@ -5923,7 +5893,7 @@ return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto? freeType,  LabeledValueDto? restrict,  LabeledValueDto? reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto? region,  ComicStatusDto? status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto? lastChapter,  int popular,  Object? channel)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto freeType,  LabeledValueDto restrict,  LabeledValueDto reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto region,  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto lastChapter,  int popular,  Object channel)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoDto() when $default != null:
 return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
@@ -5938,7 +5908,7 @@ return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.a
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicInfoDto implements ComicInfoDto {
-  const _ComicInfoDto({this.uuid = '', @JsonKey(name: 'b_404') this.b404 = false, this.bHidden = false, this.ban = 0, this.name = '', this.alias = '', this.pathWord = '', this.closeComment = false, this.closeRoast = false, this.freeType, this.restrict, this.reclass, final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], final  List<NamedPathDto> clubs = const [], this.seoBaidu = '', this.region, this.status, @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> parodies = const [], this.brief = '', this.datetimeUpdated = '', this.cover = '', this.lastChapter, this.popular = 0, this.channel}): _females = females,_males = males,_clubs = clubs,_authors = authors,_themes = themes,_parodies = parodies;
+  const _ComicInfoDto({this.uuid = '', @JsonKey(name: 'b_404') this.b404 = false, this.bHidden = false, this.ban = 0, this.name = '', this.alias = '', this.pathWord = '', this.closeComment = false, this.closeRoast = false, this.freeType = const LabeledValueDto(), this.restrict = const LabeledValueDto(), this.reclass = const LabeledValueDto(), final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], final  List<NamedPathDto> clubs = const [], this.seoBaidu = '', this.region = const LabeledValueDto(), this.status = const ComicStatusDto(), @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> parodies = const [], this.brief = '', this.datetimeUpdated = '', this.cover = '', this.lastChapter = const ChapterDto(), this.popular = 0, this.channel = ''}): _females = females,_males = males,_clubs = clubs,_authors = authors,_themes = themes,_parodies = parodies;
   factory _ComicInfoDto.fromJson(Map<String, dynamic> json) => _$ComicInfoDtoFromJson(json);
 
 @override@JsonKey() final  String uuid;
@@ -5950,9 +5920,9 @@ class _ComicInfoDto implements ComicInfoDto {
 @override@JsonKey() final  String pathWord;
 @override@JsonKey() final  bool closeComment;
 @override@JsonKey() final  bool closeRoast;
-@override final  LabeledValueDto? freeType;
-@override final  LabeledValueDto? restrict;
-@override final  LabeledValueDto? reclass;
+@override@JsonKey() final  LabeledValueDto freeType;
+@override@JsonKey() final  LabeledValueDto restrict;
+@override@JsonKey() final  LabeledValueDto reclass;
  final  List<NamedPathDto> _females;
 @override@JsonKey() List<NamedPathDto> get females {
   if (_females is EqualUnmodifiableListView) return _females;
@@ -5975,8 +5945,8 @@ class _ComicInfoDto implements ComicInfoDto {
 }
 
 @override@JsonKey() final  String seoBaidu;
-@override final  LabeledValueDto? region;
-@override final  ComicStatusDto? status;
+@override@JsonKey() final  LabeledValueDto region;
+@override@JsonKey() final  ComicStatusDto status;
  final  List<NamedPathDto> _authors;
 @override@JsonKey(name: 'author') List<NamedPathDto> get authors {
   if (_authors is EqualUnmodifiableListView) return _authors;
@@ -6001,9 +5971,9 @@ class _ComicInfoDto implements ComicInfoDto {
 @override@JsonKey() final  String brief;
 @override@JsonKey() final  String datetimeUpdated;
 @override@JsonKey() final  String cover;
-@override final  ChapterDto? lastChapter;
+@override@JsonKey() final  ChapterDto lastChapter;
 @override@JsonKey() final  int popular;
-@override final  Object? channel;
+@override@JsonKey() final  Object channel;
 
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
@@ -6038,11 +6008,11 @@ abstract mixin class _$ComicInfoDtoCopyWith<$Res> implements $ComicInfoDtoCopyWi
   factory _$ComicInfoDtoCopyWith(_ComicInfoDto value, $Res Function(_ComicInfoDto) _then) = __$ComicInfoDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String uuid,@JsonKey(name: 'b_404') bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto? freeType, LabeledValueDto? restrict, LabeledValueDto? reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto? region, ComicStatusDto? status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto? lastChapter, int popular, Object? channel
+ String uuid,@JsonKey(name: 'b_404') bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto freeType, LabeledValueDto restrict, LabeledValueDto reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto region, ComicStatusDto status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto lastChapter, int popular, Object channel
 });
 
 
-@override $LabeledValueDtoCopyWith<$Res>? get freeType;@override $LabeledValueDtoCopyWith<$Res>? get restrict;@override $LabeledValueDtoCopyWith<$Res>? get reclass;@override $LabeledValueDtoCopyWith<$Res>? get region;@override $ComicStatusDtoCopyWith<$Res>? get status;@override $ChapterDtoCopyWith<$Res>? get lastChapter;
+@override $LabeledValueDtoCopyWith<$Res> get freeType;@override $LabeledValueDtoCopyWith<$Res> get restrict;@override $LabeledValueDtoCopyWith<$Res> get reclass;@override $LabeledValueDtoCopyWith<$Res> get region;@override $ComicStatusDtoCopyWith<$Res> get status;@override $ChapterDtoCopyWith<$Res> get lastChapter;
 
 }
 /// @nodoc
@@ -6055,7 +6025,7 @@ class __$ComicInfoDtoCopyWithImpl<$Res>
 
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uuid = null,Object? b404 = null,Object? bHidden = null,Object? ban = null,Object? name = null,Object? alias = null,Object? pathWord = null,Object? closeComment = null,Object? closeRoast = null,Object? freeType = freezed,Object? restrict = freezed,Object? reclass = freezed,Object? females = null,Object? males = null,Object? clubs = null,Object? seoBaidu = null,Object? region = freezed,Object? status = freezed,Object? authors = null,Object? themes = null,Object? parodies = null,Object? brief = null,Object? datetimeUpdated = null,Object? cover = null,Object? lastChapter = freezed,Object? popular = null,Object? channel = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? uuid = null,Object? b404 = null,Object? bHidden = null,Object? ban = null,Object? name = null,Object? alias = null,Object? pathWord = null,Object? closeComment = null,Object? closeRoast = null,Object? freeType = null,Object? restrict = null,Object? reclass = null,Object? females = null,Object? males = null,Object? clubs = null,Object? seoBaidu = null,Object? region = null,Object? status = null,Object? authors = null,Object? themes = null,Object? parodies = null,Object? brief = null,Object? datetimeUpdated = null,Object? cover = null,Object? lastChapter = null,Object? popular = null,Object? channel = null,}) {
   return _then(_ComicInfoDto(
 uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
 as String,b404: null == b404 ? _self.b404 : b404 // ignore: cast_nullable_to_non_nullable
@@ -6066,24 +6036,24 @@ as String,alias: null == alias ? _self.alias : alias // ignore: cast_nullable_to
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
 as String,closeComment: null == closeComment ? _self.closeComment : closeComment // ignore: cast_nullable_to_non_nullable
 as bool,closeRoast: null == closeRoast ? _self.closeRoast : closeRoast // ignore: cast_nullable_to_non_nullable
-as bool,freeType: freezed == freeType ? _self.freeType : freeType // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,restrict: freezed == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,reclass: freezed == reclass ? _self.reclass : reclass // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,females: null == females ? _self._females : females // ignore: cast_nullable_to_non_nullable
+as bool,freeType: null == freeType ? _self.freeType : freeType // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,restrict: null == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,reclass: null == reclass ? _self.reclass : reclass // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,females: null == females ? _self._females : females // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,males: null == males ? _self._males : males // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,clubs: null == clubs ? _self._clubs : clubs // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,seoBaidu: null == seoBaidu ? _self.seoBaidu : seoBaidu // ignore: cast_nullable_to_non_nullable
-as String,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as ComicStatusDto?,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
+as String,region: null == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as ComicStatusDto,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,themes: null == themes ? _self._themes : themes // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,parodies: null == parodies ? _self._parodies : parodies // ignore: cast_nullable_to_non_nullable
 as List<NamedPathDto>,brief: null == brief ? _self.brief : brief // ignore: cast_nullable_to_non_nullable
 as String,datetimeUpdated: null == datetimeUpdated ? _self.datetimeUpdated : datetimeUpdated // ignore: cast_nullable_to_non_nullable
 as String,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
-as String,lastChapter: freezed == lastChapter ? _self.lastChapter : lastChapter // ignore: cast_nullable_to_non_nullable
-as ChapterDto?,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
-as int,channel: freezed == channel ? _self.channel : channel ,
+as String,lastChapter: null == lastChapter ? _self.lastChapter : lastChapter // ignore: cast_nullable_to_non_nullable
+as ChapterDto,popular: null == popular ? _self.popular : popular // ignore: cast_nullable_to_non_nullable
+as int,channel: null == channel ? _self.channel : channel ,
   ));
 }
 
@@ -6091,72 +6061,54 @@ as int,channel: freezed == channel ? _self.channel : channel ,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get freeType {
-    if (_self.freeType == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.freeType!, (value) {
+$LabeledValueDtoCopyWith<$Res> get freeType {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.freeType, (value) {
     return _then(_self.copyWith(freeType: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get restrict {
-    if (_self.restrict == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.restrict!, (value) {
+$LabeledValueDtoCopyWith<$Res> get restrict {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.restrict, (value) {
     return _then(_self.copyWith(restrict: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get reclass {
-    if (_self.reclass == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.reclass!, (value) {
+$LabeledValueDtoCopyWith<$Res> get reclass {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.reclass, (value) {
     return _then(_self.copyWith(reclass: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get region {
-    if (_self.region == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.region!, (value) {
+$LabeledValueDtoCopyWith<$Res> get region {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.region, (value) {
     return _then(_self.copyWith(region: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ComicStatusDtoCopyWith<$Res>? get status {
-    if (_self.status == null) {
-    return null;
-  }
-
-  return $ComicStatusDtoCopyWith<$Res>(_self.status!, (value) {
+$ComicStatusDtoCopyWith<$Res> get status {
+  
+  return $ComicStatusDtoCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }/// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ChapterDtoCopyWith<$Res>? get lastChapter {
-    if (_self.lastChapter == null) {
-    return null;
-  }
-
-  return $ChapterDtoCopyWith<$Res>(_self.lastChapter!, (value) {
+$ChapterDtoCopyWith<$Res> get lastChapter {
+  
+  return $ChapterDtoCopyWith<$Res>(_self.lastChapter, (value) {
     return _then(_self.copyWith(lastChapter: value));
   });
 }
@@ -6979,7 +6931,7 @@ as int,
 /// @nodoc
 mixin _$ChapterDto {
 
- int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String? get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String? get prev; String? get next;
+ int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String get prev; String get next;
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -7012,7 +6964,7 @@ abstract mixin class $ChapterDtoCopyWith<$Res>  {
   factory $ChapterDtoCopyWith(ChapterDto value, $Res Function(ChapterDto) _then) = _$ChapterDtoCopyWithImpl;
 @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String? groupId, String groupPathWord, int type, String news, String datetimeCreated, String? prev, String? next
+ int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next
 });
 
 
@@ -7029,7 +6981,7 @@ class _$ChapterDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = freezed,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = freezed,Object? next = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = null,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = null,Object? next = null,}) {
   return _then(_self.copyWith(
 index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -7039,14 +6991,14 @@ as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nu
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,comicId: null == comicId ? _self.comicId : comicId // ignore: cast_nullable_to_non_nullable
 as String,comicPathWord: null == comicPathWord ? _self.comicPathWord : comicPathWord // ignore: cast_nullable_to_non_nullable
-as String,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as String?,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
+as String,groupId: null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as String,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as int,news: null == news ? _self.news : news // ignore: cast_nullable_to_non_nullable
 as String,datetimeCreated: null == datetimeCreated ? _self.datetimeCreated : datetimeCreated // ignore: cast_nullable_to_non_nullable
-as String,prev: freezed == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
-as String?,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
-as String?,
+as String,prev: null == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
+as String,next: null == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -7131,7 +7083,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
@@ -7152,7 +7104,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterDto():
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
@@ -7172,7 +7124,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
@@ -7187,7 +7139,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterDto implements ChapterDto {
-  const _ChapterDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId, this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev, this.next});
+  const _ChapterDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId = '', this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev = '', this.next = ''});
   factory _ChapterDto.fromJson(Map<String, dynamic> json) => _$ChapterDtoFromJson(json);
 
 @override@JsonKey() final  int index;
@@ -7198,13 +7150,13 @@ class _ChapterDto implements ChapterDto {
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String comicId;
 @override@JsonKey() final  String comicPathWord;
-@override final  String? groupId;
+@override@JsonKey() final  String groupId;
 @override@JsonKey() final  String groupPathWord;
 @override@JsonKey() final  int type;
 @override@JsonKey() final  String news;
 @override@JsonKey() final  String datetimeCreated;
-@override final  String? prev;
-@override final  String? next;
+@override@JsonKey() final  String prev;
+@override@JsonKey() final  String next;
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
@@ -7239,7 +7191,7 @@ abstract mixin class _$ChapterDtoCopyWith<$Res> implements $ChapterDtoCopyWith<$
   factory _$ChapterDtoCopyWith(_ChapterDto value, $Res Function(_ChapterDto) _then) = __$ChapterDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String? groupId, String groupPathWord, int type, String news, String datetimeCreated, String? prev, String? next
+ int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next
 });
 
 
@@ -7256,7 +7208,7 @@ class __$ChapterDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = freezed,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = freezed,Object? next = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = null,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = null,Object? next = null,}) {
   return _then(_ChapterDto(
 index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -7266,14 +7218,14 @@ as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nu
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,comicId: null == comicId ? _self.comicId : comicId // ignore: cast_nullable_to_non_nullable
 as String,comicPathWord: null == comicPathWord ? _self.comicPathWord : comicPathWord // ignore: cast_nullable_to_non_nullable
-as String,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as String?,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
+as String,groupId: null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as String,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as int,news: null == news ? _self.news : news // ignore: cast_nullable_to_non_nullable
 as String,datetimeCreated: null == datetimeCreated ? _self.datetimeCreated : datetimeCreated // ignore: cast_nullable_to_non_nullable
-as String,prev: freezed == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
-as String?,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
-as String?,
+as String,prev: null == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
+as String,next: null == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -7503,7 +7455,7 @@ return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_tha
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterContentResultDto implements ChapterContentResultDto {
-  const _ChapterContentResultDto({this.showApp = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, required this.comic, required this.chapter, this.isBanned = false});
+  const _ChapterContentResultDto({this.showApp = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, this.comic = const ChapterComicDto(), this.chapter = const ChapterContentDto(), this.isBanned = false});
   factory _ChapterContentResultDto.fromJson(Map<String, dynamic> json) => _$ChapterContentResultDtoFromJson(json);
 
 @override@JsonKey() final  bool showApp;
@@ -7511,8 +7463,8 @@ class _ChapterContentResultDto implements ChapterContentResultDto {
 @override@JsonKey() final  bool isLogin;
 @override@JsonKey() final  bool isMobileBind;
 @override@JsonKey() final  bool isVip;
-@override final  ChapterComicDto comic;
-@override final  ChapterContentDto chapter;
+@override@JsonKey() final  ChapterComicDto comic;
+@override@JsonKey() final  ChapterContentDto chapter;
 @override@JsonKey() final  bool isBanned;
 
 /// Create a copy of ChapterContentResultDto
@@ -7604,7 +7556,7 @@ $ChapterContentDtoCopyWith<$Res> get chapter {
 /// @nodoc
 mixin _$ChapterComicDto {
 
- String get name; String get uuid; String get pathWord; LabeledValueDto? get restrict;
+ String get name; String get uuid; String get pathWord; LabeledValueDto get restrict;
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -7637,11 +7589,11 @@ abstract mixin class $ChapterComicDtoCopyWith<$Res>  {
   factory $ChapterComicDtoCopyWith(ChapterComicDto value, $Res Function(ChapterComicDto) _then) = _$ChapterComicDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String uuid, String pathWord, LabeledValueDto? restrict
+ String name, String uuid, String pathWord, LabeledValueDto restrict
 });
 
 
-$LabeledValueDtoCopyWith<$Res>? get restrict;
+$LabeledValueDtoCopyWith<$Res> get restrict;
 
 }
 /// @nodoc
@@ -7654,25 +7606,22 @@ class _$ChapterComicDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? uuid = null,Object? pathWord = null,Object? restrict = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? uuid = null,Object? pathWord = null,Object? restrict = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
-as String,restrict: freezed == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,
+as String,restrict: null == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,
   ));
 }
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get restrict {
-    if (_self.restrict == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.restrict!, (value) {
+$LabeledValueDtoCopyWith<$Res> get restrict {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.restrict, (value) {
     return _then(_self.copyWith(restrict: value));
   });
 }
@@ -7757,7 +7706,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String uuid,  String pathWord,  LabeledValueDto? restrict)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String uuid,  String pathWord,  LabeledValueDto restrict)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterComicDto() when $default != null:
 return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
@@ -7778,7 +7727,7 @@ return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String uuid,  String pathWord,  LabeledValueDto? restrict)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String uuid,  String pathWord,  LabeledValueDto restrict)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterComicDto():
 return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
@@ -7798,7 +7747,7 @@ return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String uuid,  String pathWord,  LabeledValueDto? restrict)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String uuid,  String pathWord,  LabeledValueDto restrict)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterComicDto() when $default != null:
 return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
@@ -7813,13 +7762,13 @@ return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterComicDto implements ChapterComicDto {
-  const _ChapterComicDto({this.name = '', this.uuid = '', this.pathWord = '', this.restrict});
+  const _ChapterComicDto({this.name = '', this.uuid = '', this.pathWord = '', this.restrict = const LabeledValueDto()});
   factory _ChapterComicDto.fromJson(Map<String, dynamic> json) => _$ChapterComicDtoFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String uuid;
 @override@JsonKey() final  String pathWord;
-@override final  LabeledValueDto? restrict;
+@override@JsonKey() final  LabeledValueDto restrict;
 
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -7854,11 +7803,11 @@ abstract mixin class _$ChapterComicDtoCopyWith<$Res> implements $ChapterComicDto
   factory _$ChapterComicDtoCopyWith(_ChapterComicDto value, $Res Function(_ChapterComicDto) _then) = __$ChapterComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String uuid, String pathWord, LabeledValueDto? restrict
+ String name, String uuid, String pathWord, LabeledValueDto restrict
 });
 
 
-@override $LabeledValueDtoCopyWith<$Res>? get restrict;
+@override $LabeledValueDtoCopyWith<$Res> get restrict;
 
 }
 /// @nodoc
@@ -7871,13 +7820,13 @@ class __$ChapterComicDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? uuid = null,Object? pathWord = null,Object? restrict = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? uuid = null,Object? pathWord = null,Object? restrict = null,}) {
   return _then(_ChapterComicDto(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
 as String,pathWord: null == pathWord ? _self.pathWord : pathWord // ignore: cast_nullable_to_non_nullable
-as String,restrict: freezed == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
-as LabeledValueDto?,
+as String,restrict: null == restrict ? _self.restrict : restrict // ignore: cast_nullable_to_non_nullable
+as LabeledValueDto,
   ));
 }
 
@@ -7885,12 +7834,9 @@ as LabeledValueDto?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LabeledValueDtoCopyWith<$Res>? get restrict {
-    if (_self.restrict == null) {
-    return null;
-  }
-
-  return $LabeledValueDtoCopyWith<$Res>(_self.restrict!, (value) {
+$LabeledValueDtoCopyWith<$Res> get restrict {
+  
+  return $LabeledValueDtoCopyWith<$Res>(_self.restrict, (value) {
     return _then(_self.copyWith(restrict: value));
   });
 }
@@ -7900,7 +7846,7 @@ $LabeledValueDtoCopyWith<$Res>? get restrict {
 /// @nodoc
 mixin _$ChapterContentDto {
 
- int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String? get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String? get prev; String? get next; List<ChapterImageDto> get contents; List<int> get words; bool get isLong;
+ int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String get prev; String get next; List<ChapterImageDto> get contents; List<int> get words; bool get isLong;
 /// Create a copy of ChapterContentDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -7933,7 +7879,7 @@ abstract mixin class $ChapterContentDtoCopyWith<$Res>  {
   factory $ChapterContentDtoCopyWith(ChapterContentDto value, $Res Function(ChapterContentDto) _then) = _$ChapterContentDtoCopyWithImpl;
 @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String? groupId, String groupPathWord, int type, String news, String datetimeCreated, String? prev, String? next, List<ChapterImageDto> contents, List<int> words, bool isLong
+ int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next, List<ChapterImageDto> contents, List<int> words, bool isLong
 });
 
 
@@ -7950,7 +7896,7 @@ class _$ChapterContentDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterContentDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = freezed,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = freezed,Object? next = freezed,Object? contents = null,Object? words = null,Object? isLong = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = null,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = null,Object? next = null,Object? contents = null,Object? words = null,Object? isLong = null,}) {
   return _then(_self.copyWith(
 index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -7960,14 +7906,14 @@ as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nu
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,comicId: null == comicId ? _self.comicId : comicId // ignore: cast_nullable_to_non_nullable
 as String,comicPathWord: null == comicPathWord ? _self.comicPathWord : comicPathWord // ignore: cast_nullable_to_non_nullable
-as String,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as String?,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
+as String,groupId: null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as String,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as int,news: null == news ? _self.news : news // ignore: cast_nullable_to_non_nullable
 as String,datetimeCreated: null == datetimeCreated ? _self.datetimeCreated : datetimeCreated // ignore: cast_nullable_to_non_nullable
-as String,prev: freezed == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
-as String?,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
-as String?,contents: null == contents ? _self.contents : contents // ignore: cast_nullable_to_non_nullable
+as String,prev: null == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
+as String,next: null == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String,contents: null == contents ? _self.contents : contents // ignore: cast_nullable_to_non_nullable
 as List<ChapterImageDto>,words: null == words ? _self.words : words // ignore: cast_nullable_to_non_nullable
 as List<int>,isLong: null == isLong ? _self.isLong : isLong // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -8055,7 +8001,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterContentDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next,_that.contents,_that.words,_that.isLong);case _:
@@ -8076,7 +8022,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterContentDto():
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next,_that.contents,_that.words,_that.isLong);case _:
@@ -8096,7 +8042,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String? groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String? prev,  String? next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterContentDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next,_that.contents,_that.words,_that.isLong);case _:
@@ -8111,7 +8057,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterContentDto implements ChapterContentDto {
-  const _ChapterContentDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId, this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev, this.next, final  List<ChapterImageDto> contents = const [], final  List<int> words = const [], this.isLong = false}): _contents = contents,_words = words;
+  const _ChapterContentDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId = '', this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev = '', this.next = '', final  List<ChapterImageDto> contents = const [], final  List<int> words = const [], this.isLong = false}): _contents = contents,_words = words;
   factory _ChapterContentDto.fromJson(Map<String, dynamic> json) => _$ChapterContentDtoFromJson(json);
 
 @override@JsonKey() final  int index;
@@ -8122,13 +8068,13 @@ class _ChapterContentDto implements ChapterContentDto {
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String comicId;
 @override@JsonKey() final  String comicPathWord;
-@override final  String? groupId;
+@override@JsonKey() final  String groupId;
 @override@JsonKey() final  String groupPathWord;
 @override@JsonKey() final  int type;
 @override@JsonKey() final  String news;
 @override@JsonKey() final  String datetimeCreated;
-@override final  String? prev;
-@override final  String? next;
+@override@JsonKey() final  String prev;
+@override@JsonKey() final  String next;
  final  List<ChapterImageDto> _contents;
 @override@JsonKey() List<ChapterImageDto> get contents {
   if (_contents is EqualUnmodifiableListView) return _contents;
@@ -8178,7 +8124,7 @@ abstract mixin class _$ChapterContentDtoCopyWith<$Res> implements $ChapterConten
   factory _$ChapterContentDtoCopyWith(_ChapterContentDto value, $Res Function(_ChapterContentDto) _then) = __$ChapterContentDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String? groupId, String groupPathWord, int type, String news, String datetimeCreated, String? prev, String? next, List<ChapterImageDto> contents, List<int> words, bool isLong
+ int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next, List<ChapterImageDto> contents, List<int> words, bool isLong
 });
 
 
@@ -8195,7 +8141,7 @@ class __$ChapterContentDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChapterContentDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = freezed,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = freezed,Object? next = freezed,Object? contents = null,Object? words = null,Object? isLong = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? uuid = null,Object? count = null,Object? ordered = null,Object? size = null,Object? name = null,Object? comicId = null,Object? comicPathWord = null,Object? groupId = null,Object? groupPathWord = null,Object? type = null,Object? news = null,Object? datetimeCreated = null,Object? prev = null,Object? next = null,Object? contents = null,Object? words = null,Object? isLong = null,}) {
   return _then(_ChapterContentDto(
 index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -8205,14 +8151,14 @@ as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nu
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,comicId: null == comicId ? _self.comicId : comicId // ignore: cast_nullable_to_non_nullable
 as String,comicPathWord: null == comicPathWord ? _self.comicPathWord : comicPathWord // ignore: cast_nullable_to_non_nullable
-as String,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as String?,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
+as String,groupId: null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as String,groupPathWord: null == groupPathWord ? _self.groupPathWord : groupPathWord // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as int,news: null == news ? _self.news : news // ignore: cast_nullable_to_non_nullable
 as String,datetimeCreated: null == datetimeCreated ? _self.datetimeCreated : datetimeCreated // ignore: cast_nullable_to_non_nullable
-as String,prev: freezed == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
-as String?,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
-as String?,contents: null == contents ? _self._contents : contents // ignore: cast_nullable_to_non_nullable
+as String,prev: null == prev ? _self.prev : prev // ignore: cast_nullable_to_non_nullable
+as String,next: null == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String,contents: null == contents ? _self._contents : contents // ignore: cast_nullable_to_non_nullable
 as List<ChapterImageDto>,words: null == words ? _self._words : words // ignore: cast_nullable_to_non_nullable
 as List<int>,isLong: null == isLong ? _self.isLong : isLong // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -8489,7 +8435,7 @@ as String,
 /// @nodoc
 mixin _$NetworkResultDto {
 
-@JsonKey(name: 'static') String get staticHost;@JsonKey(name: 'image') String get imageHost; List<String> get share; List<List<String>> get api; List<List<String>> get ads; String get hostComic; String get hostCartoon; String get hostNovel; int get dayDownloadsTotal; int get adsRewardDownloads; int get adsRewardDayShow; int get adsScreenShow; int get adsReadExpressShow; int get adsHomeSeconds; int get adsRestartSeconds; int get adsComicShow; int get adsCartoonShow; int get dayDownloads; int get vipDownloads; int get rewardDownloads; Object? get adsVipEnd; bool get adsStatSwitch; bool get adsStatSwitch2; int get adsRewardSeconds; bool get inMainland;
+@JsonKey(name: 'static') String get staticHost;@JsonKey(name: 'image') String get imageHost; List<String> get share; List<List<String>> get api; List<List<String>> get ads; String get hostComic; String get hostCartoon; String get hostNovel; int get dayDownloadsTotal; int get adsRewardDownloads; int get adsRewardDayShow; int get adsScreenShow; int get adsReadExpressShow; int get adsHomeSeconds; int get adsRestartSeconds; int get adsComicShow; int get adsCartoonShow; int get dayDownloads; int get vipDownloads; int get rewardDownloads; Object get adsVipEnd; bool get adsStatSwitch; bool get adsStatSwitch2; int get adsRewardSeconds; bool get inMainland;
 /// Create a copy of NetworkResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -8522,7 +8468,7 @@ abstract mixin class $NetworkResultDtoCopyWith<$Res>  {
   factory $NetworkResultDtoCopyWith(NetworkResultDto value, $Res Function(NetworkResultDto) _then) = _$NetworkResultDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost, List<String> share, List<List<String>> api, List<List<String>> ads, String hostComic, String hostCartoon, String hostNovel, int dayDownloadsTotal, int adsRewardDownloads, int adsRewardDayShow, int adsScreenShow, int adsReadExpressShow, int adsHomeSeconds, int adsRestartSeconds, int adsComicShow, int adsCartoonShow, int dayDownloads, int vipDownloads, int rewardDownloads, Object? adsVipEnd, bool adsStatSwitch, bool adsStatSwitch2, int adsRewardSeconds, bool inMainland
+@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost, List<String> share, List<List<String>> api, List<List<String>> ads, String hostComic, String hostCartoon, String hostNovel, int dayDownloadsTotal, int adsRewardDownloads, int adsRewardDayShow, int adsScreenShow, int adsReadExpressShow, int adsHomeSeconds, int adsRestartSeconds, int adsComicShow, int adsCartoonShow, int dayDownloads, int vipDownloads, int rewardDownloads, Object adsVipEnd, bool adsStatSwitch, bool adsStatSwitch2, int adsRewardSeconds, bool inMainland
 });
 
 
@@ -8539,7 +8485,7 @@ class _$NetworkResultDtoCopyWithImpl<$Res>
 
 /// Create a copy of NetworkResultDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? staticHost = null,Object? imageHost = null,Object? share = null,Object? api = null,Object? ads = null,Object? hostComic = null,Object? hostCartoon = null,Object? hostNovel = null,Object? dayDownloadsTotal = null,Object? adsRewardDownloads = null,Object? adsRewardDayShow = null,Object? adsScreenShow = null,Object? adsReadExpressShow = null,Object? adsHomeSeconds = null,Object? adsRestartSeconds = null,Object? adsComicShow = null,Object? adsCartoonShow = null,Object? dayDownloads = null,Object? vipDownloads = null,Object? rewardDownloads = null,Object? adsVipEnd = freezed,Object? adsStatSwitch = null,Object? adsStatSwitch2 = null,Object? adsRewardSeconds = null,Object? inMainland = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? staticHost = null,Object? imageHost = null,Object? share = null,Object? api = null,Object? ads = null,Object? hostComic = null,Object? hostCartoon = null,Object? hostNovel = null,Object? dayDownloadsTotal = null,Object? adsRewardDownloads = null,Object? adsRewardDayShow = null,Object? adsScreenShow = null,Object? adsReadExpressShow = null,Object? adsHomeSeconds = null,Object? adsRestartSeconds = null,Object? adsComicShow = null,Object? adsCartoonShow = null,Object? dayDownloads = null,Object? vipDownloads = null,Object? rewardDownloads = null,Object? adsVipEnd = null,Object? adsStatSwitch = null,Object? adsStatSwitch2 = null,Object? adsRewardSeconds = null,Object? inMainland = null,}) {
   return _then(_self.copyWith(
 staticHost: null == staticHost ? _self.staticHost : staticHost // ignore: cast_nullable_to_non_nullable
 as String,imageHost: null == imageHost ? _self.imageHost : imageHost // ignore: cast_nullable_to_non_nullable
@@ -8561,7 +8507,7 @@ as int,adsCartoonShow: null == adsCartoonShow ? _self.adsCartoonShow : adsCartoo
 as int,dayDownloads: null == dayDownloads ? _self.dayDownloads : dayDownloads // ignore: cast_nullable_to_non_nullable
 as int,vipDownloads: null == vipDownloads ? _self.vipDownloads : vipDownloads // ignore: cast_nullable_to_non_nullable
 as int,rewardDownloads: null == rewardDownloads ? _self.rewardDownloads : rewardDownloads // ignore: cast_nullable_to_non_nullable
-as int,adsVipEnd: freezed == adsVipEnd ? _self.adsVipEnd : adsVipEnd ,adsStatSwitch: null == adsStatSwitch ? _self.adsStatSwitch : adsStatSwitch // ignore: cast_nullable_to_non_nullable
+as int,adsVipEnd: null == adsVipEnd ? _self.adsVipEnd : adsVipEnd ,adsStatSwitch: null == adsStatSwitch ? _self.adsStatSwitch : adsStatSwitch // ignore: cast_nullable_to_non_nullable
 as bool,adsStatSwitch2: null == adsStatSwitch2 ? _self.adsStatSwitch2 : adsStatSwitch2 // ignore: cast_nullable_to_non_nullable
 as bool,adsRewardSeconds: null == adsRewardSeconds ? _self.adsRewardSeconds : adsRewardSeconds // ignore: cast_nullable_to_non_nullable
 as int,inMainland: null == inMainland ? _self.inMainland : inMainland // ignore: cast_nullable_to_non_nullable
@@ -8650,7 +8596,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object? adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NetworkResultDto() when $default != null:
 return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads,_that.hostComic,_that.hostCartoon,_that.hostNovel,_that.dayDownloadsTotal,_that.adsRewardDownloads,_that.adsRewardDayShow,_that.adsScreenShow,_that.adsReadExpressShow,_that.adsHomeSeconds,_that.adsRestartSeconds,_that.adsComicShow,_that.adsCartoonShow,_that.dayDownloads,_that.vipDownloads,_that.rewardDownloads,_that.adsVipEnd,_that.adsStatSwitch,_that.adsStatSwitch2,_that.adsRewardSeconds,_that.inMainland);case _:
@@ -8671,7 +8617,7 @@ return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object? adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)  $default,) {final _that = this;
 switch (_that) {
 case _NetworkResultDto():
 return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads,_that.hostComic,_that.hostCartoon,_that.hostNovel,_that.dayDownloadsTotal,_that.adsRewardDownloads,_that.adsRewardDayShow,_that.adsScreenShow,_that.adsReadExpressShow,_that.adsHomeSeconds,_that.adsRestartSeconds,_that.adsComicShow,_that.adsCartoonShow,_that.dayDownloads,_that.vipDownloads,_that.rewardDownloads,_that.adsVipEnd,_that.adsStatSwitch,_that.adsStatSwitch2,_that.adsRewardSeconds,_that.inMainland);case _:
@@ -8691,7 +8637,7 @@ return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object? adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)?  $default,) {final _that = this;
 switch (_that) {
 case _NetworkResultDto() when $default != null:
 return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads,_that.hostComic,_that.hostCartoon,_that.hostNovel,_that.dayDownloadsTotal,_that.adsRewardDownloads,_that.adsRewardDayShow,_that.adsScreenShow,_that.adsReadExpressShow,_that.adsHomeSeconds,_that.adsRestartSeconds,_that.adsComicShow,_that.adsCartoonShow,_that.dayDownloads,_that.vipDownloads,_that.rewardDownloads,_that.adsVipEnd,_that.adsStatSwitch,_that.adsStatSwitch2,_that.adsRewardSeconds,_that.inMainland);case _:
@@ -8706,52 +8652,52 @@ return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _NetworkResultDto implements NetworkResultDto {
-  const _NetworkResultDto({@JsonKey(name: 'static') required this.staticHost, @JsonKey(name: 'image') required this.imageHost, required final  List<String> share, required final  List<List<String>> api, required final  List<List<String>> ads, required this.hostComic, required this.hostCartoon, required this.hostNovel, required this.dayDownloadsTotal, required this.adsRewardDownloads, required this.adsRewardDayShow, required this.adsScreenShow, required this.adsReadExpressShow, required this.adsHomeSeconds, required this.adsRestartSeconds, required this.adsComicShow, required this.adsCartoonShow, required this.dayDownloads, required this.vipDownloads, required this.rewardDownloads, this.adsVipEnd, required this.adsStatSwitch, required this.adsStatSwitch2, required this.adsRewardSeconds, required this.inMainland}): _share = share,_api = api,_ads = ads;
+  const _NetworkResultDto({@JsonKey(name: 'static') this.staticHost = '', @JsonKey(name: 'image') this.imageHost = '', final  List<String> share = const [], final  List<List<String>> api = const [], final  List<List<String>> ads = const [], this.hostComic = '', this.hostCartoon = '', this.hostNovel = '', this.dayDownloadsTotal = 0, this.adsRewardDownloads = 0, this.adsRewardDayShow = 0, this.adsScreenShow = 0, this.adsReadExpressShow = 0, this.adsHomeSeconds = 0, this.adsRestartSeconds = 0, this.adsComicShow = 0, this.adsCartoonShow = 0, this.dayDownloads = 0, this.vipDownloads = 0, this.rewardDownloads = 0, this.adsVipEnd = '', this.adsStatSwitch = false, this.adsStatSwitch2 = false, this.adsRewardSeconds = 0, this.inMainland = false}): _share = share,_api = api,_ads = ads;
   factory _NetworkResultDto.fromJson(Map<String, dynamic> json) => _$NetworkResultDtoFromJson(json);
 
 @override@JsonKey(name: 'static') final  String staticHost;
 @override@JsonKey(name: 'image') final  String imageHost;
  final  List<String> _share;
-@override List<String> get share {
+@override@JsonKey() List<String> get share {
   if (_share is EqualUnmodifiableListView) return _share;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_share);
 }
 
  final  List<List<String>> _api;
-@override List<List<String>> get api {
+@override@JsonKey() List<List<String>> get api {
   if (_api is EqualUnmodifiableListView) return _api;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_api);
 }
 
  final  List<List<String>> _ads;
-@override List<List<String>> get ads {
+@override@JsonKey() List<List<String>> get ads {
   if (_ads is EqualUnmodifiableListView) return _ads;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_ads);
 }
 
-@override final  String hostComic;
-@override final  String hostCartoon;
-@override final  String hostNovel;
-@override final  int dayDownloadsTotal;
-@override final  int adsRewardDownloads;
-@override final  int adsRewardDayShow;
-@override final  int adsScreenShow;
-@override final  int adsReadExpressShow;
-@override final  int adsHomeSeconds;
-@override final  int adsRestartSeconds;
-@override final  int adsComicShow;
-@override final  int adsCartoonShow;
-@override final  int dayDownloads;
-@override final  int vipDownloads;
-@override final  int rewardDownloads;
-@override final  Object? adsVipEnd;
-@override final  bool adsStatSwitch;
-@override final  bool adsStatSwitch2;
-@override final  int adsRewardSeconds;
-@override final  bool inMainland;
+@override@JsonKey() final  String hostComic;
+@override@JsonKey() final  String hostCartoon;
+@override@JsonKey() final  String hostNovel;
+@override@JsonKey() final  int dayDownloadsTotal;
+@override@JsonKey() final  int adsRewardDownloads;
+@override@JsonKey() final  int adsRewardDayShow;
+@override@JsonKey() final  int adsScreenShow;
+@override@JsonKey() final  int adsReadExpressShow;
+@override@JsonKey() final  int adsHomeSeconds;
+@override@JsonKey() final  int adsRestartSeconds;
+@override@JsonKey() final  int adsComicShow;
+@override@JsonKey() final  int adsCartoonShow;
+@override@JsonKey() final  int dayDownloads;
+@override@JsonKey() final  int vipDownloads;
+@override@JsonKey() final  int rewardDownloads;
+@override@JsonKey() final  Object adsVipEnd;
+@override@JsonKey() final  bool adsStatSwitch;
+@override@JsonKey() final  bool adsStatSwitch2;
+@override@JsonKey() final  int adsRewardSeconds;
+@override@JsonKey() final  bool inMainland;
 
 /// Create a copy of NetworkResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -8786,7 +8732,7 @@ abstract mixin class _$NetworkResultDtoCopyWith<$Res> implements $NetworkResultD
   factory _$NetworkResultDtoCopyWith(_NetworkResultDto value, $Res Function(_NetworkResultDto) _then) = __$NetworkResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost, List<String> share, List<List<String>> api, List<List<String>> ads, String hostComic, String hostCartoon, String hostNovel, int dayDownloadsTotal, int adsRewardDownloads, int adsRewardDayShow, int adsScreenShow, int adsReadExpressShow, int adsHomeSeconds, int adsRestartSeconds, int adsComicShow, int adsCartoonShow, int dayDownloads, int vipDownloads, int rewardDownloads, Object? adsVipEnd, bool adsStatSwitch, bool adsStatSwitch2, int adsRewardSeconds, bool inMainland
+@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost, List<String> share, List<List<String>> api, List<List<String>> ads, String hostComic, String hostCartoon, String hostNovel, int dayDownloadsTotal, int adsRewardDownloads, int adsRewardDayShow, int adsScreenShow, int adsReadExpressShow, int adsHomeSeconds, int adsRestartSeconds, int adsComicShow, int adsCartoonShow, int dayDownloads, int vipDownloads, int rewardDownloads, Object adsVipEnd, bool adsStatSwitch, bool adsStatSwitch2, int adsRewardSeconds, bool inMainland
 });
 
 
@@ -8803,7 +8749,7 @@ class __$NetworkResultDtoCopyWithImpl<$Res>
 
 /// Create a copy of NetworkResultDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? staticHost = null,Object? imageHost = null,Object? share = null,Object? api = null,Object? ads = null,Object? hostComic = null,Object? hostCartoon = null,Object? hostNovel = null,Object? dayDownloadsTotal = null,Object? adsRewardDownloads = null,Object? adsRewardDayShow = null,Object? adsScreenShow = null,Object? adsReadExpressShow = null,Object? adsHomeSeconds = null,Object? adsRestartSeconds = null,Object? adsComicShow = null,Object? adsCartoonShow = null,Object? dayDownloads = null,Object? vipDownloads = null,Object? rewardDownloads = null,Object? adsVipEnd = freezed,Object? adsStatSwitch = null,Object? adsStatSwitch2 = null,Object? adsRewardSeconds = null,Object? inMainland = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? staticHost = null,Object? imageHost = null,Object? share = null,Object? api = null,Object? ads = null,Object? hostComic = null,Object? hostCartoon = null,Object? hostNovel = null,Object? dayDownloadsTotal = null,Object? adsRewardDownloads = null,Object? adsRewardDayShow = null,Object? adsScreenShow = null,Object? adsReadExpressShow = null,Object? adsHomeSeconds = null,Object? adsRestartSeconds = null,Object? adsComicShow = null,Object? adsCartoonShow = null,Object? dayDownloads = null,Object? vipDownloads = null,Object? rewardDownloads = null,Object? adsVipEnd = null,Object? adsStatSwitch = null,Object? adsStatSwitch2 = null,Object? adsRewardSeconds = null,Object? inMainland = null,}) {
   return _then(_NetworkResultDto(
 staticHost: null == staticHost ? _self.staticHost : staticHost // ignore: cast_nullable_to_non_nullable
 as String,imageHost: null == imageHost ? _self.imageHost : imageHost // ignore: cast_nullable_to_non_nullable
@@ -8825,7 +8771,7 @@ as int,adsCartoonShow: null == adsCartoonShow ? _self.adsCartoonShow : adsCartoo
 as int,dayDownloads: null == dayDownloads ? _self.dayDownloads : dayDownloads // ignore: cast_nullable_to_non_nullable
 as int,vipDownloads: null == vipDownloads ? _self.vipDownloads : vipDownloads // ignore: cast_nullable_to_non_nullable
 as int,rewardDownloads: null == rewardDownloads ? _self.rewardDownloads : rewardDownloads // ignore: cast_nullable_to_non_nullable
-as int,adsVipEnd: freezed == adsVipEnd ? _self.adsVipEnd : adsVipEnd ,adsStatSwitch: null == adsStatSwitch ? _self.adsStatSwitch : adsStatSwitch // ignore: cast_nullable_to_non_nullable
+as int,adsVipEnd: null == adsVipEnd ? _self.adsVipEnd : adsVipEnd ,adsStatSwitch: null == adsStatSwitch ? _self.adsStatSwitch : adsStatSwitch // ignore: cast_nullable_to_non_nullable
 as bool,adsStatSwitch2: null == adsStatSwitch2 ? _self.adsStatSwitch2 : adsStatSwitch2 // ignore: cast_nullable_to_non_nullable
 as bool,adsRewardSeconds: null == adsRewardSeconds ? _self.adsRewardSeconds : adsRewardSeconds // ignore: cast_nullable_to_non_nullable
 as int,inMainland: null == inMainland ? _self.inMainland : inMainland // ignore: cast_nullable_to_non_nullable

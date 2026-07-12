@@ -18,18 +18,17 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     Response<dynamic> response,
     ResponseInterceptorHandler handler,
   ) {
-    writeQueue = writeQueue.then((_) => writeResponse(response)).catchError((
-      Object error,
-      StackTrace stackTrace,
-    ) {
-      debugPrint('记录请求与响应失败：$error\n$stackTrace');
-    });
+    writeQueue = writeQueue
+        .then((_) => writeResponse(response: response))
+        .catchError((Object error, StackTrace stackTrace) {
+          debugPrint('记录请求与响应失败：$error\n$stackTrace');
+        });
 
     handler.next(response);
   }
 
-  Future<void> writeResponse(Response<dynamic> response) async {
-    final responseJson = normalizeJson(response.data);
+  Future<void> writeResponse({required Response<dynamic> response}) async {
+    final responseJson = normalizeJson(data: response.data);
     if (responseJson == null) return;
 
     final outputDirectory = await resolveOutputDirectory();
@@ -38,7 +37,7 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     final request = response.requestOptions;
     final localTime = DateTime.now();
     final recordedAt = localTime.toUtc();
-    final filePrefix = buildFilePrefix(localTime, request);
+    final filePrefix = buildFilePrefix(timestamp: localTime, request: request);
     final encoder = const JsonEncoder.withIndent('  ');
 
     final exchangeFile = File(
@@ -46,7 +45,12 @@ class JsonResponseRecorderInterceptor extends Interceptor {
       '${filePrefix}_exchange.http',
     );
     await exchangeFile.writeAsString(
-      buildHttpExchange(response, responseJson, recordedAt, encoder),
+      buildHttpExchange(
+        response: response,
+        responseJson: responseJson,
+        recordedAt: recordedAt,
+        encoder: encoder,
+      ),
       flush: true,
     );
 
@@ -54,20 +58,20 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     debugPrint('完整请求与响应文件：${exchangeFile.absolute.path}');
   }
 
-  String buildHttpExchange(
-    Response<dynamic> response,
-    Object responseJson,
-    DateTime recordedAt,
-    JsonEncoder encoder,
-  ) {
+  String buildHttpExchange({
+    required Response<dynamic> response,
+    required Object responseJson,
+    required DateTime recordedAt,
+    required JsonEncoder encoder,
+  }) {
     final request = response.requestOptions;
-    final requestBody = formatBody(request.data, encoder);
+    final requestBody = formatBody(body: request.data, encoder: encoder);
     final responseBody = encoder.convert(responseJson);
     final buffer = StringBuffer()
       ..writeln('# Recorded at ${recordedAt.toIso8601String()}')
       ..writeln('### Request')
       ..writeln('${request.method} ${request.uri} HTTP/1.1')
-      ..write(formatHeaders(request.headers));
+      ..write(formatHeaders(headers: request.headers));
 
     if (requestBody.isNotEmpty) {
       buffer
@@ -81,13 +85,13 @@ class JsonResponseRecorderInterceptor extends Interceptor {
       ..writeln(
         'HTTP/1.1 ${response.statusCode ?? ''} ${response.statusMessage ?? ''}',
       )
-      ..write(formatHeaders(response.headers.map))
+      ..write(formatHeaders(headers: response.headers.map))
       ..writeln()
       ..writeln(responseBody);
     return buffer.toString();
   }
 
-  String formatHeaders(Map<String, dynamic> headers) {
+  String formatHeaders({required Map<String, dynamic> headers}) {
     final buffer = StringBuffer();
     for (final entry in headers.entries) {
       final value = entry.value;
@@ -102,10 +106,10 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     return buffer.toString();
   }
 
-  String formatBody(dynamic body, JsonEncoder encoder) {
+  String formatBody({required dynamic body, required JsonEncoder encoder}) {
     if (body == null) return '';
     if (body is String) return body;
-    return encoder.convert(normalizeValue(body));
+    return encoder.convert(normalizeValue(value: body));
   }
 
   Future<Directory> resolveOutputDirectory() async {
@@ -120,7 +124,10 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     );
   }
 
-  String buildFilePrefix(DateTime timestamp, RequestOptions request) {
+  String buildFilePrefix({
+    required DateTime timestamp,
+    required RequestOptions request,
+  }) {
     final readableTime = [
       '${timestamp.year.toString().padLeft(4, '0')}-'
           '${timestamp.month.toString().padLeft(2, '0')}-'
@@ -134,14 +141,14 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     return value.replaceAll(RegExp(r'[^a-zA-Z0-9._-]'), '_');
   }
 
-  Object? normalizeJson(dynamic data) {
-    if (data is Map || data is List) return normalizeValue(data);
+  Object? normalizeJson({required dynamic data}) {
+    if (data is Map || data is List) return normalizeValue(value: data);
 
     if (data is String) {
       try {
         final decoded = jsonDecode(data);
         return decoded is Map || decoded is List
-            ? normalizeValue(decoded)
+            ? normalizeValue(value: decoded)
             : null;
       } on FormatException {
         return null;
@@ -151,17 +158,17 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     return null;
   }
 
-  Object? normalizeValue(dynamic value) {
+  Object? normalizeValue({required dynamic value}) {
     if (value == null || value is num || value is bool || value is String) {
       return value;
     }
     if (value is Map) {
       return value.map(
-        (key, item) => MapEntry(key.toString(), normalizeValue(item)),
+        (key, item) => MapEntry(key.toString(), normalizeValue(value: item)),
       );
     }
     if (value is Iterable) {
-      return value.map(normalizeValue).toList();
+      return value.map((item) => normalizeValue(value: item)).toList();
     }
     if (value is FormData) {
       return <String, Object?>{

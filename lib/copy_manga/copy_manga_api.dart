@@ -24,24 +24,24 @@ abstract class CopyMangaApi {
 
   /// 分页获取指定受众和时间范围的漫画排行榜。
   @GET('/api/v3/ranks')
-  Future<RankPageResultDto> ranks(
-    @Query('limit') int limit,
-    @Query('offset') int offset,
-    @Query('type') int type,
-    @Query('audience_type') String audienceType,
-    @Query('date_type') String dateType, {
+  Future<RankPageResultDto> ranks({
+    @Query('limit') required int limit,
+    @Query('offset') required int offset,
+    @Query('type') required int type,
+    @Query('audience_type') required String audienceType,
+    @Query('date_type') required String dateType,
     @Query('platform') int platform = 3,
   });
 
   /// 按主题、地区、作者或排序条件分页获取漫画列表。
   @GET('/api/v3/comics')
-  Future<ComicPageResultDto> comics(
-    @Query('limit') int limit,
-    @Query('offset') int offset,
+  Future<ComicPageResultDto> comics({
+    @Query('limit') required int limit,
+    @Query('offset') required int offset,
     @Query('ordering') String? ordering,
     @Query('theme') String? theme,
     @Query('top') String? top,
-    @Query('author') String? author, {
+    @Query('author') String? author,
     @Query('free_type') int freeType = 1,
     @Query('platform') int platform = 3,
   });
@@ -51,18 +51,18 @@ abstract class CopyMangaApi {
   /// 使用 App 端搜索接口分页搜索漫画。
   /// q_type: name author local
   @GET('/api/v3/search/comic')
-  Future<ComicPageResultDto> search(
-    @Query('limit') int limit,
-    @Query('offset') int offset,
-    @Query('q') String query,
-    @Query('q_type') String queryType, {
+  Future<ComicPageResultDto> search({
+    @Query('limit') required int limit,
+    @Query('offset') required int offset,
+    @Query('q') required String query,
+    @Query('q_type') required String queryType,
     @Query('platform') int platform = 3,
   });
 
   /// 获取漫画详情、作者、标签及章节分组信息。
   @GET('/api/v3/comic2/{comicId}')
-  Future<ComicInfoResultDto> comicInfo(
-    @Path('comicId') String comicId, {
+  Future<ComicInfoResultDto> comicInfo({
+    @Path('comicId') required String comicId,
     @Query('in_mainland') bool inMainland = false,
     @Query('request_id') String requestId = "",
     @Query('platform') int platform = 3,
@@ -70,11 +70,11 @@ abstract class CopyMangaApi {
 
   /// 分页获取漫画指定分组下的章节列表。
   @GET('/api/v3/comic/{comicId}/group/{groupId}/chapters')
-  Future<ChapterListResultDto> chapters(
-    @Path('comicId') String comicId,
-    @Path('groupId') String groupId,
-    @Query('limit') int limit,
-    @Query('offset') int offset, {
+  Future<ChapterListResultDto> chapters({
+    @Path('comicId') required String comicId,
+    @Path('groupId') required String groupId,
+    @Query('limit') required int limit,
+    @Query('offset') required int offset,
     @Query('in_mainland') bool inMainland = false,
     @Query('request_id') String requestId = "",
     @Query('platform') int platform = 3,
@@ -82,9 +82,9 @@ abstract class CopyMangaApi {
 
   /// 获取指定章节的图片内容及阅读顺序。
   @GET('/api/v3/comic/{comicId}/chapter2/{chapterId}')
-  Future<ChapterContentResultDto> chapter(
-    @Path('comicId') String comicId,
-    @Path('chapterId') String chapterId, {
+  Future<ChapterContentResultDto> chapter({
+    @Path('comicId') required String comicId,
+    @Path('chapterId') required String chapterId,
     @Query('in_mainland') bool inMainland = false,
     @Query('request_id') String requestId = "",
     @Query('platform') int platform = 3,
@@ -99,8 +99,8 @@ abstract class CopyMangaRequestIdApi {
 
   /// 获取大陆线路访问漫画内容所需的请求 ID。
   @GET('/api/v2/adopr/query3/')
-  Future<RequestIdResultDto> query(
-    @Query('format') String format,
-    @Query('ident') String ident,
-  );
+  Future<RequestIdResultDto> query({
+    @Query('format') required String format,
+    @Query('ident') required String ident,
+  });
 }

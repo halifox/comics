@@ -36,7 +36,10 @@ class LaunchPage extends HookConsumerWidget {
               title: '欢迎回来',
               message: '发现喜欢的漫画，收藏并继续你的阅读旅程',
             ),
-            error: (error, _) => ContentStateSliver.error(error),
+            error: (error, stackTrace) => ContentStateSliver.error(
+              error: error,
+              onRetry: () => ref.invalidate(launchProvider),
+            ),
             loading: () => const ContentStateSliver.loading(),
           ),
         ],

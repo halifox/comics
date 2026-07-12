@@ -6,9 +6,9 @@ part 'copy_manga_dto.g.dart';
 @freezed
 abstract class CopyMangaResponse with _$CopyMangaResponse {
   const factory CopyMangaResponse({
-    required int code,
+    @Default(0) int code,
     @Default('请求失败') String message,
-    Object? results,
+    @Default(<String, dynamic>{}) Object results,
   }) = _CopyMangaResponse;
 
   factory CopyMangaResponse.fromJson(Map<String, dynamic> json) =>
@@ -54,7 +54,7 @@ abstract class ComicDto with _$ComicDto {
     @Default([]) List<NamedPathDto> males,
     @Default('') String authorAlias,
     @Default(0) int popular,
-    ComicStatusDto? status,
+    @Default(ComicStatusDto()) ComicStatusDto status,
   }) = _ComicDto;
 
   factory ComicDto.fromJson(Map<String, dynamic> json) =>
@@ -65,8 +65,8 @@ abstract class ComicDto with _$ComicDto {
 abstract class RankedComicDto with _$RankedComicDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory RankedComicDto({
-    required ComicDto comic,
-    required int sort,
+    @Default(ComicDto()) ComicDto comic,
+    @Default(0) int sort,
     @Default(0) int sortLast,
     @Default(0) int riseSort,
     @Default(0) int riseNum,
@@ -81,16 +81,26 @@ abstract class RankedComicDto with _$RankedComicDto {
 @freezed
 abstract class HomeResultDto with _$HomeResultDto {
   const factory HomeResultDto({
-    required HomeTopicSectionDto topics,
-    required HomeTopicSectionDto topicsList,
-    @JsonKey(name: 'recComics') required HomeRecommendedSectionDto recommended,
-    @JsonKey(name: 'hotComics') required List<HomeUpdateDto> hot,
-    @JsonKey(name: 'newComics') required List<HomeUpdateDto> latest,
-    @JsonKey(name: 'finishComics') required HomeComicSectionDto finished,
-    @JsonKey(name: 'rankDayComics') required HomeRankSectionDto rankDay,
-    @JsonKey(name: 'rankWeekComics') required HomeRankSectionDto rankWeek,
-    @JsonKey(name: 'rankMonthComics') required HomeRankSectionDto rankMonth,
-    required List<HomeBannerDto> banners,
+    @Default(HomeTopicSectionDto()) HomeTopicSectionDto topics,
+    @Default(HomeTopicSectionDto()) HomeTopicSectionDto topicsList,
+    @JsonKey(name: 'recComics')
+    @Default(HomeRecommendedSectionDto())
+    HomeRecommendedSectionDto recommended,
+    @JsonKey(name: 'hotComics') @Default([]) List<HomeUpdateDto> hot,
+    @JsonKey(name: 'newComics') @Default([]) List<HomeUpdateDto> latest,
+    @JsonKey(name: 'finishComics')
+    @Default(HomeComicSectionDto())
+    HomeComicSectionDto finished,
+    @JsonKey(name: 'rankDayComics')
+    @Default(HomeRankSectionDto())
+    HomeRankSectionDto rankDay,
+    @JsonKey(name: 'rankWeekComics')
+    @Default(HomeRankSectionDto())
+    HomeRankSectionDto rankWeek,
+    @JsonKey(name: 'rankMonthComics')
+    @Default(HomeRankSectionDto())
+    HomeRankSectionDto rankMonth,
+    @Default([]) List<HomeBannerDto> banners,
   }) = _HomeResultDto;
 
   factory HomeResultDto.fromJson(Map<String, dynamic> json) =>
@@ -100,10 +110,10 @@ abstract class HomeResultDto with _$HomeResultDto {
 @freezed
 abstract class HomeTopicSectionDto with _$HomeTopicSectionDto {
   const factory HomeTopicSectionDto({
-    required List<HomeTopicDto> list,
-    required int total,
-    required int limit,
-    required int offset,
+    @Default([]) List<HomeTopicDto> list,
+    @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
   }) = _HomeTopicSectionDto;
 
   factory HomeTopicSectionDto.fromJson(Map<String, dynamic> json) =>
@@ -114,15 +124,15 @@ abstract class HomeTopicSectionDto with _$HomeTopicSectionDto {
 abstract class HomeTopicDto with _$HomeTopicDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeTopicDto({
-    required String title,
-    String? series,
-    required String journal,
-    required String cover,
-    required String period,
-    required int type,
+    @Default('') String title,
+    @Default('') String series,
+    @Default('') String journal,
+    @Default('') String cover,
+    @Default('') String period,
+    @Default(0) int type,
     @Default('') String brief,
-    required String pathWord,
-    required String datetimeCreated,
+    @Default('') String pathWord,
+    @Default('') String datetimeCreated,
   }) = _HomeTopicDto;
 
   factory HomeTopicDto.fromJson(Map<String, dynamic> json) =>
@@ -132,10 +142,10 @@ abstract class HomeTopicDto with _$HomeTopicDto {
 @freezed
 abstract class HomeRecommendedSectionDto with _$HomeRecommendedSectionDto {
   const factory HomeRecommendedSectionDto({
-    required List<HomeRecommendedItemDto> list,
-    required int total,
-    required int limit,
-    required int offset,
+    @Default([]) List<HomeRecommendedItemDto> list,
+    @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
   }) = _HomeRecommendedSectionDto;
 
   factory HomeRecommendedSectionDto.fromJson(Map<String, dynamic> json) =>
@@ -145,8 +155,8 @@ abstract class HomeRecommendedSectionDto with _$HomeRecommendedSectionDto {
 @freezed
 abstract class HomeRecommendedItemDto with _$HomeRecommendedItemDto {
   const factory HomeRecommendedItemDto({
-    required int type,
-    required HomeComicDto comic,
+    @Default(0) int type,
+    @Default(HomeComicDto()) HomeComicDto comic,
   }) = _HomeRecommendedItemDto;
 
   factory HomeRecommendedItemDto.fromJson(Map<String, dynamic> json) =>
@@ -157,9 +167,9 @@ abstract class HomeRecommendedItemDto with _$HomeRecommendedItemDto {
 abstract class HomeUpdateDto with _$HomeUpdateDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeUpdateDto({
-    required String name,
-    required String datetimeCreated,
-    required HomeComicDto comic,
+    @Default('') String name,
+    @Default('') String datetimeCreated,
+    @Default(HomeComicDto()) HomeComicDto comic,
   }) = _HomeUpdateDto;
 
   factory HomeUpdateDto.fromJson(Map<String, dynamic> json) =>
@@ -170,13 +180,13 @@ abstract class HomeUpdateDto with _$HomeUpdateDto {
 abstract class HomeComicSectionDto with _$HomeComicSectionDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeComicSectionDto({
-    required String name,
-    required String pathWord,
-    required String type,
-    required List<HomeComicDto> list,
-    required int total,
-    required int limit,
-    required int offset,
+    @Default('') String name,
+    @Default('') String pathWord,
+    @Default('') String type,
+    @Default([]) List<HomeComicDto> list,
+    @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
   }) = _HomeComicSectionDto;
 
   factory HomeComicSectionDto.fromJson(Map<String, dynamic> json) =>
@@ -186,10 +196,10 @@ abstract class HomeComicSectionDto with _$HomeComicSectionDto {
 @freezed
 abstract class HomeRankSectionDto with _$HomeRankSectionDto {
   const factory HomeRankSectionDto({
-    required List<HomeRankItemDto> list,
-    required int total,
-    required int limit,
-    required int offset,
+    @Default([]) List<HomeRankItemDto> list,
+    @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
   }) = _HomeRankSectionDto;
 
   factory HomeRankSectionDto.fromJson(Map<String, dynamic> json) =>
@@ -200,13 +210,13 @@ abstract class HomeRankSectionDto with _$HomeRankSectionDto {
 abstract class HomeRankItemDto with _$HomeRankItemDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeRankItemDto({
-    required HomeComicDto comic,
-    required int sort,
-    required int sortLast,
-    required int riseSort,
-    required int riseNum,
-    required int popular,
-    required int dateType,
+    @Default(HomeComicDto()) HomeComicDto comic,
+    @Default(0) int sort,
+    @Default(0) int sortLast,
+    @Default(0) int riseSort,
+    @Default(0) int riseNum,
+    @Default(0) int popular,
+    @Default(0) int dateType,
   }) = _HomeRankItemDto;
 
   factory HomeRankItemDto.fromJson(Map<String, dynamic> json) =>
@@ -217,9 +227,9 @@ abstract class HomeRankItemDto with _$HomeRankItemDto {
 abstract class HomeComicDto with _$HomeComicDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeComicDto({
-    required String name,
-    required String pathWord,
-    required String cover,
+    @Default('') String name,
+    @Default('') String pathWord,
+    @Default('') String cover,
     @JsonKey(name: 'author') @Default([]) List<NamedPathDto> authors,
     @Default('') String authorAlias,
     @Default(0) int popular,
@@ -228,7 +238,7 @@ abstract class HomeComicDto with _$HomeComicDto {
     @Default([]) List<NamedPathDto> females,
     @Default([]) List<NamedPathDto> males,
     @JsonKey(name: 'theme') @Default([]) List<NamedPathDto> themes,
-    Object? freeType,
+    @Default('') Object freeType,
   }) = _HomeComicDto;
 
   factory HomeComicDto.fromJson(Map<String, dynamic> json) =>
@@ -239,11 +249,11 @@ abstract class HomeComicDto with _$HomeComicDto {
 abstract class HomeBannerDto with _$HomeBannerDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeBannerDto({
-    required String cover,
+    @Default('') String cover,
     @Default('') String brief,
-    required int type,
-    required String outUuid,
-    NamedPathDto? comic,
+    @Default(0) int type,
+    @Default('') String outUuid,
+    @Default(NamedPathDto()) NamedPathDto comic,
   }) = _HomeBannerDto;
 
   factory HomeBannerDto.fromJson(Map<String, dynamic> json) =>
@@ -253,8 +263,8 @@ abstract class HomeBannerDto with _$HomeBannerDto {
 @freezed
 abstract class ComicPageResultDto with _$ComicPageResultDto {
   const factory ComicPageResultDto({
-    required List<ComicDto> list,
-    required int total,
+    @Default([]) List<ComicDto> list,
+    @Default(0) int total,
   }) = _ComicPageResultDto;
 
   factory ComicPageResultDto.fromJson(Map<String, dynamic> json) =>
@@ -283,9 +293,9 @@ abstract class ComicInfoResultDto with _$ComicInfoResultDto {
     @Default(false) bool isLogin,
     @Default(false) bool isMobileBind,
     @Default(false) bool isVip,
-    required ComicInfoDto comic,
+    @Default(ComicInfoDto()) ComicInfoDto comic,
     @Default(0) int popular,
-    required Map<String, ChapterGroupDto> groups,
+    @Default({}) Map<String, ChapterGroupDto> groups,
   }) = _ComicInfoResultDto;
 
   factory ComicInfoResultDto.fromJson(Map<String, dynamic> json) =>
@@ -305,24 +315,24 @@ abstract class ComicInfoDto with _$ComicInfoDto {
     @Default('') String pathWord,
     @Default(false) bool closeComment,
     @Default(false) bool closeRoast,
-    LabeledValueDto? freeType,
-    LabeledValueDto? restrict,
-    LabeledValueDto? reclass,
+    @Default(LabeledValueDto()) LabeledValueDto freeType,
+    @Default(LabeledValueDto()) LabeledValueDto restrict,
+    @Default(LabeledValueDto()) LabeledValueDto reclass,
     @Default([]) List<NamedPathDto> females,
     @Default([]) List<NamedPathDto> males,
     @Default([]) List<NamedPathDto> clubs,
     @Default('') String seoBaidu,
-    LabeledValueDto? region,
-    ComicStatusDto? status,
+    @Default(LabeledValueDto()) LabeledValueDto region,
+    @Default(ComicStatusDto()) ComicStatusDto status,
     @JsonKey(name: 'author') @Default([]) List<NamedPathDto> authors,
     @JsonKey(name: 'theme') @Default([]) List<NamedPathDto> themes,
     @Default([]) List<NamedPathDto> parodies,
     @Default('') String brief,
     @Default('') String datetimeUpdated,
     @Default('') String cover,
-    ChapterDto? lastChapter,
+    @Default(ChapterDto()) ChapterDto lastChapter,
     @Default(0) int popular,
-    Object? channel,
+    @Default('') Object channel,
   }) = _ComicInfoDto;
 
   factory ComicInfoDto.fromJson(Map<String, dynamic> json) =>
@@ -378,13 +388,13 @@ abstract class ChapterDto with _$ChapterDto {
     @Default('') String name,
     @Default('') String comicId,
     @Default('') String comicPathWord,
-    String? groupId,
+    @Default('') String groupId,
     @Default('') String groupPathWord,
     @Default(0) int type,
     @Default('') String news,
     @Default('') String datetimeCreated,
-    String? prev,
-    String? next,
+    @Default('') String prev,
+    @Default('') String next,
   }) = _ChapterDto;
 
   factory ChapterDto.fromJson(Map<String, dynamic> json) =>
@@ -400,8 +410,8 @@ abstract class ChapterContentResultDto with _$ChapterContentResultDto {
     @Default(false) bool isLogin,
     @Default(false) bool isMobileBind,
     @Default(false) bool isVip,
-    required ChapterComicDto comic,
-    required ChapterContentDto chapter,
+    @Default(ChapterComicDto()) ChapterComicDto comic,
+    @Default(ChapterContentDto()) ChapterContentDto chapter,
     @Default(false) bool isBanned,
   }) = _ChapterContentResultDto;
 
@@ -416,7 +426,7 @@ abstract class ChapterComicDto with _$ChapterComicDto {
     @Default('') String name,
     @Default('') String uuid,
     @Default('') String pathWord,
-    LabeledValueDto? restrict,
+    @Default(LabeledValueDto()) LabeledValueDto restrict,
   }) = _ChapterComicDto;
 
   factory ChapterComicDto.fromJson(Map<String, dynamic> json) =>
@@ -435,13 +445,13 @@ abstract class ChapterContentDto with _$ChapterContentDto {
     @Default('') String name,
     @Default('') String comicId,
     @Default('') String comicPathWord,
-    String? groupId,
+    @Default('') String groupId,
     @Default('') String groupPathWord,
     @Default(0) int type,
     @Default('') String news,
     @Default('') String datetimeCreated,
-    String? prev,
-    String? next,
+    @Default('') String prev,
+    @Default('') String next,
     @Default([]) List<ChapterImageDto> contents,
     @Default([]) List<int> words,
     @Default(false) bool isLong,
@@ -463,31 +473,31 @@ abstract class ChapterImageDto with _$ChapterImageDto {
 abstract class NetworkResultDto with _$NetworkResultDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory NetworkResultDto({
-    @JsonKey(name: 'static') required String staticHost,
-    @JsonKey(name: 'image') required String imageHost,
-    required List<String> share,
-    required List<List<String>> api,
-    required List<List<String>> ads,
-    required String hostComic,
-    required String hostCartoon,
-    required String hostNovel,
-    required int dayDownloadsTotal,
-    required int adsRewardDownloads,
-    required int adsRewardDayShow,
-    required int adsScreenShow,
-    required int adsReadExpressShow,
-    required int adsHomeSeconds,
-    required int adsRestartSeconds,
-    required int adsComicShow,
-    required int adsCartoonShow,
-    required int dayDownloads,
-    required int vipDownloads,
-    required int rewardDownloads,
-    Object? adsVipEnd,
-    required bool adsStatSwitch,
-    required bool adsStatSwitch2,
-    required int adsRewardSeconds,
-    required bool inMainland,
+    @JsonKey(name: 'static') @Default('') String staticHost,
+    @JsonKey(name: 'image') @Default('') String imageHost,
+    @Default([]) List<String> share,
+    @Default([]) List<List<String>> api,
+    @Default([]) List<List<String>> ads,
+    @Default('') String hostComic,
+    @Default('') String hostCartoon,
+    @Default('') String hostNovel,
+    @Default(0) int dayDownloadsTotal,
+    @Default(0) int adsRewardDownloads,
+    @Default(0) int adsRewardDayShow,
+    @Default(0) int adsScreenShow,
+    @Default(0) int adsReadExpressShow,
+    @Default(0) int adsHomeSeconds,
+    @Default(0) int adsRestartSeconds,
+    @Default(0) int adsComicShow,
+    @Default(0) int adsCartoonShow,
+    @Default(0) int dayDownloads,
+    @Default(0) int vipDownloads,
+    @Default(0) int rewardDownloads,
+    @Default('') Object adsVipEnd,
+    @Default(false) bool adsStatSwitch,
+    @Default(false) bool adsStatSwitch2,
+    @Default(0) int adsRewardSeconds,
+    @Default(false) bool inMainland,
   }) = _NetworkResultDto;
 
   factory NetworkResultDto.fromJson(Map<String, dynamic> json) =>
