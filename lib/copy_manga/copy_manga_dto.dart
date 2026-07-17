@@ -177,6 +177,19 @@ abstract class HomeUpdateDto with _$HomeUpdateDto {
 }
 
 @freezed
+abstract class NewReleaseResultDto with _$NewReleaseResultDto {
+  const factory NewReleaseResultDto({
+    @Default([]) List<HomeUpdateDto> list,
+    @Default(0) int total,
+    @Default(0) int limit,
+    @Default(0) int offset,
+  }) = _NewReleaseResultDto;
+
+  factory NewReleaseResultDto.fromJson(Map<String, dynamic> json) =>
+      _$NewReleaseResultDtoFromJson(json);
+}
+
+@freezed
 abstract class HomeComicSectionDto with _$HomeComicSectionDto {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeComicSectionDto({

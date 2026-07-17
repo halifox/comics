@@ -1,12 +1,15 @@
 import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
-import 'package:comics/features/library/application/comic_library_providers.dart';
-import 'package:comics/features/search/application/search_history_provider.dart';
+import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/search/presentation/search_results_page.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+
+final searchHistoryProvider = StreamProvider<List<String>>((ref) {
+  return ref.watch(libraryDatabaseProvider).watchSearchHistory();
+});
 
 class SearchPage extends HookConsumerWidget {
   const SearchPage({required this.fieldFocused, super.key});

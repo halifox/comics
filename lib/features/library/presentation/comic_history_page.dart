@@ -1,4 +1,4 @@
-import 'package:comics/features/library/application/comic_library_providers.dart';
+import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'comic_library_grid.dart';
+
+final comicHistoryProvider = StreamProvider<List<ComicLibraryItem>>((ref) {
+  return ref.watch(libraryDatabaseProvider).watchReadingHistory();
+});
 
 class ComicHistoryPage extends HookConsumerWidget {
   const ComicHistoryPage({super.key});

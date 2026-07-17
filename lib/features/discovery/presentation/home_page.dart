@@ -3,15 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
 
 import 'home_feed_widgets.dart';
 import 'new_release_page.dart';
 
-final homeProvider = FutureProvider<HomeResultDto>((ref) async {
-  return ref.watch(comicsApiProvider).homeIndex2();
+final homeProvider = FutureProvider<HomeFeedModel>((ref) {
+  return ref.watch(comicsRepositoryProvider).getHomeFeed();
 });
 
 class HomePage extends HookConsumerWidget {

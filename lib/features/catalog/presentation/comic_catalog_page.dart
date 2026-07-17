@@ -8,74 +8,47 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
-
-import 'package:comics/copy_manga/copy_manga.dart';
-
-enum ComicCatalogScope {
-  all(value: '', label: '全部'),
-  japan(value: 'japan', label: '日漫'),
-  korea(value: 'korea', label: '韩漫'),
-  west(value: 'west', label: '美漫'),
-  finished(value: 'finish', label: '已完结');
-
-  const ComicCatalogScope({required this.value, required this.label});
-
-  final String value;
-  final String label;
-}
-
-enum ComicCatalogOrdering {
-  updatedDescending(value: '-datetime_updated', label: '最近更新'),
-  popularDescending(value: '-popular', label: '热门更新');
-
-  const ComicCatalogOrdering({required this.value, required this.label});
-
-  final String value;
-  final String label;
-}
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 
 typedef ComicCatalogFilter = ({
   String? theme,
   String? author,
-  String top,
-  String ordering,
+  ComicCatalogScope scope,
+  ComicCatalogOrdering ordering,
 });
 
 final comicCatalogProvider =
     AsyncNotifierProvider.family<
       ComicCatalogNotifier,
-      PagePagingData<ComicDto>,
+      PagePagingData<ComicCardModel>,
       ComicCatalogFilter
     >(ComicCatalogNotifier.new);
 
-class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicDto>>
-    with PagePagingNotifierMixin<ComicDto> {
+class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicCardModel>>
+    with PagePagingNotifierMixin<ComicCardModel> {
   ComicCatalogNotifier(this.filter);
 
   static const pageSize = 18;
-
   final ComicCatalogFilter filter;
 
   @override
-  Future<PagePagingData<ComicDto>> build() => fetch(page: 1);
+  Future<PagePagingData<ComicCardModel>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<ComicDto>> fetch({required int page}) async {
+  Future<PagePagingData<ComicCardModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsApiProvider)
-        .comics(
-          limit: pageSize,
-          offset: offset,
-          ordering: filter.ordering,
-          theme: filter.theme,
-          top: filter.top,
-          author: filter.author,
-        );
-
+    final result = await ref.read(comicsRepositoryProvider).getCatalog(
+      limit: pageSize,
+      offset: offset,
+      ordering: filter.ordering,
+      scope: filter.scope,
+      theme: filter.theme,
+      author: filter.author,
+    );
     return PagePagingData(
-      items: result.list,
-      hasMore: offset + result.list.length < result.total,
+      items: result.items,
+      hasMore: offset + result.items.length < result.total,
       page: page,
     );
   }
@@ -110,8 +83,8 @@ class ComicCatalogPage extends HookConsumerWidget {
     final filter = (
       theme: theme,
       author: author,
-      top: scope.value.value,
-      ordering: ordering.value.value,
+      scope: scope.value,
+      ordering: ordering.value,
     );
     final provider = comicCatalogProvider(filter);
 
@@ -233,18 +206,16 @@ class ComicCatalogPage extends HookConsumerWidget {
 
                     final comic = data.items[index];
                     return ComicCoverCard(
-                      cover: comic.cover,
-                      name: comic.name,
-                      author: comic.authors
-                          .map((author) => author.name)
-                          .join(','),
+                      cover: comic.coverUrl,
+                      name: comic.title,
+                      author: comic.authorText,
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute<void>(
                             builder: (_) => ComicDetailPage(
-                              comicId: comic.pathWord,
-                              name: comic.name,
-                              cover: comic.cover,
+                              comicId: comic.id,
+                              name: comic.title,
+                              cover: comic.coverUrl,
                             ),
                           ),
                         );

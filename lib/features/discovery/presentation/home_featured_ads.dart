@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class HomeFeaturedAds extends HookWidget {
-  const HomeFeaturedAds({required this.recommendations, super.key});
+  const HomeFeaturedAds({required this.comics, super.key});
 
-  final List<HomeRecommendedItemDto> recommendations;
+  final List<ComicCardModel> comics;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class HomeFeaturedAds extends HookWidget {
     final selectedIndex = useState(0);
     final height = MediaQuery.sizeOf(context).height * .56;
 
-    if (recommendations.isEmpty) {
+    if (comics.isEmpty) {
       return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
 
@@ -29,16 +29,13 @@ class HomeFeaturedAds extends HookWidget {
             PageView.builder(
               key: const PageStorageKey<String>('home-featured-ads'),
               controller: pageController,
-              itemCount: recommendations.length,
+              itemCount: comics.length,
               onPageChanged: (index) => selectedIndex.value = index,
               itemBuilder: (context, index) {
-                final comic = recommendations[index].comic;
-                final comicName = comic.name;
-                final comicId = comic.pathWord;
-                final authors = comic.authors
-                    .map((author) => author.name)
-                    .where((name) => name.isNotEmpty)
-                    .join(' · ');
+                final comic = comics[index];
+                final comicName = comic.title;
+                final comicId = comic.id;
+                final authors = comic.authorText;
 
                 return Semantics(
                   button: comicId.isNotEmpty,
@@ -53,7 +50,7 @@ class HomeFeaturedAds extends HookWidget {
                                 builder: (_) => ComicDetailPage(
                                   comicId: comicId,
                                   name: comicName,
-                                  cover: comic.cover,
+                                  cover: comic.coverUrl,
                                 ),
                               ),
                             );
@@ -62,7 +59,7 @@ class HomeFeaturedAds extends HookWidget {
                       fit: StackFit.expand,
                       children: [
                         CachedNetworkImage(
-                          imageUrl: comic.cover,
+                          imageUrl: comic.coverUrl,
                           fit: BoxFit.cover,
                           progressIndicatorBuilder: buildCachedImageLoading,
                           errorWidget: buildCachedImageError,
@@ -136,14 +133,14 @@ class HomeFeaturedAds extends HookWidget {
                 );
               },
             ),
-            if (recommendations.length > 1)
+            if (comics.length > 1)
               Positioned(
                 left: 20,
                 right: 20,
                 bottom: 20,
                 child: Row(
                   children: [
-                    for (var index = 0; index < recommendations.length; index++)
+                    for (var index = 0; index < comics.length; index++)
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 250),
                         curve: Curves.easeOutCubic,

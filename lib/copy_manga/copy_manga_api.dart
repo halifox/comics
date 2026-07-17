@@ -1,9 +1,45 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 
+import 'copy_manga_interceptor.dart';
 import 'copy_manga_dto.dart';
+import 'json_response_recorder_interceptor.dart';
 
 part 'copy_manga_api.g.dart';
+
+final copyMangaDioProvider = Provider<Dio>((ref) {
+  final dio = Dio(
+    BaseOptions(
+      connectTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(seconds: 30),
+      validateStatus: (status) => status == 200,
+    ),
+  );
+  if (kDebugMode) {
+    dio.interceptors.add(JsonResponseRecorderInterceptor());
+  }
+  dio.interceptors.add(CopyMangaInterceptor());
+  dio.interceptors.add(
+    PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseHeader: true,
+      responseBody: true,
+      error: true,
+      compact: false,
+      enabled: kDebugMode,
+    ),
+  );
+  ref.onDispose(() => dio.close(force: true));
+  return dio;
+});
+
+final comicsApiProvider = Provider<CopyMangaApi>(
+  (ref) => CopyMangaApi(ref.watch(copyMangaDioProvider)),
+);
 
 @RestApi(baseUrl: "https://api.copy-manga.com")
 abstract class CopyMangaApi {
@@ -89,18 +125,13 @@ abstract class CopyMangaApi {
     @Query('request_id') String requestId = "",
     @Query('platform') int platform = 3,
   });
-}
 
-@RestApi(baseUrl: 'https://marketing.aiacgn.com')
-abstract class CopyMangaRequestIdApi {
-  /// 创建用于获取大陆线路请求 ID 的客户端。
-  factory CopyMangaRequestIdApi(Dio dio, {String? baseUrl}) =
-      _CopyMangaRequestIdApi;
-
-  /// 获取大陆线路访问漫画内容所需的请求 ID。
-  @GET('/api/v2/adopr/query3/')
-  Future<RequestIdResultDto> query({
-    @Query('format') required String format,
-    @Query('ident') required String ident,
+  /// 分页获取最新上架的漫画。
+  @GET('/api/v3/update/newest')
+  Future<NewReleaseResultDto> newest({
+    @Query('limit') required int limit,
+    @Query('offset') required int offset,
+    @Query('date') String date = '',
+    @Query('platform') int platform = 3,
   });
 }

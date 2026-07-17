@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/features/library/application/comic_library_providers.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/reader_settings_page.dart';
 import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
@@ -18,13 +18,10 @@ import '../application/reader_settings_provider.dart';
 typedef ChapterReaderQuery = ({String comicId, String chapterId});
 
 final chapterReaderProvider =
-    FutureProvider.family<ChapterContentResultDto, ChapterReaderQuery>((
-      ref,
-      args,
-    ) {
+    FutureProvider.family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
       return ref
-          .watch(comicsApiProvider)
-          .chapter(comicId: args.comicId, chapterId: args.chapterId);
+          .watch(comicsRepositoryProvider)
+          .getChapter(comicId: args.comicId, chapterId: args.chapterId);
     });
 
 class ChapterReaderPage extends HookConsumerWidget {
@@ -130,7 +127,7 @@ class ChapterReaderPage extends HookConsumerWidget {
                   ],
                 ),
                 data: (data) {
-                  final images = orderedImageUrls(chapter: data.chapter);
+                  final images = data.imageUrls;
                   if (images.isEmpty) {
                     return const CustomScrollView(
                       slivers: [
@@ -568,26 +565,6 @@ class ChapterImage extends HookWidget {
     );
     return image;
   }
-}
-
-List<String> orderedImageUrls({required ChapterContentDto chapter}) {
-  final urls = chapter.contents
-      .map((image) => image.url)
-      .where((url) => url.isNotEmpty)
-      .toList(growable: false);
-  final orders = chapter.words;
-
-  final validOrder =
-      orders.length == urls.length &&
-      orders.toSet().length == urls.length &&
-      orders.every((index) => index >= 0 && index < urls.length);
-  if (!validOrder) return urls;
-
-  final ordered = List<String>.filled(urls.length, '');
-  for (var index = 0; index < urls.length; index++) {
-    ordered[orders[index]] = urls[index];
-  }
-  return ordered;
 }
 
 void preloadFollowing({

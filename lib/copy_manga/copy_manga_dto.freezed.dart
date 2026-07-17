@@ -3300,6 +3300,284 @@ $HomeComicDtoCopyWith<$Res> get comic {
 
 
 /// @nodoc
+mixin _$NewReleaseResultDto {
+
+ List<HomeUpdateDto> get list; int get total; int get limit; int get offset;
+/// Create a copy of NewReleaseResultDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NewReleaseResultDtoCopyWith<NewReleaseResultDto> get copyWith => _$NewReleaseResultDtoCopyWithImpl<NewReleaseResultDto>(this as NewReleaseResultDto, _$identity);
+
+  /// Serializes this NewReleaseResultDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NewReleaseResultDto&&const DeepCollectionEquality().equals(other.list, list)&&(identical(other.total, total) || other.total == total)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.offset, offset) || other.offset == offset));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(list),total,limit,offset);
+
+@override
+String toString() {
+  return 'NewReleaseResultDto(list: $list, total: $total, limit: $limit, offset: $offset)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NewReleaseResultDtoCopyWith<$Res>  {
+  factory $NewReleaseResultDtoCopyWith(NewReleaseResultDto value, $Res Function(NewReleaseResultDto) _then) = _$NewReleaseResultDtoCopyWithImpl;
+@useResult
+$Res call({
+ List<HomeUpdateDto> list, int total, int limit, int offset
+});
+
+
+
+
+}
+/// @nodoc
+class _$NewReleaseResultDtoCopyWithImpl<$Res>
+    implements $NewReleaseResultDtoCopyWith<$Res> {
+  _$NewReleaseResultDtoCopyWithImpl(this._self, this._then);
+
+  final NewReleaseResultDto _self;
+  final $Res Function(NewReleaseResultDto) _then;
+
+/// Create a copy of NewReleaseResultDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? list = null,Object? total = null,Object? limit = null,Object? offset = null,}) {
+  return _then(_self.copyWith(
+list: null == list ? _self.list : list // ignore: cast_nullable_to_non_nullable
+as List<HomeUpdateDto>,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [NewReleaseResultDto].
+extension NewReleaseResultDtoPatterns on NewReleaseResultDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NewReleaseResultDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NewReleaseResultDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NewReleaseResultDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _NewReleaseResultDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NewReleaseResultDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NewReleaseResultDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<HomeUpdateDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NewReleaseResultDto() when $default != null:
+return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<HomeUpdateDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+switch (_that) {
+case _NewReleaseResultDto():
+return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<HomeUpdateDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+switch (_that) {
+case _NewReleaseResultDto() when $default != null:
+return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NewReleaseResultDto implements NewReleaseResultDto {
+  const _NewReleaseResultDto({final  List<HomeUpdateDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  factory _NewReleaseResultDto.fromJson(Map<String, dynamic> json) => _$NewReleaseResultDtoFromJson(json);
+
+ final  List<HomeUpdateDto> _list;
+@override@JsonKey() List<HomeUpdateDto> get list {
+  if (_list is EqualUnmodifiableListView) return _list;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_list);
+}
+
+@override@JsonKey() final  int total;
+@override@JsonKey() final  int limit;
+@override@JsonKey() final  int offset;
+
+/// Create a copy of NewReleaseResultDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NewReleaseResultDtoCopyWith<_NewReleaseResultDto> get copyWith => __$NewReleaseResultDtoCopyWithImpl<_NewReleaseResultDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NewReleaseResultDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewReleaseResultDto&&const DeepCollectionEquality().equals(other._list, _list)&&(identical(other.total, total) || other.total == total)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.offset, offset) || other.offset == offset));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_list),total,limit,offset);
+
+@override
+String toString() {
+  return 'NewReleaseResultDto(list: $list, total: $total, limit: $limit, offset: $offset)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NewReleaseResultDtoCopyWith<$Res> implements $NewReleaseResultDtoCopyWith<$Res> {
+  factory _$NewReleaseResultDtoCopyWith(_NewReleaseResultDto value, $Res Function(_NewReleaseResultDto) _then) = __$NewReleaseResultDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ List<HomeUpdateDto> list, int total, int limit, int offset
+});
+
+
+
+
+}
+/// @nodoc
+class __$NewReleaseResultDtoCopyWithImpl<$Res>
+    implements _$NewReleaseResultDtoCopyWith<$Res> {
+  __$NewReleaseResultDtoCopyWithImpl(this._self, this._then);
+
+  final _NewReleaseResultDto _self;
+  final $Res Function(_NewReleaseResultDto) _then;
+
+/// Create a copy of NewReleaseResultDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? list = null,Object? total = null,Object? limit = null,Object? offset = null,}) {
+  return _then(_NewReleaseResultDto(
+list: null == list ? _self._list : list // ignore: cast_nullable_to_non_nullable
+as List<HomeUpdateDto>,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$HomeComicSectionDto {
 
  String get name; String get pathWord; String get type; List<HomeComicDto> get list; int get total; int get limit; int get offset;
