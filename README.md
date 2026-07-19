@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/icon/app_icon.png" alt="Comics 应用图标" width="128" />
+</p>
+
 # Comics
 
 一款使用 Flutter 构建的第三方漫画阅读客户端，以拷贝漫画内容服务为数据源，提供发现、排行、搜索、书架与多模式阅读体验。界面采用 Cupertino 风格，并通过液态玻璃组件适配浅色与深色外观。
