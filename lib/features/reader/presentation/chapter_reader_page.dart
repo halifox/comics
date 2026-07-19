@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/features/library/application/comic_library_providers.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/reader_settings_page.dart';
 import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
@@ -18,13 +18,10 @@ import '../application/reader_settings_provider.dart';
 typedef ChapterReaderQuery = ({String comicId, String chapterId});
 
 final chapterReaderProvider =
-    FutureProvider.family<ChapterContentResultDto, ChapterReaderQuery>((
-      ref,
-      args,
-    ) {
+    FutureProvider.family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
       return ref
-          .watch(comicsApiProvider)
-          .chapter(comicId: args.comicId, chapterId: args.chapterId);
+          .watch(comicsRepositoryProvider)
+          .getChapter(comicId: args.comicId, chapterId: args.chapterId);
     });
 
 class ChapterReaderPage extends HookConsumerWidget {
@@ -109,146 +106,161 @@ class ChapterReaderPage extends HookConsumerWidget {
         contentAwareBrightness: false,
         statusBarStyle: GlassStatusBarStyle.auto,
         background: ColoredBox(color: background.color),
-        appBar: controlsVisible.value
-            ? GlassAppBar(
-                title: Builder(
-                  builder: (themedContext) => Text(
-                    '$comicName · $groupName · $chapterName',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: CupertinoColors.label.resolveFrom(themedContext),
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: chapter.when(
+                loading: () => const CustomScrollView(
+                  slivers: [ContentStateSliver.loading()],
+                ),
+                error: (error, stackTrace) => CustomScrollView(
+                  slivers: [
+                    ContentStateSliver.error(
+                      error: error,
+                      onRetry: () => ref.invalidate(
+                        chapterReaderProvider((
+                          comicId: comicId,
+                          chapterId: chapterId,
+                        )),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                centerTitle: false,
-                leading: Semantics(
-                  button: true,
-                  label: '返回',
-                  child: GlassIconButton(
-                    icon: const Icon(CupertinoIcons.chevron_back),
-                    useOwnLayer: true,
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ),
-                actions: [
-                  Semantics(
-                    button: true,
-                    label: '阅读设置',
-                    child: GlassIconButton(
-                      icon: const Icon(CupertinoIcons.slider_horizontal_3),
-                      useOwnLayer: true,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          CupertinoPageRoute<void>(
-                            builder: (context) => const ReaderSettingsPage(),
-                          ),
-                        );
+                data: (data) {
+                  final images = data.imageUrls;
+                  if (images.isEmpty) {
+                    return const CustomScrollView(
+                      slivers: [
+                        ContentStateSliver.empty(
+                          icon: CupertinoIcons.photo,
+                          title: '暂无图片',
+                          message: '这一章节暂时没有可显示的图片',
+                        ),
+                      ],
+                    );
+                  }
+
+                  final restoredPageIndex = currentPageIndex.value
+                      .clamp(0, images.length - 1)
+                      .toInt();
+                  final visiblePageNumber =
+                      displayedPageIndex.value.clamp(0, images.length - 1) + 1;
+
+                  final reader = switch (settings.mode) {
+                    ReaderMode.continuous => ContinuousReader(
+                      images: images,
+                      initialPageIndex: restoredPageIndex,
+                      onPageChanged: onPageChanged,
+                      onToggleControls: () {
+                        controlsVisible.value = !controlsVisible.value;
                       },
                     ),
-                  ),
-                ],
-              )
-            : null,
-        body: chapter.when(
-          loading: () =>
-              const CustomScrollView(slivers: [ContentStateSliver.loading()]),
-          error: (error, stackTrace) => CustomScrollView(
-            slivers: [
-              ContentStateSliver.error(
-                error: error,
-                onRetry: () => ref.invalidate(
-                  chapterReaderProvider((
-                    comicId: comicId,
-                    chapterId: chapterId,
-                  )),
-                ),
-              ),
-            ],
-          ),
-          data: (data) {
-            final images = orderedImageUrls(chapter: data.chapter);
-            if (images.isEmpty) {
-              return const CustomScrollView(
-                slivers: [
-                  ContentStateSliver.empty(
-                    icon: CupertinoIcons.photo,
-                    title: '暂无图片',
-                    message: '这一章节暂时没有可显示的图片',
-                  ),
-                ],
-              );
-            }
+                    ReaderMode.paged => PagedReader(
+                      images: images,
+                      initialPageIndex: restoredPageIndex,
+                      onPageChanged: onPageChanged,
+                      onToggleControls: () {
+                        controlsVisible.value = !controlsVisible.value;
+                      },
+                    ),
+                    ReaderMode.manga => PagedReader(
+                      images: images,
+                      initialPageIndex: restoredPageIndex,
+                      onPageChanged: onPageChanged,
+                      onToggleControls: () {
+                        controlsVisible.value = !controlsVisible.value;
+                      },
+                      reverse: true,
+                    ),
+                  };
 
-            final restoredPageIndex = currentPageIndex.value
-                .clamp(0, images.length - 1)
-                .toInt();
-            final visiblePageNumber =
-                displayedPageIndex.value.clamp(0, images.length - 1) + 1;
-
-            final reader = switch (settings.mode) {
-              ReaderMode.continuous => ContinuousReader(
-                images: images,
-                initialPageIndex: restoredPageIndex,
-                onPageChanged: onPageChanged,
-                onToggleControls: () {
-                  controlsVisible.value = !controlsVisible.value;
-                },
-              ),
-              ReaderMode.paged => PagedReader(
-                images: images,
-                initialPageIndex: restoredPageIndex,
-                onPageChanged: onPageChanged,
-                onToggleControls: () {
-                  controlsVisible.value = !controlsVisible.value;
-                },
-              ),
-              ReaderMode.manga => PagedReader(
-                images: images,
-                initialPageIndex: restoredPageIndex,
-                onPageChanged: onPageChanged,
-                onToggleControls: () {
-                  controlsVisible.value = !controlsVisible.value;
-                },
-                reverse: true,
-              ),
-            };
-
-            return Stack(
-              children: [
-                Positioned.fill(child: reader),
-                PositionedDirectional(
-                  end: 12,
-                  bottom: MediaQuery.paddingOf(context).bottom + 12,
-                  child: IgnorePointer(
-                    child: GlassContainer(
-                      padding: const EdgeInsetsDirectional.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
+                  return Stack(
+                    children: [
+                      Positioned.fill(child: reader),
+                      PositionedDirectional(
+                        end: 12,
+                        bottom: MediaQuery.paddingOf(context).bottom + 12,
+                        child: IgnorePointer(
+                          child: GlassContainer(
+                            padding: const EdgeInsetsDirectional.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            quality: GlassQuality.premium,
+                            useOwnLayer: true,
+                            child: Builder(
+                              builder: (context) {
+                                return Text(
+                                  '$visiblePageNumber / ${images.length}',
+                                  style: TextStyle(
+                                    color: CupertinoColors.label.resolveFrom(
+                                      context,
+                                    ),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    fontFeatures: [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                      quality: GlassQuality.premium,
+                    ],
+                  );
+                },
+              ),
+            ),
+            if (controlsVisible.value)
+              PositionedDirectional(
+                top: 0,
+                start: 0,
+                end: 0,
+                child: GlassAppBar(
+                  title: Builder(
+                    builder: (themedContext) => Text(
+                      '$comicName · $groupName · $chapterName',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: CupertinoColors.label.resolveFrom(themedContext),
+                      ),
+                    ),
+                  ),
+                  centerTitle: false,
+                  leading: Semantics(
+                    button: true,
+                    label: '返回',
+                    child: GlassIconButton(
+                      icon: const Icon(CupertinoIcons.chevron_back),
                       useOwnLayer: true,
-                      child: Builder(
-                        builder: (context) {
-                          return Text(
-                            '$visiblePageNumber / ${images.length}',
-                            style: TextStyle(
-                              color: CupertinoColors.label.resolveFrom(context),
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              fontFeatures: [FontFeature.tabularFigures()],
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                  actions: [
+                    Semantics(
+                      button: true,
+                      label: '阅读设置',
+                      child: GlassIconButton(
+                        icon: const Icon(CupertinoIcons.slider_horizontal_3),
+                        useOwnLayer: true,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            CupertinoPageRoute<void>(
+                              builder: (context) => const ReaderSettingsPage(),
                             ),
                           );
                         },
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            );
-          },
+              ),
+          ],
         ),
       ),
     );
@@ -553,26 +565,6 @@ class ChapterImage extends HookWidget {
     );
     return image;
   }
-}
-
-List<String> orderedImageUrls({required ChapterContentDto chapter}) {
-  final urls = chapter.contents
-      .map((image) => image.url)
-      .where((url) => url.isNotEmpty)
-      .toList(growable: false);
-  final orders = chapter.words;
-
-  final validOrder =
-      orders.length == urls.length &&
-      orders.toSet().length == urls.length &&
-      orders.every((index) => index >= 0 && index < urls.length);
-  if (!validOrder) return urls;
-
-  final ordered = List<String>.filled(urls.length, '');
-  for (var index = 0; index < urls.length; index++) {
-    ordered[orders[index]] = urls[index];
-  }
-  return ordered;
 }
 
 void preloadFollowing({

@@ -4,23 +4,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
-
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
 import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
-
-enum ComicRankingAudience {
-  male(value: 'male', label: '男频'),
-  female(value: 'female', label: '女频');
-
-  const ComicRankingAudience({required this.value, required this.label});
-
-  final String value;
-  final String label;
-}
 
 typedef ComicRankingFilter = ({
   ComicRankingAudience audience,
@@ -30,37 +20,32 @@ typedef ComicRankingFilter = ({
 final rankingProvider =
     AsyncNotifierProvider.family<
       ComicRankingNotifier,
-      PagePagingData<RankedComicDto>,
+      PagePagingData<RankedComicModel>,
       ComicRankingFilter
     >(ComicRankingNotifier.new);
 
-class ComicRankingNotifier extends AsyncNotifier<PagePagingData<RankedComicDto>>
-    with PagePagingNotifierMixin<RankedComicDto> {
+class ComicRankingNotifier extends AsyncNotifier<PagePagingData<RankedComicModel>>
+    with PagePagingNotifierMixin<RankedComicModel> {
   ComicRankingNotifier(this.filter);
 
   static const pageSize = 18;
-
   final ComicRankingFilter filter;
 
   @override
-  Future<PagePagingData<RankedComicDto>> build() => fetch(page: 1);
+  Future<PagePagingData<RankedComicModel>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<RankedComicDto>> fetch({required int page}) async {
+  Future<PagePagingData<RankedComicModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsApiProvider)
-        .ranks(
-          limit: pageSize,
-          offset: offset,
-          type: 1,
-          audienceType: filter.audience.value,
-          dateType: filter.period.value,
-        );
-
+    final result = await ref.read(comicsRepositoryProvider).getRanking(
+      limit: pageSize,
+      offset: offset,
+      audience: filter.audience,
+      period: filter.period,
+    );
     return PagePagingData(
-      items: result.list,
-      hasMore: offset + result.list.length < result.total,
+      items: result.items,
+      hasMore: offset + result.items.length < result.total,
       page: page,
     );
   }
@@ -184,17 +169,17 @@ class ComicRankingPage extends HookConsumerWidget {
                     final item = data.items[index];
                     final comic = item.comic;
                     return ComicCoverCard(
-                      cover: comic.cover,
-                      name: comic.name,
-                      author: comic.authors.map((e) => e.name).join(','),
-                      badge: '#${item.sort}',
+                      cover: comic.coverUrl,
+                      name: comic.title,
+                      author: comic.authorText,
+                      badge: item.rankLabel,
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute<void>(
                             builder: (routeContext) => ComicDetailPage(
-                              comicId: comic.pathWord,
-                              name: comic.name,
-                              cover: comic.cover,
+                              comicId: comic.id,
+                              name: comic.title,
+                              cover: comic.coverUrl,
                             ),
                           ),
                         );

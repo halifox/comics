@@ -1,7 +1,14 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'library_database.g.dart';
+
+final libraryDatabaseProvider = Provider<LibraryDatabase>((ref) {
+  final database = LibraryDatabase();
+  ref.onDispose(database.close);
+  return database;
+});
 
 class StoredComics extends Table {
   TextColumn get pathWord => text()();

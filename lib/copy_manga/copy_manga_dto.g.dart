@@ -280,6 +280,27 @@ Map<String, dynamic> _$HomeUpdateDtoToJson(_HomeUpdateDto instance) =>
       'comic': instance.comic,
     };
 
+_NewReleaseResultDto _$NewReleaseResultDtoFromJson(Map<String, dynamic> json) =>
+    _NewReleaseResultDto(
+      list:
+          (json['list'] as List<dynamic>?)
+              ?.map((e) => HomeUpdateDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      limit: (json['limit'] as num?)?.toInt() ?? 0,
+      offset: (json['offset'] as num?)?.toInt() ?? 0,
+    );
+
+Map<String, dynamic> _$NewReleaseResultDtoToJson(
+  _NewReleaseResultDto instance,
+) => <String, dynamic>{
+  'list': instance.list,
+  'total': instance.total,
+  'limit': instance.limit,
+  'offset': instance.offset,
+};
+
 _HomeComicSectionDto _$HomeComicSectionDtoFromJson(Map<String, dynamic> json) =>
     _HomeComicSectionDto(
       name: json['name'] as String? ?? '',

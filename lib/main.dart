@@ -1,4 +1,6 @@
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/navigation/presentation/main_navigation_page.dart';
+import 'package:comics/mockapi/mockapi.dart';
 import 'package:comics/shared/application/shared_preferences_provider.dart';
 import 'package:comics/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +17,9 @@ Future<void> main() async {
       adaptiveQuality: true,
       child: ProviderScope(
         overrides: [
+          comicsRepositoryProvider.overrideWith(
+            (ref) => ref.watch(mockComicsRepositoryProvider),
+          ),
           sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         ],
         retry: (retryCount, error) => null,

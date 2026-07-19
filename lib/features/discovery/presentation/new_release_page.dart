@@ -1,122 +1,37 @@
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
-class NewReleaseEntry {
-  const NewReleaseEntry({
-    required this.name,
-    required this.datetimeCreated,
-    required this.comic,
-  });
-
-  factory NewReleaseEntry.fromJson({
-    required Map<String, dynamic> json,
-  }) {
-    final comicJson = json['comic'];
-    return NewReleaseEntry(
-      name: json['name'] as String? ?? '',
-      datetimeCreated: json['datetime_created'] as String? ?? '',
-      comic: comicJson is Map<String, dynamic>
-          ? HomeComicDto.fromJson(comicJson)
-          : const HomeComicDto(),
-    );
-  }
-
-  final String name;
-  final String datetimeCreated;
-  final HomeComicDto comic;
-}
-
-class NewReleaseResult {
-  const NewReleaseResult({
-    required this.list,
-    required this.total,
-    required this.limit,
-    required this.offset,
-  });
-
-  factory NewReleaseResult.fromJson({
-    required Map<String, dynamic> json,
-  }) {
-    final items = json['list'];
-    return NewReleaseResult(
-      list: items is List
-          ? items
-                .whereType<Map<String, dynamic>>()
-                .map((json) => NewReleaseEntry.fromJson(json: json))
-                .toList()
-          : const [],
-      total: json['total'] as int? ?? 0,
-      limit: json['limit'] as int? ?? 0,
-      offset: json['offset'] as int? ?? 0,
-    );
-  }
-
-  final List<NewReleaseEntry> list;
-  final int total;
-  final int limit;
-  final int offset;
-}
-
-class NewReleaseApi {
-  const NewReleaseApi({required this.dio});
-
-  final Dio dio;
-
-  Future<NewReleaseResult> newest({
-    required int limit,
-    required int offset,
-    String date = '',
-    int platform = 3,
-  }) async {
-    final response = await dio.get<Map<String, dynamic>>(
-      'https://api.copy202601.com/api/v3/update/newest',
-      queryParameters: {
-        'date': date,
-        'limit': limit,
-        'offset': offset,
-        'platform': platform,
-      },
-    );
-    return NewReleaseResult.fromJson(json: response.data ?? const {});
-  }
-}
-
-final newReleaseApiProvider = Provider<NewReleaseApi>(
-  (ref) => NewReleaseApi(dio: ref.watch(copyMangaDioProvider)),
-);
-
 final newReleaseProvider =
     AsyncNotifierProvider<
       NewReleaseNotifier,
-      PagePagingData<NewReleaseEntry>
+      PagePagingData<NewReleaseModel>
     >(NewReleaseNotifier.new);
 
-class NewReleaseNotifier extends AsyncNotifier<PagePagingData<NewReleaseEntry>>
-    with PagePagingNotifierMixin<NewReleaseEntry> {
+class NewReleaseNotifier extends AsyncNotifier<PagePagingData<NewReleaseModel>>
+    with PagePagingNotifierMixin<NewReleaseModel> {
   static const pageSize = 18;
 
   @override
-  Future<PagePagingData<NewReleaseEntry>> build() => fetch(page: 1);
+  Future<PagePagingData<NewReleaseModel>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<NewReleaseEntry>> fetch({required int page}) async {
+  Future<PagePagingData<NewReleaseModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
     final result = await ref
-        .read(newReleaseApiProvider)
-        .newest(limit: pageSize, offset: offset);
-
+        .read(comicsRepositoryProvider)
+        .getNewReleases(limit: pageSize, offset: offset);
     return PagePagingData(
-      items: result.list,
-      hasMore: offset + result.list.length < result.total,
+      items: result.items,
+      hasMore: offset + result.items.length < result.total,
       page: page,
     );
   }
@@ -201,20 +116,18 @@ class NewReleasePage extends HookConsumerWidget {
                     final entry = data.items[index];
                     final comic = entry.comic;
                     return ComicCoverCard(
-                      cover: comic.cover,
-                      name: comic.name,
-                      author: comic.authors
-                          .map((author) => author.name)
-                          .join(','),
-                      badge: entry.name.isEmpty ? null : entry.name,
+                      cover: comic.coverUrl,
+                      name: comic.title,
+                      author: comic.authorText,
+                      badge: entry.badge,
                       onTap: () {
-                        if (comic.pathWord.isEmpty) return;
+                        if (comic.id.isEmpty) return;
                         Navigator.of(context).push(
                           CupertinoPageRoute<void>(
                             builder: (routeContext) => ComicDetailPage(
-                              comicId: comic.pathWord,
-                              name: comic.name,
-                              cover: comic.cover,
+                              comicId: comic.id,
+                              name: comic.title,
+                              cover: comic.coverUrl,
                             ),
                           ),
                         );

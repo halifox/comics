@@ -1,6 +1,6 @@
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/features/library/application/comic_library_providers.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
 import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
@@ -13,41 +13,60 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
 typedef ComicChapterListQuery = ({String comicId, String groupPathWord});
+typedef ComicGroupProgressKey = ({String comicPathWord, String groupPathWord});
+
+final comicGroupProgressProvider =
+    StreamProvider.family<ComicReadingProgress?, ComicGroupProgressKey>((
+      ref,
+      key,
+    ) {
+      return ref.watch(libraryDatabaseProvider).watchGroupProgress(
+        comicPathWord: key.comicPathWord,
+        groupPathWord: key.groupPathWord,
+      );
+    });
+
+final comicChapterProgressesProvider =
+    StreamProvider.family<
+      Map<String, ComicReadingProgress>,
+      ComicGroupProgressKey
+    >((ref, key) {
+      return ref.watch(libraryDatabaseProvider).watchChapterProgresses(
+        comicPathWord: key.comicPathWord,
+        groupPathWord: key.groupPathWord,
+      );
+    });
 
 final comicChapterListProvider =
     AsyncNotifierProvider.family<
       ComicChapterListNotifier,
-      PagePagingData<ChapterDto>,
+      PagePagingData<ChapterSummaryModel>,
       ComicChapterListQuery
     >(ComicChapterListNotifier.new);
 
-class ComicChapterListNotifier extends AsyncNotifier<PagePagingData<ChapterDto>>
-    with PagePagingNotifierMixin<ChapterDto> {
+class ComicChapterListNotifier
+    extends AsyncNotifier<PagePagingData<ChapterSummaryModel>>
+    with PagePagingNotifierMixin<ChapterSummaryModel> {
   ComicChapterListNotifier(this.query);
 
   static const pageSize = 100;
-
   final ComicChapterListQuery query;
 
   @override
-  Future<PagePagingData<ChapterDto>> build() => fetch(page: 1);
+  Future<PagePagingData<ChapterSummaryModel>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<ChapterDto>> fetch({required int page}) async {
+  Future<PagePagingData<ChapterSummaryModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-
-    final result = await ref
-        .read(comicsApiProvider)
-        .chapters(
-          comicId: query.comicId,
-          groupId: query.groupPathWord,
-          limit: pageSize,
-          offset: offset,
-        );
-
+    final result = await ref.read(comicsRepositoryProvider).getChapters(
+      comicId: query.comicId,
+      groupId: query.groupPathWord,
+      limit: pageSize,
+      offset: offset,
+    );
     return PagePagingData(
-      items: result.list,
-      hasMore: offset + result.list.length < result.total,
+      items: result.items,
+      hasMore: offset + result.items.length < result.total,
       page: page,
     );
   }
@@ -204,7 +223,7 @@ class ComicChapterListPage extends HookConsumerWidget {
                     }
 
                     final chapter = data.items[index];
-                    final chapterProgress = chapterProgresses[chapter.uuid];
+                    final chapterProgress = chapterProgresses[chapter.id];
                     return ComicChapterTile(
                       chapter: chapter,
                       progress: chapterProgress,
@@ -218,8 +237,8 @@ class ComicChapterListPage extends HookConsumerWidget {
                               comicAuthor: comicAuthor,
                               groupName: groupName,
                               groupPathWord: groupPathWord,
-                              chapterId: chapter.uuid,
-                              chapterName: chapter.name,
+                              chapterId: chapter.id,
+                              chapterName: chapter.title,
                               initialPageIndex: chapterProgress?.pageIndex ?? 0,
                             ),
                           ),
@@ -244,7 +263,7 @@ class ComicChapterTile extends StatelessWidget {
     this.progress,
   });
 
-  final ChapterDto chapter;
+  final ChapterSummaryModel chapter;
   final ComicReadingProgress? progress;
   final VoidCallback onTap;
 
@@ -257,7 +276,7 @@ class ComicChapterTile extends StatelessWidget {
         quality: .minimal,
         child: GlassListTile(
           leading: const Icon(CupertinoIcons.book),
-          title: Text(chapter.name),
+          title: Text(chapter.title),
           trailing: GlassListTile.chevron,
           onTap: onTap,
         ),

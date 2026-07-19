@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/features/library/application/comic_library_providers.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
 import 'package:comics/features/reader/presentation/continue_reading_button.dart';
@@ -12,16 +11,22 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 
 import 'comic_chapter_list_page.dart';
 
-final comicInfoProvider = FutureProvider.family<ComicInfoResultDto, String>((
+final comicInfoProvider = FutureProvider.family<ComicDetailModel, String>((
   ref,
   comicId,
-) async {
-  return ref.watch(comicsApiProvider).comicInfo(comicId: comicId);
+) {
+  return ref.watch(comicsRepositoryProvider).getComicDetail(comicId: comicId);
 });
+
+final comicLibraryItemProvider =
+    StreamProvider.family<ComicLibraryItem?, String>((ref, pathWord) {
+      return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
+    });
 
 class ComicDetailPage extends HookConsumerWidget {
   const ComicDetailPage({
@@ -80,12 +85,10 @@ class ComicDetailPage extends HookConsumerWidget {
           .read(libraryDatabaseProvider)
           .toggleFavorite(
             comic: ComicMetadata(
-              pathWord: data.comic.pathWord,
-              name: data.comic.name,
-              cover: data.comic.cover,
-              author: data.comic.authors
-                  .map((author) => author.name)
-                  .join(','),
+              pathWord: data.id,
+              name: data.title,
+              cover: data.coverUrl,
+              author: data.authorText,
             ),
           );
     }
@@ -156,16 +159,13 @@ class ComicDetailPage extends HookConsumerWidget {
                   '${progress.groupName} · ${progress.chapterName} · '
                   '第 ${progress.pageIndex + 1} 页',
               onTap: () {
-                final author = detail.comic.authors
-                    .map((item) => item.name)
-                    .join(',');
                 Navigator.of(context).push(
                   CupertinoPageRoute<void>(
                     builder: (_) => ChapterReaderPage(
-                      comicId: detail.comic.pathWord,
-                      comicName: detail.comic.name,
-                      comicCover: detail.comic.cover,
-                      comicAuthor: author,
+                      comicId: detail.id,
+                      comicName: detail.title,
+                      comicCover: detail.coverUrl,
+                      comicAuthor: detail.authorText,
                       groupName: progress.groupName,
                       groupPathWord: progress.groupPathWord,
                       chapterId: progress.chapterId,
@@ -202,10 +202,7 @@ class ComicDetailPage extends HookConsumerWidget {
           ),
           info.when(
             data: (data) {
-              final author = data.comic.authors
-                  .map((author) => author.name)
-                  .join(',');
-              final statusIcon = switch (data.comic.status.display) {
+              final statusIcon = switch (data.statusText) {
                 String display when display.contains('完结') =>
                   CupertinoIcons.checkmark_seal,
                 String display when display.contains('连载') =>
@@ -231,7 +228,7 @@ class ComicDetailPage extends HookConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              data.comic.name,
+                              data.title,
                               style: TextStyle(
                                 color: CupertinoColors.label.resolveFrom(
                                   context,
@@ -245,17 +242,17 @@ class ComicDetailPage extends HookConsumerWidget {
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
-                              children: data.comic.authors
+                              children: data.authors
                                   .map(
                                     (author) => GlassChip(
                                       icon: const Icon(CupertinoIcons.person),
-                                      label: author.name,
+                                      label: author.label,
                                       onTap: () {
                                         Navigator.of(context).push(
                                           CupertinoPageRoute<void>(
                                             builder: (_) => ComicCatalogPage(
-                                              title: author.name,
-                                              author: author.pathWord,
+                                              title: author.label,
+                                              author: author.id,
                                               showActions: false,
                                             ),
                                           ),
@@ -272,17 +269,17 @@ class ComicDetailPage extends HookConsumerWidget {
                               children: [
                                 GlassChip(
                                   icon: Icon(statusIcon),
-                                  label: data.comic.status.display,
+                                  label: data.statusText,
                                   onTap: () {},
                                 ),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.calendar),
-                                  label: data.comic.datetimeUpdated,
+                                  label: data.updatedText,
                                   onTap: () {},
                                 ),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.globe),
-                                  label: data.comic.region.display,
+                                  label: data.regionText,
                                   onTap: () {},
                                 ),
                               ],
@@ -291,17 +288,17 @@ class ComicDetailPage extends HookConsumerWidget {
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
-                              children: data.comic.themes
+                              children: data.themes
                                   .map(
                                     (theme) => GlassChip(
                                       icon: const Icon(CupertinoIcons.tag),
-                                      label: theme.name,
+                                      label: theme.label,
                                       onTap: () {
                                         Navigator.of(context).push(
                                           CupertinoPageRoute<void>(
                                             builder: (_) => ComicCatalogPage(
-                                              title: theme.name,
-                                              theme: theme.pathWord,
+                                              title: theme.label,
+                                              theme: theme.id,
                                             ),
                                           ),
                                         );
@@ -313,20 +310,20 @@ class ComicDetailPage extends HookConsumerWidget {
 
                             GlassGroupedSection(
                               margin: .zero,
-                              children: data.groups.values.map((e) {
+                              children: data.groups.map((e) {
                                 return GlassListTile(
-                                  subtitle: Text("${e.count}话"),
-                                  title: Text(e.name),
+                                  subtitle: Text("${e.chapterCount}话"),
+                                  title: Text(e.title),
                                   onTap: () {
                                     Navigator.of(context).push(
                                       CupertinoPageRoute<void>(
                                         builder: (_) => ComicChapterListPage(
                                           comicId: comicId,
-                                          comicName: data.comic.name,
-                                          comicCover: data.comic.cover,
-                                          comicAuthor: author,
-                                          groupName: e.name,
-                                          groupPathWord: e.pathWord,
+                                          comicName: data.title,
+                                          comicCover: data.coverUrl,
+                                          comicAuthor: data.authorText,
+                                          groupName: e.title,
+                                          groupPathWord: e.id,
                                         ),
                                       ),
                                     );
@@ -343,7 +340,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                   '关于',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                subtitle: Text(data.comic.brief),
+                                subtitle: Text(data.brief),
                               ),
                             ),
                           ],
