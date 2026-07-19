@@ -138,8 +138,6 @@ class SearchHistory extends ConsumerWidget {
                 child: GlassGroupedSection(
                   margin: EdgeInsets.zero,
                   shape: const LiquidRoundedSuperellipse(borderRadius: 28),
-                  useOwnLayer: true,
-                  quality: GlassQuality.premium,
                   children: [
                     for (final query in history.reversed)
                       GlassListTile(
@@ -350,8 +348,6 @@ class ComicCategoryCard extends StatelessWidget {
               horizontal: 12,
               vertical: 4,
             ),
-            quality: GlassQuality.minimal,
-            useOwnLayer: true,
             child: Text(
               name,
               style: TextStyle(

@@ -36,7 +36,6 @@ class ReaderSettingsPage extends HookConsumerWidget {
             label: '返回',
             child: GlassIconButton(
               icon: const Icon(CupertinoIcons.chevron_back),
-              useOwnLayer: true,
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -108,7 +107,6 @@ class ReaderModeSelector extends StatelessWidget {
       menuWidth: 210,
       menuAlignment: GlassMenuAlignment.topRight,
       autoAdjustToScreen: true,
-      quality: GlassQuality.minimal,
       items: [
         for (final option in ReaderMode.values)
           GlassMenuItem(
@@ -140,7 +138,6 @@ class ReaderBackgroundSelector extends StatelessWidget {
       menuWidth: 210,
       menuAlignment: GlassMenuAlignment.topRight,
       autoAdjustToScreen: true,
-      quality: GlassQuality.minimal,
       items: [
         for (final option in ReaderBackground.values)
           GlassMenuItem(

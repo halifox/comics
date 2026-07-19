@@ -107,7 +107,6 @@ class ComicCatalogPage extends HookConsumerWidget {
           label: '返回',
           child: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
-            useOwnLayer: true,
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -122,7 +121,6 @@ class ComicCatalogPage extends HookConsumerWidget {
                     ),
                     menuWidth: 200,
                     menuAlignment: GlassMenuAlignment.topRight,
-                    quality: GlassQuality.minimal,
                     items: [
                       for (final option in ComicCatalogScope.values)
                         GlassMenuItem(
@@ -143,7 +141,6 @@ class ComicCatalogPage extends HookConsumerWidget {
                     icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                     menuWidth: 220,
                     menuAlignment: GlassMenuAlignment.topRight,
-                    quality: GlassQuality.minimal,
                     items: [
                       for (final option in ComicCatalogOrdering.values)
                         GlassMenuItem(

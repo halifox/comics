@@ -1,3 +1,4 @@
+import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/navigation/presentation/main_navigation_page.dart';
 import 'package:comics/mockapi/mockapi.dart';
@@ -18,7 +19,7 @@ Future<void> main() async {
       child: ProviderScope(
         overrides: [
           comicsRepositoryProvider.overrideWith(
-            (ref) => ref.watch(mockComicsRepositoryProvider),
+            (ref) => ref.watch(copyMangaComicsRepositoryProvider),
           ),
           sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         ],

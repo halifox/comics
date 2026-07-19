@@ -13,7 +13,6 @@ class CachedImageLoading extends StatelessWidget {
       child: GlassProgressIndicator.circular(
         value: progress,
         size: 32,
-        useOwnLayer: true,
       ),
     );
   }

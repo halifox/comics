@@ -186,8 +186,6 @@ class ChapterReaderPage extends HookConsumerWidget {
                               horizontal: 12,
                               vertical: 6,
                             ),
-                            quality: GlassQuality.premium,
-                            useOwnLayer: true,
                             child: Builder(
                               builder: (context) {
                                 return Text(
@@ -237,7 +235,6 @@ class ChapterReaderPage extends HookConsumerWidget {
                     label: '返回',
                     child: GlassIconButton(
                       icon: const Icon(CupertinoIcons.chevron_back),
-                      useOwnLayer: true,
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
@@ -247,7 +244,6 @@ class ChapterReaderPage extends HookConsumerWidget {
                       label: '阅读设置',
                       child: GlassIconButton(
                         icon: const Icon(CupertinoIcons.slider_horizontal_3),
-                        useOwnLayer: true,
                         onPressed: () {
                           Navigator.of(context).push(
                             CupertinoPageRoute<void>(

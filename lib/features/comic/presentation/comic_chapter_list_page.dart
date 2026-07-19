@@ -139,7 +139,6 @@ class ComicChapterListPage extends HookConsumerWidget {
           label: '返回',
           child: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
-            useOwnLayer: true,
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -273,7 +272,6 @@ class ComicChapterTile extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: GlassCard(
         padding: EdgeInsets.zero,
-        quality: .minimal,
         child: GlassListTile(
           leading: const Icon(CupertinoIcons.book),
           title: Text(chapter.title),

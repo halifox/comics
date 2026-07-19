@@ -38,7 +38,6 @@ class ComicHistoryPage extends HookConsumerWidget {
           label: '返回',
           child: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
-            useOwnLayer: true,
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -51,7 +50,6 @@ class ComicHistoryPage extends HookConsumerWidget {
                 CupertinoIcons.trash,
                 color: CupertinoColors.systemRed,
               ),
-              useOwnLayer: true,
               onPressed: () async {
                 final shouldClear = await GlassDialog.show<bool>(
                   context: context,

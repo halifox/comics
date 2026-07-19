@@ -81,7 +81,6 @@ class SearchResultsPage extends HookConsumerWidget {
           label: '返回',
           child: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
-            useOwnLayer: true,
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -93,7 +92,6 @@ class SearchResultsPage extends HookConsumerWidget {
               icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
               menuWidth: 200,
               menuAlignment: GlassMenuAlignment.topRight,
-              quality: GlassQuality.minimal,
               items: [
                 for (final option in ComicSearchField.values)
                   GlassMenuItem(

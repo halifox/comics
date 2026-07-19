@@ -90,7 +90,6 @@ class ComicRankingPage extends HookConsumerWidget {
               icon: const Icon(CupertinoIcons.calendar),
               menuWidth: 220,
               menuAlignment: GlassMenuAlignment.topRight,
-              quality: GlassQuality.minimal,
               items: [
                 for (final option in ComicRankingPeriod.values)
                   GlassMenuItem(
@@ -139,8 +138,6 @@ class ComicRankingPage extends HookConsumerWidget {
                 onSegmentSelected: (index) {
                   audience.value = ComicRankingAudience.values[index];
                 },
-                useOwnLayer: true,
-                quality: .premium,
               ),
             ),
           ),

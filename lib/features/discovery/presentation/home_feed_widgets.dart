@@ -241,8 +241,6 @@ class MoreComicsCard extends StatelessWidget {
               child: GlassContainer(
                 padding: const EdgeInsets.all(12),
                 shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                quality: GlassQuality.minimal,
-                useOwnLayer: true,
                 alignment: .center,
                 child: Icon(
                   CupertinoIcons.chevron_forward,
@@ -273,8 +271,6 @@ class EndOfCarouselCard extends StatelessWidget {
           child: GlassContainer(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-            quality: GlassQuality.minimal,
-            useOwnLayer: true,
             alignment: .center,
             child: Text(
               '没\n有\n更\n多\n了',
@@ -415,8 +411,6 @@ class ComicCoverCard extends StatelessWidget {
                     vertical: 4,
                   ),
                   shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                  quality: GlassQuality.minimal,
-                  useOwnLayer: true,
                   child: Text(
                     badge!,
                     style: TextStyle(
@@ -435,8 +429,6 @@ class ComicCoverCard extends StatelessWidget {
               child: GlassContainer(
                 padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
                 shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                quality: GlassQuality.minimal,
-                useOwnLayer: true,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -542,7 +534,6 @@ class ContentStateSliver extends StatelessWidget {
                   ? const Center(
                       child: GlassProgressIndicator.circular(
                         size: 40,
-                        useOwnLayer: true,
                       ),
                     )
                   : Icon(icon, size: 48, color: iconColor),
@@ -569,8 +560,6 @@ class ContentStateSliver extends StatelessWidget {
                   width: 132,
                   height: 44,
                   shape: const LiquidRoundedSuperellipse(borderRadius: 44),
-                  quality: GlassQuality.standard,
-                  useOwnLayer: true,
                   onTap: onRetry!,
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,

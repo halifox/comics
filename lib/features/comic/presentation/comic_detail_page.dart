@@ -130,7 +130,6 @@ class ComicDetailPage extends HookConsumerWidget {
           label: '返回',
           child: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
-            useOwnLayer: true,
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -145,7 +144,6 @@ class ComicDetailPage extends HookConsumerWidget {
                     ? CupertinoIcons.rectangle_stack_fill
                     : CupertinoIcons.rectangle_stack_badge_plus,
               ),
-              useOwnLayer: true,
               onPressed: handleFavoritePressed,
             ),
           ),
