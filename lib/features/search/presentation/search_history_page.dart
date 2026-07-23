@@ -22,8 +22,12 @@ class SearchHistoryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
-      onTap: onDismiss,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        onDismiss();
+      },
       child: GlassScaffold(
         edgeToEdge: true,
         contentAwareBrightness: true,
@@ -56,19 +60,10 @@ class SearchHistoryPage extends ConsumerWidget {
                 .when(
                   data: (data) {
                     if (data.isEmpty) {
-                      return SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom:
-                                MediaQuery.viewInsetsOf(context).bottom + 50,
-                          ),
-                          child: const ContentStateSliver.empty(
-                            icon: CupertinoIcons.search,
-                            title: '暂无最近搜索',
-                            message: '你的最近搜索记录会显示在这里。',
-                          ),
-                        ),
+                      return const ContentStateSliver.empty(
+                        icon: CupertinoIcons.search,
+                        title: '暂无最近搜索',
+                        message: '你的最近搜索记录会显示在这里。',
                       );
                     }
                     return SliverFillRemaining(
