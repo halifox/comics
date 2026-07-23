@@ -15,25 +15,16 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'comic_chapter_list_page.dart';
 
-final comicInfoProvider = FutureProvider.autoDispose.family<ComicDetailModel, String>((
-  ref,
-  comicId,
-) {
+final comicInfoProvider = FutureProvider.autoDispose.family<ComicDetailModel, String>((ref, comicId) {
   return ref.watch(comicsRepositoryProvider).getComicDetail(comicId: comicId);
 });
 
-final comicLibraryItemProvider =
-    StreamProvider.autoDispose.family<ComicLibraryItem?, String>((ref, pathWord) {
-      return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
-    });
+final comicLibraryItemProvider = StreamProvider.autoDispose.family<ComicLibraryItem?, String>((ref, pathWord) {
+  return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
+});
 
 class ComicDetailPage extends HookConsumerWidget {
-  const ComicDetailPage({
-    required this.comicId,
-    required this.name,
-    required this.cover,
-    super.key,
-  });
+  const ComicDetailPage({required this.comicId, required this.name, required this.cover, super.key});
 
   final String comicId;
   final String name;
@@ -43,10 +34,6 @@ class ComicDetailPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final info = ref.watch(comicInfoProvider(comicId));
     final libraryItemState = ref.watch(comicLibraryItemProvider(comicId));
-    final detail = switch (info) {
-      AsyncData(:final value) => value,
-      _ => null,
-    };
     final scrollController = useScrollController();
     final scrollOffset = useState(0.0);
 
@@ -61,44 +48,15 @@ class ComicDetailPage extends HookConsumerWidget {
       };
     }, [scrollController]);
 
-    if (libraryItemState.isLoading) {
-      return const GlassScaffold(
-        body: CustomScrollView(slivers: [ContentStateSliver.loading()]),
-      );
-    }
-    if (libraryItemState.hasError) {
-      return GlassScaffold(
-        body: CustomScrollView(
-          slivers: [
-            ContentStateSliver.error(
-              error: libraryItemState.error!,
-              onRetry: () => ref.invalidate(comicLibraryItemProvider(comicId)),
-            ),
-          ],
-        ),
-      );
-    }
-    final libraryItem = libraryItemState.requireValue;
-    final isFavorite = libraryItem?.isFavorite ?? false;
-    final progress = libraryItem?.progress;
-
-    Future<void> toggleFavorite() async {
-      final data = switch (info) {
-        AsyncData(:final value) => value,
-        _ => null,
-      };
-      if (data == null) {
-        return;
-      }
-
+    Future<void> toggleFavorite({required ComicDetailModel detail}) async {
       await ref
           .read(libraryDatabaseProvider)
           .toggleFavorite(
             comic: ComicMetadata(
-              pathWord: data.id,
-              name: data.title,
-              cover: data.coverUrl,
-              author: data.authorText,
+              pathWord: detail.id,
+              name: detail.title,
+              cover: detail.coverUrl,
+              author: detail.authorText,
             ),
           );
     }
@@ -110,23 +68,52 @@ class ComicDetailPage extends HookConsumerWidget {
       background: const AmbientGlowBackground(),
       appBar: GlassAppBar(
         leading: GlassIconButton(
-            icon: const Icon(CupertinoIcons.chevron_back),
-            onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(CupertinoIcons.chevron_back),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
-          GlassIconButton(
-              icon: Icon(
-                isFavorite
-                    ? CupertinoIcons.rectangle_stack_fill
-                    : CupertinoIcons.rectangle_stack_badge_plus,
+          libraryItemState.when(
+            data: (libraryItem) => info.when(
+              data: (detail) => GlassIconButton(
+                icon: Icon(
+                  libraryItem?.isFavorite ?? false
+                      ? CupertinoIcons.rectangle_stack_fill
+                      : CupertinoIcons.rectangle_stack_badge_plus,
+                ),
+                onPressed: () => toggleFavorite(detail: detail),
               ),
-              onPressed: toggleFavorite,
+              loading: () => const SizedBox(
+                width: 44,
+                height: 44,
+                child: Center(child: GlassProgressIndicator.circular(size: 20)),
+              ),
+              error: (error, stackTrace) => GlassIconButton(
+                icon: const Icon(CupertinoIcons.refresh),
+                onPressed: () {
+                  ref.invalidate(comicInfoProvider(comicId));
+                },
+              ),
+            ),
+            loading: () =>
+                const SizedBox(width: 44, height: 44, child: Center(child: GlassProgressIndicator.circular(size: 20))),
+            error: (error, stackTrace) => GlassIconButton(
+              icon: const Icon(CupertinoIcons.refresh),
+              onPressed: () {
+                ref.invalidate(comicLibraryItemProvider(comicId));
+              },
+            ),
           ),
         ],
       ),
-      bottomBar: detail == null || progress == null
-          ? null
-          : ContinueReadingButton(
+      bottomBar: libraryItemState.when<Widget?>(
+        data: (libraryItem) {
+          final progress = libraryItem?.progress;
+          if (progress == null) {
+            return null;
+          }
+
+          return info.when<Widget?>(
+            data: (detail) => ContinueReadingButton(
               title: '继续上次阅读',
               subtitle:
                   '${progress.groupName} · ${progress.chapterName} · '
@@ -149,12 +136,27 @@ class ComicDetailPage extends HookConsumerWidget {
                 );
               },
             ),
-      bottomBarHeight: detail == null || progress == null ? null : 84,
+            loading: () => null,
+            error: (error, stackTrace) => null,
+          );
+        },
+        loading: () => null,
+        error: (error, stackTrace) => null,
+      ),
+      bottomBarHeight: libraryItemState.when<double?>(
+        data: (libraryItem) {
+          if (libraryItem?.progress == null) {
+            return null;
+          }
+
+          return info.when<double?>(data: (_) => 84, loading: () => null, error: (error, stackTrace) => null);
+        },
+        loading: () => null,
+        error: (error, stackTrace) => null,
+      ),
       body: CustomScrollView(
         controller: scrollController,
-        physics: const AlwaysScrollableScrollPhysics(
-          parent: BouncingScrollPhysics(),
-        ),
+        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
           SliverToBoxAdapter(
             child: ClipRect(
@@ -176,8 +178,7 @@ class ComicDetailPage extends HookConsumerWidget {
           info.when(
             data: (data) {
               final statusIcon = switch (data.statusText) {
-                String display when display == '已完結' =>
-                  CupertinoIcons.checkmark_seal,
+                String display when display == '已完結' => CupertinoIcons.checkmark_seal,
                 String display when display == '連載中' => CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
               };
@@ -185,15 +186,17 @@ class ComicDetailPage extends HookConsumerWidget {
                 builder: (context, constraints) {
                   return SliverToBoxAdapter(
                     child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: constraints.viewportMainAxisExtent,
-                      ),
+                      constraints: BoxConstraints(minHeight: constraints.viewportMainAxisExtent),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(
                           24,
                           24,
                           24,
-                          progress == null ? 32 : 120,
+                          libraryItemState.when(
+                            data: (libraryItem) => libraryItem?.progress == null ? 32 : 120,
+                            loading: () => 32,
+                            error: (error, stackTrace) => 32,
+                          ),
                         ),
                         child: Column(
                           spacing: 8,
@@ -202,9 +205,7 @@ class ComicDetailPage extends HookConsumerWidget {
                             Text(
                               data.title,
                               style: TextStyle(
-                                color: CupertinoColors.label.resolveFrom(
-                                  context,
-                                ),
+                                color: CupertinoColors.label.resolveFrom(context),
                                 fontSize: 32,
                                 fontWeight: FontWeight.w800,
                                 height: 1.16,
@@ -214,8 +215,7 @@ class ComicDetailPage extends HookConsumerWidget {
                             Text(
                               data.brief,
                               style: TextStyle(
-                                color: CupertinoColors.secondaryLabel
-                                    .resolveFrom(context),
+                                color: CupertinoColors.secondaryLabel.resolveFrom(context),
                                 fontSize: 15,
                                 height: 1.55,
                               ),
@@ -247,21 +247,13 @@ class ComicDetailPage extends HookConsumerWidget {
                               spacing: 8,
                               runSpacing: 8,
                               children: [
-                                GlassChip(
-                                  icon: Icon(statusIcon),
-                                  label: data.statusText,
-                                  onTap: () {},
-                                ),
+                                GlassChip(icon: Icon(statusIcon), label: data.statusText, onTap: () {}),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.calendar),
                                   label: data.updatedText,
                                   onTap: () {},
                                 ),
-                                GlassChip(
-                                  icon: const Icon(CupertinoIcons.globe),
-                                  label: data.regionText,
-                                  onTap: () {},
-                                ),
+                                GlassChip(icon: const Icon(CupertinoIcons.globe), label: data.regionText, onTap: () {}),
                               ],
                             ),
                             Wrap(
@@ -275,10 +267,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                           CupertinoPageRoute<void>(
-                                            builder: (_) => ComicCatalogPage(
-                                              title: theme.label,
-                                              theme: theme.id,
-                                            ),
+                                            builder: (_) => ComicCatalogPage(title: theme.label, theme: theme.id),
                                           ),
                                         );
                                       },
@@ -328,10 +317,8 @@ class ComicDetailPage extends HookConsumerWidget {
               );
             },
             loading: () => const ContentStateSliver.loading(),
-            error: (error, stackTrace) => ContentStateSliver.error(
-              error: error,
-              onRetry: () => ref.invalidate(comicInfoProvider(comicId)),
-            ),
+            error: (error, stackTrace) =>
+                ContentStateSliver.error(error: error, onRetry: () => ref.invalidate(comicInfoProvider(comicId))),
           ),
         ],
       ),
