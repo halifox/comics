@@ -310,7 +310,14 @@ class ComicDetailPage extends HookConsumerWidget {
                                   )
                                   .toList(),
                             ),
-
+                            Text(
+                              '篇章',
+                              style: TextStyle(
+                                color: CupertinoColors.label.resolveFrom(context),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             GlassGroupedSection(
                               margin: .zero,
                               children: data.groups.map((e) {
