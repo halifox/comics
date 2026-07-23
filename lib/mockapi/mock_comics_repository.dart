@@ -20,7 +20,9 @@ class MockComicsRepository implements ComicsRepository {
     final popular = [...comics]
       ..sort((first, second) => second.popularity.compareTo(first.popularity));
     final latest = [...comics]
-      ..sort((first, second) => second.updatedOrder.compareTo(first.updatedOrder));
+      ..sort(
+        (first, second) => second.updatedOrder.compareTo(first.updatedOrder),
+      );
     final finished = comics.where((comic) => comic.isFinished).toList();
     return HomeFeedModel(
       featured: comics
@@ -69,14 +71,12 @@ class MockComicsRepository implements ComicsRepository {
           author == null || comic.authors.any((item) => item.id == author);
       return matchesScope && matchesTheme && matchesAuthor;
     }).toList();
-    filtered.sort(
-      switch (ordering) {
-        ComicCatalogOrdering.updatedDescending =>
-          (first, second) => second.updatedOrder.compareTo(first.updatedOrder),
-        ComicCatalogOrdering.popularDescending =>
-          (first, second) => second.popularity.compareTo(first.popularity),
-      },
-    );
+    filtered.sort(switch (ordering) {
+      ComicCatalogOrdering.updatedDescending =>
+        (first, second) => second.updatedOrder.compareTo(first.updatedOrder),
+      ComicCatalogOrdering.popularDescending =>
+        (first, second) => second.popularity.compareTo(first.popularity),
+    });
     return pagedResult(
       items: filtered
           .map((comic) => mapMockComic(dto: comic))
@@ -95,19 +95,24 @@ class MockComicsRepository implements ComicsRepository {
   }) async {
     final comics = await api.fetchComics();
     final normalizedQuery = query.trim().toLowerCase();
-    final matches = comics.where((comic) {
-      final title = comic.title.toLowerCase();
-      final authors = comic.authors.map((item) => item.name).join(' ').toLowerCase();
-      final translator = comic.translator.name.toLowerCase();
-      return switch (field) {
-        ComicSearchField.all => title.contains(normalizedQuery) ||
-            authors.contains(normalizedQuery) ||
-            translator.contains(normalizedQuery),
-        ComicSearchField.name => title.contains(normalizedQuery),
-        ComicSearchField.author => authors.contains(normalizedQuery),
-        ComicSearchField.local => translator.contains(normalizedQuery),
-      };
-    })
+    final matches = comics
+        .where((comic) {
+          final title = comic.title.toLowerCase();
+          final authors = comic.authors
+              .map((item) => item.name)
+              .join(' ')
+              .toLowerCase();
+          final translator = comic.translator.name.toLowerCase();
+          return switch (field) {
+            ComicSearchField.all =>
+              title.contains(normalizedQuery) ||
+                  authors.contains(normalizedQuery) ||
+                  translator.contains(normalizedQuery),
+            ComicSearchField.name => title.contains(normalizedQuery),
+            ComicSearchField.author => authors.contains(normalizedQuery),
+            ComicSearchField.local => translator.contains(normalizedQuery),
+          };
+        })
         .map((comic) => mapMockComic(dto: comic))
         .toList(growable: false);
     return pagedResult(items: matches, limit: limit, offset: offset);
@@ -125,7 +130,9 @@ class MockComicsRepository implements ComicsRepository {
       ComicRankingAudience.male => 'male',
       ComicRankingAudience.female => 'female',
     };
-    final ranked = comics.where((comic) => comic.audience == audienceValue).toList();
+    final ranked = comics
+        .where((comic) => comic.audience == audienceValue)
+        .toList();
     ranked.sort((first, second) {
       final firstScore = rankingScore(comic: first, period: period);
       final secondScore = rankingScore(comic: second, period: period);
@@ -157,7 +164,8 @@ class MockComicsRepository implements ComicsRepository {
           .map((theme) => mapMockLink(dto: theme))
           .toList(growable: false),
       statusText: comic.isFinished ? '已完结' : '连载中',
-      updatedText: '2026-07-${((comic.updatedOrder % 28) + 1).toString().padLeft(2, '0')}',
+      updatedText:
+          '2026-07-${((comic.updatedOrder % 28) + 1).toString().padLeft(2, '0')}',
       regionText: switch (comic.region) {
         'japan' => '日本',
         'korea' => '韩国',
@@ -189,7 +197,10 @@ class MockComicsRepository implements ComicsRepository {
       orElse: () => throw StateError('未找到模拟章节组：$groupId'),
     );
     final chapters = group.chapters
-        .map((chapter) => ChapterSummaryModel(id: chapter.id, title: chapter.title))
+        .map(
+          (chapter) =>
+              ChapterSummaryModel(id: chapter.id, title: chapter.title),
+        )
         .toList(growable: false);
     return pagedResult(items: chapters, limit: limit, offset: offset);
   }
@@ -213,7 +224,9 @@ class MockComicsRepository implements ComicsRepository {
   }) async {
     final comics = await api.fetchComics();
     final latest = [...comics]
-      ..sort((first, second) => second.updatedOrder.compareTo(first.updatedOrder));
+      ..sort(
+        (first, second) => second.updatedOrder.compareTo(first.updatedOrder),
+      );
     final items = List.generate(
       latest.length,
       (index) => NewReleaseModel(
@@ -259,7 +272,8 @@ int rankingScore({
     ComicRankingPeriod.day => comic.popularity + comic.updatedOrder * 2,
     ComicRankingPeriod.week => comic.popularity * 2 + comic.updatedOrder,
     ComicRankingPeriod.month => comic.popularity * 3 - comic.updatedOrder,
-    ComicRankingPeriod.total => comic.popularity * 4 + comic.id.hashCode.abs() % 500,
+    ComicRankingPeriod.total =>
+      comic.popularity * 4 + comic.id.hashCode.abs() % 500,
   };
 }
 

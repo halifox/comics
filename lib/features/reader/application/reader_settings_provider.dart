@@ -62,10 +62,7 @@ class ReaderSettings {
   }
 }
 
-final readerSettingsProvider =
-    NotifierProvider(
-      ReaderSettingsNotifier.new,
-    );
+final readerSettingsProvider = NotifierProvider(ReaderSettingsNotifier.new);
 
 class ReaderSettingsNotifier extends Notifier<ReaderSettings> {
   static const modeKey = 'reader.settings.mode';

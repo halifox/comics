@@ -166,6 +166,7 @@ Color comicCategoryColor({
 
 class ComicCategoryCard extends StatelessWidget {
   const ComicCategoryCard({
+    super.key,
     required this.name,
     required this.slug,
     required this.color,

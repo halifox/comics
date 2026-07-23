@@ -10,10 +10,7 @@ class CachedImageLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GlassProgressIndicator.circular(
-        value: progress,
-        size: 32,
-      ),
+      child: GlassProgressIndicator.circular(value: progress, size: 32),
     );
   }
 }
@@ -41,10 +38,6 @@ Widget buildCachedImageLoading(
   return CachedImageLoading(progress: progress.progress);
 }
 
-Widget buildCachedImageError(
-  BuildContext context,
-  String url,
-  Object error,
-) {
+Widget buildCachedImageError(BuildContext context, String url, Object error) {
   return const CachedImageError();
 }

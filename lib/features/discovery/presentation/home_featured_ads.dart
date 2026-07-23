@@ -38,94 +38,94 @@ class HomeFeaturedAds extends HookWidget {
                 final authors = comic.authorText;
 
                 return GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: comicId.isEmpty
-                        ? null
-                        : () {
-                            Navigator.of(context).push(
-                              CupertinoPageRoute(
-                                builder: (_) => ComicDetailPage(
-                                  comicId: comicId,
-                                  name: comicName,
-                                  cover: comic.coverUrl,
-                                ),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: comicId.isEmpty
+                      ? null
+                      : () {
+                          Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (_) => ComicDetailPage(
+                                comicId: comicId,
+                                name: comicName,
+                                cover: comic.coverUrl,
                               ),
-                            );
-                          },
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: comic.coverUrl,
-                          fit: BoxFit.cover,
-                          progressIndicatorBuilder: buildCachedImageLoading,
-                          errorWidget: buildCachedImageError,
-                        ),
-                        const DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: [0, .1, .7, 1],
-                              colors: [
-                                Color(0x12000000),
-                                Color(0x00000000),
-                                Color(0x00000000),
-                                Color(0x5F000000),
-                              ],
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 20,
-                          right: 20,
-                          bottom: 48,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '编辑精选',
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.2,
-                                ),
-                              ),
-                              if (comicName.isNotEmpty) ...[
-                                const SizedBox(height: 6),
-                                Text(
-                                  comicName,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w800,
-                                    height: 1.08,
-                                  ),
-                                ),
-                              ],
-                              if (authors.isNotEmpty) ...[
-                                const SizedBox(height: 8),
-                                Text(
-                                  authors,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.3,
-                                  ),
-                                ),
-                              ],
+                          );
+                        },
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: comic.coverUrl,
+                        fit: BoxFit.cover,
+                        progressIndicatorBuilder: buildCachedImageLoading,
+                        errorWidget: buildCachedImageError,
+                      ),
+                      const DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: [0, .1, .7, 1],
+                            colors: [
+                              Color(0x12000000),
+                              Color(0x00000000),
+                              Color(0x00000000),
+                              Color(0x5F000000),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        left: 20,
+                        right: 20,
+                        bottom: 48,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '编辑精选',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.2,
+                              ),
+                            ),
+                            if (comicName.isNotEmpty) ...[
+                              const SizedBox(height: 6),
+                              Text(
+                                comicName,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w800,
+                                  height: 1.08,
+                                ),
+                              ),
+                            ],
+                            if (authors.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              Text(
+                                authors,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

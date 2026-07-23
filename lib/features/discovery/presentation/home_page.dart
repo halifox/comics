@@ -31,7 +31,9 @@ class HomePage extends HookConsumerWidget {
       bottomEdgeFadeExtent: 64,
       body: CustomScrollView(
         key: const PageStorageKey('home-scroll'),
-        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         slivers: [
           ref
               .watch(homeProvider)
@@ -45,7 +47,8 @@ class HomePage extends HookConsumerWidget {
                         builder: (routeContext) => ComicCatalogPage(
                           title: '已完结',
                           initialScope: ComicCatalogScope.finished,
-                          initialOrdering: ComicCatalogOrdering.updatedDescending,
+                          initialOrdering:
+                              ComicCatalogOrdering.updatedDescending,
                           showActions: false,
                         ),
                       ),
@@ -54,14 +57,18 @@ class HomePage extends HookConsumerWidget {
                   onNewReleaseTap: () {
                     Navigator.push(
                       context,
-                      CupertinoPageRoute(builder: (routeContext) => const NewReleasePage()),
+                      CupertinoPageRoute(
+                        builder: (routeContext) => const NewReleasePage(),
+                      ),
                     );
                   },
                   onRankingPeriodSelected: onRankingPeriodSelected,
                 ),
                 loading: () => const ContentStateSliver.loading(),
-                error: (error, stackTrace) =>
-                    ContentStateSliver.error(error: error, onRetry: () => ref.invalidate(homeProvider)),
+                error: (error, stackTrace) => ContentStateSliver.error(
+                  error: error,
+                  onRetry: () => ref.invalidate(homeProvider),
+                ),
               ),
         ],
       ),

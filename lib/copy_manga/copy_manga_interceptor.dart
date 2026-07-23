@@ -56,7 +56,9 @@ class CopyMangaInterceptor extends Interceptor {
     Response<dynamic> response,
     ResponseInterceptorHandler handler,
   ) {
-    final result = CopyMangaResponse.fromJson(response.data as Map<String, dynamic>);
+    final result = CopyMangaResponse.fromJson(
+      response.data as Map<String, dynamic>,
+    );
 
     if (result.code == 200) {
       response.data = result.results;

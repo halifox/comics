@@ -11,7 +11,8 @@ abstract class CopyMangaResponse with _$CopyMangaResponse {
     @JsonKey(name: 'results') @Default(<String, dynamic>{}) Object results,
   }) = _CopyMangaResponse;
 
-  factory CopyMangaResponse.fromJson(Map<String, dynamic> json) => _$CopyMangaResponseFromJson(json);
+  factory CopyMangaResponse.fromJson(Map<String, dynamic> json) =>
+      _$CopyMangaResponseFromJson(json);
 }
 
 @freezed
@@ -21,7 +22,8 @@ abstract class NamedPathDto with _$NamedPathDto {
     @JsonKey(name: 'path_word') @Default('') String pathWord,
   }) = _NamedPathDto;
 
-  factory NamedPathDto.fromJson(Map<String, dynamic> json) => _$NamedPathDtoFromJson(json);
+  factory NamedPathDto.fromJson(Map<String, dynamic> json) =>
+      _$NamedPathDtoFromJson(json);
 }
 
 @freezed
@@ -31,7 +33,8 @@ abstract class ComicStatusDto with _$ComicStatusDto {
     @JsonKey(name: 'display') @Default('') String display,
   }) = _ComicStatusDto;
 
-  factory ComicStatusDto.fromJson(Map<String, dynamic> json) => _$ComicStatusDtoFromJson(json);
+  factory ComicStatusDto.fromJson(Map<String, dynamic> json) =>
+      _$ComicStatusDtoFromJson(json);
 }
 
 @freezed
@@ -52,7 +55,8 @@ abstract class ComicDto with _$ComicDto {
     @JsonKey(name: 'status') @Default(ComicStatusDto()) ComicStatusDto status,
   }) = _ComicDto;
 
-  factory ComicDto.fromJson(Map<String, dynamic> json) => _$ComicDtoFromJson(json);
+  factory ComicDto.fromJson(Map<String, dynamic> json) =>
+      _$ComicDtoFromJson(json);
 }
 
 @freezed
@@ -67,25 +71,41 @@ abstract class RankedComicDto with _$RankedComicDto {
     @JsonKey(name: 'popular') @Default(0) int popular,
   }) = _RankedComicDto;
 
-  factory RankedComicDto.fromJson(Map<String, dynamic> json) => _$RankedComicDtoFromJson(json);
+  factory RankedComicDto.fromJson(Map<String, dynamic> json) =>
+      _$RankedComicDtoFromJson(json);
 }
 
 @freezed
 abstract class HomeResultDto with _$HomeResultDto {
   const factory HomeResultDto({
-    @JsonKey(name: 'topics') @Default(HomeTopicSectionDto()) HomeTopicSectionDto topics,
-    @JsonKey(name: 'topicsList') @Default(HomeTopicSectionDto()) HomeTopicSectionDto topicsList,
-    @JsonKey(name: 'recComics') @Default(HomeRecommendedSectionDto()) HomeRecommendedSectionDto recommended,
+    @JsonKey(name: 'topics')
+    @Default(HomeTopicSectionDto())
+    HomeTopicSectionDto topics,
+    @JsonKey(name: 'topicsList')
+    @Default(HomeTopicSectionDto())
+    HomeTopicSectionDto topicsList,
+    @JsonKey(name: 'recComics')
+    @Default(HomeRecommendedSectionDto())
+    HomeRecommendedSectionDto recommended,
     @JsonKey(name: 'hotComics') @Default([]) List<HomeUpdateDto> hot,
     @JsonKey(name: 'newComics') @Default([]) List<HomeUpdateDto> latest,
-    @JsonKey(name: 'finishComics') @Default(HomeComicSectionDto()) HomeComicSectionDto finished,
-    @JsonKey(name: 'rankDayComics') @Default(HomeRankSectionDto()) HomeRankSectionDto rankDay,
-    @JsonKey(name: 'rankWeekComics') @Default(HomeRankSectionDto()) HomeRankSectionDto rankWeek,
-    @JsonKey(name: 'rankMonthComics') @Default(HomeRankSectionDto()) HomeRankSectionDto rankMonth,
+    @JsonKey(name: 'finishComics')
+    @Default(HomeComicSectionDto())
+    HomeComicSectionDto finished,
+    @JsonKey(name: 'rankDayComics')
+    @Default(HomeRankSectionDto())
+    HomeRankSectionDto rankDay,
+    @JsonKey(name: 'rankWeekComics')
+    @Default(HomeRankSectionDto())
+    HomeRankSectionDto rankWeek,
+    @JsonKey(name: 'rankMonthComics')
+    @Default(HomeRankSectionDto())
+    HomeRankSectionDto rankMonth,
     @JsonKey(name: 'banners') @Default([]) List<HomeBannerDto> banners,
   }) = _HomeResultDto;
 
-  factory HomeResultDto.fromJson(Map<String, dynamic> json) => _$HomeResultDtoFromJson(json);
+  factory HomeResultDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeResultDtoFromJson(json);
 }
 
 @freezed
@@ -97,7 +117,8 @@ abstract class HomeTopicSectionDto with _$HomeTopicSectionDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _HomeTopicSectionDto;
 
-  factory HomeTopicSectionDto.fromJson(Map<String, dynamic> json) => _$HomeTopicSectionDtoFromJson(json);
+  factory HomeTopicSectionDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeTopicSectionDtoFromJson(json);
 }
 
 @freezed
@@ -114,7 +135,8 @@ abstract class HomeTopicDto with _$HomeTopicDto {
     @JsonKey(name: 'datetime_created') @Default('') String datetimeCreated,
   }) = _HomeTopicDto;
 
-  factory HomeTopicDto.fromJson(Map<String, dynamic> json) => _$HomeTopicDtoFromJson(json);
+  factory HomeTopicDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeTopicDtoFromJson(json);
 }
 
 @freezed
@@ -126,7 +148,8 @@ abstract class HomeRecommendedSectionDto with _$HomeRecommendedSectionDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _HomeRecommendedSectionDto;
 
-  factory HomeRecommendedSectionDto.fromJson(Map<String, dynamic> json) => _$HomeRecommendedSectionDtoFromJson(json);
+  factory HomeRecommendedSectionDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeRecommendedSectionDtoFromJson(json);
 }
 
 @freezed
@@ -136,7 +159,8 @@ abstract class HomeRecommendedItemDto with _$HomeRecommendedItemDto {
     @JsonKey(name: 'comic') @Default(HomeComicDto()) HomeComicDto comic,
   }) = _HomeRecommendedItemDto;
 
-  factory HomeRecommendedItemDto.fromJson(Map<String, dynamic> json) => _$HomeRecommendedItemDtoFromJson(json);
+  factory HomeRecommendedItemDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeRecommendedItemDtoFromJson(json);
 }
 
 @freezed
@@ -147,7 +171,8 @@ abstract class HomeUpdateDto with _$HomeUpdateDto {
     @JsonKey(name: 'comic') @Default(HomeComicDto()) HomeComicDto comic,
   }) = _HomeUpdateDto;
 
-  factory HomeUpdateDto.fromJson(Map<String, dynamic> json) => _$HomeUpdateDtoFromJson(json);
+  factory HomeUpdateDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeUpdateDtoFromJson(json);
 }
 
 @freezed
@@ -159,7 +184,8 @@ abstract class NewReleaseResultDto with _$NewReleaseResultDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _NewReleaseResultDto;
 
-  factory NewReleaseResultDto.fromJson(Map<String, dynamic> json) => _$NewReleaseResultDtoFromJson(json);
+  factory NewReleaseResultDto.fromJson(Map<String, dynamic> json) =>
+      _$NewReleaseResultDtoFromJson(json);
 }
 
 @freezed
@@ -174,7 +200,8 @@ abstract class HomeComicSectionDto with _$HomeComicSectionDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _HomeComicSectionDto;
 
-  factory HomeComicSectionDto.fromJson(Map<String, dynamic> json) => _$HomeComicSectionDtoFromJson(json);
+  factory HomeComicSectionDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeComicSectionDtoFromJson(json);
 }
 
 @freezed
@@ -186,7 +213,8 @@ abstract class HomeRankSectionDto with _$HomeRankSectionDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _HomeRankSectionDto;
 
-  factory HomeRankSectionDto.fromJson(Map<String, dynamic> json) => _$HomeRankSectionDtoFromJson(json);
+  factory HomeRankSectionDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeRankSectionDtoFromJson(json);
 }
 
 @freezed
@@ -201,7 +229,8 @@ abstract class HomeRankItemDto with _$HomeRankItemDto {
     @JsonKey(name: 'date_type') @Default(0) int dateType,
   }) = _HomeRankItemDto;
 
-  factory HomeRankItemDto.fromJson(Map<String, dynamic> json) => _$HomeRankItemDtoFromJson(json);
+  factory HomeRankItemDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeRankItemDtoFromJson(json);
 }
 
 @freezed
@@ -221,7 +250,8 @@ abstract class HomeComicDto with _$HomeComicDto {
     @JsonKey(name: 'free_type') @Default('') Object freeType,
   }) = _HomeComicDto;
 
-  factory HomeComicDto.fromJson(Map<String, dynamic> json) => _$HomeComicDtoFromJson(json);
+  factory HomeComicDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeComicDtoFromJson(json);
 }
 
 @freezed
@@ -234,7 +264,8 @@ abstract class HomeBannerDto with _$HomeBannerDto {
     @JsonKey(name: 'comic') @Default(NamedPathDto()) NamedPathDto comic,
   }) = _HomeBannerDto;
 
-  factory HomeBannerDto.fromJson(Map<String, dynamic> json) => _$HomeBannerDtoFromJson(json);
+  factory HomeBannerDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeBannerDtoFromJson(json);
 }
 
 @freezed
@@ -244,7 +275,8 @@ abstract class ComicPageResultDto with _$ComicPageResultDto {
     @JsonKey(name: 'total') @Default(0) int total,
   }) = _ComicPageResultDto;
 
-  factory ComicPageResultDto.fromJson(Map<String, dynamic> json) => _$ComicPageResultDtoFromJson(json);
+  factory ComicPageResultDto.fromJson(Map<String, dynamic> json) =>
+      _$ComicPageResultDtoFromJson(json);
 }
 
 @freezed
@@ -256,7 +288,8 @@ abstract class RankPageResultDto with _$RankPageResultDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _RankPageResultDto;
 
-  factory RankPageResultDto.fromJson(Map<String, dynamic> json) => _$RankPageResultDtoFromJson(json);
+  factory RankPageResultDto.fromJson(Map<String, dynamic> json) =>
+      _$RankPageResultDtoFromJson(json);
 }
 
 @freezed
@@ -272,7 +305,8 @@ abstract class ComicInfoResultDto with _$ComicInfoResultDto {
     @JsonKey(name: 'groups') @Default({}) Map<String, ChapterGroupDto> groups,
   }) = _ComicInfoResultDto;
 
-  factory ComicInfoResultDto.fromJson(Map<String, dynamic> json) => _$ComicInfoResultDtoFromJson(json);
+  factory ComicInfoResultDto.fromJson(Map<String, dynamic> json) =>
+      _$ComicInfoResultDtoFromJson(json);
 }
 
 @freezed
@@ -287,9 +321,15 @@ abstract class ComicInfoDto with _$ComicInfoDto {
     @JsonKey(name: 'path_word') @Default('') String pathWord,
     @JsonKey(name: 'close_comment') @Default(false) bool closeComment,
     @JsonKey(name: 'close_roast') @Default(false) bool closeRoast,
-    @JsonKey(name: 'free_type') @Default(LabeledValueDto()) LabeledValueDto freeType,
-    @JsonKey(name: 'restrict') @Default(LabeledValueDto()) LabeledValueDto restrict,
-    @JsonKey(name: 'reclass') @Default(LabeledValueDto()) LabeledValueDto reclass,
+    @JsonKey(name: 'free_type')
+    @Default(LabeledValueDto())
+    LabeledValueDto freeType,
+    @JsonKey(name: 'restrict')
+    @Default(LabeledValueDto())
+    LabeledValueDto restrict,
+    @JsonKey(name: 'reclass')
+    @Default(LabeledValueDto())
+    LabeledValueDto reclass,
     @JsonKey(name: 'females') @Default([]) List<NamedPathDto> females,
     @JsonKey(name: 'males') @Default([]) List<NamedPathDto> males,
     @JsonKey(name: 'clubs') @Default([]) List<NamedPathDto> clubs,
@@ -302,12 +342,15 @@ abstract class ComicInfoDto with _$ComicInfoDto {
     @JsonKey(name: 'brief') @Default('') String brief,
     @JsonKey(name: 'datetime_updated') @Default('') String datetimeUpdated,
     @JsonKey(name: 'cover') @Default('') String cover,
-    @JsonKey(name: 'last_chapter') @Default(ChapterDto()) ChapterDto lastChapter,
+    @JsonKey(name: 'last_chapter')
+    @Default(ChapterDto())
+    ChapterDto lastChapter,
     @JsonKey(name: 'popular') @Default(0) int popular,
     @JsonKey(name: 'channel') @Default('') Object channel,
   }) = _ComicInfoDto;
 
-  factory ComicInfoDto.fromJson(Map<String, dynamic> json) => _$ComicInfoDtoFromJson(json);
+  factory ComicInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$ComicInfoDtoFromJson(json);
 }
 
 @freezed
@@ -317,7 +360,8 @@ abstract class LabeledValueDto with _$LabeledValueDto {
     @JsonKey(name: 'display') @Default('') String display,
   }) = _LabeledValueDto;
 
-  factory LabeledValueDto.fromJson(Map<String, dynamic> json) => _$LabeledValueDtoFromJson(json);
+  factory LabeledValueDto.fromJson(Map<String, dynamic> json) =>
+      _$LabeledValueDtoFromJson(json);
 }
 
 @freezed
@@ -328,7 +372,8 @@ abstract class ChapterGroupDto with _$ChapterGroupDto {
     @JsonKey(name: 'count') @Default(0) int count,
   }) = _ChapterGroupDto;
 
-  factory ChapterGroupDto.fromJson(Map<String, dynamic> json) => _$ChapterGroupDtoFromJson(json);
+  factory ChapterGroupDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterGroupDtoFromJson(json);
 }
 
 @freezed
@@ -340,7 +385,8 @@ abstract class ChapterListResultDto with _$ChapterListResultDto {
     @JsonKey(name: 'offset') @Default(0) int offset,
   }) = _ChapterListResultDto;
 
-  factory ChapterListResultDto.fromJson(Map<String, dynamic> json) => _$ChapterListResultDtoFromJson(json);
+  factory ChapterListResultDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterListResultDtoFromJson(json);
 }
 
 @freezed
@@ -363,7 +409,8 @@ abstract class ChapterDto with _$ChapterDto {
     @JsonKey(name: 'next') @Default('') String next,
   }) = _ChapterDto;
 
-  factory ChapterDto.fromJson(Map<String, dynamic> json) => _$ChapterDtoFromJson(json);
+  factory ChapterDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterDtoFromJson(json);
 }
 
 @freezed
@@ -375,11 +422,14 @@ abstract class ChapterContentResultDto with _$ChapterContentResultDto {
     @JsonKey(name: 'is_mobile_bind') @Default(false) bool isMobileBind,
     @JsonKey(name: 'is_vip') @Default(false) bool isVip,
     @JsonKey(name: 'comic') @Default(ChapterComicDto()) ChapterComicDto comic,
-    @JsonKey(name: 'chapter') @Default(ChapterContentDto()) ChapterContentDto chapter,
+    @JsonKey(name: 'chapter')
+    @Default(ChapterContentDto())
+    ChapterContentDto chapter,
     @JsonKey(name: 'is_banned') @Default(false) bool isBanned,
   }) = _ChapterContentResultDto;
 
-  factory ChapterContentResultDto.fromJson(Map<String, dynamic> json) => _$ChapterContentResultDtoFromJson(json);
+  factory ChapterContentResultDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterContentResultDtoFromJson(json);
 }
 
 @freezed
@@ -388,10 +438,13 @@ abstract class ChapterComicDto with _$ChapterComicDto {
     @JsonKey(name: 'name') @Default('') String name,
     @JsonKey(name: 'uuid') @Default('') String uuid,
     @JsonKey(name: 'path_word') @Default('') String pathWord,
-    @JsonKey(name: 'restrict') @Default(LabeledValueDto()) LabeledValueDto restrict,
+    @JsonKey(name: 'restrict')
+    @Default(LabeledValueDto())
+    LabeledValueDto restrict,
   }) = _ChapterComicDto;
 
-  factory ChapterComicDto.fromJson(Map<String, dynamic> json) => _$ChapterComicDtoFromJson(json);
+  factory ChapterComicDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterComicDtoFromJson(json);
 }
 
 @freezed
@@ -417,14 +470,18 @@ abstract class ChapterContentDto with _$ChapterContentDto {
     @JsonKey(name: 'is_long') @Default(false) bool isLong,
   }) = _ChapterContentDto;
 
-  factory ChapterContentDto.fromJson(Map<String, dynamic> json) => _$ChapterContentDtoFromJson(json);
+  factory ChapterContentDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterContentDtoFromJson(json);
 }
 
 @freezed
 abstract class ChapterImageDto with _$ChapterImageDto {
-  const factory ChapterImageDto({@JsonKey(name: 'url') @Default('') String url}) = _ChapterImageDto;
+  const factory ChapterImageDto({
+    @JsonKey(name: 'url') @Default('') String url,
+  }) = _ChapterImageDto;
 
-  factory ChapterImageDto.fromJson(Map<String, dynamic> json) => _$ChapterImageDtoFromJson(json);
+  factory ChapterImageDto.fromJson(Map<String, dynamic> json) =>
+      _$ChapterImageDtoFromJson(json);
 }
 
 @freezed
@@ -457,12 +514,16 @@ abstract class NetworkResultDto with _$NetworkResultDto {
     @JsonKey(name: 'in_mainland') @Default(false) bool inMainland,
   }) = _NetworkResultDto;
 
-  factory NetworkResultDto.fromJson(Map<String, dynamic> json) => _$NetworkResultDtoFromJson(json);
+  factory NetworkResultDto.fromJson(Map<String, dynamic> json) =>
+      _$NetworkResultDtoFromJson(json);
 }
 
 @freezed
 abstract class RequestIdResultDto with _$RequestIdResultDto {
-  const factory RequestIdResultDto({@JsonKey(name: 'request_id') @Default('') String requestId}) = _RequestIdResultDto;
+  const factory RequestIdResultDto({
+    @JsonKey(name: 'request_id') @Default('') String requestId,
+  }) = _RequestIdResultDto;
 
-  factory RequestIdResultDto.fromJson(Map<String, dynamic> json) => _$RequestIdResultDtoFromJson(json);
+  factory RequestIdResultDto.fromJson(Map<String, dynamic> json) =>
+      _$RequestIdResultDtoFromJson(json);
 }

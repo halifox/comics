@@ -7,8 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 class JsonResponseRecorderInterceptor extends Interceptor {
-  JsonResponseRecorderInterceptor({Directory? outputDirectory})
-    : outputDirectory = outputDirectory;
+  JsonResponseRecorderInterceptor({this.outputDirectory});
 
   final Directory? outputDirectory;
   Future<void> writeQueue = Future<void>.value();

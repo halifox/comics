@@ -17,8 +17,8 @@ import '../application/reader_settings_provider.dart';
 
 typedef ChapterReaderQuery = ({String comicId, String chapterId});
 
-final chapterReaderProvider =
-    FutureProvider.autoDispose.family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
+final chapterReaderProvider = FutureProvider.autoDispose
+    .family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
       return ref
           .watch(comicsRepositoryProvider)
           .getChapter(comicId: args.comicId, chapterId: args.chapterId);
@@ -231,19 +231,19 @@ class ChapterReaderPage extends HookConsumerWidget {
                   ),
                   centerTitle: false,
                   leading: GlassIconButton(
-                      icon: const Icon(CupertinoIcons.chevron_back),
-                      onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(CupertinoIcons.chevron_back),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
                   actions: [
                     GlassIconButton(
-                        icon: const Icon(CupertinoIcons.slider_horizontal_3),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            CupertinoPageRoute(
-                              builder: (context) => const ReaderSettingsPage(),
-                            ),
-                          );
-                        },
+                      icon: const Icon(CupertinoIcons.slider_horizontal_3),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder: (context) => const ReaderSettingsPage(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -257,6 +257,7 @@ class ChapterReaderPage extends HookConsumerWidget {
 
 class ContinuousReader extends HookWidget {
   const ContinuousReader({
+    super.key,
     required this.images,
     required this.initialPageIndex,
     required this.onPageChanged,
@@ -341,6 +342,7 @@ class ContinuousReader extends HookWidget {
 
 class PagedReader extends HookWidget {
   const PagedReader({
+    super.key,
     required this.images,
     required this.initialPageIndex,
     required this.onPageChanged,
@@ -442,6 +444,7 @@ class PagedReader extends HookWidget {
 
 class ZoomableChapterImage extends HookWidget {
   const ZoomableChapterImage({
+    super.key,
     required this.imageUrl,
     required this.onPagingLockChanged,
   });
@@ -514,6 +517,7 @@ class ZoomableChapterImage extends HookWidget {
 
 class ChapterImage extends HookWidget {
   const ChapterImage({
+    super.key,
     required this.imageUrl,
     this.onBuilt,
     this.expand = false,

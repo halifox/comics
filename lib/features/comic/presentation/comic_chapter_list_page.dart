@@ -15,28 +15,38 @@ import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 typedef ComicChapterListQuery = ({String comicId, String groupPathWord});
 typedef ComicGroupProgressKey = ({String comicPathWord, String groupPathWord});
 
-final comicGroupProgressProvider = StreamProvider.autoDispose.family<ComicReadingProgress?, ComicGroupProgressKey>((
-  ref,
-  key,
-) {
-  return ref
-      .watch(libraryDatabaseProvider)
-      .watchGroupProgress(comicPathWord: key.comicPathWord, groupPathWord: key.groupPathWord);
-});
-
-final comicChapterProgressesProvider = StreamProvider.autoDispose
-    .family<Map<String, ComicReadingProgress>, ComicGroupProgressKey>((ref, key) {
+final comicGroupProgressProvider = StreamProvider.autoDispose
+    .family<ComicReadingProgress?, ComicGroupProgressKey>((ref, key) {
       return ref
           .watch(libraryDatabaseProvider)
-          .watchChapterProgresses(comicPathWord: key.comicPathWord, groupPathWord: key.groupPathWord);
+          .watchGroupProgress(
+            comicPathWord: key.comicPathWord,
+            groupPathWord: key.groupPathWord,
+          );
+    });
+
+final comicChapterProgressesProvider = StreamProvider.autoDispose
+    .family<Map<String, ComicReadingProgress>, ComicGroupProgressKey>((
+      ref,
+      key,
+    ) {
+      return ref
+          .watch(libraryDatabaseProvider)
+          .watchChapterProgresses(
+            comicPathWord: key.comicPathWord,
+            groupPathWord: key.groupPathWord,
+          );
     });
 
 final comicChapterListProvider = AsyncNotifierProvider.autoDispose
-    .family<ComicChapterListNotifier, PagePagingData<ChapterSummaryModel>, ComicChapterListQuery>(
-      ComicChapterListNotifier.new,
-    );
+    .family<
+      ComicChapterListNotifier,
+      PagePagingData<ChapterSummaryModel>,
+      ComicChapterListQuery
+    >(ComicChapterListNotifier.new);
 
-class ComicChapterListNotifier extends AsyncNotifier<PagePagingData<ChapterSummaryModel>>
+class ComicChapterListNotifier
+    extends AsyncNotifier<PagePagingData<ChapterSummaryModel>>
     with PagePagingNotifierMixin<ChapterSummaryModel> {
   ComicChapterListNotifier(this.query);
 
@@ -51,8 +61,17 @@ class ComicChapterListNotifier extends AsyncNotifier<PagePagingData<ChapterSumma
     final offset = (page - 1) * pageSize;
     final result = await ref
         .read(comicsRepositoryProvider)
-        .getChapters(comicId: query.comicId, groupId: query.groupPathWord, limit: pageSize, offset: offset);
-    return PagePagingData(items: result.items, hasMore: offset + result.items.length < result.total, page: page);
+        .getChapters(
+          comicId: query.comicId,
+          groupId: query.groupPathWord,
+          limit: pageSize,
+          offset: offset,
+        );
+    return PagePagingData(
+      items: result.items,
+      hasMore: offset + result.items.length < result.total,
+      page: page,
+    );
   }
 }
 
@@ -77,10 +96,17 @@ class ComicChapterListPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final titleController = useGlassLargeTitleController();
-    final provider = comicChapterListProvider((comicId: comicId, groupPathWord: groupPathWord));
+    final provider = comicChapterListProvider((
+      comicId: comicId,
+      groupPathWord: groupPathWord,
+    ));
     final progressKey = (comicPathWord: comicId, groupPathWord: groupPathWord);
-    final groupProgressState = ref.watch(comicGroupProgressProvider(progressKey));
-    final chapterProgressesState = ref.watch(comicChapterProgressesProvider(progressKey));
+    final groupProgressState = ref.watch(
+      comicGroupProgressProvider(progressKey),
+    );
+    final chapterProgressesState = ref.watch(
+      comicChapterProgressesProvider(progressKey),
+    );
 
     return GlassScaffold(
       edgeToEdge: true,
@@ -142,12 +168,19 @@ class ComicChapterListPage extends HookConsumerWidget {
       ),
       body: CustomScrollView(
         controller: titleController.scrollController,
-        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         slivers: [
           GlassLargeTitle(
             text: groupName,
             controller: titleController,
-            padding: EdgeInsets.fromLTRB(24, MediaQuery.paddingOf(context).top + 56, 24, 8),
+            padding: EdgeInsets.fromLTRB(
+              24,
+              MediaQuery.paddingOf(context).top + 56,
+              24,
+              8,
+            ),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -205,7 +238,8 @@ class ComicChapterListPage extends HookConsumerWidget {
                                   groupPathWord: groupPathWord,
                                   chapterId: chapter.id,
                                   chapterName: chapter.title,
-                                  initialPageIndex: chapterProgress?.pageIndex ?? 0,
+                                  initialPageIndex:
+                                      chapterProgress?.pageIndex ?? 0,
                                 ),
                               ),
                             );
@@ -239,7 +273,12 @@ class ComicChapterListPage extends HookConsumerWidget {
 }
 
 class ComicChapterTile extends StatelessWidget {
-  const ComicChapterTile({required this.chapter, required this.onTap, this.progress});
+  const ComicChapterTile({
+    super.key,
+    required this.chapter,
+    required this.onTap,
+    this.progress,
+  });
 
   final ChapterSummaryModel chapter;
   final ComicReadingProgress? progress;
@@ -252,9 +291,13 @@ class ComicChapterTile extends StatelessWidget {
       child: GlassCard(
         padding: EdgeInsets.zero,
         child: GlassListTile(
-          leading: Icon(progress == null ? CupertinoIcons.book : CupertinoIcons.book_fill),
+          leading: Icon(
+            progress == null ? CupertinoIcons.book : CupertinoIcons.book_fill,
+          ),
           title: Text(chapter.title),
-          subtitle: progress == null ? null : Text('已读至第 ${progress!.pageIndex + 1} 页'),
+          subtitle: progress == null
+              ? null
+              : Text('已读至第 ${progress!.pageIndex + 1} 页'),
           trailing: GlassListTile.chevron,
           onTap: onTap,
         ),

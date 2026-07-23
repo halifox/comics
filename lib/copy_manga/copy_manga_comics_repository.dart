@@ -6,15 +6,11 @@ import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final copyMangaComicsRepositoryProvider = Provider<ComicsRepository>(
-  (ref) => CopyMangaComicsRepository(
-    api: ref.watch(comicsApiProvider),
-  ),
+  (ref) => CopyMangaComicsRepository(api: ref.watch(comicsApiProvider)),
 );
 
 class CopyMangaComicsRepository implements ComicsRepository {
-  const CopyMangaComicsRepository({
-    required this.api,
-  });
+  const CopyMangaComicsRepository({required this.api});
 
   final CopyMangaApi api;
 
@@ -166,7 +162,10 @@ class CopyMangaComicsRepository implements ComicsRepository {
     );
     return PagedResult(
       items: result.list
-          .map((chapter) => ChapterSummaryModel(id: chapter.uuid, title: chapter.name))
+          .map(
+            (chapter) =>
+                ChapterSummaryModel(id: chapter.uuid, title: chapter.name),
+          )
           .toList(growable: false),
       total: result.total,
     );
@@ -186,10 +185,7 @@ class CopyMangaComicsRepository implements ComicsRepository {
     required int limit,
     required int offset,
   }) async {
-    final result = await api.newest(
-      limit: limit,
-      offset: offset,
-    );
+    final result = await api.newest(limit: limit, offset: offset);
     return PagedResult(
       items: result.list
           .map((item) => mapNewRelease(dto: item))
@@ -213,10 +209,11 @@ ComicCardModel mapHomeComic({required HomeComicDto dto}) => ComicCardModel(
   authorText: dto.authors.map((item) => item.name).join(','),
 );
 
-RankedComicModel mapHomeRanking({required HomeRankItemDto dto}) => RankedComicModel(
-  comic: mapHomeComic(dto: dto.comic),
-  rankLabel: '${dto.sort}',
-);
+RankedComicModel mapHomeRanking({required HomeRankItemDto dto}) =>
+    RankedComicModel(
+      comic: mapHomeComic(dto: dto.comic),
+      rankLabel: '${dto.sort}',
+    );
 
 ComicLink mapLink({required NamedPathDto dto}) =>
     ComicLink(id: dto.pathWord, label: dto.name);
@@ -234,7 +231,8 @@ List<String> orderImages({required ChapterContentDto chapter}) {
       .where((url) => url.isNotEmpty)
       .toList(growable: false);
   final orders = chapter.words;
-  final validOrder = orders.length == urls.length &&
+  final validOrder =
+      orders.length == urls.length &&
       orders.toSet().length == urls.length &&
       orders.every((index) => index >= 0 && index < urls.length);
   if (!validOrder) return urls;
@@ -253,10 +251,11 @@ String mapCatalogScope({required ComicCatalogScope scope}) => switch (scope) {
   ComicCatalogScope.finished => 'finish',
 };
 
-String mapCatalogOrdering({required ComicCatalogOrdering ordering}) => switch (ordering) {
-  ComicCatalogOrdering.updatedDescending => '-datetime_updated',
-  ComicCatalogOrdering.popularDescending => '-popular',
-};
+String mapCatalogOrdering({required ComicCatalogOrdering ordering}) =>
+    switch (ordering) {
+      ComicCatalogOrdering.updatedDescending => '-datetime_updated',
+      ComicCatalogOrdering.popularDescending => '-popular',
+    };
 
 String mapSearchField({required ComicSearchField field}) => switch (field) {
   ComicSearchField.all => '',
@@ -265,14 +264,16 @@ String mapSearchField({required ComicSearchField field}) => switch (field) {
   ComicSearchField.local => 'local',
 };
 
-String mapRankingAudience({required ComicRankingAudience audience}) => switch (audience) {
-  ComicRankingAudience.male => 'male',
-  ComicRankingAudience.female => 'female',
-};
+String mapRankingAudience({required ComicRankingAudience audience}) =>
+    switch (audience) {
+      ComicRankingAudience.male => 'male',
+      ComicRankingAudience.female => 'female',
+    };
 
-String mapRankingPeriod({required ComicRankingPeriod period}) => switch (period) {
-  ComicRankingPeriod.day => 'day',
-  ComicRankingPeriod.week => 'week',
-  ComicRankingPeriod.month => 'month',
-  ComicRankingPeriod.total => 'total',
-};
+String mapRankingPeriod({required ComicRankingPeriod period}) =>
+    switch (period) {
+      ComicRankingPeriod.day => 'day',
+      ComicRankingPeriod.week => 'week',
+      ComicRankingPeriod.month => 'month',
+      ComicRankingPeriod.total => 'total',
+    };

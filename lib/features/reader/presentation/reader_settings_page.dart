@@ -30,8 +30,8 @@ class ReaderSettingsPage extends HookConsumerWidget {
           centerTitle: false,
           largeTitleController: titleController,
           leading: GlassIconButton(
-              icon: const Icon(CupertinoIcons.chevron_back),
-              onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(CupertinoIcons.chevron_back),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
         body: CustomScrollView(
@@ -89,7 +89,11 @@ class ReaderSettingsPage extends HookConsumerWidget {
 }
 
 class ReaderModeSelector extends StatelessWidget {
-  const ReaderModeSelector({required this.value, required this.onChanged});
+  const ReaderModeSelector({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
 
   final ReaderMode value;
   final ValueChanged<ReaderMode> onChanged;
@@ -118,6 +122,7 @@ class ReaderModeSelector extends StatelessWidget {
 
 class ReaderBackgroundSelector extends StatelessWidget {
   const ReaderBackgroundSelector({
+    super.key,
     required this.value,
     required this.onChanged,
   });
@@ -159,7 +164,7 @@ class ReaderBackgroundSelector extends StatelessWidget {
 }
 
 class CompactDropdownLabel extends StatelessWidget {
-  const CompactDropdownLabel({required this.label});
+  const CompactDropdownLabel({super.key, required this.label});
 
   final String label;
 

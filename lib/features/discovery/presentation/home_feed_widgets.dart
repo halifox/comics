@@ -68,6 +68,7 @@ class HomeFeedContent extends StatelessWidget {
 
 class HorizontalComicSection extends HookWidget {
   const HorizontalComicSection({
+    super.key,
     required this.title,
     required this.comics,
     this.badges,
@@ -129,7 +130,7 @@ class HorizontalComicSection extends HookWidget {
                 horizontal: horizontalPadding,
               ),
               child: PageView.builder(
-                key: PageStorageKey('PageView-${title}'),
+                key: PageStorageKey('PageView-$title'),
                 controller: pageController,
                 clipBehavior: Clip.none,
                 padEnds: false,
@@ -211,7 +212,11 @@ class HorizontalComicSection extends HookWidget {
 }
 
 class MoreComicsCard extends StatelessWidget {
-  const MoreComicsCard({required this.sectionTitle, required this.onTap});
+  const MoreComicsCard({
+    super.key,
+    required this.sectionTitle,
+    required this.onTap,
+  });
 
   final String sectionTitle;
   final VoidCallback onTap;
@@ -219,34 +224,34 @@ class MoreComicsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 2, bottom: 12),
-            child: SizedBox(
-              width: 62,
-              height: double.infinity,
-              child: GlassContainer(
-                padding: const EdgeInsets.all(12),
-                shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                alignment: .center,
-                child: Icon(
-                  CupertinoIcons.chevron_forward,
-                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
-                  size: 24,
-                ),
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 2, bottom: 12),
+          child: SizedBox(
+            width: 62,
+            height: double.infinity,
+            child: GlassContainer(
+              padding: const EdgeInsets.all(12),
+              shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+              alignment: .center,
+              child: Icon(
+                CupertinoIcons.chevron_forward,
+                color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                size: 24,
               ),
             ),
           ),
         ),
+      ),
     );
   }
 }
 
 class EndOfCarouselCard extends StatelessWidget {
-  const EndOfCarouselCard();
+  const EndOfCarouselCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -312,7 +317,7 @@ class LeadingAlignedPagePhysics extends PageScrollPhysics {
 }
 
 class SectionHeader extends StatelessWidget {
-  const SectionHeader({required this.title});
+  const SectionHeader({super.key, required this.title});
 
   final String title;
 
@@ -357,93 +362,93 @@ class ComicCoverCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(26),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              CachedNetworkImage(
-                imageUrl: cover,
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                progressIndicatorBuilder: buildCachedImageLoading,
-                errorWidget: buildCachedImageError,
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(26),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            CachedNetworkImage(
+              imageUrl: cover,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+              progressIndicatorBuilder: buildCachedImageLoading,
+              errorWidget: buildCachedImageError,
+            ),
+            const DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0, .1, .7, 1],
+                  colors: [
+                    Color(0x12000000),
+                    Color(0x00000000),
+                    Color(0x00000000),
+                    Color(0x5F000000),
+                  ],
+                ),
               ),
-              const DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0, .1, .7, 1],
-                    colors: [
-                      Color(0x12000000),
-                      Color(0x00000000),
-                      Color(0x00000000),
-                      Color(0x5F000000),
-                    ],
+            ),
+            if (badge != null)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: GlassContainer(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
+                  shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                  child: Text(
+                    badge!,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      fontFeatures: [FontFeature.tabularFigures()],
+                    ),
                   ),
                 ),
               ),
-              if (badge != null)
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: GlassContainer(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                    child: Text(
-                      badge!,
+            Positioned(
+              left: 4,
+              right: 4,
+              bottom: 4,
+              child: GlassContainer(
+                padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
+                shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        fontFeatures: [FontFeature.tabularFigures()],
                       ),
                     ),
-                  ),
-                ),
-              Positioned(
-                left: 4,
-                right: 4,
-                bottom: 4,
-                child: GlassContainer(
-                  padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
-                  shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      author,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Color.fromARGB(153, 235, 235, 245),
+                        fontSize: 11,
                       ),
-                      Text(
-                        author,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Color.fromARGB(153, 235, 235, 245),
-                          fontSize: 11,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
     );
   }
 }
@@ -487,14 +492,11 @@ class ContentStateSliver extends StatelessWidget {
   });
 
   const ContentStateSliver.empty({
-    required IconData icon,
-    required String title,
-    required String message,
+    required this.icon,
+    required this.title,
+    required this.message,
     super.key,
-  }) : icon = icon,
-       title = title,
-       message = message,
-       iconColor = const Color(0xFFFF5A5F),
+  }) : iconColor = const Color(0xFFFF5A5F),
        loading = false,
        onRetry = null;
 
@@ -518,9 +520,7 @@ class ContentStateSliver extends StatelessWidget {
                   ? Center(
                       child: GlassProgressIndicator.circular(
                         size: 40,
-                        color: CupertinoTheme.of(
-                          context,
-                        ).primaryColor,
+                        color: CupertinoTheme.of(context).primaryColor,
                       ),
                     )
                   : Icon(icon, size: 48, color: iconColor),

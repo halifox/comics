@@ -78,7 +78,8 @@ List<MockComicDto> buildMockComics() {
   return List.generate(36, (index) {
     final number = index + 1;
     final id = 'mock-comic-${number.toString().padLeft(2, '0')}';
-    final title = '${titles[index % titles.length]} ${index ~/ titles.length + 1}';
+    final title =
+        '${titles[index % titles.length]} ${index ~/ titles.length + 1}';
     final primaryAuthor = authors[index % authors.length];
     final secondaryAuthor = authors[(index + 3) % authors.length];
     final mainTheme = themes[index % themes.length];
@@ -95,7 +96,8 @@ List<MockComicDto> buildMockComics() {
       isFinished: index % 5 == 0,
       updatedOrder: 1000 - index * 7,
       popularity: 5000 - ((index * 137) % 2900),
-      brief: '这是一部用于界面开发与交互验证的模拟漫画。故事围绕“$title”展开，'
+      brief:
+          '这是一部用于界面开发与交互验证的模拟漫画。故事围绕“$title”展开，'
           '包含完整的目录、详情、章节和阅读数据，不依赖真实漫画接口。',
       groups: [
         buildMockGroup(comicId: id, groupId: 'main', title: '正篇', count: 24),

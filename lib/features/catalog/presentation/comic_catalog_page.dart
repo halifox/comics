@@ -38,14 +38,16 @@ class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicCardModel>>
   @override
   Future<PagePagingData<ComicCardModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref.read(comicsRepositoryProvider).getCatalog(
-      limit: pageSize,
-      offset: offset,
-      ordering: filter.ordering,
-      scope: filter.scope,
-      theme: filter.theme,
-      author: filter.author,
-    );
+    final result = await ref
+        .read(comicsRepositoryProvider)
+        .getCatalog(
+          limit: pageSize,
+          offset: offset,
+          ordering: filter.ordering,
+          scope: filter.scope,
+          theme: filter.theme,
+          author: filter.author,
+        );
     return PagePagingData(
       items: result.items,
       hasMore: offset + result.items.length < result.total,
@@ -63,10 +65,7 @@ class ComicCatalogPage extends HookConsumerWidget {
     this.theme,
     this.author,
     super.key,
-  }) : assert(
-         theme == null || author == null,
-         'theme 和 author 不能同时提供',
-       );
+  }) : assert(theme == null || author == null, 'theme 和 author 不能同时提供');
 
   final String title;
   final ComicCatalogScope initialScope;
@@ -103,44 +102,42 @@ class ComicCatalogPage extends HookConsumerWidget {
         centerTitle: false,
         largeTitleController: titleController,
         leading: GlassIconButton(
-            icon: const Icon(CupertinoIcons.chevron_back),
-            onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(CupertinoIcons.chevron_back),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: showActions
             ? [
                 GlassPullDownButton(
-                    icon: const Icon(
-                      CupertinoIcons.line_horizontal_3_decrease,
-                    ),
-                    menuWidth: 200,
-                    menuAlignment: GlassMenuAlignment.topRight,
-                    items: [
-                      for (final option in ComicCatalogScope.values)
-                        GlassMenuItem(
-                          title: option.label,
-                          isSelected: scope.value == option,
-                          trailing: scope.value == option
-                              ? const Icon(CupertinoIcons.checkmark, size: 18)
-                              : null,
-                          onTap: () => scope.value = option,
-                        ),
-                    ],
+                  icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
+                  menuWidth: 200,
+                  menuAlignment: GlassMenuAlignment.topRight,
+                  items: [
+                    for (final option in ComicCatalogScope.values)
+                      GlassMenuItem(
+                        title: option.label,
+                        isSelected: scope.value == option,
+                        trailing: scope.value == option
+                            ? const Icon(CupertinoIcons.checkmark, size: 18)
+                            : null,
+                        onTap: () => scope.value = option,
+                      ),
+                  ],
                 ),
                 GlassPullDownButton(
-                    icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
-                    menuWidth: 220,
-                    menuAlignment: GlassMenuAlignment.topRight,
-                    items: [
-                      for (final option in ComicCatalogOrdering.values)
-                        GlassMenuItem(
-                          title: option.label,
-                          isSelected: ordering.value == option,
-                          trailing: ordering.value == option
-                              ? const Icon(CupertinoIcons.checkmark, size: 18)
-                              : null,
-                          onTap: () => ordering.value = option,
-                        ),
-                    ],
+                  icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
+                  menuWidth: 220,
+                  menuAlignment: GlassMenuAlignment.topRight,
+                  items: [
+                    for (final option in ComicCatalogOrdering.values)
+                      GlassMenuItem(
+                        title: option.label,
+                        isSelected: ordering.value == option,
+                        trailing: ordering.value == option
+                            ? const Icon(CupertinoIcons.checkmark, size: 18)
+                            : null,
+                        onTap: () => ordering.value = option,
+                      ),
+                  ],
                 ),
               ]
             : const [],
