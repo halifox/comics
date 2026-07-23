@@ -10,20 +10,14 @@ final searchHistoryProvider = StreamProvider<List<String>>((ref) {
   return ref.watch(libraryDatabaseProvider).watchSearchHistory();
 });
 
-class SearchPage extends HookConsumerWidget {
-  const SearchPage({
-    required this.titleController,
-    required this.onDismiss,
-    required this.child,
-    super.key,
-  });
+class SearchCategoryGrid extends StatelessWidget {
+  const SearchCategoryGrid({super.key, required this.titleController, required this.onDismiss});
 
   final GlassLargeTitleController titleController;
   final VoidCallback onDismiss;
-  final Widget child;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -40,69 +34,46 @@ class SearchPage extends HookConsumerWidget {
         topEdgeFadeExtent: 64,
         bottomEdgeFadeExtent: 64,
         headerScrollController: titleController.scrollController,
-        body: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-class SearchCategoryGrid extends StatelessWidget {
-  const SearchCategoryGrid({required this.titleController});
-
-  final GlassLargeTitleController titleController;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: titleController.scrollController,
-      physics: const AlwaysScrollableScrollPhysics(
-        parent: BouncingScrollPhysics(),
-      ),
-      slivers: [
-        GlassLargeTitle(
-          text: '搜索',
-          controller: titleController,
-          padding: EdgeInsets.fromLTRB(
-            16,
-            MediaQuery.paddingOf(context).top + 16,
-            16,
-            8,
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-          sliver: SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.65,
+        body: CustomScrollView(
+          controller: titleController.scrollController,
+          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+          slivers: [
+            GlassLargeTitle(
+              text: '搜索',
+              controller: titleController,
+              padding: EdgeInsets.fromLTRB(16, MediaQuery.paddingOf(context).top + 16, 16, 8),
             ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => ComicCategoryCard(
-                name: comicCategories[index].name,
-                slug: comicCategories[index].slug,
-                color: comicCategoryColor(
-                  context: context,
-                  seed: comicCategories[index].slug,
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1.65,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => ComicCategoryCard(
+                    name: comicCategories[index].name,
+                    slug: comicCategories[index].slug,
+                    color: comicCategoryColor(context: context, seed: comicCategories[index].slug),
+                  ),
+                  childCount: comicCategories.length,
                 ),
               ),
-              childCount: comicCategories.length,
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
 
 class SearchHistory extends ConsumerWidget {
-  const SearchHistory({super.key, required this.titleController});
+  const SearchHistory({super.key, required this.titleController, required this.onDismiss});
 
   final GlassLargeTitleController titleController;
+  final VoidCallback onDismiss;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -120,97 +91,80 @@ class SearchHistory extends ConsumerWidget {
       );
     }
     final history = historyState.requireValue;
-    return CustomScrollView(
-      controller: titleController.scrollController,
-      physics: const AlwaysScrollableScrollPhysics(
-        parent: BouncingScrollPhysics(),
-      ),
-      slivers: [
-        GlassLargeTitle(
-          text: '搜索',
-          controller: titleController,
-          padding: EdgeInsets.fromLTRB(
-            24,
-            MediaQuery.paddingOf(context).top + 16,
-            24,
-            8,
-          ),
-        ),
-        if (history.isEmpty)
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: keyboardHeight + 50),
-              child: const SearchHistoryEmptyState(),
+    return GestureDetector(
+      onTap: onDismiss,
+      child: GlassScaffold(
+        edgeToEdge: true,
+        contentAwareBrightness: true,
+        statusBarStyle: GlassStatusBarStyle.auto,
+        background: const AmbientGlowBackground(),
+        topEdgeFade: true,
+        bottomEdgeFade: true,
+        topEdgeFadeExtent: 64,
+        bottomEdgeFadeExtent: 64,
+        headerScrollController: titleController.scrollController,
+        body: CustomScrollView(
+          controller: titleController.scrollController,
+          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+          slivers: [
+            GlassLargeTitle(
+              text: '搜索',
+              controller: titleController,
+              padding: EdgeInsets.fromLTRB(24, MediaQuery.paddingOf(context).top + 16, 24, 8),
             ),
-          )
-        else
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                18,
-                16,
-                18,
-                MediaQuery.paddingOf(context).bottom + keyboardHeight + 72,
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: GlassGroupedSection(
-                  margin: EdgeInsets.zero,
-                  shape: const LiquidRoundedSuperellipse(borderRadius: 28),
-                  children: [
-                    for (final query in history.reversed)
-                      GlassListTile(
-                        title: Text(
-                          query,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        contentPadding: const EdgeInsets.only(
-                          top: 6,
-                          bottom: 6,
-                          left: 26,
-                          right: 6,
-                        ),
-                        titleStyle: TextStyle(
-                          color: CupertinoColors.label.resolveFrom(context),
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        onTap: () {
-                          ref
-                              .read(libraryDatabaseProvider)
-                              .recordSearch(query: query);
-                          Navigator.of(context).push(
-                            CupertinoPageRoute<void>(
-                              builder: (routeContext) =>
-                                  SearchResultsPage(query: query),
+            if (history.isEmpty)
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: keyboardHeight + 50),
+                  child: const SearchHistoryEmptyState(),
+                ),
+              )
+            else
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(18, 16, 18, MediaQuery.paddingOf(context).bottom + keyboardHeight + 72),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: GlassGroupedSection(
+                      margin: EdgeInsets.zero,
+                      shape: const LiquidRoundedSuperellipse(borderRadius: 28),
+                      children: [
+                        for (final query in history.reversed)
+                          GlassListTile(
+                            title: Text(query, maxLines: 1, overflow: TextOverflow.ellipsis),
+                            contentPadding: const EdgeInsets.only(top: 6, bottom: 6, left: 26, right: 6),
+                            titleStyle: TextStyle(
+                              color: CupertinoColors.label.resolveFrom(context),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
                             ),
-                          );
-                        },
-                        trailing: GlassIconButton(
-                            icon: const Icon(
-                              CupertinoIcons.trash,
-                              color: CupertinoColors.systemRed,
+                            onTap: () {
+                              ref.read(libraryDatabaseProvider).recordSearch(query: query);
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<void>(builder: (routeContext) => SearchResultsPage(query: query)),
+                              );
+                            },
+                            trailing: GlassIconButton(
+                              icon: const Icon(CupertinoIcons.trash, color: CupertinoColors.systemRed),
+                              onPressed: () => ref.read(libraryDatabaseProvider).removeSearch(query: query),
                             ),
-                            onPressed: () => ref
-                                .read(libraryDatabaseProvider)
-                                .removeSearch(query: query),
-                        ),
-                      ),
-                  ],
+                          ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-      ],
+          ],
+        ),
+      ),
     );
   }
 }
 
 class SearchHistoryEmptyState extends StatelessWidget {
-  const SearchHistoryEmptyState();
+  const SearchHistoryEmptyState({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -218,11 +172,7 @@ class SearchHistoryEmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            CupertinoIcons.search,
-            size: 64,
-            color: CupertinoColors.tertiaryLabel.resolveFrom(context),
-          ),
+          Icon(CupertinoIcons.search, size: 64, color: CupertinoColors.tertiaryLabel.resolveFrom(context)),
           const SizedBox(height: 16),
           Text(
             '暂无最近搜索',
@@ -236,10 +186,7 @@ class SearchHistoryEmptyState extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             '你的最近搜索记录会显示在这里。',
-            style: TextStyle(
-              color: CupertinoColors.secondaryLabel.resolveFrom(context),
-              fontSize: 15,
-            ),
+            style: TextStyle(color: CupertinoColors.secondaryLabel.resolveFrom(context), fontSize: 15),
           ),
         ],
       ),
@@ -317,10 +264,7 @@ const comicCategories = [
   ComicCategoryData(name: '其他', slug: 'qita'),
 ];
 
-Color comicCategoryColor({
-  required BuildContext context,
-  required String seed,
-}) {
+Color comicCategoryColor({required BuildContext context, required String seed}) {
   var hash = 0x811C9DC5;
   for (final codeUnit in seed.codeUnits) {
     hash ^= codeUnit;
@@ -336,11 +280,7 @@ Color comicCategoryColor({
 }
 
 class ComicCategoryCard extends StatelessWidget {
-  const ComicCategoryCard({
-    required this.name,
-    required this.slug,
-    required this.color,
-  });
+  const ComicCategoryCard({required this.name, required this.slug, required this.color});
 
   final String name;
   final String slug;
@@ -361,10 +301,7 @@ class ComicCategoryCard extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           padding: EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 8),
           child: GlassContainer(
-            padding: EdgeInsetsDirectional.symmetric(
-              horizontal: 12,
-              vertical: 4,
-            ),
+            padding: EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 4),
             child: Text(
               name,
               style: TextStyle(

@@ -43,21 +43,19 @@ class MainNavigationPage extends HookConsumerWidget {
             },
           ),
           2 => const ComicLibraryPage(),
-          4 => SearchPage(
+          4 => SearchCategoryGrid(
             titleController: searchTitleController,
             onDismiss: () {
               FocusManager.instance.primaryFocus?.unfocus();
               selectedIndex.value = lastContentIndex.value;
             },
-            child: SearchCategoryGrid(titleController: searchTitleController),
           ),
-          5 => SearchPage(
+          5 => SearchHistory(
             titleController: searchTitleController,
             onDismiss: () {
               FocusManager.instance.primaryFocus?.unfocus();
               selectedIndex.value = lastContentIndex.value;
             },
-            child: SearchHistory(titleController: searchTitleController),
           ),
           _ => const SizedBox.shrink(),
         },
