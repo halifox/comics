@@ -1,30 +1,26 @@
-import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 import 'package:comics/features/comic/domain/comic_models.dart';
 import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
-import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
+import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
 typedef ComicRankingFilter = ({
   ComicRankingAudience audience,
   ComicRankingPeriod period,
 });
 
-final rankingProvider =
-    AsyncNotifierProvider.family<
-      ComicRankingNotifier,
-      PagePagingData<RankedComicModel>,
-      ComicRankingFilter
-    >(ComicRankingNotifier.new);
+final rankingProvider = AsyncNotifierProvider.family(ComicRankingNotifier.new);
 
-class ComicRankingNotifier extends AsyncNotifier<PagePagingData<RankedComicModel>>
+class ComicRankingNotifier
+    extends AsyncNotifier<PagePagingData<RankedComicModel>>
     with PagePagingNotifierMixin<RankedComicModel> {
   ComicRankingNotifier(this.filter);
 
@@ -37,12 +33,14 @@ class ComicRankingNotifier extends AsyncNotifier<PagePagingData<RankedComicModel
   @override
   Future<PagePagingData<RankedComicModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref.read(comicsRepositoryProvider).getRanking(
-      limit: pageSize,
-      offset: offset,
-      audience: filter.audience,
-      period: filter.period,
-    );
+    final result = await ref
+        .read(comicsRepositoryProvider)
+        .getRanking(
+          limit: pageSize,
+          offset: offset,
+          audience: filter.audience,
+          period: filter.period,
+        );
     return PagePagingData(
       items: result.items,
       hasMore: offset + result.items.length < result.total,
@@ -84,23 +82,23 @@ class ComicRankingPage extends HookConsumerWidget {
       header: GlassAppBar(
         actions: [
           GlassPullDownButton(
-              icon: const Icon(CupertinoIcons.calendar),
-              menuWidth: 220,
-              menuAlignment: GlassMenuAlignment.topRight,
-              items: [
-                for (final option in ComicRankingPeriod.values)
-                  GlassMenuItem(
-                    title: option.label,
-                    isSelected: period.value == option,
-                    trailing: period.value == option
-                        ? const Icon(CupertinoIcons.checkmark, size: 18)
-                        : null,
-                    onTap: () {
-                      period.value = option;
-                      onPeriodChanged(option);
-                    },
-                  ),
-              ],
+            icon: const Icon(CupertinoIcons.calendar),
+            menuWidth: 220,
+            menuAlignment: GlassMenuAlignment.topRight,
+            items: [
+              for (final option in ComicRankingPeriod.values)
+                GlassMenuItem(
+                  title: option.label,
+                  isSelected: period.value == option,
+                  trailing: period.value == option
+                      ? const Icon(CupertinoIcons.checkmark, size: 18)
+                      : null,
+                  onTap: () {
+                    period.value = option;
+                    onPeriodChanged(option);
+                  },
+                ),
+            ],
           ),
         ],
       ),

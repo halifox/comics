@@ -53,7 +53,7 @@ class ComicLibraryGrid extends StatelessWidget {
                 author: item.comic.author,
                 onTap: () {
                   Navigator.of(context).push(
-                    CupertinoPageRoute<void>(
+                    CupertinoPageRoute(
                       builder: (_) => ComicDetailPage(
                         comicId: item.comic.pathWord,
                         name: item.comic.name,
