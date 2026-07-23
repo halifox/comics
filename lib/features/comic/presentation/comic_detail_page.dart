@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
@@ -10,9 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
 
 import 'comic_chapter_list_page.dart';
 
@@ -201,10 +200,9 @@ class ComicDetailPage extends HookConsumerWidget {
           info.when(
             data: (data) {
               final statusIcon = switch (data.statusText) {
-                String display when display.contains('完结') =>
+                String display when display == '已完結' =>
                   CupertinoIcons.checkmark_seal,
-                String display when display.contains('连载') =>
-                  CupertinoIcons.clock,
+                String display when display == '連載中' => CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
               };
               return SliverLayoutBuilder(
@@ -232,11 +230,20 @@ class ComicDetailPage extends HookConsumerWidget {
                                   context,
                                 ),
                                 fontSize: 32,
-                                fontWeight: FontWeight.w700,
-                                height: 1.2,
+                                fontWeight: FontWeight.w800,
+                                height: 1.16,
+                                letterSpacing: -.7,
                               ),
                             ),
-
+                            Text(
+                              data.brief,
+                              style: TextStyle(
+                                color: CupertinoColors.secondaryLabel
+                                    .resolveFrom(context),
+                                fontSize: 15,
+                                height: 1.55,
+                              ),
+                            ),
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
@@ -260,7 +267,6 @@ class ComicDetailPage extends HookConsumerWidget {
                                   )
                                   .toList(),
                             ),
-
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
@@ -282,7 +288,6 @@ class ComicDetailPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
@@ -330,16 +335,6 @@ class ComicDetailPage extends HookConsumerWidget {
                                   trailing: GlassListTile.chevron,
                                 );
                               }).toList(),
-                            ),
-                            GlassCard(
-                              padding: EdgeInsets.zero,
-                              child: GlassListTile(
-                                title: const Text(
-                                  '关于',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                subtitle: Text(data.brief),
-                              ),
                             ),
                           ],
                         ),
