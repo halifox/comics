@@ -43,7 +43,7 @@ class ComicLibraryPage extends HookConsumerWidget {
       ),
       body: CustomScrollView(
         controller: titleController.scrollController,
-        key: const PageStorageKey<String>('library-scroll'),
+        key: const PageStorageKey('library-scroll'),
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),

@@ -131,7 +131,7 @@ class MockComicsRepository implements ComicsRepository {
       final secondScore = rankingScore(comic: second, period: period);
       return secondScore.compareTo(firstScore);
     });
-    final items = List<RankedComicModel>.generate(
+    final items = List.generate(
       ranked.length,
       (index) => RankedComicModel(
         comic: mapMockComic(dto: ranked[index]),
@@ -214,7 +214,7 @@ class MockComicsRepository implements ComicsRepository {
     final comics = await api.fetchComics();
     final latest = [...comics]
       ..sort((first, second) => second.updatedOrder.compareTo(first.updatedOrder));
-    final items = List<NewReleaseModel>.generate(
+    final items = List.generate(
       latest.length,
       (index) => NewReleaseModel(
         comic: mapMockComic(dto: latest[index]),
@@ -241,7 +241,7 @@ List<RankedComicModel> buildHomeRanking({
   required int offset,
 }) {
   final rotated = [...comics.skip(offset), ...comics.take(offset)];
-  return List<RankedComicModel>.generate(
+  return List.generate(
     10,
     (index) => RankedComicModel(
       comic: mapMockComic(dto: rotated[index]),

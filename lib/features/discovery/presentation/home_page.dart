@@ -30,7 +30,7 @@ class HomePage extends HookConsumerWidget {
       bottomEdgeFade: true,
       bottomEdgeFadeExtent: 64,
       body: CustomScrollView(
-        key: const PageStorageKey<String>('home-scroll'),
+        key: const PageStorageKey('home-scroll'),
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
           ref
@@ -41,7 +41,7 @@ class HomePage extends HookConsumerWidget {
                   onFinishedTap: () {
                     Navigator.push(
                       context,
-                      CupertinoPageRoute<void>(
+                      CupertinoPageRoute(
                         builder: (routeContext) => ComicCatalogPage(
                           title: '已完结',
                           initialScope: ComicCatalogScope.finished,
@@ -54,7 +54,7 @@ class HomePage extends HookConsumerWidget {
                   onNewReleaseTap: () {
                     Navigator.push(
                       context,
-                      CupertinoPageRoute<void>(builder: (routeContext) => const NewReleasePage()),
+                      CupertinoPageRoute(builder: (routeContext) => const NewReleasePage()),
                     );
                   },
                   onRankingPeriodSelected: onRankingPeriodSelected,

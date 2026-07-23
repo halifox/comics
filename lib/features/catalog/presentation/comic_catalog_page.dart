@@ -196,7 +196,7 @@ class ComicCatalogPage extends HookConsumerWidget {
                       author: comic.authorText,
                       onTap: () {
                         Navigator.of(context).push(
-                          CupertinoPageRoute<void>(
+                          CupertinoPageRoute(
                             builder: (_) => ComicDetailPage(
                               comicId: comic.id,
                               name: comic.title,

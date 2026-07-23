@@ -27,7 +27,7 @@ class HomeFeaturedAds extends HookWidget {
           fit: StackFit.expand,
           children: [
             PageView.builder(
-              key: const PageStorageKey<String>('home-featured-ads'),
+              key: const PageStorageKey('home-featured-ads'),
               controller: pageController,
               itemCount: comics.length,
               onPageChanged: (index) => selectedIndex.value = index,
@@ -43,7 +43,7 @@ class HomeFeaturedAds extends HookWidget {
                         ? null
                         : () {
                             Navigator.of(context).push(
-                              CupertinoPageRoute<void>(
+                              CupertinoPageRoute(
                                 builder: (_) => ComicDetailPage(
                                   comicId: comicId,
                                   name: comicName,

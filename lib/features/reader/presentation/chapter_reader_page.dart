@@ -85,15 +85,15 @@ class ChapterReaderPage extends HookConsumerWidget {
       displayedPageIndex.value = pageIndex;
       saveTimer.value?.cancel();
       saveTimer.value = Timer(const Duration(milliseconds: 600), () {
-        unawaited(saveProgress(pageIndex: pageIndex));
+        saveProgress(pageIndex: pageIndex);
       });
     }
 
     useEffect(() {
-      unawaited(saveProgress(pageIndex: initialPageIndex));
+      saveProgress(pageIndex: initialPageIndex);
       return () {
         saveTimer.value?.cancel();
-        unawaited(saveProgress(pageIndex: currentPageIndex.value));
+        saveProgress(pageIndex: currentPageIndex.value);
       };
     }, [comicId, chapterId, initialPageIndex]);
 
@@ -239,7 +239,7 @@ class ChapterReaderPage extends HookConsumerWidget {
                         icon: const Icon(CupertinoIcons.slider_horizontal_3),
                         onPressed: () {
                           Navigator.of(context).push(
-                            CupertinoPageRoute<void>(
+                            CupertinoPageRoute(
                               builder: (context) => const ReaderSettingsPage(),
                             ),
                           );
@@ -364,12 +364,10 @@ class PagedReader extends HookWidget {
       if (!pageController.hasClients || page < 0 || page >= images.length) {
         return;
       }
-      unawaited(
-        pageController.animateToPage(
-          page,
-          duration: const Duration(milliseconds: 180),
-          curve: Curves.easeOut,
-        ),
+      pageController.animateToPage(
+        page,
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
       );
     }
 
@@ -392,12 +390,10 @@ class PagedReader extends HookWidget {
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!context.mounted || !pageController.hasClients) return;
-        unawaited(
-          pageController.animateToPage(
-            currentPage.value,
-            duration: const Duration(milliseconds: 140),
-            curve: Curves.easeOut,
-          ),
+        pageController.animateToPage(
+          currentPage.value,
+          duration: const Duration(milliseconds: 140),
+          curve: Curves.easeOut,
         );
       });
     }
@@ -562,11 +558,9 @@ void preloadFollowing({
 }) {
   final end = (index + 5).clamp(0, images.length);
   for (var next = index + 1; next < end; next++) {
-    unawaited(
-      precacheImage(
-        CachedNetworkImageProvider(images[next]),
-        context,
-      ).catchError((_) {}),
-    );
+    precacheImage(
+      CachedNetworkImageProvider(images[next]),
+      context,
+    ).catchError((_) {});
   }
 }

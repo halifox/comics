@@ -89,7 +89,7 @@ class MainNavigationPage extends HookConsumerWidget {
                   searchController.clear();
                   FocusManager.instance.primaryFocus?.unfocus();
                   Navigator.of(context).push(
-                    CupertinoPageRoute<void>(
+                    CupertinoPageRoute(
                       builder: (routeContext) =>
                           SearchResultsPage(query: query),
                     ),

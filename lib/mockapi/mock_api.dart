@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final mockApiProvider = Provider((ref) => const MockApi());
 
-final List<MockComicDto> mockComicsData = List.unmodifiable(buildMockComics());
+final mockComicsData = List.unmodifiable(buildMockComics());
 
 class MockApi {
   const MockApi({this.latency = const Duration(milliseconds: 260)});
@@ -11,12 +11,12 @@ class MockApi {
   final Duration latency;
 
   Future<List<MockComicDto>> fetchComics() async {
-    await Future<void>.delayed(latency);
+    await Future.delayed(latency);
     return mockComicsData;
   }
 
   Future<MockComicDto> fetchComic({required String comicId}) async {
-    await Future<void>.delayed(latency);
+    await Future.delayed(latency);
     return mockComicsData.firstWhere(
       (comic) => comic.id == comicId,
       orElse: () => throw StateError('未找到模拟漫画：$comicId'),
@@ -75,7 +75,7 @@ List<MockComicDto> buildMockComics() {
   ];
   const regions = ['japan', 'korea', 'west'];
 
-  return List<MockComicDto>.generate(36, (index) {
+  return List.generate(36, (index) {
     final number = index + 1;
     final id = 'mock-comic-${number.toString().padLeft(2, '0')}';
     final title = '${titles[index % titles.length]} ${index ~/ titles.length + 1}';
@@ -114,13 +114,13 @@ MockChapterGroupDto buildMockGroup({
   return MockChapterGroupDto(
     id: groupId,
     title: title,
-    chapters: List<MockChapterDto>.generate(count, (index) {
+    chapters: List.generate(count, (index) {
       final chapterNumber = index + 1;
       final chapterId = '$comicId-$groupId-$chapterNumber';
       return MockChapterDto(
         id: chapterId,
         title: '第 $chapterNumber 话',
-        imageUrls: List<String>.generate(
+        imageUrls: List.generate(
           10,
           (pageIndex) =>
               'https://picsum.photos/seed/$chapterId-page-${pageIndex + 1}/900/1400',

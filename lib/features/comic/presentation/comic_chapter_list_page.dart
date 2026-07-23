@@ -116,7 +116,7 @@ class ComicChapterListPage extends HookConsumerWidget {
             subtitle: '${data.chapterName} · 第 ${data.pageIndex + 1} 页',
             onTap: () {
               Navigator.of(context).push(
-                CupertinoPageRoute<void>(
+                CupertinoPageRoute(
                   builder: (_) => ChapterReaderPage(
                     comicId: comicId,
                     comicName: comicName,
@@ -195,7 +195,7 @@ class ComicChapterListPage extends HookConsumerWidget {
                           progress: chapterProgress,
                           onTap: () {
                             Navigator.of(context).push(
-                              CupertinoPageRoute<void>(
+                              CupertinoPageRoute(
                                 builder: (_) => ChapterReaderPage(
                                   comicId: comicId,
                                   comicName: comicName,

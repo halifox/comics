@@ -129,7 +129,7 @@ class HorizontalComicSection extends HookWidget {
                 horizontal: horizontalPadding,
               ),
               child: PageView.builder(
-                key: PageStorageKey<String>('PageView-${title}'),
+                key: PageStorageKey('PageView-${title}'),
                 controller: pageController,
                 clipBehavior: Clip.none,
                 padEnds: false,
@@ -189,7 +189,7 @@ class HorizontalComicSection extends HookWidget {
 
                         if (comic.id.isEmpty) return;
                         Navigator.of(context).push(
-                          CupertinoPageRoute<void>(
+                          CupertinoPageRoute(
                             builder: (_) => ComicDetailPage(
                               comicId: comic.id,
                               name: comic.title,

@@ -107,7 +107,7 @@ class ComicRankingPage extends HookConsumerWidget {
 
       body: CustomScrollView(
         controller: titleController.scrollController,
-        key: PageStorageKey<String>('ranking-scroll-$scrollResetToken'),
+        key: PageStorageKey('ranking-scroll-$scrollResetToken'),
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),
@@ -168,7 +168,7 @@ class ComicRankingPage extends HookConsumerWidget {
                       badge: item.rankLabel,
                       onTap: () {
                         Navigator.of(context).push(
-                          CupertinoPageRoute<void>(
+                          CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
                               comicId: comic.id,
                               name: comic.title,

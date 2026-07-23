@@ -149,7 +149,7 @@ class SearchResultsPage extends HookConsumerWidget {
                       author: comic.authorText,
                       onTap: () {
                         Navigator.of(context).push(
-                          CupertinoPageRoute<void>(
+                          CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
                               comicId: comic.id,
                               name: comic.title,

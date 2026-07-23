@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:comics/shared/application/shared_preferences_provider.dart';
@@ -92,15 +90,11 @@ class ReaderSettingsNotifier extends Notifier<ReaderSettings> {
 
   void setMode({required ReaderMode value}) {
     state = state.copyWith(mode: value);
-    unawaited(
-      ref.read(sharedPreferencesProvider).setString(modeKey, value.name),
-    );
+    ref.read(sharedPreferencesProvider).setString(modeKey, value.name);
   }
 
   void setBackground({required ReaderBackground value}) {
     state = state.copyWith(background: value);
-    unawaited(
-      ref.read(sharedPreferencesProvider).setString(backgroundKey, value.name),
-    );
+    ref.read(sharedPreferencesProvider).setString(backgroundKey, value.name);
   }
 }

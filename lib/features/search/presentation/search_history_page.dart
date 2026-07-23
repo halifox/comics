@@ -108,7 +108,7 @@ class SearchHistoryPage extends ConsumerWidget {
                                         .read(libraryDatabaseProvider)
                                         .recordSearch(query: query);
                                     Navigator.of(context).push(
-                                      CupertinoPageRoute<void>(
+                                      CupertinoPageRoute(
                                         builder: (routeContext) =>
                                             SearchResultsPage(query: query),
                                       ),

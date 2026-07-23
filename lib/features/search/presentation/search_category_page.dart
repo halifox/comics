@@ -179,7 +179,7 @@ class ComicCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
-        CupertinoPageRoute<void>(
+        CupertinoPageRoute(
           builder: (_) => ComicCatalogPage(title: name, theme: slug),
         ),
       ),

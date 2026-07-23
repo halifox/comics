@@ -139,7 +139,7 @@ class ComicDetailPage extends HookConsumerWidget {
                     '${progress.groupName} · ${progress.chapterName} · 第 ${progress.pageIndex + 1} 页',
                 onTap: () {
                   Navigator.of(context).push(
-                    CupertinoPageRoute<void>(
+                    CupertinoPageRoute(
                       builder: (_) => ChapterReaderPage(
                         comicId: detail.id,
                         comicName: detail.title,
@@ -255,7 +255,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                       label: author.label,
                                       onTap: () {
                                         Navigator.of(context).push(
-                                          CupertinoPageRoute<void>(
+                                          CupertinoPageRoute(
                                             builder: (_) => ComicCatalogPage(
                                               title: author.label,
                                               author: author.id,
@@ -299,7 +299,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                       label: theme.label,
                                       onTap: () {
                                         Navigator.of(context).push(
-                                          CupertinoPageRoute<void>(
+                                          CupertinoPageRoute(
                                             builder: (_) => ComicCatalogPage(
                                               title: theme.label,
                                               theme: theme.id,
@@ -329,7 +329,7 @@ class ComicDetailPage extends HookConsumerWidget {
                                   title: Text(e.title),
                                   onTap: () {
                                     Navigator.of(context).push(
-                                      CupertinoPageRoute<void>(
+                                      CupertinoPageRoute(
                                         builder: (_) => ComicChapterListPage(
                                           comicId: comicId,
                                           comicName: data.title,

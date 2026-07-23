@@ -238,7 +238,7 @@ List<String> orderImages({required ChapterContentDto chapter}) {
       orders.toSet().length == urls.length &&
       orders.every((index) => index >= 0 && index < urls.length);
   if (!validOrder) return urls;
-  final ordered = List<String>.filled(urls.length, '');
+  final ordered = List.filled(urls.length, '');
   for (var index = 0; index < urls.length; index++) {
     ordered[orders[index]] = urls[index];
   }

@@ -11,7 +11,7 @@ class CopyMangaInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    // await Future<void>.delayed(const Duration(seconds: 3));
+    // await Future.delayed(const Duration(seconds: 3));
 
     final now = DateTime.now();
     final timestamp = now.millisecondsSinceEpoch ~/ 1000;

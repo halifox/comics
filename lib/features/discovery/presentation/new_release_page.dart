@@ -113,7 +113,7 @@ class NewReleasePage extends HookConsumerWidget {
                       onTap: () {
                         if (comic.id.isEmpty) return;
                         Navigator.of(context).push(
-                          CupertinoPageRoute<void>(
+                          CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
                               comicId: comic.id,
                               name: comic.title,
