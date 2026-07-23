@@ -10,61 +10,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-enum MainNavigationTab {
-  home(
-    label: '首页',
-    icon: CupertinoIcons.house,
-    activeIcon: CupertinoIcons.house_fill,
-  ),
-  ranking(
-    label: '排行',
-    icon: CupertinoIcons.chart_bar,
-    activeIcon: CupertinoIcons.chart_bar_fill,
-    glowColor: const Color(0xFF8B5CF6),
-  ),
-  library(
-    label: '书架',
-    icon: CupertinoIcons.book,
-    activeIcon: CupertinoIcons.book_fill,
-    glowColor: const Color(0xFF5C9AF6),
-  );
-
-  const MainNavigationTab({
-    required this.label,
-    required this.icon,
-    required this.activeIcon,
-    this.glowColor,
-  });
-
-  final String label;
-  final IconData icon;
-  final IconData activeIcon;
-  final Color? glowColor;
-
-  Widget buildPage({
-    required ComicRankingPeriod rankingPeriod,
-    required int rankingScrollResetToken,
-    required ValueChanged<ComicRankingPeriod> onRankingPeriodSelected,
-  }) => switch (this) {
-    MainNavigationTab.home => HomePage(
-      onRankingPeriodSelected: onRankingPeriodSelected,
-    ),
-    MainNavigationTab.ranking => ComicRankingPage(
-      initialPeriod: rankingPeriod,
-      scrollResetToken: rankingScrollResetToken,
-      onPeriodChanged: onRankingPeriodSelected,
-    ),
-    MainNavigationTab.library => const ComicLibraryPage(),
-  };
-}
-
 class MainNavigationPage extends HookConsumerWidget {
   const MainNavigationPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedTab = useState(MainNavigationTab.home);
-    final lastContentTab = useState(MainNavigationTab.home);
+    final selectedIndex = useState(0);
+    final lastContentIndex = useState(0);
     final rankingPeriod = useState(ComicRankingPeriod.day);
     final rankingScrollResetToken = useState(0);
     final isSearching = useState(false);
@@ -80,20 +32,30 @@ class MainNavigationPage extends HookConsumerWidget {
                   isSearching.value = false;
                 },
               )
-            : selectedTab.value.buildPage(
-                rankingPeriod: rankingPeriod.value,
-                rankingScrollResetToken: rankingScrollResetToken.value,
-                onRankingPeriodSelected: (period) {
-                  if (selectedTab.value != MainNavigationTab.ranking) {
+            : switch (selectedIndex.value) {
+                0 => HomePage(
+                  onRankingPeriodSelected: (period) {
                     rankingScrollResetToken.value++;
-                  }
-                  rankingPeriod.value = period;
-                  selectedTab.value = MainNavigationTab.ranking;
-                  lastContentTab.value = MainNavigationTab.ranking;
-                  isSearching.value = false;
-                  searchFieldFocused.value = false;
-                },
-              ),
+                    rankingPeriod.value = period;
+                    selectedIndex.value = 1;
+                    lastContentIndex.value = 1;
+                    isSearching.value = false;
+                    searchFieldFocused.value = false;
+                  },
+                ),
+                1 => ComicRankingPage(
+                  initialPeriod: rankingPeriod.value,
+                  scrollResetToken: rankingScrollResetToken.value,
+                  onPeriodChanged: (period) {
+                    rankingPeriod.value = period;
+                    selectedIndex.value = 1;
+                    lastContentIndex.value = 1;
+                    isSearching.value = false;
+                    searchFieldFocused.value = false;
+                  },
+                ),
+                _ => const ComicLibraryPage(),
+              },
         Positioned(
           left: 0,
           right: 0,
@@ -101,12 +63,11 @@ class MainNavigationPage extends HookConsumerWidget {
           child: SafeArea(
             top: false,
             child: GlassTabBar.searchable(
-              selectedIndex: lastContentTab.value.index,
+              selectedIndex: lastContentIndex.value,
               isSearchActive: isSearching.value,
               onTabSelected: (value) {
-                final tab = MainNavigationTab.values[value];
-                selectedTab.value = tab;
-                lastContentTab.value = tab;
+                selectedIndex.value = value;
+                lastContentIndex.value = value;
                 isSearching.value = false;
                 searchFieldFocused.value = false;
               },
@@ -124,19 +85,16 @@ class MainNavigationPage extends HookConsumerWidget {
                   ref.read(libraryDatabaseProvider).recordSearch(query: query);
                   searchController.clear();
                   FocusManager.instance.primaryFocus?.unfocus();
-                  Navigator.of(context).push(
-                    CupertinoPageRoute<void>(
-                      builder: (routeContext) =>
-                          SearchResultsPage(query: query),
-                    ),
-                  );
+                  Navigator.of(
+                    context,
+                  ).push(CupertinoPageRoute<void>(builder: (routeContext) => SearchResultsPage(query: query)));
                 },
                 onSearchToggle: (active) {
                   if (active) {
-                    lastContentTab.value = selectedTab.value;
+                    lastContentIndex.value = selectedIndex.value;
                     isSearching.value = true;
                   } else {
-                    selectedTab.value = lastContentTab.value;
+                    selectedIndex.value = lastContentIndex.value;
                     isSearching.value = false;
                     searchFieldFocused.value = false;
                   }
@@ -149,22 +107,29 @@ class MainNavigationPage extends HookConsumerWidget {
               searchBarHeight: 52,
               verticalPadding: 12,
               horizontalPadding: 18,
-              indicatorColor: CupertinoTheme.of(
-                context,
-              ).primaryColor.withValues(alpha: .18),
+              indicatorColor: CupertinoTheme.of(context).primaryColor.withValues(alpha: .18),
               interactionGlowColor: CupertinoTheme.of(context).primaryColor,
               selectedIconColor: CupertinoColors.label.resolveFrom(context),
               unselectedIconColor: CupertinoColors.label.resolveFrom(context),
               tabs: [
-                for (final tab in MainNavigationTab.values)
-                  GlassTab(
-                    icon: Icon(tab.icon),
-                    activeIcon: Icon(tab.activeIcon),
-                    label: tab.label,
-                    glowColor:
-                        tab.glowColor ??
-                        CupertinoTheme.of(context).primaryColor,
-                  ),
+                const GlassTab(
+                  icon: Icon(CupertinoIcons.house),
+                  activeIcon: Icon(CupertinoIcons.house_fill),
+                  label: '首页',
+                  glowColor: Color(0xFFFF5A5F),
+                ),
+                const GlassTab(
+                  icon: Icon(CupertinoIcons.chart_bar),
+                  activeIcon: Icon(CupertinoIcons.chart_bar_fill),
+                  label: '排行',
+                  glowColor: Color(0xFF8B5CF6),
+                ),
+                const GlassTab(
+                  icon: Icon(CupertinoIcons.book),
+                  activeIcon: Icon(CupertinoIcons.book_fill),
+                  label: '书架',
+                  glowColor: Color(0xFF5C9AF6),
+                ),
               ],
             ),
           ),
