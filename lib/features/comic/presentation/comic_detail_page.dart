@@ -70,6 +70,7 @@ class ComicDetailPage extends HookConsumerWidget {
       edgeToEdge: true,
       contentAwareBrightness: true,
       statusBarStyle: GlassStatusBarStyle.auto,
+      topEdgeFade: false,
       background: const AmbientGlowBackground(),
       appBar: GlassAppBar(
         leading: GlassIconButton(
