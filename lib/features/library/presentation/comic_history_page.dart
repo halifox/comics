@@ -76,7 +76,7 @@ class ComicHistoryPage extends HookConsumerWidget {
                 ),
                 data: (comics) {
                   if (comics.isEmpty) {
-                    return ContentStateSliver.empty(
+                    return const ContentStateSliver.empty(
                       icon: CupertinoIcons.clock,
                       title: '暂无阅读历史',
                       message: '阅读过的漫画会显示在这里',

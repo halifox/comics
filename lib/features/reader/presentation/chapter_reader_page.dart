@@ -197,7 +197,7 @@ class ChapterReaderPage extends HookConsumerWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600,
                                     fontFeatures: [
-                                      FontFeature.tabularFigures(),
+                                      const FontFeature.tabularFigures(),
                                     ],
                                   ),
                                 );
@@ -257,11 +257,7 @@ class ChapterReaderPage extends HookConsumerWidget {
 
 class ContinuousReader extends HookWidget {
   const ContinuousReader({
-    super.key,
-    required this.images,
-    required this.initialPageIndex,
-    required this.onPageChanged,
-    required this.onToggleControls,
+    required this.images, required this.initialPageIndex, required this.onPageChanged, required this.onToggleControls, super.key,
   });
 
   final List<String> images;
@@ -342,11 +338,7 @@ class ContinuousReader extends HookWidget {
 
 class PagedReader extends HookWidget {
   const PagedReader({
-    super.key,
-    required this.images,
-    required this.initialPageIndex,
-    required this.onPageChanged,
-    required this.onToggleControls,
+    required this.images, required this.initialPageIndex, required this.onPageChanged, required this.onToggleControls, super.key,
     this.reverse = false,
   });
 
@@ -444,9 +436,7 @@ class PagedReader extends HookWidget {
 
 class ZoomableChapterImage extends HookWidget {
   const ZoomableChapterImage({
-    super.key,
-    required this.imageUrl,
-    required this.onPagingLockChanged,
+    required this.imageUrl, required this.onPagingLockChanged, super.key,
   });
 
   final String imageUrl;
@@ -517,8 +507,7 @@ class ZoomableChapterImage extends HookWidget {
 
 class ChapterImage extends HookWidget {
   const ChapterImage({
-    super.key,
-    required this.imageUrl,
+    required this.imageUrl, super.key,
     this.onBuilt,
     this.expand = false,
   });

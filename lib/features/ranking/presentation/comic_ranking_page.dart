@@ -179,7 +179,7 @@ class ComicRankingPage extends HookConsumerWidget {
                       },
                     );
                   },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 328 / 422.0,
                     crossAxisSpacing: 12,

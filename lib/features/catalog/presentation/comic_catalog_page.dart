@@ -1,15 +1,15 @@
-import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
+import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
 
 typedef ComicCatalogFilter = ({
   String? theme,

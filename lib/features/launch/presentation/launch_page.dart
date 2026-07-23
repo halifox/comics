@@ -31,7 +31,7 @@ class LaunchPage extends HookConsumerWidget {
       body: CustomScrollView(
         slivers: [
           state.when(
-            data: (_) => ContentStateSliver.empty(
+            data: (_) => const ContentStateSliver.empty(
               icon: CupertinoIcons.book,
               title: '欢迎回来',
               message: '发现喜欢的漫画，收藏并继续你的阅读旅程',

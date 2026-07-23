@@ -197,9 +197,9 @@ class ComicDetailPage extends HookConsumerWidget {
           info.when(
             data: (data) {
               final statusIcon = switch (data.statusText) {
-                String display when display == '已完結' =>
+                final String display when display == '已完結' =>
                   CupertinoIcons.checkmark_seal,
-                String display when display == '連載中' => CupertinoIcons.clock,
+                final String display when display == '連載中' => CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
               };
               return SliverLayoutBuilder(
@@ -325,7 +325,7 @@ class ComicDetailPage extends HookConsumerWidget {
                               margin: .zero,
                               children: data.groups.map((e) {
                                 return GlassListTile(
-                                  subtitle: Text("${e.chapterCount}话"),
+                                  subtitle: Text('${e.chapterCount}话'),
                                   title: Text(e.title),
                                   onTap: () {
                                     Navigator.of(context).push(

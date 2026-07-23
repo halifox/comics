@@ -5,9 +5,7 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 class SearchCategoryPage extends StatelessWidget {
   const SearchCategoryPage({
-    super.key,
-    required this.titleController,
-    required this.onDismiss,
+    required this.titleController, required this.onDismiss, super.key,
   });
 
   final GlassLargeTitleController titleController;
@@ -166,10 +164,7 @@ Color comicCategoryColor({
 
 class ComicCategoryCard extends StatelessWidget {
   const ComicCategoryCard({
-    super.key,
-    required this.name,
-    required this.slug,
-    required this.color,
+    required this.name, required this.slug, required this.color, super.key,
   });
 
   final String name;
@@ -189,9 +184,9 @@ class ComicCategoryCard extends StatelessWidget {
         child: Container(
           color: color,
           alignment: Alignment.bottomLeft,
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 8),
           child: GlassContainer(
-            padding: EdgeInsetsDirectional.symmetric(
+            padding: const EdgeInsetsDirectional.symmetric(
               horizontal: 12,
               vertical: 4,
             ),
@@ -201,7 +196,7 @@ class ComicCategoryCard extends StatelessWidget {
                 color: CupertinoColors.label.resolveFrom(context),
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                fontFeatures: [FontFeature.tabularFigures()],
+                fontFeatures: [const FontFeature.tabularFigures()],
               ),
             ),
           ),

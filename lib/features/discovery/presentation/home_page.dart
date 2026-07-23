@@ -44,7 +44,7 @@ class HomePage extends HookConsumerWidget {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (routeContext) => ComicCatalogPage(
+                        builder: (routeContext) => const ComicCatalogPage(
                           title: '已完结',
                           initialScope: ComicCatalogScope.finished,
                           initialOrdering:

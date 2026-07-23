@@ -68,9 +68,7 @@ class HomeFeedContent extends StatelessWidget {
 
 class HorizontalComicSection extends HookWidget {
   const HorizontalComicSection({
-    super.key,
-    required this.title,
-    required this.comics,
+    required this.title, required this.comics, super.key,
     this.badges,
     this.onTitleTap,
   });
@@ -213,9 +211,7 @@ class HorizontalComicSection extends HookWidget {
 
 class MoreComicsCard extends StatelessWidget {
   const MoreComicsCard({
-    super.key,
-    required this.sectionTitle,
-    required this.onTap,
+    required this.sectionTitle, required this.onTap, super.key,
   });
 
   final String sectionTitle;
@@ -317,7 +313,7 @@ class LeadingAlignedPagePhysics extends PageScrollPhysics {
 }
 
 class SectionHeader extends StatelessWidget {
-  const SectionHeader({super.key, required this.title});
+  const SectionHeader({required this.title, super.key});
 
   final String title;
 
@@ -403,7 +399,7 @@ class ComicCoverCard extends StatelessWidget {
                   shape: const LiquidRoundedSuperellipse(borderRadius: 26),
                   child: Text(
                     badge!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -427,7 +423,7 @@ class ComicCoverCard extends StatelessWidget {
                       name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -437,7 +433,7 @@ class ComicCoverCard extends StatelessWidget {
                       author,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color.fromARGB(153, 235, 235, 245),
                         fontSize: 11,
                       ),
@@ -475,7 +471,7 @@ class ContentStateSliver extends StatelessWidget {
       icon: presentation.$1,
       title: presentation.$2,
       message: presentation.$3,
-      iconColor: Color(0xFF8B5CF6),
+      iconColor: const Color(0xFF8B5CF6),
       loading: false,
       onRetry: onRetry,
     );
@@ -600,7 +596,7 @@ class ContentStateSliver extends StatelessWidget {
           ),
           422 => (CupertinoIcons.doc_text_search, '内容无法处理', message),
           429 => (CupertinoIcons.hourglass, '请求过于频繁', message),
-          int code when code >= 500 => (
+          final int code when code >= 500 => (
             CupertinoIcons.exclamationmark_triangle_fill,
             '服务异常',
             message,

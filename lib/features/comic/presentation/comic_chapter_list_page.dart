@@ -274,9 +274,7 @@ class ComicChapterListPage extends HookConsumerWidget {
 
 class ComicChapterTile extends StatelessWidget {
   const ComicChapterTile({
-    super.key,
-    required this.chapter,
-    required this.onTap,
+    required this.chapter, required this.onTap, super.key,
     this.progress,
   });
 

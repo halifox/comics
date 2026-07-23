@@ -41,7 +41,7 @@ final comicsApiProvider = Provider(
   (ref) => CopyMangaApi(ref.watch(copyMangaDioProvider)),
 );
 
-@RestApi(baseUrl: "https://api.copy-manga.com")
+@RestApi(baseUrl: 'https://api.copy-manga.com')
 abstract class CopyMangaApi {
   /// 创建使用指定 Dio 实例和可选基础地址的 API 客户端。
   factory CopyMangaApi(Dio dio, {String? baseUrl}) = _CopyMangaApi;
@@ -51,7 +51,7 @@ abstract class CopyMangaApi {
   Future<NetworkResultDto> network({@Query('platform') int platform = 3});
 
   /// 获取首页推荐、热门、最新及排行等分区内容。
-  @Deprecated("use homeIndex2()")
+  @Deprecated('use homeIndex2()')
   @GET('/api/v3/h5/homeIndex')
   Future<HomeResultDto> homeIndex();
 
@@ -100,7 +100,7 @@ abstract class CopyMangaApi {
   Future<ComicInfoResultDto> comicInfo({
     @Path('comicId') required String comicId,
     @Query('in_mainland') bool inMainland = false,
-    @Query('request_id') String requestId = "",
+    @Query('request_id') String requestId = '',
     @Query('platform') int platform = 3,
   });
 
@@ -112,7 +112,7 @@ abstract class CopyMangaApi {
     @Query('limit') required int limit,
     @Query('offset') required int offset,
     @Query('in_mainland') bool inMainland = false,
-    @Query('request_id') String requestId = "",
+    @Query('request_id') String requestId = '',
     @Query('platform') int platform = 3,
   });
 
@@ -122,7 +122,7 @@ abstract class CopyMangaApi {
     @Path('comicId') required String comicId,
     @Path('chapterId') required String chapterId,
     @Query('in_mainland') bool inMainland = false,
-    @Query('request_id') String requestId = "",
+    @Query('request_id') String requestId = '',
     @Query('platform') int platform = 3,
   });
 

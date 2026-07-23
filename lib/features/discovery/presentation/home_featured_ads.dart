@@ -84,7 +84,7 @@ class HomeFeaturedAds extends HookWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
+                            const Text(
                               '编辑精选',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255),
@@ -99,7 +99,7 @@ class HomeFeaturedAds extends HookWidget {
                                 comicName,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 30,
                                   fontWeight: FontWeight.w800,
@@ -113,7 +113,7 @@ class HomeFeaturedAds extends HookWidget {
                                 authors,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,

@@ -12,9 +12,7 @@ final searchHistoryProvider = StreamProvider((ref) {
 
 class SearchHistoryPage extends ConsumerWidget {
   const SearchHistoryPage({
-    super.key,
-    required this.titleController,
-    required this.onDismiss,
+    required this.titleController, required this.onDismiss, super.key,
   });
 
   final GlassLargeTitleController titleController;

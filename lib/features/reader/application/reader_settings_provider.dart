@@ -1,6 +1,6 @@
+import 'package:comics/shared/application/shared_preferences_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:comics/shared/application/shared_preferences_provider.dart';
 
 enum ReaderMode {
   continuous(label: '条漫模式'),

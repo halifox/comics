@@ -43,7 +43,7 @@ class MainNavigationPage extends HookConsumerWidget {
               lastContentIndex.value = 1;
             },
           ),
-          2 => ComicLibraryPage(),
+          2 => const ComicLibraryPage(),
           4 => SearchCategoryPage(
             titleController: searchTitleController,
             onDismiss: () {
@@ -58,7 +58,7 @@ class MainNavigationPage extends HookConsumerWidget {
               selectedIndex.value = lastContentIndex.value;
             },
           ),
-          _ => SizedBox.shrink(),
+          _ => const SizedBox.shrink(),
         },
         Positioned(
           left: 0,

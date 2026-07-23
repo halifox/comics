@@ -1,8 +1,7 @@
+import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-
-import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 
 import '../application/reader_settings_provider.dart';
 
@@ -90,9 +89,7 @@ class ReaderSettingsPage extends HookConsumerWidget {
 
 class ReaderModeSelector extends StatelessWidget {
   const ReaderModeSelector({
-    super.key,
-    required this.value,
-    required this.onChanged,
+    required this.value, required this.onChanged, super.key,
   });
 
   final ReaderMode value;
@@ -122,9 +119,7 @@ class ReaderModeSelector extends StatelessWidget {
 
 class ReaderBackgroundSelector extends StatelessWidget {
   const ReaderBackgroundSelector({
-    super.key,
-    required this.value,
-    required this.onChanged,
+    required this.value, required this.onChanged, super.key,
   });
 
   final ReaderBackground value;
@@ -164,7 +159,7 @@ class ReaderBackgroundSelector extends StatelessWidget {
 }
 
 class CompactDropdownLabel extends StatelessWidget {
-  const CompactDropdownLabel({super.key, required this.label});
+  const CompactDropdownLabel({required this.label, super.key});
 
   final String label;
 

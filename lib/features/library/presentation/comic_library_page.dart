@@ -70,7 +70,7 @@ class ComicLibraryPage extends HookConsumerWidget {
                 ),
                 data: (comics) {
                   if (comics.isEmpty) {
-                    return ContentStateSliver.empty(
+                    return const ContentStateSliver.empty(
                       icon: CupertinoIcons.book,
                       title: '你的书架是空的',
                       message: '收藏的漫画会显示在这里',

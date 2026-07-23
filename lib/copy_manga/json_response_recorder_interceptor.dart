@@ -37,7 +37,7 @@ class JsonResponseRecorderInterceptor extends Interceptor {
     final localTime = DateTime.now();
     final recordedAt = localTime.toUtc();
     final filePrefix = buildFilePrefix(timestamp: localTime, request: request);
-    final encoder = const JsonEncoder.withIndent('  ');
+    const encoder = JsonEncoder.withIndent('  ');
 
     final exchangeFile = File(
       '${outputDirectory.path}${Platform.pathSeparator}'
