@@ -78,7 +78,7 @@ class MainNavigationPage extends HookConsumerWidget {
                 controller: searchController,
                 hintText: '搜索漫画',
                 autoFocusOnExpand: false,
-                showsCancelButton: false,
+                showsCancelButton: true,
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
                   final query = value.trim();
