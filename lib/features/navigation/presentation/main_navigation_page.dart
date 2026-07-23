@@ -1,9 +1,10 @@
 import 'package:comics/features/discovery/presentation/home_page.dart';
-import 'package:comics/features/library/data/library_database.dart' hide SearchHistory;
+import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/library/presentation/comic_library_page.dart';
 import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
 import 'package:comics/features/ranking/presentation/comic_ranking_page.dart';
-import 'package:comics/features/search/presentation/search_page.dart';
+import 'package:comics/features/search/presentation/search_category_page.dart';
+import 'package:comics/features/search/presentation/search_history_page.dart';
 import 'package:comics/features/search/presentation/search_results_page.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,22 +43,22 @@ class MainNavigationPage extends HookConsumerWidget {
               lastContentIndex.value = 1;
             },
           ),
-          2 => const ComicLibraryPage(),
-          4 => SearchCategoryGrid(
+          2 => ComicLibraryPage(),
+          4 => SearchCategoryPage(
             titleController: searchTitleController,
             onDismiss: () {
               FocusManager.instance.primaryFocus?.unfocus();
               selectedIndex.value = lastContentIndex.value;
             },
           ),
-          5 => SearchHistory(
+          5 => SearchHistoryPage(
             titleController: searchTitleController,
             onDismiss: () {
               FocusManager.instance.primaryFocus?.unfocus();
               selectedIndex.value = lastContentIndex.value;
             },
           ),
-          _ => const SizedBox.shrink(),
+          _ => SizedBox.shrink(),
         },
         Positioned(
           left: 0,
@@ -67,7 +68,8 @@ class MainNavigationPage extends HookConsumerWidget {
             top: false,
             child: GlassTabBar.searchable(
               selectedIndex: lastContentIndex.value,
-              isSearchActive: selectedIndex.value == 4 || selectedIndex.value == 5,
+              isSearchActive:
+                  selectedIndex.value == 4 || selectedIndex.value == 5,
               onTabSelected: (value) {
                 selectedIndex.value = value;
                 lastContentIndex.value = value;
@@ -86,9 +88,12 @@ class MainNavigationPage extends HookConsumerWidget {
                   ref.read(libraryDatabaseProvider).recordSearch(query: query);
                   searchController.clear();
                   FocusManager.instance.primaryFocus?.unfocus();
-                  Navigator.of(
-                    context,
-                  ).push(CupertinoPageRoute<void>(builder: (routeContext) => SearchResultsPage(query: query)));
+                  Navigator.of(context).push(
+                    CupertinoPageRoute<void>(
+                      builder: (routeContext) =>
+                          SearchResultsPage(query: query),
+                    ),
+                  );
                 },
                 onSearchToggle: (active) {
                   if (active) {
@@ -110,7 +115,9 @@ class MainNavigationPage extends HookConsumerWidget {
               searchBarHeight: 52,
               verticalPadding: 12,
               horizontalPadding: 18,
-              indicatorColor: CupertinoTheme.of(context).primaryColor.withValues(alpha: .18),
+              indicatorColor: CupertinoTheme.of(
+                context,
+              ).primaryColor.withValues(alpha: .18),
               interactionGlowColor: CupertinoTheme.of(context).primaryColor,
               selectedIconColor: CupertinoColors.label.resolveFrom(context),
               unselectedIconColor: CupertinoColors.label.resolveFrom(context),

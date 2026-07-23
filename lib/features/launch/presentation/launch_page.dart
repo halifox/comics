@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-final launchProvider = FutureProvider<void>((ref) async {});
+final launchProvider = FutureProvider((ref) async {});
 
 class LaunchPage extends HookConsumerWidget {
   const LaunchPage({super.key});

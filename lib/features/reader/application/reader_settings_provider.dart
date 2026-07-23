@@ -65,7 +65,7 @@ class ReaderSettings {
 }
 
 final readerSettingsProvider =
-    NotifierProvider<ReaderSettingsNotifier, ReaderSettings>(
+    NotifierProvider(
       ReaderSettingsNotifier.new,
     );
 

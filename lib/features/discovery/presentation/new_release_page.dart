@@ -10,11 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
-final newReleaseProvider =
-    AsyncNotifierProvider<
-      NewReleaseNotifier,
-      PagePagingData<NewReleaseModel>
-    >(NewReleaseNotifier.new);
+final newReleaseProvider = AsyncNotifierProvider(NewReleaseNotifier.new);
 
 class NewReleaseNotifier extends AsyncNotifier<PagePagingData<NewReleaseModel>>
     with PagePagingNotifierMixin<NewReleaseModel> {
@@ -59,8 +55,8 @@ class NewReleasePage extends HookConsumerWidget {
         centerTitle: false,
         largeTitleController: titleController,
         leading: GlassIconButton(
-            icon: const Icon(CupertinoIcons.chevron_back),
-            onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(CupertinoIcons.chevron_back),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: CustomScrollView(
@@ -82,8 +78,7 @@ class NewReleasePage extends HookConsumerWidget {
           CupertinoPagingSliverView(
             state: ref.watch(newReleaseProvider),
             onLoadNext: () => ref.read(newReleaseProvider.notifier).loadNext(),
-            onRetry: () =>
-                ref.read(newReleaseProvider.notifier).forceRefresh(),
+            onRetry: () => ref.read(newReleaseProvider.notifier).forceRefresh(),
             contentBuilder: (data, widgetCount, endItemView) {
               if (data.items.isEmpty) {
                 return const ContentStateSliver.empty(

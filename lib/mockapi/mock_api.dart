@@ -1,7 +1,7 @@
 import 'package:comics/mockapi/mock_api_dto.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final mockApiProvider = Provider<MockApi>((ref) => const MockApi());
+final mockApiProvider = Provider((ref) => const MockApi());
 
 final List<MockComicDto> mockComicsData = List.unmodifiable(buildMockComics());
 

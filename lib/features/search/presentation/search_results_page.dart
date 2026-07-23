@@ -1,24 +1,21 @@
+import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/features/comic/presentation/comic_detail_page.dart';
+import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
+import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
+import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
-import 'package:comics/features/comic/presentation/comic_detail_page.dart';
-import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
-import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 
 typedef ComicSearchQuery = ({String query, ComicSearchField field});
 
-final comicSearchResultsProvider =
-    AsyncNotifierProvider.autoDispose.family<
-      ComicSearchResultsNotifier,
-      PagePagingData<ComicCardModel>,
-      ComicSearchQuery
-    >(ComicSearchResultsNotifier.new);
+final comicSearchResultsProvider = AsyncNotifierProvider.autoDispose.family(
+  ComicSearchResultsNotifier.new,
+);
 
 class ComicSearchResultsNotifier
     extends AsyncNotifier<PagePagingData<ComicCardModel>>
@@ -34,12 +31,14 @@ class ComicSearchResultsNotifier
   @override
   Future<PagePagingData<ComicCardModel>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref.read(comicsRepositoryProvider).search(
-      limit: pageSize,
-      offset: offset,
-      query: query.query,
-      field: query.field,
-    );
+    final result = await ref
+        .read(comicsRepositoryProvider)
+        .search(
+          limit: pageSize,
+          offset: offset,
+          query: query.query,
+          field: query.field,
+        );
     return PagePagingData(
       items: result.items,
       hasMore: offset + result.items.length < result.total,
@@ -77,25 +76,25 @@ class SearchResultsPage extends HookConsumerWidget {
         centerTitle: false,
         largeTitleController: titleController,
         leading: GlassIconButton(
-            icon: const Icon(CupertinoIcons.chevron_back),
-            onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(CupertinoIcons.chevron_back),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           GlassPullDownButton(
-              icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
-              menuWidth: 200,
-              menuAlignment: GlassMenuAlignment.topRight,
-              items: [
-                for (final option in ComicSearchField.values)
-                  GlassMenuItem(
-                    title: option.label,
-                    isSelected: queryType.value == option,
-                    trailing: queryType.value == option
-                        ? const Icon(CupertinoIcons.checkmark, size: 18)
-                        : null,
-                    onTap: () => queryType.value = option,
-                  ),
-              ],
+            icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
+            menuWidth: 200,
+            menuAlignment: GlassMenuAlignment.topRight,
+            items: [
+              for (final option in ComicSearchField.values)
+                GlassMenuItem(
+                  title: option.label,
+                  isSelected: queryType.value == option,
+                  trailing: queryType.value == option
+                      ? const Icon(CupertinoIcons.checkmark, size: 18)
+                      : null,
+                  onTap: () => queryType.value = option,
+                ),
+            ],
           ),
         ],
       ),

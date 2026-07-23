@@ -65,8 +65,10 @@ class ComicRankingPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final audience = useState(ComicRankingAudience.male);
     final period = useState(initialPeriod);
-    final filter = (audience: audience.value, period: period.value);
-    final provider = rankingProvider(filter);
+    final provider = rankingProvider((
+      audience: audience.value,
+      period: period.value,
+    ));
     final titleController = useGlassLargeTitleController();
 
     return GlassScaffold(

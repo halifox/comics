@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'library_database.g.dart';
 
-final libraryDatabaseProvider = Provider<LibraryDatabase>((ref) {
+final libraryDatabaseProvider = Provider((ref) {
   final database = LibraryDatabase();
   ref.onDispose(database.close);
   return database;
@@ -205,10 +205,11 @@ class LibraryDatabase extends _$LibraryDatabase {
         ),
       );
 
-      final overflow = await (select(searchHistories)
-            ..orderBy([(row) => OrderingTerm.desc(row.searchedAt)])
-            ..limit(1000, offset: maximumSearchHistoryEntries))
-          .get();
+      final overflow =
+          await (select(searchHistories)
+                ..orderBy([(row) => OrderingTerm.desc(row.searchedAt)])
+                ..limit(1000, offset: maximumSearchHistoryEntries))
+              .get();
       if (overflow.isNotEmpty) {
         await (delete(searchHistories)..where(
               (row) => row.normalizedQuery.isIn(

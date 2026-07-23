@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 
-import 'copy_manga_interceptor.dart';
 import 'copy_manga_dto.dart';
+import 'copy_manga_interceptor.dart';
 import 'json_response_recorder_interceptor.dart';
 
 part 'copy_manga_api.g.dart';
 
-final copyMangaDioProvider = Provider<Dio>((ref) {
+final copyMangaDioProvider = Provider((ref) {
   final dio = Dio(
     BaseOptions(
       connectTimeout: const Duration(seconds: 15),
@@ -37,7 +37,7 @@ final copyMangaDioProvider = Provider<Dio>((ref) {
   return dio;
 });
 
-final comicsApiProvider = Provider<CopyMangaApi>(
+final comicsApiProvider = Provider(
   (ref) => CopyMangaApi(ref.watch(copyMangaDioProvider)),
 );
 

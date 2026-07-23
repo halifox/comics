@@ -5,7 +5,7 @@ import 'package:comics/mockapi/mock_api.dart';
 import 'package:comics/mockapi/mock_api_dto.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final mockComicsRepositoryProvider = Provider<ComicsRepository>(
+final mockComicsRepositoryProvider = Provider(
   (ref) => MockComicsRepository(api: ref.watch(mockApiProvider)),
 );
 
