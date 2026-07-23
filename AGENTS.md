@@ -58,8 +58,11 @@
 
 - 完整页面或路由 Widget 必须继承 `HookConsumerWidget`；不得使用 `StatefulWidget`、`ConsumerStatefulWidget`、`State`、`ConsumerState` 或 `setState`。
 - 不依赖 Hook 或 Provider 的非页面展示组件优先使用 `StatelessWidget`，不得无故使用 Consumer 类组件。
+- 禁止声明局部变量保存 `Widget`、`Widget?` 或返回 Widget 的表达式；Widget 必须直接构建在 Widget 树的实际使用位置，结构复杂或需要复用时提取为职责明确的独立 Widget。
 - 页面局部 UI 状态使用 `flutter_hooks`；应用数据、异步请求、缓存和跨页面状态使用 Riverpod。
 - Provider 只能通过 `WidgetRef.watch`、`WidgetRef.read`、`WidgetRef.listen` 或 `WidgetRef.invalidate` 访问。
+- UI 层处理 `AsyncValue` 必须在真正依赖该状态的最小 Widget 或属性范围内使用 `when()`，并按场景明确处理 `data`、`loading` 和 `error`；不得通过 `switch` 匹配 `AsyncData`，也不得使用 `value`、`valueOrNull`、`requireValue`、`isLoading` 或 `hasError` 先将异步状态解包为普通或可空局部变量再构建界面。
+- 多个 `AsyncValue` 仅可在确实同时依赖它们的最小界面区域嵌套 `when()`；相互独立的界面区域必须分别处理各自状态，不得因局部依赖而用异步分支包裹整个页面或其他无关内容。
 - 临时查询、参数化详情和离开页面即可丢弃的状态优先使用 `autoDispose`；Tab 页面、导航栈返回后需要保留的状态可以常驻。Provider 生命周期由实际交互需求决定，不使用一刀切规则；常驻状态应具有明确的保留依据。
 - 单页面 Provider 与页面同文件；实例化 Repository、数据库、API 客户端或实现类的 Provider 置于对应实现文件且位于实现类之前；仅多页面共享的应用状态可置于独立 `application` 文件。
 - 不得在 `build` 中直接发起网络、数据库或平台请求。首次加载由 Provider 或 `useEffect` 触发，分页和用户操作由明确回调触发。
