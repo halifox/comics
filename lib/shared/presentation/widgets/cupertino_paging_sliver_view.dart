@@ -27,16 +27,11 @@ class CupertinoPagingSliverView<Item> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return state.when(
-      data: (data) => contentBuilder(
-        data,
-        data.items.length + 1,
-        buildEndItem(data: data),
-      ),
+      data: (data) =>
+          contentBuilder(data, data.items.length + 1, buildEndItem(data: data)),
       loading: () => const ContentStateSliver.loading(),
-      error: (error, stackTrace) => ContentStateSliver.error(
-        error: error,
-        onRetry: onRetry,
-      ),
+      error: (error, stackTrace) =>
+          ContentStateSliver.error(error: error, onRetry: onRetry),
     );
   }
 
@@ -81,10 +76,13 @@ class PagingLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.all(16),
-        child: GlassProgressIndicator.circular(size: 32),
+        padding: const EdgeInsets.all(16),
+        child: GlassProgressIndicator.circular(
+          size: 32,
+          color: CupertinoTheme.of(context).primaryColor,
+        ),
       ),
     );
   }
