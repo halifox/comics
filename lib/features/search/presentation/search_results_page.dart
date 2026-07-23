@@ -14,7 +14,7 @@ import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 typedef ComicSearchQuery = ({String query, ComicSearchField field});
 
 final comicSearchResultsProvider =
-    AsyncNotifierProvider.family<
+    AsyncNotifierProvider.autoDispose.family<
       ComicSearchResultsNotifier,
       PagePagingData<ComicCardModel>,
       ComicSearchQuery

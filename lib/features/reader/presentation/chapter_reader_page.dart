@@ -18,7 +18,7 @@ import '../application/reader_settings_provider.dart';
 typedef ChapterReaderQuery = ({String comicId, String chapterId});
 
 final chapterReaderProvider =
-    FutureProvider.family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
+    FutureProvider.autoDispose.family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
       return ref
           .watch(comicsRepositoryProvider)
           .getChapter(comicId: args.comicId, chapterId: args.chapterId);

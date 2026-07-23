@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CopyMangaResponse {
 
- int get code; String get message; Object get results;
+@JsonKey(name: 'code') int get code;@JsonKey(name: 'message') String get message;@JsonKey(name: 'results') Object get results;
 /// Create a copy of CopyMangaResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CopyMangaResponseCopyWith<$Res>  {
   factory $CopyMangaResponseCopyWith(CopyMangaResponse value, $Res Function(CopyMangaResponse) _then) = _$CopyMangaResponseCopyWithImpl;
 @useResult
 $Res call({
- int code, String message, Object results
+@JsonKey(name: 'code') int code,@JsonKey(name: 'message') String message,@JsonKey(name: 'results') Object results
 });
 
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int code,  String message,  Object results)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'code')  int code, @JsonKey(name: 'message')  String message, @JsonKey(name: 'results')  Object results)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CopyMangaResponse() when $default != null:
 return $default(_that.code,_that.message,_that.results);case _:
@@ -175,7 +175,7 @@ return $default(_that.code,_that.message,_that.results);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int code,  String message,  Object results)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'code')  int code, @JsonKey(name: 'message')  String message, @JsonKey(name: 'results')  Object results)  $default,) {final _that = this;
 switch (_that) {
 case _CopyMangaResponse():
 return $default(_that.code,_that.message,_that.results);case _:
@@ -195,7 +195,7 @@ return $default(_that.code,_that.message,_that.results);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int code,  String message,  Object results)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'code')  int code, @JsonKey(name: 'message')  String message, @JsonKey(name: 'results')  Object results)?  $default,) {final _that = this;
 switch (_that) {
 case _CopyMangaResponse() when $default != null:
 return $default(_that.code,_that.message,_that.results);case _:
@@ -210,12 +210,12 @@ return $default(_that.code,_that.message,_that.results);case _:
 @JsonSerializable()
 
 class _CopyMangaResponse implements CopyMangaResponse {
-  const _CopyMangaResponse({this.code = 0, this.message = '请求失败', this.results = const <String, dynamic>{}});
+  const _CopyMangaResponse({@JsonKey(name: 'code') this.code = 0, @JsonKey(name: 'message') this.message = '请求失败', @JsonKey(name: 'results') this.results = const <String, dynamic>{}});
   factory _CopyMangaResponse.fromJson(Map<String, dynamic> json) => _$CopyMangaResponseFromJson(json);
 
-@override@JsonKey() final  int code;
-@override@JsonKey() final  String message;
-@override@JsonKey() final  Object results;
+@override@JsonKey(name: 'code') final  int code;
+@override@JsonKey(name: 'message') final  String message;
+@override@JsonKey(name: 'results') final  Object results;
 
 /// Create a copy of CopyMangaResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -250,7 +250,7 @@ abstract mixin class _$CopyMangaResponseCopyWith<$Res> implements $CopyMangaResp
   factory _$CopyMangaResponseCopyWith(_CopyMangaResponse value, $Res Function(_CopyMangaResponse) _then) = __$CopyMangaResponseCopyWithImpl;
 @override @useResult
 $Res call({
- int code, String message, Object results
+@JsonKey(name: 'code') int code,@JsonKey(name: 'message') String message,@JsonKey(name: 'results') Object results
 });
 
 
@@ -282,7 +282,7 @@ as String,results: null == results ? _self.results : results ,
 /// @nodoc
 mixin _$NamedPathDto {
 
- String get name; String get pathWord;
+@JsonKey(name: 'name') String get name;@JsonKey(name: 'path_word') String get pathWord;
 /// Create a copy of NamedPathDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -315,7 +315,7 @@ abstract mixin class $NamedPathDtoCopyWith<$Res>  {
   factory $NamedPathDtoCopyWith(NamedPathDto value, $Res Function(NamedPathDto) _then) = _$NamedPathDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String pathWord
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord
 });
 
 
@@ -421,7 +421,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NamedPathDto() when $default != null:
 return $default(_that.name,_that.pathWord);case _:
@@ -442,7 +442,7 @@ return $default(_that.name,_that.pathWord);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord)  $default,) {final _that = this;
 switch (_that) {
 case _NamedPathDto():
 return $default(_that.name,_that.pathWord);case _:
@@ -462,7 +462,7 @@ return $default(_that.name,_that.pathWord);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord)?  $default,) {final _that = this;
 switch (_that) {
 case _NamedPathDto() when $default != null:
 return $default(_that.name,_that.pathWord);case _:
@@ -474,14 +474,14 @@ return $default(_that.name,_that.pathWord);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _NamedPathDto implements NamedPathDto {
-  const _NamedPathDto({this.name = '', this.pathWord = ''});
+  const _NamedPathDto({@JsonKey(name: 'name') this.name = '', @JsonKey(name: 'path_word') this.pathWord = ''});
   factory _NamedPathDto.fromJson(Map<String, dynamic> json) => _$NamedPathDtoFromJson(json);
 
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String pathWord;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'path_word') final  String pathWord;
 
 /// Create a copy of NamedPathDto
 /// with the given fields replaced by the non-null parameter values.
@@ -516,7 +516,7 @@ abstract mixin class _$NamedPathDtoCopyWith<$Res> implements $NamedPathDtoCopyWi
   factory _$NamedPathDtoCopyWith(_NamedPathDto value, $Res Function(_NamedPathDto) _then) = __$NamedPathDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String pathWord
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord
 });
 
 
@@ -548,7 +548,7 @@ as String,
 /// @nodoc
 mixin _$ComicStatusDto {
 
- int get value; String get display;
+@JsonKey(name: 'value') int get value;@JsonKey(name: 'display') String get display;
 /// Create a copy of ComicStatusDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -581,7 +581,7 @@ abstract mixin class $ComicStatusDtoCopyWith<$Res>  {
   factory $ComicStatusDtoCopyWith(ComicStatusDto value, $Res Function(ComicStatusDto) _then) = _$ComicStatusDtoCopyWithImpl;
 @useResult
 $Res call({
- int value, String display
+@JsonKey(name: 'value') int value,@JsonKey(name: 'display') String display
 });
 
 
@@ -687,7 +687,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int value,  String display)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'value')  int value, @JsonKey(name: 'display')  String display)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicStatusDto() when $default != null:
 return $default(_that.value,_that.display);case _:
@@ -708,7 +708,7 @@ return $default(_that.value,_that.display);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int value,  String display)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'value')  int value, @JsonKey(name: 'display')  String display)  $default,) {final _that = this;
 switch (_that) {
 case _ComicStatusDto():
 return $default(_that.value,_that.display);case _:
@@ -728,7 +728,7 @@ return $default(_that.value,_that.display);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int value,  String display)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'value')  int value, @JsonKey(name: 'display')  String display)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicStatusDto() when $default != null:
 return $default(_that.value,_that.display);case _:
@@ -743,11 +743,11 @@ return $default(_that.value,_that.display);case _:
 @JsonSerializable()
 
 class _ComicStatusDto implements ComicStatusDto {
-  const _ComicStatusDto({this.value = 0, this.display = ''});
+  const _ComicStatusDto({@JsonKey(name: 'value') this.value = 0, @JsonKey(name: 'display') this.display = ''});
   factory _ComicStatusDto.fromJson(Map<String, dynamic> json) => _$ComicStatusDtoFromJson(json);
 
-@override@JsonKey() final  int value;
-@override@JsonKey() final  String display;
+@override@JsonKey(name: 'value') final  int value;
+@override@JsonKey(name: 'display') final  String display;
 
 /// Create a copy of ComicStatusDto
 /// with the given fields replaced by the non-null parameter values.
@@ -782,7 +782,7 @@ abstract mixin class _$ComicStatusDtoCopyWith<$Res> implements $ComicStatusDtoCo
   factory _$ComicStatusDtoCopyWith(_ComicStatusDto value, $Res Function(_ComicStatusDto) _then) = __$ComicStatusDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int value, String display
+@JsonKey(name: 'value') int value,@JsonKey(name: 'display') String display
 });
 
 
@@ -814,7 +814,7 @@ as String,
 /// @nodoc
 mixin _$ComicDto {
 
- String get pathWord; String get uuid; String get name; String get cover; String get brief; String get datetimeUpdated;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get females; List<NamedPathDto> get males; String get authorAlias; int get popular; ComicStatusDto get status;
+@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'uuid') String get uuid;@JsonKey(name: 'name') String get name;@JsonKey(name: 'cover') String get cover;@JsonKey(name: 'brief') String get brief;@JsonKey(name: 'datetime_updated') String get datetimeUpdated;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes;@JsonKey(name: 'females') List<NamedPathDto> get females;@JsonKey(name: 'males') List<NamedPathDto> get males;@JsonKey(name: 'author_alias') String get authorAlias;@JsonKey(name: 'popular') int get popular;@JsonKey(name: 'status') ComicStatusDto get status;
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -847,7 +847,7 @@ abstract mixin class $ComicDtoCopyWith<$Res>  {
   factory $ComicDtoCopyWith(ComicDto value, $Res Function(ComicDto) _then) = _$ComicDtoCopyWithImpl;
 @useResult
 $Res call({
- String pathWord, String uuid, String name, String cover, String brief, String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> females, List<NamedPathDto> males, String authorAlias, int popular, ComicStatusDto status
+@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'name') String name,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'datetime_updated') String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes,@JsonKey(name: 'females') List<NamedPathDto> females,@JsonKey(name: 'males') List<NamedPathDto> males,@JsonKey(name: 'author_alias') String authorAlias,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'status') ComicStatusDto status
 });
 
 
@@ -973,7 +973,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'name')  String name, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'author_alias')  String authorAlias, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'status')  ComicStatusDto status)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicDto() when $default != null:
 return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_that.datetimeUpdated,_that.authors,_that.themes,_that.females,_that.males,_that.authorAlias,_that.popular,_that.status);case _:
@@ -994,7 +994,7 @@ return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'name')  String name, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'author_alias')  String authorAlias, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'status')  ComicStatusDto status)  $default,) {final _that = this;
 switch (_that) {
 case _ComicDto():
 return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_that.datetimeUpdated,_that.authors,_that.themes,_that.females,_that.males,_that.authorAlias,_that.popular,_that.status);case _:
@@ -1014,7 +1014,7 @@ return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String pathWord,  String uuid,  String name,  String cover,  String brief,  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> females,  List<NamedPathDto> males,  String authorAlias,  int popular,  ComicStatusDto status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'name')  String name, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'author_alias')  String authorAlias, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'status')  ComicStatusDto status)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicDto() when $default != null:
 return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_that.datetimeUpdated,_that.authors,_that.themes,_that.females,_that.males,_that.authorAlias,_that.popular,_that.status);case _:
@@ -1026,18 +1026,18 @@ return $default(_that.pathWord,_that.uuid,_that.name,_that.cover,_that.brief,_th
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicDto implements ComicDto {
-  const _ComicDto({this.pathWord = '', this.uuid = '', this.name = '', this.cover = '', this.brief = '', this.datetimeUpdated = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], this.authorAlias = '', this.popular = 0, this.status = const ComicStatusDto()}): _authors = authors,_themes = themes,_females = females,_males = males;
+  const _ComicDto({@JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'uuid') this.uuid = '', @JsonKey(name: 'name') this.name = '', @JsonKey(name: 'cover') this.cover = '', @JsonKey(name: 'brief') this.brief = '', @JsonKey(name: 'datetime_updated') this.datetimeUpdated = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], @JsonKey(name: 'females') final  List<NamedPathDto> females = const [], @JsonKey(name: 'males') final  List<NamedPathDto> males = const [], @JsonKey(name: 'author_alias') this.authorAlias = '', @JsonKey(name: 'popular') this.popular = 0, @JsonKey(name: 'status') this.status = const ComicStatusDto()}): _authors = authors,_themes = themes,_females = females,_males = males;
   factory _ComicDto.fromJson(Map<String, dynamic> json) => _$ComicDtoFromJson(json);
 
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  String uuid;
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String cover;
-@override@JsonKey() final  String brief;
-@override@JsonKey() final  String datetimeUpdated;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'uuid') final  String uuid;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'cover') final  String cover;
+@override@JsonKey(name: 'brief') final  String brief;
+@override@JsonKey(name: 'datetime_updated') final  String datetimeUpdated;
  final  List<NamedPathDto> _authors;
 @override@JsonKey(name: 'author') List<NamedPathDto> get authors {
   if (_authors is EqualUnmodifiableListView) return _authors;
@@ -1053,22 +1053,22 @@ class _ComicDto implements ComicDto {
 }
 
  final  List<NamedPathDto> _females;
-@override@JsonKey() List<NamedPathDto> get females {
+@override@JsonKey(name: 'females') List<NamedPathDto> get females {
   if (_females is EqualUnmodifiableListView) return _females;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_females);
 }
 
  final  List<NamedPathDto> _males;
-@override@JsonKey() List<NamedPathDto> get males {
+@override@JsonKey(name: 'males') List<NamedPathDto> get males {
   if (_males is EqualUnmodifiableListView) return _males;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_males);
 }
 
-@override@JsonKey() final  String authorAlias;
-@override@JsonKey() final  int popular;
-@override@JsonKey() final  ComicStatusDto status;
+@override@JsonKey(name: 'author_alias') final  String authorAlias;
+@override@JsonKey(name: 'popular') final  int popular;
+@override@JsonKey(name: 'status') final  ComicStatusDto status;
 
 /// Create a copy of ComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -1103,7 +1103,7 @@ abstract mixin class _$ComicDtoCopyWith<$Res> implements $ComicDtoCopyWith<$Res>
   factory _$ComicDtoCopyWith(_ComicDto value, $Res Function(_ComicDto) _then) = __$ComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String pathWord, String uuid, String name, String cover, String brief, String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> females, List<NamedPathDto> males, String authorAlias, int popular, ComicStatusDto status
+@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'name') String name,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'datetime_updated') String datetimeUpdated,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes,@JsonKey(name: 'females') List<NamedPathDto> females,@JsonKey(name: 'males') List<NamedPathDto> males,@JsonKey(name: 'author_alias') String authorAlias,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'status') ComicStatusDto status
 });
 
 
@@ -1155,7 +1155,7 @@ $ComicStatusDtoCopyWith<$Res> get status {
 /// @nodoc
 mixin _$RankedComicDto {
 
- ComicDto get comic; int get sort; int get sortLast; int get riseSort; int get riseNum; int get dateType; int get popular;
+@JsonKey(name: 'comic') ComicDto get comic;@JsonKey(name: 'sort') int get sort;@JsonKey(name: 'sort_last') int get sortLast;@JsonKey(name: 'rise_sort') int get riseSort;@JsonKey(name: 'rise_num') int get riseNum;@JsonKey(name: 'date_type') int get dateType;@JsonKey(name: 'popular') int get popular;
 /// Create a copy of RankedComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1188,7 +1188,7 @@ abstract mixin class $RankedComicDtoCopyWith<$Res>  {
   factory $RankedComicDtoCopyWith(RankedComicDto value, $Res Function(RankedComicDto) _then) = _$RankedComicDtoCopyWithImpl;
 @useResult
 $Res call({
- ComicDto comic, int sort, int sortLast, int riseSort, int riseNum, int dateType, int popular
+@JsonKey(name: 'comic') ComicDto comic,@JsonKey(name: 'sort') int sort,@JsonKey(name: 'sort_last') int sortLast,@JsonKey(name: 'rise_sort') int riseSort,@JsonKey(name: 'rise_num') int riseNum,@JsonKey(name: 'date_type') int dateType,@JsonKey(name: 'popular') int popular
 });
 
 
@@ -1308,7 +1308,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ComicDto comic,  int sort,  int sortLast,  int riseSort,  int riseNum,  int dateType,  int popular)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'comic')  ComicDto comic, @JsonKey(name: 'sort')  int sort, @JsonKey(name: 'sort_last')  int sortLast, @JsonKey(name: 'rise_sort')  int riseSort, @JsonKey(name: 'rise_num')  int riseNum, @JsonKey(name: 'date_type')  int dateType, @JsonKey(name: 'popular')  int popular)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RankedComicDto() when $default != null:
 return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseNum,_that.dateType,_that.popular);case _:
@@ -1329,7 +1329,7 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ComicDto comic,  int sort,  int sortLast,  int riseSort,  int riseNum,  int dateType,  int popular)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'comic')  ComicDto comic, @JsonKey(name: 'sort')  int sort, @JsonKey(name: 'sort_last')  int sortLast, @JsonKey(name: 'rise_sort')  int riseSort, @JsonKey(name: 'rise_num')  int riseNum, @JsonKey(name: 'date_type')  int dateType, @JsonKey(name: 'popular')  int popular)  $default,) {final _that = this;
 switch (_that) {
 case _RankedComicDto():
 return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseNum,_that.dateType,_that.popular);case _:
@@ -1349,7 +1349,7 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ComicDto comic,  int sort,  int sortLast,  int riseSort,  int riseNum,  int dateType,  int popular)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'comic')  ComicDto comic, @JsonKey(name: 'sort')  int sort, @JsonKey(name: 'sort_last')  int sortLast, @JsonKey(name: 'rise_sort')  int riseSort, @JsonKey(name: 'rise_num')  int riseNum, @JsonKey(name: 'date_type')  int dateType, @JsonKey(name: 'popular')  int popular)?  $default,) {final _that = this;
 switch (_that) {
 case _RankedComicDto() when $default != null:
 return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseNum,_that.dateType,_that.popular);case _:
@@ -1361,19 +1361,19 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _RankedComicDto implements RankedComicDto {
-  const _RankedComicDto({this.comic = const ComicDto(), this.sort = 0, this.sortLast = 0, this.riseSort = 0, this.riseNum = 0, this.dateType = 0, this.popular = 0});
+  const _RankedComicDto({@JsonKey(name: 'comic') this.comic = const ComicDto(), @JsonKey(name: 'sort') this.sort = 0, @JsonKey(name: 'sort_last') this.sortLast = 0, @JsonKey(name: 'rise_sort') this.riseSort = 0, @JsonKey(name: 'rise_num') this.riseNum = 0, @JsonKey(name: 'date_type') this.dateType = 0, @JsonKey(name: 'popular') this.popular = 0});
   factory _RankedComicDto.fromJson(Map<String, dynamic> json) => _$RankedComicDtoFromJson(json);
 
-@override@JsonKey() final  ComicDto comic;
-@override@JsonKey() final  int sort;
-@override@JsonKey() final  int sortLast;
-@override@JsonKey() final  int riseSort;
-@override@JsonKey() final  int riseNum;
-@override@JsonKey() final  int dateType;
-@override@JsonKey() final  int popular;
+@override@JsonKey(name: 'comic') final  ComicDto comic;
+@override@JsonKey(name: 'sort') final  int sort;
+@override@JsonKey(name: 'sort_last') final  int sortLast;
+@override@JsonKey(name: 'rise_sort') final  int riseSort;
+@override@JsonKey(name: 'rise_num') final  int riseNum;
+@override@JsonKey(name: 'date_type') final  int dateType;
+@override@JsonKey(name: 'popular') final  int popular;
 
 /// Create a copy of RankedComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -1408,7 +1408,7 @@ abstract mixin class _$RankedComicDtoCopyWith<$Res> implements $RankedComicDtoCo
   factory _$RankedComicDtoCopyWith(_RankedComicDto value, $Res Function(_RankedComicDto) _then) = __$RankedComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- ComicDto comic, int sort, int sortLast, int riseSort, int riseNum, int dateType, int popular
+@JsonKey(name: 'comic') ComicDto comic,@JsonKey(name: 'sort') int sort,@JsonKey(name: 'sort_last') int sortLast,@JsonKey(name: 'rise_sort') int riseSort,@JsonKey(name: 'rise_num') int riseNum,@JsonKey(name: 'date_type') int dateType,@JsonKey(name: 'popular') int popular
 });
 
 
@@ -1454,7 +1454,7 @@ $ComicDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$HomeResultDto {
 
- HomeTopicSectionDto get topics; HomeTopicSectionDto get topicsList;@JsonKey(name: 'recComics') HomeRecommendedSectionDto get recommended;@JsonKey(name: 'hotComics') List<HomeUpdateDto> get hot;@JsonKey(name: 'newComics') List<HomeUpdateDto> get latest;@JsonKey(name: 'finishComics') HomeComicSectionDto get finished;@JsonKey(name: 'rankDayComics') HomeRankSectionDto get rankDay;@JsonKey(name: 'rankWeekComics') HomeRankSectionDto get rankWeek;@JsonKey(name: 'rankMonthComics') HomeRankSectionDto get rankMonth; List<HomeBannerDto> get banners;
+@JsonKey(name: 'topics') HomeTopicSectionDto get topics;@JsonKey(name: 'topicsList') HomeTopicSectionDto get topicsList;@JsonKey(name: 'recComics') HomeRecommendedSectionDto get recommended;@JsonKey(name: 'hotComics') List<HomeUpdateDto> get hot;@JsonKey(name: 'newComics') List<HomeUpdateDto> get latest;@JsonKey(name: 'finishComics') HomeComicSectionDto get finished;@JsonKey(name: 'rankDayComics') HomeRankSectionDto get rankDay;@JsonKey(name: 'rankWeekComics') HomeRankSectionDto get rankWeek;@JsonKey(name: 'rankMonthComics') HomeRankSectionDto get rankMonth;@JsonKey(name: 'banners') List<HomeBannerDto> get banners;
 /// Create a copy of HomeResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1487,7 +1487,7 @@ abstract mixin class $HomeResultDtoCopyWith<$Res>  {
   factory $HomeResultDtoCopyWith(HomeResultDto value, $Res Function(HomeResultDto) _then) = _$HomeResultDtoCopyWithImpl;
 @useResult
 $Res call({
- HomeTopicSectionDto topics, HomeTopicSectionDto topicsList,@JsonKey(name: 'recComics') HomeRecommendedSectionDto recommended,@JsonKey(name: 'hotComics') List<HomeUpdateDto> hot,@JsonKey(name: 'newComics') List<HomeUpdateDto> latest,@JsonKey(name: 'finishComics') HomeComicSectionDto finished,@JsonKey(name: 'rankDayComics') HomeRankSectionDto rankDay,@JsonKey(name: 'rankWeekComics') HomeRankSectionDto rankWeek,@JsonKey(name: 'rankMonthComics') HomeRankSectionDto rankMonth, List<HomeBannerDto> banners
+@JsonKey(name: 'topics') HomeTopicSectionDto topics,@JsonKey(name: 'topicsList') HomeTopicSectionDto topicsList,@JsonKey(name: 'recComics') HomeRecommendedSectionDto recommended,@JsonKey(name: 'hotComics') List<HomeUpdateDto> hot,@JsonKey(name: 'newComics') List<HomeUpdateDto> latest,@JsonKey(name: 'finishComics') HomeComicSectionDto finished,@JsonKey(name: 'rankDayComics') HomeRankSectionDto rankDay,@JsonKey(name: 'rankWeekComics') HomeRankSectionDto rankWeek,@JsonKey(name: 'rankMonthComics') HomeRankSectionDto rankMonth,@JsonKey(name: 'banners') List<HomeBannerDto> banners
 });
 
 
@@ -1664,7 +1664,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( HomeTopicSectionDto topics,  HomeTopicSectionDto topicsList, @JsonKey(name: 'recComics')  HomeRecommendedSectionDto recommended, @JsonKey(name: 'hotComics')  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics')  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics')  HomeComicSectionDto finished, @JsonKey(name: 'rankDayComics')  HomeRankSectionDto rankDay, @JsonKey(name: 'rankWeekComics')  HomeRankSectionDto rankWeek, @JsonKey(name: 'rankMonthComics')  HomeRankSectionDto rankMonth,  List<HomeBannerDto> banners)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'topics')  HomeTopicSectionDto topics, @JsonKey(name: 'topicsList')  HomeTopicSectionDto topicsList, @JsonKey(name: 'recComics')  HomeRecommendedSectionDto recommended, @JsonKey(name: 'hotComics')  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics')  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics')  HomeComicSectionDto finished, @JsonKey(name: 'rankDayComics')  HomeRankSectionDto rankDay, @JsonKey(name: 'rankWeekComics')  HomeRankSectionDto rankWeek, @JsonKey(name: 'rankMonthComics')  HomeRankSectionDto rankMonth, @JsonKey(name: 'banners')  List<HomeBannerDto> banners)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeResultDto() when $default != null:
 return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.latest,_that.finished,_that.rankDay,_that.rankWeek,_that.rankMonth,_that.banners);case _:
@@ -1685,7 +1685,7 @@ return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( HomeTopicSectionDto topics,  HomeTopicSectionDto topicsList, @JsonKey(name: 'recComics')  HomeRecommendedSectionDto recommended, @JsonKey(name: 'hotComics')  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics')  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics')  HomeComicSectionDto finished, @JsonKey(name: 'rankDayComics')  HomeRankSectionDto rankDay, @JsonKey(name: 'rankWeekComics')  HomeRankSectionDto rankWeek, @JsonKey(name: 'rankMonthComics')  HomeRankSectionDto rankMonth,  List<HomeBannerDto> banners)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'topics')  HomeTopicSectionDto topics, @JsonKey(name: 'topicsList')  HomeTopicSectionDto topicsList, @JsonKey(name: 'recComics')  HomeRecommendedSectionDto recommended, @JsonKey(name: 'hotComics')  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics')  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics')  HomeComicSectionDto finished, @JsonKey(name: 'rankDayComics')  HomeRankSectionDto rankDay, @JsonKey(name: 'rankWeekComics')  HomeRankSectionDto rankWeek, @JsonKey(name: 'rankMonthComics')  HomeRankSectionDto rankMonth, @JsonKey(name: 'banners')  List<HomeBannerDto> banners)  $default,) {final _that = this;
 switch (_that) {
 case _HomeResultDto():
 return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.latest,_that.finished,_that.rankDay,_that.rankWeek,_that.rankMonth,_that.banners);case _:
@@ -1705,7 +1705,7 @@ return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( HomeTopicSectionDto topics,  HomeTopicSectionDto topicsList, @JsonKey(name: 'recComics')  HomeRecommendedSectionDto recommended, @JsonKey(name: 'hotComics')  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics')  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics')  HomeComicSectionDto finished, @JsonKey(name: 'rankDayComics')  HomeRankSectionDto rankDay, @JsonKey(name: 'rankWeekComics')  HomeRankSectionDto rankWeek, @JsonKey(name: 'rankMonthComics')  HomeRankSectionDto rankMonth,  List<HomeBannerDto> banners)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'topics')  HomeTopicSectionDto topics, @JsonKey(name: 'topicsList')  HomeTopicSectionDto topicsList, @JsonKey(name: 'recComics')  HomeRecommendedSectionDto recommended, @JsonKey(name: 'hotComics')  List<HomeUpdateDto> hot, @JsonKey(name: 'newComics')  List<HomeUpdateDto> latest, @JsonKey(name: 'finishComics')  HomeComicSectionDto finished, @JsonKey(name: 'rankDayComics')  HomeRankSectionDto rankDay, @JsonKey(name: 'rankWeekComics')  HomeRankSectionDto rankWeek, @JsonKey(name: 'rankMonthComics')  HomeRankSectionDto rankMonth, @JsonKey(name: 'banners')  List<HomeBannerDto> banners)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeResultDto() when $default != null:
 return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.latest,_that.finished,_that.rankDay,_that.rankWeek,_that.rankMonth,_that.banners);case _:
@@ -1720,11 +1720,11 @@ return $default(_that.topics,_that.topicsList,_that.recommended,_that.hot,_that.
 @JsonSerializable()
 
 class _HomeResultDto implements HomeResultDto {
-  const _HomeResultDto({this.topics = const HomeTopicSectionDto(), this.topicsList = const HomeTopicSectionDto(), @JsonKey(name: 'recComics') this.recommended = const HomeRecommendedSectionDto(), @JsonKey(name: 'hotComics') final  List<HomeUpdateDto> hot = const [], @JsonKey(name: 'newComics') final  List<HomeUpdateDto> latest = const [], @JsonKey(name: 'finishComics') this.finished = const HomeComicSectionDto(), @JsonKey(name: 'rankDayComics') this.rankDay = const HomeRankSectionDto(), @JsonKey(name: 'rankWeekComics') this.rankWeek = const HomeRankSectionDto(), @JsonKey(name: 'rankMonthComics') this.rankMonth = const HomeRankSectionDto(), final  List<HomeBannerDto> banners = const []}): _hot = hot,_latest = latest,_banners = banners;
+  const _HomeResultDto({@JsonKey(name: 'topics') this.topics = const HomeTopicSectionDto(), @JsonKey(name: 'topicsList') this.topicsList = const HomeTopicSectionDto(), @JsonKey(name: 'recComics') this.recommended = const HomeRecommendedSectionDto(), @JsonKey(name: 'hotComics') final  List<HomeUpdateDto> hot = const [], @JsonKey(name: 'newComics') final  List<HomeUpdateDto> latest = const [], @JsonKey(name: 'finishComics') this.finished = const HomeComicSectionDto(), @JsonKey(name: 'rankDayComics') this.rankDay = const HomeRankSectionDto(), @JsonKey(name: 'rankWeekComics') this.rankWeek = const HomeRankSectionDto(), @JsonKey(name: 'rankMonthComics') this.rankMonth = const HomeRankSectionDto(), @JsonKey(name: 'banners') final  List<HomeBannerDto> banners = const []}): _hot = hot,_latest = latest,_banners = banners;
   factory _HomeResultDto.fromJson(Map<String, dynamic> json) => _$HomeResultDtoFromJson(json);
 
-@override@JsonKey() final  HomeTopicSectionDto topics;
-@override@JsonKey() final  HomeTopicSectionDto topicsList;
+@override@JsonKey(name: 'topics') final  HomeTopicSectionDto topics;
+@override@JsonKey(name: 'topicsList') final  HomeTopicSectionDto topicsList;
 @override@JsonKey(name: 'recComics') final  HomeRecommendedSectionDto recommended;
  final  List<HomeUpdateDto> _hot;
 @override@JsonKey(name: 'hotComics') List<HomeUpdateDto> get hot {
@@ -1745,7 +1745,7 @@ class _HomeResultDto implements HomeResultDto {
 @override@JsonKey(name: 'rankWeekComics') final  HomeRankSectionDto rankWeek;
 @override@JsonKey(name: 'rankMonthComics') final  HomeRankSectionDto rankMonth;
  final  List<HomeBannerDto> _banners;
-@override@JsonKey() List<HomeBannerDto> get banners {
+@override@JsonKey(name: 'banners') List<HomeBannerDto> get banners {
   if (_banners is EqualUnmodifiableListView) return _banners;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_banners);
@@ -1785,7 +1785,7 @@ abstract mixin class _$HomeResultDtoCopyWith<$Res> implements $HomeResultDtoCopy
   factory _$HomeResultDtoCopyWith(_HomeResultDto value, $Res Function(_HomeResultDto) _then) = __$HomeResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- HomeTopicSectionDto topics, HomeTopicSectionDto topicsList,@JsonKey(name: 'recComics') HomeRecommendedSectionDto recommended,@JsonKey(name: 'hotComics') List<HomeUpdateDto> hot,@JsonKey(name: 'newComics') List<HomeUpdateDto> latest,@JsonKey(name: 'finishComics') HomeComicSectionDto finished,@JsonKey(name: 'rankDayComics') HomeRankSectionDto rankDay,@JsonKey(name: 'rankWeekComics') HomeRankSectionDto rankWeek,@JsonKey(name: 'rankMonthComics') HomeRankSectionDto rankMonth, List<HomeBannerDto> banners
+@JsonKey(name: 'topics') HomeTopicSectionDto topics,@JsonKey(name: 'topicsList') HomeTopicSectionDto topicsList,@JsonKey(name: 'recComics') HomeRecommendedSectionDto recommended,@JsonKey(name: 'hotComics') List<HomeUpdateDto> hot,@JsonKey(name: 'newComics') List<HomeUpdateDto> latest,@JsonKey(name: 'finishComics') HomeComicSectionDto finished,@JsonKey(name: 'rankDayComics') HomeRankSectionDto rankDay,@JsonKey(name: 'rankWeekComics') HomeRankSectionDto rankWeek,@JsonKey(name: 'rankMonthComics') HomeRankSectionDto rankMonth,@JsonKey(name: 'banners') List<HomeBannerDto> banners
 });
 
 
@@ -1888,7 +1888,7 @@ $HomeRankSectionDtoCopyWith<$Res> get rankMonth {
 /// @nodoc
 mixin _$HomeTopicSectionDto {
 
- List<HomeTopicDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'list') List<HomeTopicDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of HomeTopicSectionDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1921,7 +1921,7 @@ abstract mixin class $HomeTopicSectionDtoCopyWith<$Res>  {
   factory $HomeTopicSectionDtoCopyWith(HomeTopicSectionDto value, $Res Function(HomeTopicSectionDto) _then) = _$HomeTopicSectionDtoCopyWithImpl;
 @useResult
 $Res call({
- List<HomeTopicDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeTopicDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -2029,7 +2029,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<HomeTopicDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeTopicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeTopicSectionDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -2050,7 +2050,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<HomeTopicDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeTopicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _HomeTopicSectionDto():
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -2070,7 +2070,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<HomeTopicDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<HomeTopicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeTopicSectionDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -2085,19 +2085,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _HomeTopicSectionDto implements HomeTopicSectionDto {
-  const _HomeTopicSectionDto({final  List<HomeTopicDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _HomeTopicSectionDto({@JsonKey(name: 'list') final  List<HomeTopicDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _HomeTopicSectionDto.fromJson(Map<String, dynamic> json) => _$HomeTopicSectionDtoFromJson(json);
 
  final  List<HomeTopicDto> _list;
-@override@JsonKey() List<HomeTopicDto> get list {
+@override@JsonKey(name: 'list') List<HomeTopicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of HomeTopicSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2132,7 +2132,7 @@ abstract mixin class _$HomeTopicSectionDtoCopyWith<$Res> implements $HomeTopicSe
   factory _$HomeTopicSectionDtoCopyWith(_HomeTopicSectionDto value, $Res Function(_HomeTopicSectionDto) _then) = __$HomeTopicSectionDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<HomeTopicDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeTopicDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -2166,7 +2166,7 @@ as int,
 /// @nodoc
 mixin _$HomeTopicDto {
 
- String get title; String get series; String get journal; String get cover; String get period; int get type; String get brief; String get pathWord; String get datetimeCreated;
+@JsonKey(name: 'title') String get title;@JsonKey(name: 'series') String get series;@JsonKey(name: 'journal') String get journal;@JsonKey(name: 'cover') String get cover;@JsonKey(name: 'period') String get period;@JsonKey(name: 'type') int get type;@JsonKey(name: 'brief') String get brief;@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'datetime_created') String get datetimeCreated;
 /// Create a copy of HomeTopicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2199,7 +2199,7 @@ abstract mixin class $HomeTopicDtoCopyWith<$Res>  {
   factory $HomeTopicDtoCopyWith(HomeTopicDto value, $Res Function(HomeTopicDto) _then) = _$HomeTopicDtoCopyWithImpl;
 @useResult
 $Res call({
- String title, String series, String journal, String cover, String period, int type, String brief, String pathWord, String datetimeCreated
+@JsonKey(name: 'title') String title,@JsonKey(name: 'series') String series,@JsonKey(name: 'journal') String journal,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'period') String period,@JsonKey(name: 'type') int type,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'datetime_created') String datetimeCreated
 });
 
 
@@ -2312,7 +2312,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'title')  String title, @JsonKey(name: 'series')  String series, @JsonKey(name: 'journal')  String journal, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'period')  String period, @JsonKey(name: 'type')  int type, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'datetime_created')  String datetimeCreated)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeTopicDto() when $default != null:
 return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,_that.type,_that.brief,_that.pathWord,_that.datetimeCreated);case _:
@@ -2333,7 +2333,7 @@ return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'title')  String title, @JsonKey(name: 'series')  String series, @JsonKey(name: 'journal')  String journal, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'period')  String period, @JsonKey(name: 'type')  int type, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'datetime_created')  String datetimeCreated)  $default,) {final _that = this;
 switch (_that) {
 case _HomeTopicDto():
 return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,_that.type,_that.brief,_that.pathWord,_that.datetimeCreated);case _:
@@ -2353,7 +2353,7 @@ return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String series,  String journal,  String cover,  String period,  int type,  String brief,  String pathWord,  String datetimeCreated)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'title')  String title, @JsonKey(name: 'series')  String series, @JsonKey(name: 'journal')  String journal, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'period')  String period, @JsonKey(name: 'type')  int type, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'datetime_created')  String datetimeCreated)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeTopicDto() when $default != null:
 return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,_that.type,_that.brief,_that.pathWord,_that.datetimeCreated);case _:
@@ -2365,21 +2365,21 @@ return $default(_that.title,_that.series,_that.journal,_that.cover,_that.period,
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeTopicDto implements HomeTopicDto {
-  const _HomeTopicDto({this.title = '', this.series = '', this.journal = '', this.cover = '', this.period = '', this.type = 0, this.brief = '', this.pathWord = '', this.datetimeCreated = ''});
+  const _HomeTopicDto({@JsonKey(name: 'title') this.title = '', @JsonKey(name: 'series') this.series = '', @JsonKey(name: 'journal') this.journal = '', @JsonKey(name: 'cover') this.cover = '', @JsonKey(name: 'period') this.period = '', @JsonKey(name: 'type') this.type = 0, @JsonKey(name: 'brief') this.brief = '', @JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'datetime_created') this.datetimeCreated = ''});
   factory _HomeTopicDto.fromJson(Map<String, dynamic> json) => _$HomeTopicDtoFromJson(json);
 
-@override@JsonKey() final  String title;
-@override@JsonKey() final  String series;
-@override@JsonKey() final  String journal;
-@override@JsonKey() final  String cover;
-@override@JsonKey() final  String period;
-@override@JsonKey() final  int type;
-@override@JsonKey() final  String brief;
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  String datetimeCreated;
+@override@JsonKey(name: 'title') final  String title;
+@override@JsonKey(name: 'series') final  String series;
+@override@JsonKey(name: 'journal') final  String journal;
+@override@JsonKey(name: 'cover') final  String cover;
+@override@JsonKey(name: 'period') final  String period;
+@override@JsonKey(name: 'type') final  int type;
+@override@JsonKey(name: 'brief') final  String brief;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'datetime_created') final  String datetimeCreated;
 
 /// Create a copy of HomeTopicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2414,7 +2414,7 @@ abstract mixin class _$HomeTopicDtoCopyWith<$Res> implements $HomeTopicDtoCopyWi
   factory _$HomeTopicDtoCopyWith(_HomeTopicDto value, $Res Function(_HomeTopicDto) _then) = __$HomeTopicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String title, String series, String journal, String cover, String period, int type, String brief, String pathWord, String datetimeCreated
+@JsonKey(name: 'title') String title,@JsonKey(name: 'series') String series,@JsonKey(name: 'journal') String journal,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'period') String period,@JsonKey(name: 'type') int type,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'datetime_created') String datetimeCreated
 });
 
 
@@ -2453,7 +2453,7 @@ as String,
 /// @nodoc
 mixin _$HomeRecommendedSectionDto {
 
- List<HomeRecommendedItemDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'list') List<HomeRecommendedItemDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of HomeRecommendedSectionDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2486,7 +2486,7 @@ abstract mixin class $HomeRecommendedSectionDtoCopyWith<$Res>  {
   factory $HomeRecommendedSectionDtoCopyWith(HomeRecommendedSectionDto value, $Res Function(HomeRecommendedSectionDto) _then) = _$HomeRecommendedSectionDtoCopyWithImpl;
 @useResult
 $Res call({
- List<HomeRecommendedItemDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeRecommendedItemDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -2594,7 +2594,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<HomeRecommendedItemDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeRecommendedItemDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeRecommendedSectionDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -2615,7 +2615,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<HomeRecommendedItemDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeRecommendedItemDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _HomeRecommendedSectionDto():
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -2635,7 +2635,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<HomeRecommendedItemDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<HomeRecommendedItemDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeRecommendedSectionDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -2650,19 +2650,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _HomeRecommendedSectionDto implements HomeRecommendedSectionDto {
-  const _HomeRecommendedSectionDto({final  List<HomeRecommendedItemDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _HomeRecommendedSectionDto({@JsonKey(name: 'list') final  List<HomeRecommendedItemDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _HomeRecommendedSectionDto.fromJson(Map<String, dynamic> json) => _$HomeRecommendedSectionDtoFromJson(json);
 
  final  List<HomeRecommendedItemDto> _list;
-@override@JsonKey() List<HomeRecommendedItemDto> get list {
+@override@JsonKey(name: 'list') List<HomeRecommendedItemDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of HomeRecommendedSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2697,7 +2697,7 @@ abstract mixin class _$HomeRecommendedSectionDtoCopyWith<$Res> implements $HomeR
   factory _$HomeRecommendedSectionDtoCopyWith(_HomeRecommendedSectionDto value, $Res Function(_HomeRecommendedSectionDto) _then) = __$HomeRecommendedSectionDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<HomeRecommendedItemDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeRecommendedItemDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -2731,7 +2731,7 @@ as int,
 /// @nodoc
 mixin _$HomeRecommendedItemDto {
 
- int get type; HomeComicDto get comic;
+@JsonKey(name: 'type') int get type;@JsonKey(name: 'comic') HomeComicDto get comic;
 /// Create a copy of HomeRecommendedItemDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2764,7 +2764,7 @@ abstract mixin class $HomeRecommendedItemDtoCopyWith<$Res>  {
   factory $HomeRecommendedItemDtoCopyWith(HomeRecommendedItemDto value, $Res Function(HomeRecommendedItemDto) _then) = _$HomeRecommendedItemDtoCopyWithImpl;
 @useResult
 $Res call({
- int type, HomeComicDto comic
+@JsonKey(name: 'type') int type,@JsonKey(name: 'comic') HomeComicDto comic
 });
 
 
@@ -2879,7 +2879,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int type,  HomeComicDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'type')  int type, @JsonKey(name: 'comic')  HomeComicDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeRecommendedItemDto() when $default != null:
 return $default(_that.type,_that.comic);case _:
@@ -2900,7 +2900,7 @@ return $default(_that.type,_that.comic);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int type,  HomeComicDto comic)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'type')  int type, @JsonKey(name: 'comic')  HomeComicDto comic)  $default,) {final _that = this;
 switch (_that) {
 case _HomeRecommendedItemDto():
 return $default(_that.type,_that.comic);case _:
@@ -2920,7 +2920,7 @@ return $default(_that.type,_that.comic);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int type,  HomeComicDto comic)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'type')  int type, @JsonKey(name: 'comic')  HomeComicDto comic)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeRecommendedItemDto() when $default != null:
 return $default(_that.type,_that.comic);case _:
@@ -2935,11 +2935,11 @@ return $default(_that.type,_that.comic);case _:
 @JsonSerializable()
 
 class _HomeRecommendedItemDto implements HomeRecommendedItemDto {
-  const _HomeRecommendedItemDto({this.type = 0, this.comic = const HomeComicDto()});
+  const _HomeRecommendedItemDto({@JsonKey(name: 'type') this.type = 0, @JsonKey(name: 'comic') this.comic = const HomeComicDto()});
   factory _HomeRecommendedItemDto.fromJson(Map<String, dynamic> json) => _$HomeRecommendedItemDtoFromJson(json);
 
-@override@JsonKey() final  int type;
-@override@JsonKey() final  HomeComicDto comic;
+@override@JsonKey(name: 'type') final  int type;
+@override@JsonKey(name: 'comic') final  HomeComicDto comic;
 
 /// Create a copy of HomeRecommendedItemDto
 /// with the given fields replaced by the non-null parameter values.
@@ -2974,7 +2974,7 @@ abstract mixin class _$HomeRecommendedItemDtoCopyWith<$Res> implements $HomeReco
   factory _$HomeRecommendedItemDtoCopyWith(_HomeRecommendedItemDto value, $Res Function(_HomeRecommendedItemDto) _then) = __$HomeRecommendedItemDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int type, HomeComicDto comic
+@JsonKey(name: 'type') int type,@JsonKey(name: 'comic') HomeComicDto comic
 });
 
 
@@ -3015,7 +3015,7 @@ $HomeComicDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$HomeUpdateDto {
 
- String get name; String get datetimeCreated; HomeComicDto get comic;
+@JsonKey(name: 'name') String get name;@JsonKey(name: 'datetime_created') String get datetimeCreated;@JsonKey(name: 'comic') HomeComicDto get comic;
 /// Create a copy of HomeUpdateDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3048,7 +3048,7 @@ abstract mixin class $HomeUpdateDtoCopyWith<$Res>  {
   factory $HomeUpdateDtoCopyWith(HomeUpdateDto value, $Res Function(HomeUpdateDto) _then) = _$HomeUpdateDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String datetimeCreated, HomeComicDto comic
+@JsonKey(name: 'name') String name,@JsonKey(name: 'datetime_created') String datetimeCreated,@JsonKey(name: 'comic') HomeComicDto comic
 });
 
 
@@ -3164,7 +3164,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String datetimeCreated,  HomeComicDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'comic')  HomeComicDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeUpdateDto() when $default != null:
 return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
@@ -3185,7 +3185,7 @@ return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String datetimeCreated,  HomeComicDto comic)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'comic')  HomeComicDto comic)  $default,) {final _that = this;
 switch (_that) {
 case _HomeUpdateDto():
 return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
@@ -3205,7 +3205,7 @@ return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String datetimeCreated,  HomeComicDto comic)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'comic')  HomeComicDto comic)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeUpdateDto() when $default != null:
 return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
@@ -3217,15 +3217,15 @@ return $default(_that.name,_that.datetimeCreated,_that.comic);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeUpdateDto implements HomeUpdateDto {
-  const _HomeUpdateDto({this.name = '', this.datetimeCreated = '', this.comic = const HomeComicDto()});
+  const _HomeUpdateDto({@JsonKey(name: 'name') this.name = '', @JsonKey(name: 'datetime_created') this.datetimeCreated = '', @JsonKey(name: 'comic') this.comic = const HomeComicDto()});
   factory _HomeUpdateDto.fromJson(Map<String, dynamic> json) => _$HomeUpdateDtoFromJson(json);
 
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String datetimeCreated;
-@override@JsonKey() final  HomeComicDto comic;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'datetime_created') final  String datetimeCreated;
+@override@JsonKey(name: 'comic') final  HomeComicDto comic;
 
 /// Create a copy of HomeUpdateDto
 /// with the given fields replaced by the non-null parameter values.
@@ -3260,7 +3260,7 @@ abstract mixin class _$HomeUpdateDtoCopyWith<$Res> implements $HomeUpdateDtoCopy
   factory _$HomeUpdateDtoCopyWith(_HomeUpdateDto value, $Res Function(_HomeUpdateDto) _then) = __$HomeUpdateDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String datetimeCreated, HomeComicDto comic
+@JsonKey(name: 'name') String name,@JsonKey(name: 'datetime_created') String datetimeCreated,@JsonKey(name: 'comic') HomeComicDto comic
 });
 
 
@@ -3302,7 +3302,7 @@ $HomeComicDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$NewReleaseResultDto {
 
- List<HomeUpdateDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'list') List<HomeUpdateDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of NewReleaseResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3335,7 +3335,7 @@ abstract mixin class $NewReleaseResultDtoCopyWith<$Res>  {
   factory $NewReleaseResultDtoCopyWith(NewReleaseResultDto value, $Res Function(NewReleaseResultDto) _then) = _$NewReleaseResultDtoCopyWithImpl;
 @useResult
 $Res call({
- List<HomeUpdateDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeUpdateDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -3443,7 +3443,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<HomeUpdateDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeUpdateDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NewReleaseResultDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -3464,7 +3464,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<HomeUpdateDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeUpdateDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _NewReleaseResultDto():
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -3484,7 +3484,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<HomeUpdateDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<HomeUpdateDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _NewReleaseResultDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -3499,19 +3499,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _NewReleaseResultDto implements NewReleaseResultDto {
-  const _NewReleaseResultDto({final  List<HomeUpdateDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _NewReleaseResultDto({@JsonKey(name: 'list') final  List<HomeUpdateDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _NewReleaseResultDto.fromJson(Map<String, dynamic> json) => _$NewReleaseResultDtoFromJson(json);
 
  final  List<HomeUpdateDto> _list;
-@override@JsonKey() List<HomeUpdateDto> get list {
+@override@JsonKey(name: 'list') List<HomeUpdateDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of NewReleaseResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -3546,7 +3546,7 @@ abstract mixin class _$NewReleaseResultDtoCopyWith<$Res> implements $NewReleaseR
   factory _$NewReleaseResultDtoCopyWith(_NewReleaseResultDto value, $Res Function(_NewReleaseResultDto) _then) = __$NewReleaseResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<HomeUpdateDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeUpdateDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -3580,7 +3580,7 @@ as int,
 /// @nodoc
 mixin _$HomeComicSectionDto {
 
- String get name; String get pathWord; String get type; List<HomeComicDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'name') String get name;@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'type') String get type;@JsonKey(name: 'list') List<HomeComicDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of HomeComicSectionDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3613,7 +3613,7 @@ abstract mixin class $HomeComicSectionDtoCopyWith<$Res>  {
   factory $HomeComicSectionDtoCopyWith(HomeComicSectionDto value, $Res Function(HomeComicSectionDto) _then) = _$HomeComicSectionDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String pathWord, String type, List<HomeComicDto> list, int total, int limit, int offset
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'type') String type,@JsonKey(name: 'list') List<HomeComicDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -3724,7 +3724,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord,  String type,  List<HomeComicDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'type')  String type, @JsonKey(name: 'list')  List<HomeComicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeComicSectionDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -3745,7 +3745,7 @@ return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord,  String type,  List<HomeComicDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'type')  String type, @JsonKey(name: 'list')  List<HomeComicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _HomeComicSectionDto():
 return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -3765,7 +3765,7 @@ return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord,  String type,  List<HomeComicDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'type')  String type, @JsonKey(name: 'list')  List<HomeComicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeComicSectionDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -3777,25 +3777,25 @@ return $default(_that.name,_that.pathWord,_that.type,_that.list,_that.total,_tha
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeComicSectionDto implements HomeComicSectionDto {
-  const _HomeComicSectionDto({this.name = '', this.pathWord = '', this.type = '', final  List<HomeComicDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _HomeComicSectionDto({@JsonKey(name: 'name') this.name = '', @JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'type') this.type = '', @JsonKey(name: 'list') final  List<HomeComicDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _HomeComicSectionDto.fromJson(Map<String, dynamic> json) => _$HomeComicSectionDtoFromJson(json);
 
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  String type;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'type') final  String type;
  final  List<HomeComicDto> _list;
-@override@JsonKey() List<HomeComicDto> get list {
+@override@JsonKey(name: 'list') List<HomeComicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of HomeComicSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -3830,7 +3830,7 @@ abstract mixin class _$HomeComicSectionDtoCopyWith<$Res> implements $HomeComicSe
   factory _$HomeComicSectionDtoCopyWith(_HomeComicSectionDto value, $Res Function(_HomeComicSectionDto) _then) = __$HomeComicSectionDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String pathWord, String type, List<HomeComicDto> list, int total, int limit, int offset
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'type') String type,@JsonKey(name: 'list') List<HomeComicDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -3867,7 +3867,7 @@ as int,
 /// @nodoc
 mixin _$HomeRankSectionDto {
 
- List<HomeRankItemDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'list') List<HomeRankItemDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of HomeRankSectionDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3900,7 +3900,7 @@ abstract mixin class $HomeRankSectionDtoCopyWith<$Res>  {
   factory $HomeRankSectionDtoCopyWith(HomeRankSectionDto value, $Res Function(HomeRankSectionDto) _then) = _$HomeRankSectionDtoCopyWithImpl;
 @useResult
 $Res call({
- List<HomeRankItemDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeRankItemDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -4008,7 +4008,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<HomeRankItemDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeRankItemDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeRankSectionDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -4029,7 +4029,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<HomeRankItemDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<HomeRankItemDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _HomeRankSectionDto():
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -4049,7 +4049,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<HomeRankItemDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<HomeRankItemDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeRankSectionDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -4064,19 +4064,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _HomeRankSectionDto implements HomeRankSectionDto {
-  const _HomeRankSectionDto({final  List<HomeRankItemDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _HomeRankSectionDto({@JsonKey(name: 'list') final  List<HomeRankItemDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _HomeRankSectionDto.fromJson(Map<String, dynamic> json) => _$HomeRankSectionDtoFromJson(json);
 
  final  List<HomeRankItemDto> _list;
-@override@JsonKey() List<HomeRankItemDto> get list {
+@override@JsonKey(name: 'list') List<HomeRankItemDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of HomeRankSectionDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4111,7 +4111,7 @@ abstract mixin class _$HomeRankSectionDtoCopyWith<$Res> implements $HomeRankSect
   factory _$HomeRankSectionDtoCopyWith(_HomeRankSectionDto value, $Res Function(_HomeRankSectionDto) _then) = __$HomeRankSectionDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<HomeRankItemDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<HomeRankItemDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -4145,7 +4145,7 @@ as int,
 /// @nodoc
 mixin _$HomeRankItemDto {
 
- HomeComicDto get comic; int get sort; int get sortLast; int get riseSort; int get riseNum; int get popular; int get dateType;
+@JsonKey(name: 'comic') HomeComicDto get comic;@JsonKey(name: 'sort') int get sort;@JsonKey(name: 'sort_last') int get sortLast;@JsonKey(name: 'rise_sort') int get riseSort;@JsonKey(name: 'rise_num') int get riseNum;@JsonKey(name: 'popular') int get popular;@JsonKey(name: 'date_type') int get dateType;
 /// Create a copy of HomeRankItemDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4178,7 +4178,7 @@ abstract mixin class $HomeRankItemDtoCopyWith<$Res>  {
   factory $HomeRankItemDtoCopyWith(HomeRankItemDto value, $Res Function(HomeRankItemDto) _then) = _$HomeRankItemDtoCopyWithImpl;
 @useResult
 $Res call({
- HomeComicDto comic, int sort, int sortLast, int riseSort, int riseNum, int popular, int dateType
+@JsonKey(name: 'comic') HomeComicDto comic,@JsonKey(name: 'sort') int sort,@JsonKey(name: 'sort_last') int sortLast,@JsonKey(name: 'rise_sort') int riseSort,@JsonKey(name: 'rise_num') int riseNum,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'date_type') int dateType
 });
 
 
@@ -4298,7 +4298,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( HomeComicDto comic,  int sort,  int sortLast,  int riseSort,  int riseNum,  int popular,  int dateType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'comic')  HomeComicDto comic, @JsonKey(name: 'sort')  int sort, @JsonKey(name: 'sort_last')  int sortLast, @JsonKey(name: 'rise_sort')  int riseSort, @JsonKey(name: 'rise_num')  int riseNum, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'date_type')  int dateType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeRankItemDto() when $default != null:
 return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseNum,_that.popular,_that.dateType);case _:
@@ -4319,7 +4319,7 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( HomeComicDto comic,  int sort,  int sortLast,  int riseSort,  int riseNum,  int popular,  int dateType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'comic')  HomeComicDto comic, @JsonKey(name: 'sort')  int sort, @JsonKey(name: 'sort_last')  int sortLast, @JsonKey(name: 'rise_sort')  int riseSort, @JsonKey(name: 'rise_num')  int riseNum, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'date_type')  int dateType)  $default,) {final _that = this;
 switch (_that) {
 case _HomeRankItemDto():
 return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseNum,_that.popular,_that.dateType);case _:
@@ -4339,7 +4339,7 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( HomeComicDto comic,  int sort,  int sortLast,  int riseSort,  int riseNum,  int popular,  int dateType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'comic')  HomeComicDto comic, @JsonKey(name: 'sort')  int sort, @JsonKey(name: 'sort_last')  int sortLast, @JsonKey(name: 'rise_sort')  int riseSort, @JsonKey(name: 'rise_num')  int riseNum, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'date_type')  int dateType)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeRankItemDto() when $default != null:
 return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseNum,_that.popular,_that.dateType);case _:
@@ -4351,19 +4351,19 @@ return $default(_that.comic,_that.sort,_that.sortLast,_that.riseSort,_that.riseN
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeRankItemDto implements HomeRankItemDto {
-  const _HomeRankItemDto({this.comic = const HomeComicDto(), this.sort = 0, this.sortLast = 0, this.riseSort = 0, this.riseNum = 0, this.popular = 0, this.dateType = 0});
+  const _HomeRankItemDto({@JsonKey(name: 'comic') this.comic = const HomeComicDto(), @JsonKey(name: 'sort') this.sort = 0, @JsonKey(name: 'sort_last') this.sortLast = 0, @JsonKey(name: 'rise_sort') this.riseSort = 0, @JsonKey(name: 'rise_num') this.riseNum = 0, @JsonKey(name: 'popular') this.popular = 0, @JsonKey(name: 'date_type') this.dateType = 0});
   factory _HomeRankItemDto.fromJson(Map<String, dynamic> json) => _$HomeRankItemDtoFromJson(json);
 
-@override@JsonKey() final  HomeComicDto comic;
-@override@JsonKey() final  int sort;
-@override@JsonKey() final  int sortLast;
-@override@JsonKey() final  int riseSort;
-@override@JsonKey() final  int riseNum;
-@override@JsonKey() final  int popular;
-@override@JsonKey() final  int dateType;
+@override@JsonKey(name: 'comic') final  HomeComicDto comic;
+@override@JsonKey(name: 'sort') final  int sort;
+@override@JsonKey(name: 'sort_last') final  int sortLast;
+@override@JsonKey(name: 'rise_sort') final  int riseSort;
+@override@JsonKey(name: 'rise_num') final  int riseNum;
+@override@JsonKey(name: 'popular') final  int popular;
+@override@JsonKey(name: 'date_type') final  int dateType;
 
 /// Create a copy of HomeRankItemDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4398,7 +4398,7 @@ abstract mixin class _$HomeRankItemDtoCopyWith<$Res> implements $HomeRankItemDto
   factory _$HomeRankItemDtoCopyWith(_HomeRankItemDto value, $Res Function(_HomeRankItemDto) _then) = __$HomeRankItemDtoCopyWithImpl;
 @override @useResult
 $Res call({
- HomeComicDto comic, int sort, int sortLast, int riseSort, int riseNum, int popular, int dateType
+@JsonKey(name: 'comic') HomeComicDto comic,@JsonKey(name: 'sort') int sort,@JsonKey(name: 'sort_last') int sortLast,@JsonKey(name: 'rise_sort') int riseSort,@JsonKey(name: 'rise_num') int riseNum,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'date_type') int dateType
 });
 
 
@@ -4444,7 +4444,7 @@ $HomeComicDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$HomeComicDto {
 
- String get name; String get pathWord; String get cover;@JsonKey(name: 'author') List<NamedPathDto> get authors; String get authorAlias; int get popular; String get datetimeUpdated; String get lastChapterName; List<NamedPathDto> get females; List<NamedPathDto> get males;@JsonKey(name: 'theme') List<NamedPathDto> get themes; Object get freeType;
+@JsonKey(name: 'name') String get name;@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'cover') String get cover;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'author_alias') String get authorAlias;@JsonKey(name: 'popular') int get popular;@JsonKey(name: 'datetime_updated') String get datetimeUpdated;@JsonKey(name: 'last_chapter_name') String get lastChapterName;@JsonKey(name: 'females') List<NamedPathDto> get females;@JsonKey(name: 'males') List<NamedPathDto> get males;@JsonKey(name: 'theme') List<NamedPathDto> get themes;@JsonKey(name: 'free_type') Object get freeType;
 /// Create a copy of HomeComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4477,7 +4477,7 @@ abstract mixin class $HomeComicDtoCopyWith<$Res>  {
   factory $HomeComicDtoCopyWith(HomeComicDto value, $Res Function(HomeComicDto) _then) = _$HomeComicDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String pathWord, String cover,@JsonKey(name: 'author') List<NamedPathDto> authors, String authorAlias, int popular, String datetimeUpdated, String lastChapterName, List<NamedPathDto> females, List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes, Object freeType
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'author_alias') String authorAlias,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'datetime_updated') String datetimeUpdated,@JsonKey(name: 'last_chapter_name') String lastChapterName,@JsonKey(name: 'females') List<NamedPathDto> females,@JsonKey(name: 'males') List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes,@JsonKey(name: 'free_type') Object freeType
 });
 
 
@@ -4592,7 +4592,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object freeType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'author_alias')  String authorAlias, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'last_chapter_name')  String lastChapterName, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'free_type')  Object freeType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeComicDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.authorAlias,_that.popular,_that.datetimeUpdated,_that.lastChapterName,_that.females,_that.males,_that.themes,_that.freeType);case _:
@@ -4613,7 +4613,7 @@ return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.author
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object freeType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'author_alias')  String authorAlias, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'last_chapter_name')  String lastChapterName, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'free_type')  Object freeType)  $default,) {final _that = this;
 switch (_that) {
 case _HomeComicDto():
 return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.authorAlias,_that.popular,_that.datetimeUpdated,_that.lastChapterName,_that.females,_that.males,_that.themes,_that.freeType);case _:
@@ -4633,7 +4633,7 @@ return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.author
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord,  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors,  String authorAlias,  int popular,  String datetimeUpdated,  String lastChapterName,  List<NamedPathDto> females,  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  Object freeType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'author_alias')  String authorAlias, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'last_chapter_name')  String lastChapterName, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'free_type')  Object freeType)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeComicDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.authorAlias,_that.popular,_that.datetimeUpdated,_that.lastChapterName,_that.females,_that.males,_that.themes,_that.freeType);case _:
@@ -4645,15 +4645,15 @@ return $default(_that.name,_that.pathWord,_that.cover,_that.authors,_that.author
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeComicDto implements HomeComicDto {
-  const _HomeComicDto({this.name = '', this.pathWord = '', this.cover = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], this.authorAlias = '', this.popular = 0, this.datetimeUpdated = '', this.lastChapterName = '', final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], this.freeType = ''}): _authors = authors,_females = females,_males = males,_themes = themes;
+  const _HomeComicDto({@JsonKey(name: 'name') this.name = '', @JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'cover') this.cover = '', @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'author_alias') this.authorAlias = '', @JsonKey(name: 'popular') this.popular = 0, @JsonKey(name: 'datetime_updated') this.datetimeUpdated = '', @JsonKey(name: 'last_chapter_name') this.lastChapterName = '', @JsonKey(name: 'females') final  List<NamedPathDto> females = const [], @JsonKey(name: 'males') final  List<NamedPathDto> males = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], @JsonKey(name: 'free_type') this.freeType = ''}): _authors = authors,_females = females,_males = males,_themes = themes;
   factory _HomeComicDto.fromJson(Map<String, dynamic> json) => _$HomeComicDtoFromJson(json);
 
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  String cover;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'cover') final  String cover;
  final  List<NamedPathDto> _authors;
 @override@JsonKey(name: 'author') List<NamedPathDto> get authors {
   if (_authors is EqualUnmodifiableListView) return _authors;
@@ -4661,19 +4661,19 @@ class _HomeComicDto implements HomeComicDto {
   return EqualUnmodifiableListView(_authors);
 }
 
-@override@JsonKey() final  String authorAlias;
-@override@JsonKey() final  int popular;
-@override@JsonKey() final  String datetimeUpdated;
-@override@JsonKey() final  String lastChapterName;
+@override@JsonKey(name: 'author_alias') final  String authorAlias;
+@override@JsonKey(name: 'popular') final  int popular;
+@override@JsonKey(name: 'datetime_updated') final  String datetimeUpdated;
+@override@JsonKey(name: 'last_chapter_name') final  String lastChapterName;
  final  List<NamedPathDto> _females;
-@override@JsonKey() List<NamedPathDto> get females {
+@override@JsonKey(name: 'females') List<NamedPathDto> get females {
   if (_females is EqualUnmodifiableListView) return _females;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_females);
 }
 
  final  List<NamedPathDto> _males;
-@override@JsonKey() List<NamedPathDto> get males {
+@override@JsonKey(name: 'males') List<NamedPathDto> get males {
   if (_males is EqualUnmodifiableListView) return _males;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_males);
@@ -4686,7 +4686,7 @@ class _HomeComicDto implements HomeComicDto {
   return EqualUnmodifiableListView(_themes);
 }
 
-@override@JsonKey() final  Object freeType;
+@override@JsonKey(name: 'free_type') final  Object freeType;
 
 /// Create a copy of HomeComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -4721,7 +4721,7 @@ abstract mixin class _$HomeComicDtoCopyWith<$Res> implements $HomeComicDtoCopyWi
   factory _$HomeComicDtoCopyWith(_HomeComicDto value, $Res Function(_HomeComicDto) _then) = __$HomeComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String pathWord, String cover,@JsonKey(name: 'author') List<NamedPathDto> authors, String authorAlias, int popular, String datetimeUpdated, String lastChapterName, List<NamedPathDto> females, List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes, Object freeType
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'author_alias') String authorAlias,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'datetime_updated') String datetimeUpdated,@JsonKey(name: 'last_chapter_name') String lastChapterName,@JsonKey(name: 'females') List<NamedPathDto> females,@JsonKey(name: 'males') List<NamedPathDto> males,@JsonKey(name: 'theme') List<NamedPathDto> themes,@JsonKey(name: 'free_type') Object freeType
 });
 
 
@@ -4762,7 +4762,7 @@ as List<NamedPathDto>,freeType: null == freeType ? _self.freeType : freeType ,
 /// @nodoc
 mixin _$HomeBannerDto {
 
- String get cover; String get brief; int get type; String get outUuid; NamedPathDto get comic;
+@JsonKey(name: 'cover') String get cover;@JsonKey(name: 'brief') String get brief;@JsonKey(name: 'type') int get type;@JsonKey(name: 'out_uuid') String get outUuid;@JsonKey(name: 'comic') NamedPathDto get comic;
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4795,7 +4795,7 @@ abstract mixin class $HomeBannerDtoCopyWith<$Res>  {
   factory $HomeBannerDtoCopyWith(HomeBannerDto value, $Res Function(HomeBannerDto) _then) = _$HomeBannerDtoCopyWithImpl;
 @useResult
 $Res call({
- String cover, String brief, int type, String outUuid, NamedPathDto comic
+@JsonKey(name: 'cover') String cover,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'type') int type,@JsonKey(name: 'out_uuid') String outUuid,@JsonKey(name: 'comic') NamedPathDto comic
 });
 
 
@@ -4913,7 +4913,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'cover')  String cover, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'type')  int type, @JsonKey(name: 'out_uuid')  String outUuid, @JsonKey(name: 'comic')  NamedPathDto comic)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeBannerDto() when $default != null:
 return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);case _:
@@ -4934,7 +4934,7 @@ return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto comic)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'cover')  String cover, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'type')  int type, @JsonKey(name: 'out_uuid')  String outUuid, @JsonKey(name: 'comic')  NamedPathDto comic)  $default,) {final _that = this;
 switch (_that) {
 case _HomeBannerDto():
 return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);case _:
@@ -4954,7 +4954,7 @@ return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String cover,  String brief,  int type,  String outUuid,  NamedPathDto comic)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'cover')  String cover, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'type')  int type, @JsonKey(name: 'out_uuid')  String outUuid, @JsonKey(name: 'comic')  NamedPathDto comic)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeBannerDto() when $default != null:
 return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);case _:
@@ -4966,17 +4966,17 @@ return $default(_that.cover,_that.brief,_that.type,_that.outUuid,_that.comic);ca
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _HomeBannerDto implements HomeBannerDto {
-  const _HomeBannerDto({this.cover = '', this.brief = '', this.type = 0, this.outUuid = '', this.comic = const NamedPathDto()});
+  const _HomeBannerDto({@JsonKey(name: 'cover') this.cover = '', @JsonKey(name: 'brief') this.brief = '', @JsonKey(name: 'type') this.type = 0, @JsonKey(name: 'out_uuid') this.outUuid = '', @JsonKey(name: 'comic') this.comic = const NamedPathDto()});
   factory _HomeBannerDto.fromJson(Map<String, dynamic> json) => _$HomeBannerDtoFromJson(json);
 
-@override@JsonKey() final  String cover;
-@override@JsonKey() final  String brief;
-@override@JsonKey() final  int type;
-@override@JsonKey() final  String outUuid;
-@override@JsonKey() final  NamedPathDto comic;
+@override@JsonKey(name: 'cover') final  String cover;
+@override@JsonKey(name: 'brief') final  String brief;
+@override@JsonKey(name: 'type') final  int type;
+@override@JsonKey(name: 'out_uuid') final  String outUuid;
+@override@JsonKey(name: 'comic') final  NamedPathDto comic;
 
 /// Create a copy of HomeBannerDto
 /// with the given fields replaced by the non-null parameter values.
@@ -5011,7 +5011,7 @@ abstract mixin class _$HomeBannerDtoCopyWith<$Res> implements $HomeBannerDtoCopy
   factory _$HomeBannerDtoCopyWith(_HomeBannerDto value, $Res Function(_HomeBannerDto) _then) = __$HomeBannerDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String cover, String brief, int type, String outUuid, NamedPathDto comic
+@JsonKey(name: 'cover') String cover,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'type') int type,@JsonKey(name: 'out_uuid') String outUuid,@JsonKey(name: 'comic') NamedPathDto comic
 });
 
 
@@ -5055,7 +5055,7 @@ $NamedPathDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$ComicPageResultDto {
 
- List<ComicDto> get list; int get total;
+@JsonKey(name: 'list') List<ComicDto> get list;@JsonKey(name: 'total') int get total;
 /// Create a copy of ComicPageResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5088,7 +5088,7 @@ abstract mixin class $ComicPageResultDtoCopyWith<$Res>  {
   factory $ComicPageResultDtoCopyWith(ComicPageResultDto value, $Res Function(ComicPageResultDto) _then) = _$ComicPageResultDtoCopyWithImpl;
 @useResult
 $Res call({
- List<ComicDto> list, int total
+@JsonKey(name: 'list') List<ComicDto> list,@JsonKey(name: 'total') int total
 });
 
 
@@ -5194,7 +5194,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ComicDto> list,  int total)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<ComicDto> list, @JsonKey(name: 'total')  int total)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicPageResultDto() when $default != null:
 return $default(_that.list,_that.total);case _:
@@ -5215,7 +5215,7 @@ return $default(_that.list,_that.total);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ComicDto> list,  int total)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<ComicDto> list, @JsonKey(name: 'total')  int total)  $default,) {final _that = this;
 switch (_that) {
 case _ComicPageResultDto():
 return $default(_that.list,_that.total);case _:
@@ -5235,7 +5235,7 @@ return $default(_that.list,_that.total);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ComicDto> list,  int total)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<ComicDto> list, @JsonKey(name: 'total')  int total)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicPageResultDto() when $default != null:
 return $default(_that.list,_that.total);case _:
@@ -5250,17 +5250,17 @@ return $default(_that.list,_that.total);case _:
 @JsonSerializable()
 
 class _ComicPageResultDto implements ComicPageResultDto {
-  const _ComicPageResultDto({final  List<ComicDto> list = const [], this.total = 0}): _list = list;
+  const _ComicPageResultDto({@JsonKey(name: 'list') final  List<ComicDto> list = const [], @JsonKey(name: 'total') this.total = 0}): _list = list;
   factory _ComicPageResultDto.fromJson(Map<String, dynamic> json) => _$ComicPageResultDtoFromJson(json);
 
  final  List<ComicDto> _list;
-@override@JsonKey() List<ComicDto> get list {
+@override@JsonKey(name: 'list') List<ComicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
+@override@JsonKey(name: 'total') final  int total;
 
 /// Create a copy of ComicPageResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -5295,7 +5295,7 @@ abstract mixin class _$ComicPageResultDtoCopyWith<$Res> implements $ComicPageRes
   factory _$ComicPageResultDtoCopyWith(_ComicPageResultDto value, $Res Function(_ComicPageResultDto) _then) = __$ComicPageResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<ComicDto> list, int total
+@JsonKey(name: 'list') List<ComicDto> list,@JsonKey(name: 'total') int total
 });
 
 
@@ -5327,7 +5327,7 @@ as int,
 /// @nodoc
 mixin _$RankPageResultDto {
 
- List<RankedComicDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'list') List<RankedComicDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of RankPageResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5360,7 +5360,7 @@ abstract mixin class $RankPageResultDtoCopyWith<$Res>  {
   factory $RankPageResultDtoCopyWith(RankPageResultDto value, $Res Function(RankPageResultDto) _then) = _$RankPageResultDtoCopyWithImpl;
 @useResult
 $Res call({
- List<RankedComicDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<RankedComicDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -5468,7 +5468,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<RankedComicDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<RankedComicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RankPageResultDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -5489,7 +5489,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<RankedComicDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<RankedComicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _RankPageResultDto():
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -5509,7 +5509,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<RankedComicDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<RankedComicDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _RankPageResultDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -5524,19 +5524,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _RankPageResultDto implements RankPageResultDto {
-  const _RankPageResultDto({final  List<RankedComicDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _RankPageResultDto({@JsonKey(name: 'list') final  List<RankedComicDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _RankPageResultDto.fromJson(Map<String, dynamic> json) => _$RankPageResultDtoFromJson(json);
 
  final  List<RankedComicDto> _list;
-@override@JsonKey() List<RankedComicDto> get list {
+@override@JsonKey(name: 'list') List<RankedComicDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of RankPageResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -5571,7 +5571,7 @@ abstract mixin class _$RankPageResultDtoCopyWith<$Res> implements $RankPageResul
   factory _$RankPageResultDtoCopyWith(_RankPageResultDto value, $Res Function(_RankPageResultDto) _then) = __$RankPageResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<RankedComicDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<RankedComicDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -5605,7 +5605,7 @@ as int,
 /// @nodoc
 mixin _$ComicInfoResultDto {
 
- bool get isBanned; bool get isLock; bool get isLogin; bool get isMobileBind; bool get isVip; ComicInfoDto get comic; int get popular; Map<String, ChapterGroupDto> get groups;
+@JsonKey(name: 'is_banned') bool get isBanned;@JsonKey(name: 'is_lock') bool get isLock;@JsonKey(name: 'is_login') bool get isLogin;@JsonKey(name: 'is_mobile_bind') bool get isMobileBind;@JsonKey(name: 'is_vip') bool get isVip;@JsonKey(name: 'comic') ComicInfoDto get comic;@JsonKey(name: 'popular') int get popular;@JsonKey(name: 'groups') Map<String, ChapterGroupDto> get groups;
 /// Create a copy of ComicInfoResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5638,7 +5638,7 @@ abstract mixin class $ComicInfoResultDtoCopyWith<$Res>  {
   factory $ComicInfoResultDtoCopyWith(ComicInfoResultDto value, $Res Function(ComicInfoResultDto) _then) = _$ComicInfoResultDtoCopyWithImpl;
 @useResult
 $Res call({
- bool isBanned, bool isLock, bool isLogin, bool isMobileBind, bool isVip, ComicInfoDto comic, int popular, Map<String, ChapterGroupDto> groups
+@JsonKey(name: 'is_banned') bool isBanned,@JsonKey(name: 'is_lock') bool isLock,@JsonKey(name: 'is_login') bool isLogin,@JsonKey(name: 'is_mobile_bind') bool isMobileBind,@JsonKey(name: 'is_vip') bool isVip,@JsonKey(name: 'comic') ComicInfoDto comic,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'groups') Map<String, ChapterGroupDto> groups
 });
 
 
@@ -5759,7 +5759,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isBanned,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ComicInfoDto comic,  int popular,  Map<String, ChapterGroupDto> groups)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_banned')  bool isBanned, @JsonKey(name: 'is_lock')  bool isLock, @JsonKey(name: 'is_login')  bool isLogin, @JsonKey(name: 'is_mobile_bind')  bool isMobileBind, @JsonKey(name: 'is_vip')  bool isVip, @JsonKey(name: 'comic')  ComicInfoDto comic, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'groups')  Map<String, ChapterGroupDto> groups)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicInfoResultDto() when $default != null:
 return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.popular,_that.groups);case _:
@@ -5780,7 +5780,7 @@ return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isBanned,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ComicInfoDto comic,  int popular,  Map<String, ChapterGroupDto> groups)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_banned')  bool isBanned, @JsonKey(name: 'is_lock')  bool isLock, @JsonKey(name: 'is_login')  bool isLogin, @JsonKey(name: 'is_mobile_bind')  bool isMobileBind, @JsonKey(name: 'is_vip')  bool isVip, @JsonKey(name: 'comic')  ComicInfoDto comic, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'groups')  Map<String, ChapterGroupDto> groups)  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoResultDto():
 return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.popular,_that.groups);case _:
@@ -5800,7 +5800,7 @@ return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isBanned,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ComicInfoDto comic,  int popular,  Map<String, ChapterGroupDto> groups)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'is_banned')  bool isBanned, @JsonKey(name: 'is_lock')  bool isLock, @JsonKey(name: 'is_login')  bool isLogin, @JsonKey(name: 'is_mobile_bind')  bool isMobileBind, @JsonKey(name: 'is_vip')  bool isVip, @JsonKey(name: 'comic')  ComicInfoDto comic, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'groups')  Map<String, ChapterGroupDto> groups)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoResultDto() when $default != null:
 return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.popular,_that.groups);case _:
@@ -5812,21 +5812,21 @@ return $default(_that.isBanned,_that.isLock,_that.isLogin,_that.isMobileBind,_th
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicInfoResultDto implements ComicInfoResultDto {
-  const _ComicInfoResultDto({this.isBanned = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, this.comic = const ComicInfoDto(), this.popular = 0, final  Map<String, ChapterGroupDto> groups = const {}}): _groups = groups;
+  const _ComicInfoResultDto({@JsonKey(name: 'is_banned') this.isBanned = false, @JsonKey(name: 'is_lock') this.isLock = false, @JsonKey(name: 'is_login') this.isLogin = false, @JsonKey(name: 'is_mobile_bind') this.isMobileBind = false, @JsonKey(name: 'is_vip') this.isVip = false, @JsonKey(name: 'comic') this.comic = const ComicInfoDto(), @JsonKey(name: 'popular') this.popular = 0, @JsonKey(name: 'groups') final  Map<String, ChapterGroupDto> groups = const {}}): _groups = groups;
   factory _ComicInfoResultDto.fromJson(Map<String, dynamic> json) => _$ComicInfoResultDtoFromJson(json);
 
-@override@JsonKey() final  bool isBanned;
-@override@JsonKey() final  bool isLock;
-@override@JsonKey() final  bool isLogin;
-@override@JsonKey() final  bool isMobileBind;
-@override@JsonKey() final  bool isVip;
-@override@JsonKey() final  ComicInfoDto comic;
-@override@JsonKey() final  int popular;
+@override@JsonKey(name: 'is_banned') final  bool isBanned;
+@override@JsonKey(name: 'is_lock') final  bool isLock;
+@override@JsonKey(name: 'is_login') final  bool isLogin;
+@override@JsonKey(name: 'is_mobile_bind') final  bool isMobileBind;
+@override@JsonKey(name: 'is_vip') final  bool isVip;
+@override@JsonKey(name: 'comic') final  ComicInfoDto comic;
+@override@JsonKey(name: 'popular') final  int popular;
  final  Map<String, ChapterGroupDto> _groups;
-@override@JsonKey() Map<String, ChapterGroupDto> get groups {
+@override@JsonKey(name: 'groups') Map<String, ChapterGroupDto> get groups {
   if (_groups is EqualUnmodifiableMapView) return _groups;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_groups);
@@ -5866,7 +5866,7 @@ abstract mixin class _$ComicInfoResultDtoCopyWith<$Res> implements $ComicInfoRes
   factory _$ComicInfoResultDtoCopyWith(_ComicInfoResultDto value, $Res Function(_ComicInfoResultDto) _then) = __$ComicInfoResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- bool isBanned, bool isLock, bool isLogin, bool isMobileBind, bool isVip, ComicInfoDto comic, int popular, Map<String, ChapterGroupDto> groups
+@JsonKey(name: 'is_banned') bool isBanned,@JsonKey(name: 'is_lock') bool isLock,@JsonKey(name: 'is_login') bool isLogin,@JsonKey(name: 'is_mobile_bind') bool isMobileBind,@JsonKey(name: 'is_vip') bool isVip,@JsonKey(name: 'comic') ComicInfoDto comic,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'groups') Map<String, ChapterGroupDto> groups
 });
 
 
@@ -5913,7 +5913,7 @@ $ComicInfoDtoCopyWith<$Res> get comic {
 /// @nodoc
 mixin _$ComicInfoDto {
 
- String get uuid;@JsonKey(name: 'b_404') bool get b404; bool get bHidden; int get ban; String get name; String get alias; String get pathWord; bool get closeComment; bool get closeRoast; LabeledValueDto get freeType; LabeledValueDto get restrict; LabeledValueDto get reclass; List<NamedPathDto> get females; List<NamedPathDto> get males; List<NamedPathDto> get clubs; String get seoBaidu; LabeledValueDto get region; ComicStatusDto get status;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes; List<NamedPathDto> get parodies; String get brief; String get datetimeUpdated; String get cover; ChapterDto get lastChapter; int get popular; Object get channel;
+@JsonKey(name: 'uuid') String get uuid;@JsonKey(name: 'b_404') bool get b404;@JsonKey(name: 'b_hidden') bool get bHidden;@JsonKey(name: 'ban') int get ban;@JsonKey(name: 'name') String get name;@JsonKey(name: 'alias') String get alias;@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'close_comment') bool get closeComment;@JsonKey(name: 'close_roast') bool get closeRoast;@JsonKey(name: 'free_type') LabeledValueDto get freeType;@JsonKey(name: 'restrict') LabeledValueDto get restrict;@JsonKey(name: 'reclass') LabeledValueDto get reclass;@JsonKey(name: 'females') List<NamedPathDto> get females;@JsonKey(name: 'males') List<NamedPathDto> get males;@JsonKey(name: 'clubs') List<NamedPathDto> get clubs;@JsonKey(name: 'seo_baidu') String get seoBaidu;@JsonKey(name: 'region') LabeledValueDto get region;@JsonKey(name: 'status') ComicStatusDto get status;@JsonKey(name: 'author') List<NamedPathDto> get authors;@JsonKey(name: 'theme') List<NamedPathDto> get themes;@JsonKey(name: 'parodies') List<NamedPathDto> get parodies;@JsonKey(name: 'brief') String get brief;@JsonKey(name: 'datetime_updated') String get datetimeUpdated;@JsonKey(name: 'cover') String get cover;@JsonKey(name: 'last_chapter') ChapterDto get lastChapter;@JsonKey(name: 'popular') int get popular;@JsonKey(name: 'channel') Object get channel;
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5946,7 +5946,7 @@ abstract mixin class $ComicInfoDtoCopyWith<$Res>  {
   factory $ComicInfoDtoCopyWith(ComicInfoDto value, $Res Function(ComicInfoDto) _then) = _$ComicInfoDtoCopyWithImpl;
 @useResult
 $Res call({
- String uuid,@JsonKey(name: 'b_404') bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto freeType, LabeledValueDto restrict, LabeledValueDto reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto region, ComicStatusDto status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto lastChapter, int popular, Object channel
+@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'b_404') bool b404,@JsonKey(name: 'b_hidden') bool bHidden,@JsonKey(name: 'ban') int ban,@JsonKey(name: 'name') String name,@JsonKey(name: 'alias') String alias,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'close_comment') bool closeComment,@JsonKey(name: 'close_roast') bool closeRoast,@JsonKey(name: 'free_type') LabeledValueDto freeType,@JsonKey(name: 'restrict') LabeledValueDto restrict,@JsonKey(name: 'reclass') LabeledValueDto reclass,@JsonKey(name: 'females') List<NamedPathDto> females,@JsonKey(name: 'males') List<NamedPathDto> males,@JsonKey(name: 'clubs') List<NamedPathDto> clubs,@JsonKey(name: 'seo_baidu') String seoBaidu,@JsonKey(name: 'region') LabeledValueDto region,@JsonKey(name: 'status') ComicStatusDto status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes,@JsonKey(name: 'parodies') List<NamedPathDto> parodies,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'datetime_updated') String datetimeUpdated,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'last_chapter') ChapterDto lastChapter,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'channel') Object channel
 });
 
 
@@ -6130,7 +6130,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto freeType,  LabeledValueDto restrict,  LabeledValueDto reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto region,  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto lastChapter,  int popular,  Object channel)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'b_404')  bool b404, @JsonKey(name: 'b_hidden')  bool bHidden, @JsonKey(name: 'ban')  int ban, @JsonKey(name: 'name')  String name, @JsonKey(name: 'alias')  String alias, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'close_comment')  bool closeComment, @JsonKey(name: 'close_roast')  bool closeRoast, @JsonKey(name: 'free_type')  LabeledValueDto freeType, @JsonKey(name: 'restrict')  LabeledValueDto restrict, @JsonKey(name: 'reclass')  LabeledValueDto reclass, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'clubs')  List<NamedPathDto> clubs, @JsonKey(name: 'seo_baidu')  String seoBaidu, @JsonKey(name: 'region')  LabeledValueDto region, @JsonKey(name: 'status')  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'parodies')  List<NamedPathDto> parodies, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'last_chapter')  ChapterDto lastChapter, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'channel')  Object channel)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ComicInfoDto() when $default != null:
 return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
@@ -6151,7 +6151,7 @@ return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto freeType,  LabeledValueDto restrict,  LabeledValueDto reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto region,  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto lastChapter,  int popular,  Object channel)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'b_404')  bool b404, @JsonKey(name: 'b_hidden')  bool bHidden, @JsonKey(name: 'ban')  int ban, @JsonKey(name: 'name')  String name, @JsonKey(name: 'alias')  String alias, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'close_comment')  bool closeComment, @JsonKey(name: 'close_roast')  bool closeRoast, @JsonKey(name: 'free_type')  LabeledValueDto freeType, @JsonKey(name: 'restrict')  LabeledValueDto restrict, @JsonKey(name: 'reclass')  LabeledValueDto reclass, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'clubs')  List<NamedPathDto> clubs, @JsonKey(name: 'seo_baidu')  String seoBaidu, @JsonKey(name: 'region')  LabeledValueDto region, @JsonKey(name: 'status')  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'parodies')  List<NamedPathDto> parodies, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'last_chapter')  ChapterDto lastChapter, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'channel')  Object channel)  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoDto():
 return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
@@ -6171,7 +6171,7 @@ return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uuid, @JsonKey(name: 'b_404')  bool b404,  bool bHidden,  int ban,  String name,  String alias,  String pathWord,  bool closeComment,  bool closeRoast,  LabeledValueDto freeType,  LabeledValueDto restrict,  LabeledValueDto reclass,  List<NamedPathDto> females,  List<NamedPathDto> males,  List<NamedPathDto> clubs,  String seoBaidu,  LabeledValueDto region,  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes,  List<NamedPathDto> parodies,  String brief,  String datetimeUpdated,  String cover,  ChapterDto lastChapter,  int popular,  Object channel)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'b_404')  bool b404, @JsonKey(name: 'b_hidden')  bool bHidden, @JsonKey(name: 'ban')  int ban, @JsonKey(name: 'name')  String name, @JsonKey(name: 'alias')  String alias, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'close_comment')  bool closeComment, @JsonKey(name: 'close_roast')  bool closeRoast, @JsonKey(name: 'free_type')  LabeledValueDto freeType, @JsonKey(name: 'restrict')  LabeledValueDto restrict, @JsonKey(name: 'reclass')  LabeledValueDto reclass, @JsonKey(name: 'females')  List<NamedPathDto> females, @JsonKey(name: 'males')  List<NamedPathDto> males, @JsonKey(name: 'clubs')  List<NamedPathDto> clubs, @JsonKey(name: 'seo_baidu')  String seoBaidu, @JsonKey(name: 'region')  LabeledValueDto region, @JsonKey(name: 'status')  ComicStatusDto status, @JsonKey(name: 'author')  List<NamedPathDto> authors, @JsonKey(name: 'theme')  List<NamedPathDto> themes, @JsonKey(name: 'parodies')  List<NamedPathDto> parodies, @JsonKey(name: 'brief')  String brief, @JsonKey(name: 'datetime_updated')  String datetimeUpdated, @JsonKey(name: 'cover')  String cover, @JsonKey(name: 'last_chapter')  ChapterDto lastChapter, @JsonKey(name: 'popular')  int popular, @JsonKey(name: 'channel')  Object channel)?  $default,) {final _that = this;
 switch (_that) {
 case _ComicInfoDto() when $default != null:
 return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.alias,_that.pathWord,_that.closeComment,_that.closeRoast,_that.freeType,_that.restrict,_that.reclass,_that.females,_that.males,_that.clubs,_that.seoBaidu,_that.region,_that.status,_that.authors,_that.themes,_that.parodies,_that.brief,_that.datetimeUpdated,_that.cover,_that.lastChapter,_that.popular,_that.channel);case _:
@@ -6183,48 +6183,48 @@ return $default(_that.uuid,_that.b404,_that.bHidden,_that.ban,_that.name,_that.a
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ComicInfoDto implements ComicInfoDto {
-  const _ComicInfoDto({this.uuid = '', @JsonKey(name: 'b_404') this.b404 = false, this.bHidden = false, this.ban = 0, this.name = '', this.alias = '', this.pathWord = '', this.closeComment = false, this.closeRoast = false, this.freeType = const LabeledValueDto(), this.restrict = const LabeledValueDto(), this.reclass = const LabeledValueDto(), final  List<NamedPathDto> females = const [], final  List<NamedPathDto> males = const [], final  List<NamedPathDto> clubs = const [], this.seoBaidu = '', this.region = const LabeledValueDto(), this.status = const ComicStatusDto(), @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], final  List<NamedPathDto> parodies = const [], this.brief = '', this.datetimeUpdated = '', this.cover = '', this.lastChapter = const ChapterDto(), this.popular = 0, this.channel = ''}): _females = females,_males = males,_clubs = clubs,_authors = authors,_themes = themes,_parodies = parodies;
+  const _ComicInfoDto({@JsonKey(name: 'uuid') this.uuid = '', @JsonKey(name: 'b_404') this.b404 = false, @JsonKey(name: 'b_hidden') this.bHidden = false, @JsonKey(name: 'ban') this.ban = 0, @JsonKey(name: 'name') this.name = '', @JsonKey(name: 'alias') this.alias = '', @JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'close_comment') this.closeComment = false, @JsonKey(name: 'close_roast') this.closeRoast = false, @JsonKey(name: 'free_type') this.freeType = const LabeledValueDto(), @JsonKey(name: 'restrict') this.restrict = const LabeledValueDto(), @JsonKey(name: 'reclass') this.reclass = const LabeledValueDto(), @JsonKey(name: 'females') final  List<NamedPathDto> females = const [], @JsonKey(name: 'males') final  List<NamedPathDto> males = const [], @JsonKey(name: 'clubs') final  List<NamedPathDto> clubs = const [], @JsonKey(name: 'seo_baidu') this.seoBaidu = '', @JsonKey(name: 'region') this.region = const LabeledValueDto(), @JsonKey(name: 'status') this.status = const ComicStatusDto(), @JsonKey(name: 'author') final  List<NamedPathDto> authors = const [], @JsonKey(name: 'theme') final  List<NamedPathDto> themes = const [], @JsonKey(name: 'parodies') final  List<NamedPathDto> parodies = const [], @JsonKey(name: 'brief') this.brief = '', @JsonKey(name: 'datetime_updated') this.datetimeUpdated = '', @JsonKey(name: 'cover') this.cover = '', @JsonKey(name: 'last_chapter') this.lastChapter = const ChapterDto(), @JsonKey(name: 'popular') this.popular = 0, @JsonKey(name: 'channel') this.channel = ''}): _females = females,_males = males,_clubs = clubs,_authors = authors,_themes = themes,_parodies = parodies;
   factory _ComicInfoDto.fromJson(Map<String, dynamic> json) => _$ComicInfoDtoFromJson(json);
 
-@override@JsonKey() final  String uuid;
+@override@JsonKey(name: 'uuid') final  String uuid;
 @override@JsonKey(name: 'b_404') final  bool b404;
-@override@JsonKey() final  bool bHidden;
-@override@JsonKey() final  int ban;
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String alias;
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  bool closeComment;
-@override@JsonKey() final  bool closeRoast;
-@override@JsonKey() final  LabeledValueDto freeType;
-@override@JsonKey() final  LabeledValueDto restrict;
-@override@JsonKey() final  LabeledValueDto reclass;
+@override@JsonKey(name: 'b_hidden') final  bool bHidden;
+@override@JsonKey(name: 'ban') final  int ban;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'alias') final  String alias;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'close_comment') final  bool closeComment;
+@override@JsonKey(name: 'close_roast') final  bool closeRoast;
+@override@JsonKey(name: 'free_type') final  LabeledValueDto freeType;
+@override@JsonKey(name: 'restrict') final  LabeledValueDto restrict;
+@override@JsonKey(name: 'reclass') final  LabeledValueDto reclass;
  final  List<NamedPathDto> _females;
-@override@JsonKey() List<NamedPathDto> get females {
+@override@JsonKey(name: 'females') List<NamedPathDto> get females {
   if (_females is EqualUnmodifiableListView) return _females;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_females);
 }
 
  final  List<NamedPathDto> _males;
-@override@JsonKey() List<NamedPathDto> get males {
+@override@JsonKey(name: 'males') List<NamedPathDto> get males {
   if (_males is EqualUnmodifiableListView) return _males;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_males);
 }
 
  final  List<NamedPathDto> _clubs;
-@override@JsonKey() List<NamedPathDto> get clubs {
+@override@JsonKey(name: 'clubs') List<NamedPathDto> get clubs {
   if (_clubs is EqualUnmodifiableListView) return _clubs;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_clubs);
 }
 
-@override@JsonKey() final  String seoBaidu;
-@override@JsonKey() final  LabeledValueDto region;
-@override@JsonKey() final  ComicStatusDto status;
+@override@JsonKey(name: 'seo_baidu') final  String seoBaidu;
+@override@JsonKey(name: 'region') final  LabeledValueDto region;
+@override@JsonKey(name: 'status') final  ComicStatusDto status;
  final  List<NamedPathDto> _authors;
 @override@JsonKey(name: 'author') List<NamedPathDto> get authors {
   if (_authors is EqualUnmodifiableListView) return _authors;
@@ -6240,18 +6240,18 @@ class _ComicInfoDto implements ComicInfoDto {
 }
 
  final  List<NamedPathDto> _parodies;
-@override@JsonKey() List<NamedPathDto> get parodies {
+@override@JsonKey(name: 'parodies') List<NamedPathDto> get parodies {
   if (_parodies is EqualUnmodifiableListView) return _parodies;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_parodies);
 }
 
-@override@JsonKey() final  String brief;
-@override@JsonKey() final  String datetimeUpdated;
-@override@JsonKey() final  String cover;
-@override@JsonKey() final  ChapterDto lastChapter;
-@override@JsonKey() final  int popular;
-@override@JsonKey() final  Object channel;
+@override@JsonKey(name: 'brief') final  String brief;
+@override@JsonKey(name: 'datetime_updated') final  String datetimeUpdated;
+@override@JsonKey(name: 'cover') final  String cover;
+@override@JsonKey(name: 'last_chapter') final  ChapterDto lastChapter;
+@override@JsonKey(name: 'popular') final  int popular;
+@override@JsonKey(name: 'channel') final  Object channel;
 
 /// Create a copy of ComicInfoDto
 /// with the given fields replaced by the non-null parameter values.
@@ -6286,7 +6286,7 @@ abstract mixin class _$ComicInfoDtoCopyWith<$Res> implements $ComicInfoDtoCopyWi
   factory _$ComicInfoDtoCopyWith(_ComicInfoDto value, $Res Function(_ComicInfoDto) _then) = __$ComicInfoDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String uuid,@JsonKey(name: 'b_404') bool b404, bool bHidden, int ban, String name, String alias, String pathWord, bool closeComment, bool closeRoast, LabeledValueDto freeType, LabeledValueDto restrict, LabeledValueDto reclass, List<NamedPathDto> females, List<NamedPathDto> males, List<NamedPathDto> clubs, String seoBaidu, LabeledValueDto region, ComicStatusDto status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes, List<NamedPathDto> parodies, String brief, String datetimeUpdated, String cover, ChapterDto lastChapter, int popular, Object channel
+@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'b_404') bool b404,@JsonKey(name: 'b_hidden') bool bHidden,@JsonKey(name: 'ban') int ban,@JsonKey(name: 'name') String name,@JsonKey(name: 'alias') String alias,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'close_comment') bool closeComment,@JsonKey(name: 'close_roast') bool closeRoast,@JsonKey(name: 'free_type') LabeledValueDto freeType,@JsonKey(name: 'restrict') LabeledValueDto restrict,@JsonKey(name: 'reclass') LabeledValueDto reclass,@JsonKey(name: 'females') List<NamedPathDto> females,@JsonKey(name: 'males') List<NamedPathDto> males,@JsonKey(name: 'clubs') List<NamedPathDto> clubs,@JsonKey(name: 'seo_baidu') String seoBaidu,@JsonKey(name: 'region') LabeledValueDto region,@JsonKey(name: 'status') ComicStatusDto status,@JsonKey(name: 'author') List<NamedPathDto> authors,@JsonKey(name: 'theme') List<NamedPathDto> themes,@JsonKey(name: 'parodies') List<NamedPathDto> parodies,@JsonKey(name: 'brief') String brief,@JsonKey(name: 'datetime_updated') String datetimeUpdated,@JsonKey(name: 'cover') String cover,@JsonKey(name: 'last_chapter') ChapterDto lastChapter,@JsonKey(name: 'popular') int popular,@JsonKey(name: 'channel') Object channel
 });
 
 
@@ -6396,7 +6396,7 @@ $ChapterDtoCopyWith<$Res> get lastChapter {
 /// @nodoc
 mixin _$LabeledValueDto {
 
- int get value; String get display;
+@JsonKey(name: 'value') int get value;@JsonKey(name: 'display') String get display;
 /// Create a copy of LabeledValueDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6429,7 +6429,7 @@ abstract mixin class $LabeledValueDtoCopyWith<$Res>  {
   factory $LabeledValueDtoCopyWith(LabeledValueDto value, $Res Function(LabeledValueDto) _then) = _$LabeledValueDtoCopyWithImpl;
 @useResult
 $Res call({
- int value, String display
+@JsonKey(name: 'value') int value,@JsonKey(name: 'display') String display
 });
 
 
@@ -6535,7 +6535,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int value,  String display)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'value')  int value, @JsonKey(name: 'display')  String display)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LabeledValueDto() when $default != null:
 return $default(_that.value,_that.display);case _:
@@ -6556,7 +6556,7 @@ return $default(_that.value,_that.display);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int value,  String display)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'value')  int value, @JsonKey(name: 'display')  String display)  $default,) {final _that = this;
 switch (_that) {
 case _LabeledValueDto():
 return $default(_that.value,_that.display);case _:
@@ -6576,7 +6576,7 @@ return $default(_that.value,_that.display);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int value,  String display)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'value')  int value, @JsonKey(name: 'display')  String display)?  $default,) {final _that = this;
 switch (_that) {
 case _LabeledValueDto() when $default != null:
 return $default(_that.value,_that.display);case _:
@@ -6591,11 +6591,11 @@ return $default(_that.value,_that.display);case _:
 @JsonSerializable()
 
 class _LabeledValueDto implements LabeledValueDto {
-  const _LabeledValueDto({this.value = 0, this.display = ''});
+  const _LabeledValueDto({@JsonKey(name: 'value') this.value = 0, @JsonKey(name: 'display') this.display = ''});
   factory _LabeledValueDto.fromJson(Map<String, dynamic> json) => _$LabeledValueDtoFromJson(json);
 
-@override@JsonKey() final  int value;
-@override@JsonKey() final  String display;
+@override@JsonKey(name: 'value') final  int value;
+@override@JsonKey(name: 'display') final  String display;
 
 /// Create a copy of LabeledValueDto
 /// with the given fields replaced by the non-null parameter values.
@@ -6630,7 +6630,7 @@ abstract mixin class _$LabeledValueDtoCopyWith<$Res> implements $LabeledValueDto
   factory _$LabeledValueDtoCopyWith(_LabeledValueDto value, $Res Function(_LabeledValueDto) _then) = __$LabeledValueDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int value, String display
+@JsonKey(name: 'value') int value,@JsonKey(name: 'display') String display
 });
 
 
@@ -6662,7 +6662,7 @@ as String,
 /// @nodoc
 mixin _$ChapterGroupDto {
 
- String get name; String get pathWord; int get count;
+@JsonKey(name: 'name') String get name;@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'count') int get count;
 /// Create a copy of ChapterGroupDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6695,7 +6695,7 @@ abstract mixin class $ChapterGroupDtoCopyWith<$Res>  {
   factory $ChapterGroupDtoCopyWith(ChapterGroupDto value, $Res Function(ChapterGroupDto) _then) = _$ChapterGroupDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String pathWord, int count
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'count') int count
 });
 
 
@@ -6802,7 +6802,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String pathWord,  int count)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'count')  int count)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterGroupDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.count);case _:
@@ -6823,7 +6823,7 @@ return $default(_that.name,_that.pathWord,_that.count);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String pathWord,  int count)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'count')  int count)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterGroupDto():
 return $default(_that.name,_that.pathWord,_that.count);case _:
@@ -6843,7 +6843,7 @@ return $default(_that.name,_that.pathWord,_that.count);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String pathWord,  int count)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'count')  int count)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterGroupDto() when $default != null:
 return $default(_that.name,_that.pathWord,_that.count);case _:
@@ -6855,15 +6855,15 @@ return $default(_that.name,_that.pathWord,_that.count);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterGroupDto implements ChapterGroupDto {
-  const _ChapterGroupDto({this.name = '', this.pathWord = '', this.count = 0});
+  const _ChapterGroupDto({@JsonKey(name: 'name') this.name = '', @JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'count') this.count = 0});
   factory _ChapterGroupDto.fromJson(Map<String, dynamic> json) => _$ChapterGroupDtoFromJson(json);
 
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  int count;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'count') final  int count;
 
 /// Create a copy of ChapterGroupDto
 /// with the given fields replaced by the non-null parameter values.
@@ -6898,7 +6898,7 @@ abstract mixin class _$ChapterGroupDtoCopyWith<$Res> implements $ChapterGroupDto
   factory _$ChapterGroupDtoCopyWith(_ChapterGroupDto value, $Res Function(_ChapterGroupDto) _then) = __$ChapterGroupDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String pathWord, int count
+@JsonKey(name: 'name') String name,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'count') int count
 });
 
 
@@ -6931,7 +6931,7 @@ as int,
 /// @nodoc
 mixin _$ChapterListResultDto {
 
- List<ChapterDto> get list; int get total; int get limit; int get offset;
+@JsonKey(name: 'list') List<ChapterDto> get list;@JsonKey(name: 'total') int get total;@JsonKey(name: 'limit') int get limit;@JsonKey(name: 'offset') int get offset;
 /// Create a copy of ChapterListResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6964,7 +6964,7 @@ abstract mixin class $ChapterListResultDtoCopyWith<$Res>  {
   factory $ChapterListResultDtoCopyWith(ChapterListResultDto value, $Res Function(ChapterListResultDto) _then) = _$ChapterListResultDtoCopyWithImpl;
 @useResult
 $Res call({
- List<ChapterDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<ChapterDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -7072,7 +7072,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ChapterDto> list,  int total,  int limit,  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<ChapterDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterListResultDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -7093,7 +7093,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ChapterDto> list,  int total,  int limit,  int offset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<ChapterDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterListResultDto():
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -7113,7 +7113,7 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ChapterDto> list,  int total,  int limit,  int offset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<ChapterDto> list, @JsonKey(name: 'total')  int total, @JsonKey(name: 'limit')  int limit, @JsonKey(name: 'offset')  int offset)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterListResultDto() when $default != null:
 return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
@@ -7128,19 +7128,19 @@ return $default(_that.list,_that.total,_that.limit,_that.offset);case _:
 @JsonSerializable()
 
 class _ChapterListResultDto implements ChapterListResultDto {
-  const _ChapterListResultDto({final  List<ChapterDto> list = const [], this.total = 0, this.limit = 0, this.offset = 0}): _list = list;
+  const _ChapterListResultDto({@JsonKey(name: 'list') final  List<ChapterDto> list = const [], @JsonKey(name: 'total') this.total = 0, @JsonKey(name: 'limit') this.limit = 0, @JsonKey(name: 'offset') this.offset = 0}): _list = list;
   factory _ChapterListResultDto.fromJson(Map<String, dynamic> json) => _$ChapterListResultDtoFromJson(json);
 
  final  List<ChapterDto> _list;
-@override@JsonKey() List<ChapterDto> get list {
+@override@JsonKey(name: 'list') List<ChapterDto> get list {
   if (_list is EqualUnmodifiableListView) return _list;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_list);
 }
 
-@override@JsonKey() final  int total;
-@override@JsonKey() final  int limit;
-@override@JsonKey() final  int offset;
+@override@JsonKey(name: 'total') final  int total;
+@override@JsonKey(name: 'limit') final  int limit;
+@override@JsonKey(name: 'offset') final  int offset;
 
 /// Create a copy of ChapterListResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -7175,7 +7175,7 @@ abstract mixin class _$ChapterListResultDtoCopyWith<$Res> implements $ChapterLis
   factory _$ChapterListResultDtoCopyWith(_ChapterListResultDto value, $Res Function(_ChapterListResultDto) _then) = __$ChapterListResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- List<ChapterDto> list, int total, int limit, int offset
+@JsonKey(name: 'list') List<ChapterDto> list,@JsonKey(name: 'total') int total,@JsonKey(name: 'limit') int limit,@JsonKey(name: 'offset') int offset
 });
 
 
@@ -7209,7 +7209,7 @@ as int,
 /// @nodoc
 mixin _$ChapterDto {
 
- int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String get prev; String get next;
+@JsonKey(name: 'index') int get index;@JsonKey(name: 'uuid') String get uuid;@JsonKey(name: 'count') int get count;@JsonKey(name: 'ordered') int get ordered;@JsonKey(name: 'size') int get size;@JsonKey(name: 'name') String get name;@JsonKey(name: 'comic_id') String get comicId;@JsonKey(name: 'comic_path_word') String get comicPathWord;@JsonKey(name: 'group_id') String get groupId;@JsonKey(name: 'group_path_word') String get groupPathWord;@JsonKey(name: 'type') int get type;@JsonKey(name: 'news') String get news;@JsonKey(name: 'datetime_created') String get datetimeCreated;@JsonKey(name: 'prev') String get prev;@JsonKey(name: 'next') String get next;
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -7242,7 +7242,7 @@ abstract mixin class $ChapterDtoCopyWith<$Res>  {
   factory $ChapterDtoCopyWith(ChapterDto value, $Res Function(ChapterDto) _then) = _$ChapterDtoCopyWithImpl;
 @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next
+@JsonKey(name: 'index') int index,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'count') int count,@JsonKey(name: 'ordered') int ordered,@JsonKey(name: 'size') int size,@JsonKey(name: 'name') String name,@JsonKey(name: 'comic_id') String comicId,@JsonKey(name: 'comic_path_word') String comicPathWord,@JsonKey(name: 'group_id') String groupId,@JsonKey(name: 'group_path_word') String groupPathWord,@JsonKey(name: 'type') int type,@JsonKey(name: 'news') String news,@JsonKey(name: 'datetime_created') String datetimeCreated,@JsonKey(name: 'prev') String prev,@JsonKey(name: 'next') String next
 });
 
 
@@ -7361,7 +7361,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'index')  int index, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'count')  int count, @JsonKey(name: 'ordered')  int ordered, @JsonKey(name: 'size')  int size, @JsonKey(name: 'name')  String name, @JsonKey(name: 'comic_id')  String comicId, @JsonKey(name: 'comic_path_word')  String comicPathWord, @JsonKey(name: 'group_id')  String groupId, @JsonKey(name: 'group_path_word')  String groupPathWord, @JsonKey(name: 'type')  int type, @JsonKey(name: 'news')  String news, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'prev')  String prev, @JsonKey(name: 'next')  String next)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
@@ -7382,7 +7382,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'index')  int index, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'count')  int count, @JsonKey(name: 'ordered')  int ordered, @JsonKey(name: 'size')  int size, @JsonKey(name: 'name')  String name, @JsonKey(name: 'comic_id')  String comicId, @JsonKey(name: 'comic_path_word')  String comicPathWord, @JsonKey(name: 'group_id')  String groupId, @JsonKey(name: 'group_path_word')  String groupPathWord, @JsonKey(name: 'type')  int type, @JsonKey(name: 'news')  String news, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'prev')  String prev, @JsonKey(name: 'next')  String next)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterDto():
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
@@ -7402,7 +7402,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'index')  int index, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'count')  int count, @JsonKey(name: 'ordered')  int ordered, @JsonKey(name: 'size')  int size, @JsonKey(name: 'name')  String name, @JsonKey(name: 'comic_id')  String comicId, @JsonKey(name: 'comic_path_word')  String comicPathWord, @JsonKey(name: 'group_id')  String groupId, @JsonKey(name: 'group_path_word')  String groupPathWord, @JsonKey(name: 'type')  int type, @JsonKey(name: 'news')  String news, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'prev')  String prev, @JsonKey(name: 'next')  String next)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next);case _:
@@ -7414,27 +7414,27 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterDto implements ChapterDto {
-  const _ChapterDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId = '', this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev = '', this.next = ''});
+  const _ChapterDto({@JsonKey(name: 'index') this.index = 0, @JsonKey(name: 'uuid') this.uuid = '', @JsonKey(name: 'count') this.count = 0, @JsonKey(name: 'ordered') this.ordered = 0, @JsonKey(name: 'size') this.size = 0, @JsonKey(name: 'name') this.name = '', @JsonKey(name: 'comic_id') this.comicId = '', @JsonKey(name: 'comic_path_word') this.comicPathWord = '', @JsonKey(name: 'group_id') this.groupId = '', @JsonKey(name: 'group_path_word') this.groupPathWord = '', @JsonKey(name: 'type') this.type = 0, @JsonKey(name: 'news') this.news = '', @JsonKey(name: 'datetime_created') this.datetimeCreated = '', @JsonKey(name: 'prev') this.prev = '', @JsonKey(name: 'next') this.next = ''});
   factory _ChapterDto.fromJson(Map<String, dynamic> json) => _$ChapterDtoFromJson(json);
 
-@override@JsonKey() final  int index;
-@override@JsonKey() final  String uuid;
-@override@JsonKey() final  int count;
-@override@JsonKey() final  int ordered;
-@override@JsonKey() final  int size;
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String comicId;
-@override@JsonKey() final  String comicPathWord;
-@override@JsonKey() final  String groupId;
-@override@JsonKey() final  String groupPathWord;
-@override@JsonKey() final  int type;
-@override@JsonKey() final  String news;
-@override@JsonKey() final  String datetimeCreated;
-@override@JsonKey() final  String prev;
-@override@JsonKey() final  String next;
+@override@JsonKey(name: 'index') final  int index;
+@override@JsonKey(name: 'uuid') final  String uuid;
+@override@JsonKey(name: 'count') final  int count;
+@override@JsonKey(name: 'ordered') final  int ordered;
+@override@JsonKey(name: 'size') final  int size;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'comic_id') final  String comicId;
+@override@JsonKey(name: 'comic_path_word') final  String comicPathWord;
+@override@JsonKey(name: 'group_id') final  String groupId;
+@override@JsonKey(name: 'group_path_word') final  String groupPathWord;
+@override@JsonKey(name: 'type') final  int type;
+@override@JsonKey(name: 'news') final  String news;
+@override@JsonKey(name: 'datetime_created') final  String datetimeCreated;
+@override@JsonKey(name: 'prev') final  String prev;
+@override@JsonKey(name: 'next') final  String next;
 
 /// Create a copy of ChapterDto
 /// with the given fields replaced by the non-null parameter values.
@@ -7469,7 +7469,7 @@ abstract mixin class _$ChapterDtoCopyWith<$Res> implements $ChapterDtoCopyWith<$
   factory _$ChapterDtoCopyWith(_ChapterDto value, $Res Function(_ChapterDto) _then) = __$ChapterDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next
+@JsonKey(name: 'index') int index,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'count') int count,@JsonKey(name: 'ordered') int ordered,@JsonKey(name: 'size') int size,@JsonKey(name: 'name') String name,@JsonKey(name: 'comic_id') String comicId,@JsonKey(name: 'comic_path_word') String comicPathWord,@JsonKey(name: 'group_id') String groupId,@JsonKey(name: 'group_path_word') String groupPathWord,@JsonKey(name: 'type') int type,@JsonKey(name: 'news') String news,@JsonKey(name: 'datetime_created') String datetimeCreated,@JsonKey(name: 'prev') String prev,@JsonKey(name: 'next') String next
 });
 
 
@@ -7514,7 +7514,7 @@ as String,
 /// @nodoc
 mixin _$ChapterContentResultDto {
 
- bool get showApp; bool get isLock; bool get isLogin; bool get isMobileBind; bool get isVip; ChapterComicDto get comic; ChapterContentDto get chapter; bool get isBanned;
+@JsonKey(name: 'show_app') bool get showApp;@JsonKey(name: 'is_lock') bool get isLock;@JsonKey(name: 'is_login') bool get isLogin;@JsonKey(name: 'is_mobile_bind') bool get isMobileBind;@JsonKey(name: 'is_vip') bool get isVip;@JsonKey(name: 'comic') ChapterComicDto get comic;@JsonKey(name: 'chapter') ChapterContentDto get chapter;@JsonKey(name: 'is_banned') bool get isBanned;
 /// Create a copy of ChapterContentResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -7547,7 +7547,7 @@ abstract mixin class $ChapterContentResultDtoCopyWith<$Res>  {
   factory $ChapterContentResultDtoCopyWith(ChapterContentResultDto value, $Res Function(ChapterContentResultDto) _then) = _$ChapterContentResultDtoCopyWithImpl;
 @useResult
 $Res call({
- bool showApp, bool isLock, bool isLogin, bool isMobileBind, bool isVip, ChapterComicDto comic, ChapterContentDto chapter, bool isBanned
+@JsonKey(name: 'show_app') bool showApp,@JsonKey(name: 'is_lock') bool isLock,@JsonKey(name: 'is_login') bool isLogin,@JsonKey(name: 'is_mobile_bind') bool isMobileBind,@JsonKey(name: 'is_vip') bool isVip,@JsonKey(name: 'comic') ChapterComicDto comic,@JsonKey(name: 'chapter') ChapterContentDto chapter,@JsonKey(name: 'is_banned') bool isBanned
 });
 
 
@@ -7677,7 +7677,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool showApp,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ChapterComicDto comic,  ChapterContentDto chapter,  bool isBanned)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'show_app')  bool showApp, @JsonKey(name: 'is_lock')  bool isLock, @JsonKey(name: 'is_login')  bool isLogin, @JsonKey(name: 'is_mobile_bind')  bool isMobileBind, @JsonKey(name: 'is_vip')  bool isVip, @JsonKey(name: 'comic')  ChapterComicDto comic, @JsonKey(name: 'chapter')  ChapterContentDto chapter, @JsonKey(name: 'is_banned')  bool isBanned)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterContentResultDto() when $default != null:
 return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.chapter,_that.isBanned);case _:
@@ -7698,7 +7698,7 @@ return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool showApp,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ChapterComicDto comic,  ChapterContentDto chapter,  bool isBanned)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'show_app')  bool showApp, @JsonKey(name: 'is_lock')  bool isLock, @JsonKey(name: 'is_login')  bool isLogin, @JsonKey(name: 'is_mobile_bind')  bool isMobileBind, @JsonKey(name: 'is_vip')  bool isVip, @JsonKey(name: 'comic')  ChapterComicDto comic, @JsonKey(name: 'chapter')  ChapterContentDto chapter, @JsonKey(name: 'is_banned')  bool isBanned)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterContentResultDto():
 return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.chapter,_that.isBanned);case _:
@@ -7718,7 +7718,7 @@ return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool showApp,  bool isLock,  bool isLogin,  bool isMobileBind,  bool isVip,  ChapterComicDto comic,  ChapterContentDto chapter,  bool isBanned)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'show_app')  bool showApp, @JsonKey(name: 'is_lock')  bool isLock, @JsonKey(name: 'is_login')  bool isLogin, @JsonKey(name: 'is_mobile_bind')  bool isMobileBind, @JsonKey(name: 'is_vip')  bool isVip, @JsonKey(name: 'comic')  ChapterComicDto comic, @JsonKey(name: 'chapter')  ChapterContentDto chapter, @JsonKey(name: 'is_banned')  bool isBanned)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterContentResultDto() when $default != null:
 return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_that.isVip,_that.comic,_that.chapter,_that.isBanned);case _:
@@ -7730,20 +7730,20 @@ return $default(_that.showApp,_that.isLock,_that.isLogin,_that.isMobileBind,_tha
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterContentResultDto implements ChapterContentResultDto {
-  const _ChapterContentResultDto({this.showApp = false, this.isLock = false, this.isLogin = false, this.isMobileBind = false, this.isVip = false, this.comic = const ChapterComicDto(), this.chapter = const ChapterContentDto(), this.isBanned = false});
+  const _ChapterContentResultDto({@JsonKey(name: 'show_app') this.showApp = false, @JsonKey(name: 'is_lock') this.isLock = false, @JsonKey(name: 'is_login') this.isLogin = false, @JsonKey(name: 'is_mobile_bind') this.isMobileBind = false, @JsonKey(name: 'is_vip') this.isVip = false, @JsonKey(name: 'comic') this.comic = const ChapterComicDto(), @JsonKey(name: 'chapter') this.chapter = const ChapterContentDto(), @JsonKey(name: 'is_banned') this.isBanned = false});
   factory _ChapterContentResultDto.fromJson(Map<String, dynamic> json) => _$ChapterContentResultDtoFromJson(json);
 
-@override@JsonKey() final  bool showApp;
-@override@JsonKey() final  bool isLock;
-@override@JsonKey() final  bool isLogin;
-@override@JsonKey() final  bool isMobileBind;
-@override@JsonKey() final  bool isVip;
-@override@JsonKey() final  ChapterComicDto comic;
-@override@JsonKey() final  ChapterContentDto chapter;
-@override@JsonKey() final  bool isBanned;
+@override@JsonKey(name: 'show_app') final  bool showApp;
+@override@JsonKey(name: 'is_lock') final  bool isLock;
+@override@JsonKey(name: 'is_login') final  bool isLogin;
+@override@JsonKey(name: 'is_mobile_bind') final  bool isMobileBind;
+@override@JsonKey(name: 'is_vip') final  bool isVip;
+@override@JsonKey(name: 'comic') final  ChapterComicDto comic;
+@override@JsonKey(name: 'chapter') final  ChapterContentDto chapter;
+@override@JsonKey(name: 'is_banned') final  bool isBanned;
 
 /// Create a copy of ChapterContentResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -7778,7 +7778,7 @@ abstract mixin class _$ChapterContentResultDtoCopyWith<$Res> implements $Chapter
   factory _$ChapterContentResultDtoCopyWith(_ChapterContentResultDto value, $Res Function(_ChapterContentResultDto) _then) = __$ChapterContentResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- bool showApp, bool isLock, bool isLogin, bool isMobileBind, bool isVip, ChapterComicDto comic, ChapterContentDto chapter, bool isBanned
+@JsonKey(name: 'show_app') bool showApp,@JsonKey(name: 'is_lock') bool isLock,@JsonKey(name: 'is_login') bool isLogin,@JsonKey(name: 'is_mobile_bind') bool isMobileBind,@JsonKey(name: 'is_vip') bool isVip,@JsonKey(name: 'comic') ChapterComicDto comic,@JsonKey(name: 'chapter') ChapterContentDto chapter,@JsonKey(name: 'is_banned') bool isBanned
 });
 
 
@@ -7834,7 +7834,7 @@ $ChapterContentDtoCopyWith<$Res> get chapter {
 /// @nodoc
 mixin _$ChapterComicDto {
 
- String get name; String get uuid; String get pathWord; LabeledValueDto get restrict;
+@JsonKey(name: 'name') String get name;@JsonKey(name: 'uuid') String get uuid;@JsonKey(name: 'path_word') String get pathWord;@JsonKey(name: 'restrict') LabeledValueDto get restrict;
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -7867,7 +7867,7 @@ abstract mixin class $ChapterComicDtoCopyWith<$Res>  {
   factory $ChapterComicDtoCopyWith(ChapterComicDto value, $Res Function(ChapterComicDto) _then) = _$ChapterComicDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String uuid, String pathWord, LabeledValueDto restrict
+@JsonKey(name: 'name') String name,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'restrict') LabeledValueDto restrict
 });
 
 
@@ -7984,7 +7984,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String uuid,  String pathWord,  LabeledValueDto restrict)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'restrict')  LabeledValueDto restrict)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterComicDto() when $default != null:
 return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
@@ -8005,7 +8005,7 @@ return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String uuid,  String pathWord,  LabeledValueDto restrict)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'restrict')  LabeledValueDto restrict)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterComicDto():
 return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
@@ -8025,7 +8025,7 @@ return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String uuid,  String pathWord,  LabeledValueDto restrict)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'name')  String name, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'path_word')  String pathWord, @JsonKey(name: 'restrict')  LabeledValueDto restrict)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterComicDto() when $default != null:
 return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
@@ -8037,16 +8037,16 @@ return $default(_that.name,_that.uuid,_that.pathWord,_that.restrict);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterComicDto implements ChapterComicDto {
-  const _ChapterComicDto({this.name = '', this.uuid = '', this.pathWord = '', this.restrict = const LabeledValueDto()});
+  const _ChapterComicDto({@JsonKey(name: 'name') this.name = '', @JsonKey(name: 'uuid') this.uuid = '', @JsonKey(name: 'path_word') this.pathWord = '', @JsonKey(name: 'restrict') this.restrict = const LabeledValueDto()});
   factory _ChapterComicDto.fromJson(Map<String, dynamic> json) => _$ChapterComicDtoFromJson(json);
 
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String uuid;
-@override@JsonKey() final  String pathWord;
-@override@JsonKey() final  LabeledValueDto restrict;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'uuid') final  String uuid;
+@override@JsonKey(name: 'path_word') final  String pathWord;
+@override@JsonKey(name: 'restrict') final  LabeledValueDto restrict;
 
 /// Create a copy of ChapterComicDto
 /// with the given fields replaced by the non-null parameter values.
@@ -8081,7 +8081,7 @@ abstract mixin class _$ChapterComicDtoCopyWith<$Res> implements $ChapterComicDto
   factory _$ChapterComicDtoCopyWith(_ChapterComicDto value, $Res Function(_ChapterComicDto) _then) = __$ChapterComicDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String uuid, String pathWord, LabeledValueDto restrict
+@JsonKey(name: 'name') String name,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'path_word') String pathWord,@JsonKey(name: 'restrict') LabeledValueDto restrict
 });
 
 
@@ -8124,7 +8124,7 @@ $LabeledValueDtoCopyWith<$Res> get restrict {
 /// @nodoc
 mixin _$ChapterContentDto {
 
- int get index; String get uuid; int get count; int get ordered; int get size; String get name; String get comicId; String get comicPathWord; String get groupId; String get groupPathWord; int get type; String get news; String get datetimeCreated; String get prev; String get next; List<ChapterImageDto> get contents; List<int> get words; bool get isLong;
+@JsonKey(name: 'index') int get index;@JsonKey(name: 'uuid') String get uuid;@JsonKey(name: 'count') int get count;@JsonKey(name: 'ordered') int get ordered;@JsonKey(name: 'size') int get size;@JsonKey(name: 'name') String get name;@JsonKey(name: 'comic_id') String get comicId;@JsonKey(name: 'comic_path_word') String get comicPathWord;@JsonKey(name: 'group_id') String get groupId;@JsonKey(name: 'group_path_word') String get groupPathWord;@JsonKey(name: 'type') int get type;@JsonKey(name: 'news') String get news;@JsonKey(name: 'datetime_created') String get datetimeCreated;@JsonKey(name: 'prev') String get prev;@JsonKey(name: 'next') String get next;@JsonKey(name: 'contents') List<ChapterImageDto> get contents;@JsonKey(name: 'words') List<int> get words;@JsonKey(name: 'is_long') bool get isLong;
 /// Create a copy of ChapterContentDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -8157,7 +8157,7 @@ abstract mixin class $ChapterContentDtoCopyWith<$Res>  {
   factory $ChapterContentDtoCopyWith(ChapterContentDto value, $Res Function(ChapterContentDto) _then) = _$ChapterContentDtoCopyWithImpl;
 @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next, List<ChapterImageDto> contents, List<int> words, bool isLong
+@JsonKey(name: 'index') int index,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'count') int count,@JsonKey(name: 'ordered') int ordered,@JsonKey(name: 'size') int size,@JsonKey(name: 'name') String name,@JsonKey(name: 'comic_id') String comicId,@JsonKey(name: 'comic_path_word') String comicPathWord,@JsonKey(name: 'group_id') String groupId,@JsonKey(name: 'group_path_word') String groupPathWord,@JsonKey(name: 'type') int type,@JsonKey(name: 'news') String news,@JsonKey(name: 'datetime_created') String datetimeCreated,@JsonKey(name: 'prev') String prev,@JsonKey(name: 'next') String next,@JsonKey(name: 'contents') List<ChapterImageDto> contents,@JsonKey(name: 'words') List<int> words,@JsonKey(name: 'is_long') bool isLong
 });
 
 
@@ -8279,7 +8279,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'index')  int index, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'count')  int count, @JsonKey(name: 'ordered')  int ordered, @JsonKey(name: 'size')  int size, @JsonKey(name: 'name')  String name, @JsonKey(name: 'comic_id')  String comicId, @JsonKey(name: 'comic_path_word')  String comicPathWord, @JsonKey(name: 'group_id')  String groupId, @JsonKey(name: 'group_path_word')  String groupPathWord, @JsonKey(name: 'type')  int type, @JsonKey(name: 'news')  String news, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'prev')  String prev, @JsonKey(name: 'next')  String next, @JsonKey(name: 'contents')  List<ChapterImageDto> contents, @JsonKey(name: 'words')  List<int> words, @JsonKey(name: 'is_long')  bool isLong)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterContentDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next,_that.contents,_that.words,_that.isLong);case _:
@@ -8300,7 +8300,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'index')  int index, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'count')  int count, @JsonKey(name: 'ordered')  int ordered, @JsonKey(name: 'size')  int size, @JsonKey(name: 'name')  String name, @JsonKey(name: 'comic_id')  String comicId, @JsonKey(name: 'comic_path_word')  String comicPathWord, @JsonKey(name: 'group_id')  String groupId, @JsonKey(name: 'group_path_word')  String groupPathWord, @JsonKey(name: 'type')  int type, @JsonKey(name: 'news')  String news, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'prev')  String prev, @JsonKey(name: 'next')  String next, @JsonKey(name: 'contents')  List<ChapterImageDto> contents, @JsonKey(name: 'words')  List<int> words, @JsonKey(name: 'is_long')  bool isLong)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterContentDto():
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next,_that.contents,_that.words,_that.isLong);case _:
@@ -8320,7 +8320,7 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int index,  String uuid,  int count,  int ordered,  int size,  String name,  String comicId,  String comicPathWord,  String groupId,  String groupPathWord,  int type,  String news,  String datetimeCreated,  String prev,  String next,  List<ChapterImageDto> contents,  List<int> words,  bool isLong)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'index')  int index, @JsonKey(name: 'uuid')  String uuid, @JsonKey(name: 'count')  int count, @JsonKey(name: 'ordered')  int ordered, @JsonKey(name: 'size')  int size, @JsonKey(name: 'name')  String name, @JsonKey(name: 'comic_id')  String comicId, @JsonKey(name: 'comic_path_word')  String comicPathWord, @JsonKey(name: 'group_id')  String groupId, @JsonKey(name: 'group_path_word')  String groupPathWord, @JsonKey(name: 'type')  int type, @JsonKey(name: 'news')  String news, @JsonKey(name: 'datetime_created')  String datetimeCreated, @JsonKey(name: 'prev')  String prev, @JsonKey(name: 'next')  String next, @JsonKey(name: 'contents')  List<ChapterImageDto> contents, @JsonKey(name: 'words')  List<int> words, @JsonKey(name: 'is_long')  bool isLong)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterContentDto() when $default != null:
 return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_that.name,_that.comicId,_that.comicPathWord,_that.groupId,_that.groupPathWord,_that.type,_that.news,_that.datetimeCreated,_that.prev,_that.next,_that.contents,_that.words,_that.isLong);case _:
@@ -8332,42 +8332,42 @@ return $default(_that.index,_that.uuid,_that.count,_that.ordered,_that.size,_tha
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _ChapterContentDto implements ChapterContentDto {
-  const _ChapterContentDto({this.index = 0, this.uuid = '', this.count = 0, this.ordered = 0, this.size = 0, this.name = '', this.comicId = '', this.comicPathWord = '', this.groupId = '', this.groupPathWord = '', this.type = 0, this.news = '', this.datetimeCreated = '', this.prev = '', this.next = '', final  List<ChapterImageDto> contents = const [], final  List<int> words = const [], this.isLong = false}): _contents = contents,_words = words;
+  const _ChapterContentDto({@JsonKey(name: 'index') this.index = 0, @JsonKey(name: 'uuid') this.uuid = '', @JsonKey(name: 'count') this.count = 0, @JsonKey(name: 'ordered') this.ordered = 0, @JsonKey(name: 'size') this.size = 0, @JsonKey(name: 'name') this.name = '', @JsonKey(name: 'comic_id') this.comicId = '', @JsonKey(name: 'comic_path_word') this.comicPathWord = '', @JsonKey(name: 'group_id') this.groupId = '', @JsonKey(name: 'group_path_word') this.groupPathWord = '', @JsonKey(name: 'type') this.type = 0, @JsonKey(name: 'news') this.news = '', @JsonKey(name: 'datetime_created') this.datetimeCreated = '', @JsonKey(name: 'prev') this.prev = '', @JsonKey(name: 'next') this.next = '', @JsonKey(name: 'contents') final  List<ChapterImageDto> contents = const [], @JsonKey(name: 'words') final  List<int> words = const [], @JsonKey(name: 'is_long') this.isLong = false}): _contents = contents,_words = words;
   factory _ChapterContentDto.fromJson(Map<String, dynamic> json) => _$ChapterContentDtoFromJson(json);
 
-@override@JsonKey() final  int index;
-@override@JsonKey() final  String uuid;
-@override@JsonKey() final  int count;
-@override@JsonKey() final  int ordered;
-@override@JsonKey() final  int size;
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String comicId;
-@override@JsonKey() final  String comicPathWord;
-@override@JsonKey() final  String groupId;
-@override@JsonKey() final  String groupPathWord;
-@override@JsonKey() final  int type;
-@override@JsonKey() final  String news;
-@override@JsonKey() final  String datetimeCreated;
-@override@JsonKey() final  String prev;
-@override@JsonKey() final  String next;
+@override@JsonKey(name: 'index') final  int index;
+@override@JsonKey(name: 'uuid') final  String uuid;
+@override@JsonKey(name: 'count') final  int count;
+@override@JsonKey(name: 'ordered') final  int ordered;
+@override@JsonKey(name: 'size') final  int size;
+@override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'comic_id') final  String comicId;
+@override@JsonKey(name: 'comic_path_word') final  String comicPathWord;
+@override@JsonKey(name: 'group_id') final  String groupId;
+@override@JsonKey(name: 'group_path_word') final  String groupPathWord;
+@override@JsonKey(name: 'type') final  int type;
+@override@JsonKey(name: 'news') final  String news;
+@override@JsonKey(name: 'datetime_created') final  String datetimeCreated;
+@override@JsonKey(name: 'prev') final  String prev;
+@override@JsonKey(name: 'next') final  String next;
  final  List<ChapterImageDto> _contents;
-@override@JsonKey() List<ChapterImageDto> get contents {
+@override@JsonKey(name: 'contents') List<ChapterImageDto> get contents {
   if (_contents is EqualUnmodifiableListView) return _contents;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_contents);
 }
 
  final  List<int> _words;
-@override@JsonKey() List<int> get words {
+@override@JsonKey(name: 'words') List<int> get words {
   if (_words is EqualUnmodifiableListView) return _words;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_words);
 }
 
-@override@JsonKey() final  bool isLong;
+@override@JsonKey(name: 'is_long') final  bool isLong;
 
 /// Create a copy of ChapterContentDto
 /// with the given fields replaced by the non-null parameter values.
@@ -8402,7 +8402,7 @@ abstract mixin class _$ChapterContentDtoCopyWith<$Res> implements $ChapterConten
   factory _$ChapterContentDtoCopyWith(_ChapterContentDto value, $Res Function(_ChapterContentDto) _then) = __$ChapterContentDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int index, String uuid, int count, int ordered, int size, String name, String comicId, String comicPathWord, String groupId, String groupPathWord, int type, String news, String datetimeCreated, String prev, String next, List<ChapterImageDto> contents, List<int> words, bool isLong
+@JsonKey(name: 'index') int index,@JsonKey(name: 'uuid') String uuid,@JsonKey(name: 'count') int count,@JsonKey(name: 'ordered') int ordered,@JsonKey(name: 'size') int size,@JsonKey(name: 'name') String name,@JsonKey(name: 'comic_id') String comicId,@JsonKey(name: 'comic_path_word') String comicPathWord,@JsonKey(name: 'group_id') String groupId,@JsonKey(name: 'group_path_word') String groupPathWord,@JsonKey(name: 'type') int type,@JsonKey(name: 'news') String news,@JsonKey(name: 'datetime_created') String datetimeCreated,@JsonKey(name: 'prev') String prev,@JsonKey(name: 'next') String next,@JsonKey(name: 'contents') List<ChapterImageDto> contents,@JsonKey(name: 'words') List<int> words,@JsonKey(name: 'is_long') bool isLong
 });
 
 
@@ -8450,7 +8450,7 @@ as bool,
 /// @nodoc
 mixin _$ChapterImageDto {
 
- String get url;
+@JsonKey(name: 'url') String get url;
 /// Create a copy of ChapterImageDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -8483,7 +8483,7 @@ abstract mixin class $ChapterImageDtoCopyWith<$Res>  {
   factory $ChapterImageDtoCopyWith(ChapterImageDto value, $Res Function(ChapterImageDto) _then) = _$ChapterImageDtoCopyWithImpl;
 @useResult
 $Res call({
- String url
+@JsonKey(name: 'url') String url
 });
 
 
@@ -8588,7 +8588,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String url)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'url')  String url)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChapterImageDto() when $default != null:
 return $default(_that.url);case _:
@@ -8609,7 +8609,7 @@ return $default(_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String url)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'url')  String url)  $default,) {final _that = this;
 switch (_that) {
 case _ChapterImageDto():
 return $default(_that.url);case _:
@@ -8629,7 +8629,7 @@ return $default(_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String url)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'url')  String url)?  $default,) {final _that = this;
 switch (_that) {
 case _ChapterImageDto() when $default != null:
 return $default(_that.url);case _:
@@ -8644,10 +8644,10 @@ return $default(_that.url);case _:
 @JsonSerializable()
 
 class _ChapterImageDto implements ChapterImageDto {
-  const _ChapterImageDto({this.url = ''});
+  const _ChapterImageDto({@JsonKey(name: 'url') this.url = ''});
   factory _ChapterImageDto.fromJson(Map<String, dynamic> json) => _$ChapterImageDtoFromJson(json);
 
-@override@JsonKey() final  String url;
+@override@JsonKey(name: 'url') final  String url;
 
 /// Create a copy of ChapterImageDto
 /// with the given fields replaced by the non-null parameter values.
@@ -8682,7 +8682,7 @@ abstract mixin class _$ChapterImageDtoCopyWith<$Res> implements $ChapterImageDto
   factory _$ChapterImageDtoCopyWith(_ChapterImageDto value, $Res Function(_ChapterImageDto) _then) = __$ChapterImageDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String url
+@JsonKey(name: 'url') String url
 });
 
 
@@ -8713,7 +8713,7 @@ as String,
 /// @nodoc
 mixin _$NetworkResultDto {
 
-@JsonKey(name: 'static') String get staticHost;@JsonKey(name: 'image') String get imageHost; List<String> get share; List<List<String>> get api; List<List<String>> get ads; String get hostComic; String get hostCartoon; String get hostNovel; int get dayDownloadsTotal; int get adsRewardDownloads; int get adsRewardDayShow; int get adsScreenShow; int get adsReadExpressShow; int get adsHomeSeconds; int get adsRestartSeconds; int get adsComicShow; int get adsCartoonShow; int get dayDownloads; int get vipDownloads; int get rewardDownloads; Object get adsVipEnd; bool get adsStatSwitch; bool get adsStatSwitch2; int get adsRewardSeconds; bool get inMainland;
+@JsonKey(name: 'static') String get staticHost;@JsonKey(name: 'image') String get imageHost;@JsonKey(name: 'share') List<String> get share;@JsonKey(name: 'api') List<List<String>> get api;@JsonKey(name: 'ads') List<List<String>> get ads;@JsonKey(name: 'host_comic') String get hostComic;@JsonKey(name: 'host_cartoon') String get hostCartoon;@JsonKey(name: 'host_novel') String get hostNovel;@JsonKey(name: 'day_downloads_total') int get dayDownloadsTotal;@JsonKey(name: 'ads_reward_downloads') int get adsRewardDownloads;@JsonKey(name: 'ads_reward_day_show') int get adsRewardDayShow;@JsonKey(name: 'ads_screen_show') int get adsScreenShow;@JsonKey(name: 'ads_read_express_show') int get adsReadExpressShow;@JsonKey(name: 'ads_home_seconds') int get adsHomeSeconds;@JsonKey(name: 'ads_restart_seconds') int get adsRestartSeconds;@JsonKey(name: 'ads_comic_show') int get adsComicShow;@JsonKey(name: 'ads_cartoon_show') int get adsCartoonShow;@JsonKey(name: 'day_downloads') int get dayDownloads;@JsonKey(name: 'vip_downloads') int get vipDownloads;@JsonKey(name: 'reward_downloads') int get rewardDownloads;@JsonKey(name: 'ads_vip_end') Object get adsVipEnd;@JsonKey(name: 'ads_stat_switch') bool get adsStatSwitch;@JsonKey(name: 'ads_stat_switch2') bool get adsStatSwitch2;@JsonKey(name: 'ads_reward_seconds') int get adsRewardSeconds;@JsonKey(name: 'in_mainland') bool get inMainland;
 /// Create a copy of NetworkResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -8746,7 +8746,7 @@ abstract mixin class $NetworkResultDtoCopyWith<$Res>  {
   factory $NetworkResultDtoCopyWith(NetworkResultDto value, $Res Function(NetworkResultDto) _then) = _$NetworkResultDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost, List<String> share, List<List<String>> api, List<List<String>> ads, String hostComic, String hostCartoon, String hostNovel, int dayDownloadsTotal, int adsRewardDownloads, int adsRewardDayShow, int adsScreenShow, int adsReadExpressShow, int adsHomeSeconds, int adsRestartSeconds, int adsComicShow, int adsCartoonShow, int dayDownloads, int vipDownloads, int rewardDownloads, Object adsVipEnd, bool adsStatSwitch, bool adsStatSwitch2, int adsRewardSeconds, bool inMainland
+@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost,@JsonKey(name: 'share') List<String> share,@JsonKey(name: 'api') List<List<String>> api,@JsonKey(name: 'ads') List<List<String>> ads,@JsonKey(name: 'host_comic') String hostComic,@JsonKey(name: 'host_cartoon') String hostCartoon,@JsonKey(name: 'host_novel') String hostNovel,@JsonKey(name: 'day_downloads_total') int dayDownloadsTotal,@JsonKey(name: 'ads_reward_downloads') int adsRewardDownloads,@JsonKey(name: 'ads_reward_day_show') int adsRewardDayShow,@JsonKey(name: 'ads_screen_show') int adsScreenShow,@JsonKey(name: 'ads_read_express_show') int adsReadExpressShow,@JsonKey(name: 'ads_home_seconds') int adsHomeSeconds,@JsonKey(name: 'ads_restart_seconds') int adsRestartSeconds,@JsonKey(name: 'ads_comic_show') int adsComicShow,@JsonKey(name: 'ads_cartoon_show') int adsCartoonShow,@JsonKey(name: 'day_downloads') int dayDownloads,@JsonKey(name: 'vip_downloads') int vipDownloads,@JsonKey(name: 'reward_downloads') int rewardDownloads,@JsonKey(name: 'ads_vip_end') Object adsVipEnd,@JsonKey(name: 'ads_stat_switch') bool adsStatSwitch,@JsonKey(name: 'ads_stat_switch2') bool adsStatSwitch2,@JsonKey(name: 'ads_reward_seconds') int adsRewardSeconds,@JsonKey(name: 'in_mainland') bool inMainland
 });
 
 
@@ -8874,7 +8874,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost, @JsonKey(name: 'share')  List<String> share, @JsonKey(name: 'api')  List<List<String>> api, @JsonKey(name: 'ads')  List<List<String>> ads, @JsonKey(name: 'host_comic')  String hostComic, @JsonKey(name: 'host_cartoon')  String hostCartoon, @JsonKey(name: 'host_novel')  String hostNovel, @JsonKey(name: 'day_downloads_total')  int dayDownloadsTotal, @JsonKey(name: 'ads_reward_downloads')  int adsRewardDownloads, @JsonKey(name: 'ads_reward_day_show')  int adsRewardDayShow, @JsonKey(name: 'ads_screen_show')  int adsScreenShow, @JsonKey(name: 'ads_read_express_show')  int adsReadExpressShow, @JsonKey(name: 'ads_home_seconds')  int adsHomeSeconds, @JsonKey(name: 'ads_restart_seconds')  int adsRestartSeconds, @JsonKey(name: 'ads_comic_show')  int adsComicShow, @JsonKey(name: 'ads_cartoon_show')  int adsCartoonShow, @JsonKey(name: 'day_downloads')  int dayDownloads, @JsonKey(name: 'vip_downloads')  int vipDownloads, @JsonKey(name: 'reward_downloads')  int rewardDownloads, @JsonKey(name: 'ads_vip_end')  Object adsVipEnd, @JsonKey(name: 'ads_stat_switch')  bool adsStatSwitch, @JsonKey(name: 'ads_stat_switch2')  bool adsStatSwitch2, @JsonKey(name: 'ads_reward_seconds')  int adsRewardSeconds, @JsonKey(name: 'in_mainland')  bool inMainland)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NetworkResultDto() when $default != null:
 return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads,_that.hostComic,_that.hostCartoon,_that.hostNovel,_that.dayDownloadsTotal,_that.adsRewardDownloads,_that.adsRewardDayShow,_that.adsScreenShow,_that.adsReadExpressShow,_that.adsHomeSeconds,_that.adsRestartSeconds,_that.adsComicShow,_that.adsCartoonShow,_that.dayDownloads,_that.vipDownloads,_that.rewardDownloads,_that.adsVipEnd,_that.adsStatSwitch,_that.adsStatSwitch2,_that.adsRewardSeconds,_that.inMainland);case _:
@@ -8895,7 +8895,7 @@ return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost, @JsonKey(name: 'share')  List<String> share, @JsonKey(name: 'api')  List<List<String>> api, @JsonKey(name: 'ads')  List<List<String>> ads, @JsonKey(name: 'host_comic')  String hostComic, @JsonKey(name: 'host_cartoon')  String hostCartoon, @JsonKey(name: 'host_novel')  String hostNovel, @JsonKey(name: 'day_downloads_total')  int dayDownloadsTotal, @JsonKey(name: 'ads_reward_downloads')  int adsRewardDownloads, @JsonKey(name: 'ads_reward_day_show')  int adsRewardDayShow, @JsonKey(name: 'ads_screen_show')  int adsScreenShow, @JsonKey(name: 'ads_read_express_show')  int adsReadExpressShow, @JsonKey(name: 'ads_home_seconds')  int adsHomeSeconds, @JsonKey(name: 'ads_restart_seconds')  int adsRestartSeconds, @JsonKey(name: 'ads_comic_show')  int adsComicShow, @JsonKey(name: 'ads_cartoon_show')  int adsCartoonShow, @JsonKey(name: 'day_downloads')  int dayDownloads, @JsonKey(name: 'vip_downloads')  int vipDownloads, @JsonKey(name: 'reward_downloads')  int rewardDownloads, @JsonKey(name: 'ads_vip_end')  Object adsVipEnd, @JsonKey(name: 'ads_stat_switch')  bool adsStatSwitch, @JsonKey(name: 'ads_stat_switch2')  bool adsStatSwitch2, @JsonKey(name: 'ads_reward_seconds')  int adsRewardSeconds, @JsonKey(name: 'in_mainland')  bool inMainland)  $default,) {final _that = this;
 switch (_that) {
 case _NetworkResultDto():
 return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads,_that.hostComic,_that.hostCartoon,_that.hostNovel,_that.dayDownloadsTotal,_that.adsRewardDownloads,_that.adsRewardDayShow,_that.adsScreenShow,_that.adsReadExpressShow,_that.adsHomeSeconds,_that.adsRestartSeconds,_that.adsComicShow,_that.adsCartoonShow,_that.dayDownloads,_that.vipDownloads,_that.rewardDownloads,_that.adsVipEnd,_that.adsStatSwitch,_that.adsStatSwitch2,_that.adsRewardSeconds,_that.inMainland);case _:
@@ -8915,7 +8915,7 @@ return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost,  List<String> share,  List<List<String>> api,  List<List<String>> ads,  String hostComic,  String hostCartoon,  String hostNovel,  int dayDownloadsTotal,  int adsRewardDownloads,  int adsRewardDayShow,  int adsScreenShow,  int adsReadExpressShow,  int adsHomeSeconds,  int adsRestartSeconds,  int adsComicShow,  int adsCartoonShow,  int dayDownloads,  int vipDownloads,  int rewardDownloads,  Object adsVipEnd,  bool adsStatSwitch,  bool adsStatSwitch2,  int adsRewardSeconds,  bool inMainland)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'static')  String staticHost, @JsonKey(name: 'image')  String imageHost, @JsonKey(name: 'share')  List<String> share, @JsonKey(name: 'api')  List<List<String>> api, @JsonKey(name: 'ads')  List<List<String>> ads, @JsonKey(name: 'host_comic')  String hostComic, @JsonKey(name: 'host_cartoon')  String hostCartoon, @JsonKey(name: 'host_novel')  String hostNovel, @JsonKey(name: 'day_downloads_total')  int dayDownloadsTotal, @JsonKey(name: 'ads_reward_downloads')  int adsRewardDownloads, @JsonKey(name: 'ads_reward_day_show')  int adsRewardDayShow, @JsonKey(name: 'ads_screen_show')  int adsScreenShow, @JsonKey(name: 'ads_read_express_show')  int adsReadExpressShow, @JsonKey(name: 'ads_home_seconds')  int adsHomeSeconds, @JsonKey(name: 'ads_restart_seconds')  int adsRestartSeconds, @JsonKey(name: 'ads_comic_show')  int adsComicShow, @JsonKey(name: 'ads_cartoon_show')  int adsCartoonShow, @JsonKey(name: 'day_downloads')  int dayDownloads, @JsonKey(name: 'vip_downloads')  int vipDownloads, @JsonKey(name: 'reward_downloads')  int rewardDownloads, @JsonKey(name: 'ads_vip_end')  Object adsVipEnd, @JsonKey(name: 'ads_stat_switch')  bool adsStatSwitch, @JsonKey(name: 'ads_stat_switch2')  bool adsStatSwitch2, @JsonKey(name: 'ads_reward_seconds')  int adsRewardSeconds, @JsonKey(name: 'in_mainland')  bool inMainland)?  $default,) {final _that = this;
 switch (_that) {
 case _NetworkResultDto() when $default != null:
 return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads,_that.hostComic,_that.hostCartoon,_that.hostNovel,_that.dayDownloadsTotal,_that.adsRewardDownloads,_that.adsRewardDayShow,_that.adsScreenShow,_that.adsReadExpressShow,_that.adsHomeSeconds,_that.adsRestartSeconds,_that.adsComicShow,_that.adsCartoonShow,_that.dayDownloads,_that.vipDownloads,_that.rewardDownloads,_that.adsVipEnd,_that.adsStatSwitch,_that.adsStatSwitch2,_that.adsRewardSeconds,_that.inMainland);case _:
@@ -8927,55 +8927,55 @@ return $default(_that.staticHost,_that.imageHost,_that.share,_that.api,_that.ads
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _NetworkResultDto implements NetworkResultDto {
-  const _NetworkResultDto({@JsonKey(name: 'static') this.staticHost = '', @JsonKey(name: 'image') this.imageHost = '', final  List<String> share = const [], final  List<List<String>> api = const [], final  List<List<String>> ads = const [], this.hostComic = '', this.hostCartoon = '', this.hostNovel = '', this.dayDownloadsTotal = 0, this.adsRewardDownloads = 0, this.adsRewardDayShow = 0, this.adsScreenShow = 0, this.adsReadExpressShow = 0, this.adsHomeSeconds = 0, this.adsRestartSeconds = 0, this.adsComicShow = 0, this.adsCartoonShow = 0, this.dayDownloads = 0, this.vipDownloads = 0, this.rewardDownloads = 0, this.adsVipEnd = '', this.adsStatSwitch = false, this.adsStatSwitch2 = false, this.adsRewardSeconds = 0, this.inMainland = false}): _share = share,_api = api,_ads = ads;
+  const _NetworkResultDto({@JsonKey(name: 'static') this.staticHost = '', @JsonKey(name: 'image') this.imageHost = '', @JsonKey(name: 'share') final  List<String> share = const [], @JsonKey(name: 'api') final  List<List<String>> api = const [], @JsonKey(name: 'ads') final  List<List<String>> ads = const [], @JsonKey(name: 'host_comic') this.hostComic = '', @JsonKey(name: 'host_cartoon') this.hostCartoon = '', @JsonKey(name: 'host_novel') this.hostNovel = '', @JsonKey(name: 'day_downloads_total') this.dayDownloadsTotal = 0, @JsonKey(name: 'ads_reward_downloads') this.adsRewardDownloads = 0, @JsonKey(name: 'ads_reward_day_show') this.adsRewardDayShow = 0, @JsonKey(name: 'ads_screen_show') this.adsScreenShow = 0, @JsonKey(name: 'ads_read_express_show') this.adsReadExpressShow = 0, @JsonKey(name: 'ads_home_seconds') this.adsHomeSeconds = 0, @JsonKey(name: 'ads_restart_seconds') this.adsRestartSeconds = 0, @JsonKey(name: 'ads_comic_show') this.adsComicShow = 0, @JsonKey(name: 'ads_cartoon_show') this.adsCartoonShow = 0, @JsonKey(name: 'day_downloads') this.dayDownloads = 0, @JsonKey(name: 'vip_downloads') this.vipDownloads = 0, @JsonKey(name: 'reward_downloads') this.rewardDownloads = 0, @JsonKey(name: 'ads_vip_end') this.adsVipEnd = '', @JsonKey(name: 'ads_stat_switch') this.adsStatSwitch = false, @JsonKey(name: 'ads_stat_switch2') this.adsStatSwitch2 = false, @JsonKey(name: 'ads_reward_seconds') this.adsRewardSeconds = 0, @JsonKey(name: 'in_mainland') this.inMainland = false}): _share = share,_api = api,_ads = ads;
   factory _NetworkResultDto.fromJson(Map<String, dynamic> json) => _$NetworkResultDtoFromJson(json);
 
 @override@JsonKey(name: 'static') final  String staticHost;
 @override@JsonKey(name: 'image') final  String imageHost;
  final  List<String> _share;
-@override@JsonKey() List<String> get share {
+@override@JsonKey(name: 'share') List<String> get share {
   if (_share is EqualUnmodifiableListView) return _share;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_share);
 }
 
  final  List<List<String>> _api;
-@override@JsonKey() List<List<String>> get api {
+@override@JsonKey(name: 'api') List<List<String>> get api {
   if (_api is EqualUnmodifiableListView) return _api;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_api);
 }
 
  final  List<List<String>> _ads;
-@override@JsonKey() List<List<String>> get ads {
+@override@JsonKey(name: 'ads') List<List<String>> get ads {
   if (_ads is EqualUnmodifiableListView) return _ads;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_ads);
 }
 
-@override@JsonKey() final  String hostComic;
-@override@JsonKey() final  String hostCartoon;
-@override@JsonKey() final  String hostNovel;
-@override@JsonKey() final  int dayDownloadsTotal;
-@override@JsonKey() final  int adsRewardDownloads;
-@override@JsonKey() final  int adsRewardDayShow;
-@override@JsonKey() final  int adsScreenShow;
-@override@JsonKey() final  int adsReadExpressShow;
-@override@JsonKey() final  int adsHomeSeconds;
-@override@JsonKey() final  int adsRestartSeconds;
-@override@JsonKey() final  int adsComicShow;
-@override@JsonKey() final  int adsCartoonShow;
-@override@JsonKey() final  int dayDownloads;
-@override@JsonKey() final  int vipDownloads;
-@override@JsonKey() final  int rewardDownloads;
-@override@JsonKey() final  Object adsVipEnd;
-@override@JsonKey() final  bool adsStatSwitch;
-@override@JsonKey() final  bool adsStatSwitch2;
-@override@JsonKey() final  int adsRewardSeconds;
-@override@JsonKey() final  bool inMainland;
+@override@JsonKey(name: 'host_comic') final  String hostComic;
+@override@JsonKey(name: 'host_cartoon') final  String hostCartoon;
+@override@JsonKey(name: 'host_novel') final  String hostNovel;
+@override@JsonKey(name: 'day_downloads_total') final  int dayDownloadsTotal;
+@override@JsonKey(name: 'ads_reward_downloads') final  int adsRewardDownloads;
+@override@JsonKey(name: 'ads_reward_day_show') final  int adsRewardDayShow;
+@override@JsonKey(name: 'ads_screen_show') final  int adsScreenShow;
+@override@JsonKey(name: 'ads_read_express_show') final  int adsReadExpressShow;
+@override@JsonKey(name: 'ads_home_seconds') final  int adsHomeSeconds;
+@override@JsonKey(name: 'ads_restart_seconds') final  int adsRestartSeconds;
+@override@JsonKey(name: 'ads_comic_show') final  int adsComicShow;
+@override@JsonKey(name: 'ads_cartoon_show') final  int adsCartoonShow;
+@override@JsonKey(name: 'day_downloads') final  int dayDownloads;
+@override@JsonKey(name: 'vip_downloads') final  int vipDownloads;
+@override@JsonKey(name: 'reward_downloads') final  int rewardDownloads;
+@override@JsonKey(name: 'ads_vip_end') final  Object adsVipEnd;
+@override@JsonKey(name: 'ads_stat_switch') final  bool adsStatSwitch;
+@override@JsonKey(name: 'ads_stat_switch2') final  bool adsStatSwitch2;
+@override@JsonKey(name: 'ads_reward_seconds') final  int adsRewardSeconds;
+@override@JsonKey(name: 'in_mainland') final  bool inMainland;
 
 /// Create a copy of NetworkResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -9010,7 +9010,7 @@ abstract mixin class _$NetworkResultDtoCopyWith<$Res> implements $NetworkResultD
   factory _$NetworkResultDtoCopyWith(_NetworkResultDto value, $Res Function(_NetworkResultDto) _then) = __$NetworkResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost, List<String> share, List<List<String>> api, List<List<String>> ads, String hostComic, String hostCartoon, String hostNovel, int dayDownloadsTotal, int adsRewardDownloads, int adsRewardDayShow, int adsScreenShow, int adsReadExpressShow, int adsHomeSeconds, int adsRestartSeconds, int adsComicShow, int adsCartoonShow, int dayDownloads, int vipDownloads, int rewardDownloads, Object adsVipEnd, bool adsStatSwitch, bool adsStatSwitch2, int adsRewardSeconds, bool inMainland
+@JsonKey(name: 'static') String staticHost,@JsonKey(name: 'image') String imageHost,@JsonKey(name: 'share') List<String> share,@JsonKey(name: 'api') List<List<String>> api,@JsonKey(name: 'ads') List<List<String>> ads,@JsonKey(name: 'host_comic') String hostComic,@JsonKey(name: 'host_cartoon') String hostCartoon,@JsonKey(name: 'host_novel') String hostNovel,@JsonKey(name: 'day_downloads_total') int dayDownloadsTotal,@JsonKey(name: 'ads_reward_downloads') int adsRewardDownloads,@JsonKey(name: 'ads_reward_day_show') int adsRewardDayShow,@JsonKey(name: 'ads_screen_show') int adsScreenShow,@JsonKey(name: 'ads_read_express_show') int adsReadExpressShow,@JsonKey(name: 'ads_home_seconds') int adsHomeSeconds,@JsonKey(name: 'ads_restart_seconds') int adsRestartSeconds,@JsonKey(name: 'ads_comic_show') int adsComicShow,@JsonKey(name: 'ads_cartoon_show') int adsCartoonShow,@JsonKey(name: 'day_downloads') int dayDownloads,@JsonKey(name: 'vip_downloads') int vipDownloads,@JsonKey(name: 'reward_downloads') int rewardDownloads,@JsonKey(name: 'ads_vip_end') Object adsVipEnd,@JsonKey(name: 'ads_stat_switch') bool adsStatSwitch,@JsonKey(name: 'ads_stat_switch2') bool adsStatSwitch2,@JsonKey(name: 'ads_reward_seconds') int adsRewardSeconds,@JsonKey(name: 'in_mainland') bool inMainland
 });
 
 
@@ -9064,7 +9064,7 @@ as bool,
 /// @nodoc
 mixin _$RequestIdResultDto {
 
- String get requestId;
+@JsonKey(name: 'request_id') String get requestId;
 /// Create a copy of RequestIdResultDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -9097,7 +9097,7 @@ abstract mixin class $RequestIdResultDtoCopyWith<$Res>  {
   factory $RequestIdResultDtoCopyWith(RequestIdResultDto value, $Res Function(RequestIdResultDto) _then) = _$RequestIdResultDtoCopyWithImpl;
 @useResult
 $Res call({
- String requestId
+@JsonKey(name: 'request_id') String requestId
 });
 
 
@@ -9202,7 +9202,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String requestId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'request_id')  String requestId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RequestIdResultDto() when $default != null:
 return $default(_that.requestId);case _:
@@ -9223,7 +9223,7 @@ return $default(_that.requestId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String requestId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'request_id')  String requestId)  $default,) {final _that = this;
 switch (_that) {
 case _RequestIdResultDto():
 return $default(_that.requestId);case _:
@@ -9243,7 +9243,7 @@ return $default(_that.requestId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String requestId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'request_id')  String requestId)?  $default,) {final _that = this;
 switch (_that) {
 case _RequestIdResultDto() when $default != null:
 return $default(_that.requestId);case _:
@@ -9255,13 +9255,13 @@ return $default(_that.requestId);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake)
 class _RequestIdResultDto implements RequestIdResultDto {
-  const _RequestIdResultDto({this.requestId = ''});
+  const _RequestIdResultDto({@JsonKey(name: 'request_id') this.requestId = ''});
   factory _RequestIdResultDto.fromJson(Map<String, dynamic> json) => _$RequestIdResultDtoFromJson(json);
 
-@override@JsonKey() final  String requestId;
+@override@JsonKey(name: 'request_id') final  String requestId;
 
 /// Create a copy of RequestIdResultDto
 /// with the given fields replaced by the non-null parameter values.
@@ -9296,7 +9296,7 @@ abstract mixin class _$RequestIdResultDtoCopyWith<$Res> implements $RequestIdRes
   factory _$RequestIdResultDtoCopyWith(_RequestIdResultDto value, $Res Function(_RequestIdResultDto) _then) = __$RequestIdResultDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String requestId
+@JsonKey(name: 'request_id') String requestId
 });
 
 

@@ -15,7 +15,7 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'comic_chapter_list_page.dart';
 
-final comicInfoProvider = FutureProvider.family<ComicDetailModel, String>((
+final comicInfoProvider = FutureProvider.autoDispose.family<ComicDetailModel, String>((
   ref,
   comicId,
 ) {
@@ -23,7 +23,7 @@ final comicInfoProvider = FutureProvider.family<ComicDetailModel, String>((
 });
 
 final comicLibraryItemProvider =
-    StreamProvider.family<ComicLibraryItem?, String>((ref, pathWord) {
+    StreamProvider.autoDispose.family<ComicLibraryItem?, String>((ref, pathWord) {
       return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
     });
 
@@ -42,21 +42,11 @@ class ComicDetailPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final info = ref.watch(comicInfoProvider(comicId));
-    final libraryItem = ref.watch(comicLibraryItemProvider(comicId));
-    final isFavorite = libraryItem.when(
-      data: (item) => item?.isFavorite ?? false,
-      error: (error, stackTrace) => false,
-      loading: () => false,
-    );
+    final libraryItemState = ref.watch(comicLibraryItemProvider(comicId));
     final detail = switch (info) {
       AsyncData(:final value) => value,
       _ => null,
     };
-    final progress = libraryItem.when(
-      data: (item) => item?.progress,
-      error: (error, stackTrace) => null,
-      loading: () => null,
-    );
     final scrollController = useScrollController();
     final scrollOffset = useState(0.0);
 
@@ -70,6 +60,27 @@ class ComicDetailPage extends HookConsumerWidget {
         scrollController.removeListener(onScroll);
       };
     }, [scrollController]);
+
+    if (libraryItemState.isLoading) {
+      return const GlassScaffold(
+        body: CustomScrollView(slivers: [ContentStateSliver.loading()]),
+      );
+    }
+    if (libraryItemState.hasError) {
+      return GlassScaffold(
+        body: CustomScrollView(
+          slivers: [
+            ContentStateSliver.error(
+              error: libraryItemState.error!,
+              onRetry: () => ref.invalidate(comicLibraryItemProvider(comicId)),
+            ),
+          ],
+        ),
+      );
+    }
+    final libraryItem = libraryItemState.requireValue;
+    final isFavorite = libraryItem?.isFavorite ?? false;
+    final progress = libraryItem?.progress;
 
     Future<void> toggleFavorite() async {
       final data = switch (info) {

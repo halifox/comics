@@ -105,8 +105,20 @@ class SearchHistory extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final history = ref.watch(searchHistoryProvider).value ?? const [];
+    final historyState = ref.watch(searchHistoryProvider);
     final keyboardHeight = MediaQuery.viewInsetsOf(context).bottom;
+    if (historyState.isLoading) {
+      return const Center(child: CupertinoActivityIndicator());
+    }
+    if (historyState.hasError) {
+      return Center(
+        child: CupertinoButton(
+          onPressed: () => ref.invalidate(searchHistoryProvider),
+          child: const Text('读取搜索历史失败，点击重试'),
+        ),
+      );
+    }
+    final history = historyState.requireValue;
     return CustomScrollView(
       controller: titleController.scrollController,
       physics: const AlwaysScrollableScrollPhysics(

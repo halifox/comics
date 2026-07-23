@@ -16,7 +16,7 @@ typedef ComicChapterListQuery = ({String comicId, String groupPathWord});
 typedef ComicGroupProgressKey = ({String comicPathWord, String groupPathWord});
 
 final comicGroupProgressProvider =
-    StreamProvider.family<ComicReadingProgress?, ComicGroupProgressKey>((
+    StreamProvider.autoDispose.family<ComicReadingProgress?, ComicGroupProgressKey>((
       ref,
       key,
     ) {
@@ -27,7 +27,7 @@ final comicGroupProgressProvider =
     });
 
 final comicChapterProgressesProvider =
-    StreamProvider.family<
+    StreamProvider.autoDispose.family<
       Map<String, ComicReadingProgress>,
       ComicGroupProgressKey
     >((ref, key) {
@@ -38,7 +38,7 @@ final comicChapterProgressesProvider =
     });
 
 final comicChapterListProvider =
-    AsyncNotifierProvider.family<
+    AsyncNotifierProvider.autoDispose.family<
       ComicChapterListNotifier,
       PagePagingData<ChapterSummaryModel>,
       ComicChapterListQuery
@@ -98,20 +98,33 @@ class ComicChapterListPage extends HookConsumerWidget {
       groupPathWord: groupPathWord,
     ));
     final progressKey = (comicPathWord: comicId, groupPathWord: groupPathWord);
-    final groupProgress = ref
-        .watch(comicGroupProgressProvider(progressKey))
-        .when(
-          data: (progress) => progress,
-          error: (error, stackTrace) => null,
-          loading: () => null,
-        );
-    final chapterProgresses = ref
-        .watch(comicChapterProgressesProvider(progressKey))
-        .when(
-          data: (progresses) => progresses,
-          error: (error, stackTrace) => const <String, ComicReadingProgress>{},
-          loading: () => const <String, ComicReadingProgress>{},
-        );
+    final groupProgressState = ref.watch(comicGroupProgressProvider(progressKey));
+    final chapterProgressesState = ref.watch(
+      comicChapterProgressesProvider(progressKey),
+    );
+    if (groupProgressState.isLoading || chapterProgressesState.isLoading) {
+      return const GlassScaffold(
+        body: CustomScrollView(slivers: [ContentStateSliver.loading()]),
+      );
+    }
+    final progressError = groupProgressState.error ?? chapterProgressesState.error;
+    if (progressError != null) {
+      return GlassScaffold(
+        body: CustomScrollView(
+          slivers: [
+            ContentStateSliver.error(
+              error: progressError,
+              onRetry: () {
+                ref.invalidate(comicGroupProgressProvider(progressKey));
+                ref.invalidate(comicChapterProgressesProvider(progressKey));
+              },
+            ),
+          ],
+        ),
+      );
+    }
+    final groupProgress = groupProgressState.requireValue;
+    final chapterProgresses = chapterProgressesState.requireValue;
 
     return GlassScaffold(
       edgeToEdge: true,
