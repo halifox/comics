@@ -9,40 +9,7 @@
 - 可直接修改 `pubspec.yaml`；基础栈内依赖无需确认，表外依赖的引入、移除、升级须先说明用途、替代方案、影响并获授权。
 - 禁止修改 `.g.dart`、`.freezed.dart` 等生成物；仅提供生成命令。
 
-## 2. 技术基线
-
-- `hooks_riverpod`
-- `flutter_hooks`
-- `dio`
-- `retrofit`
-- `pretty_dio_logger`
-- `freezed_annotation`
-- `json_annotation`
-- `build_runner`
-- `freezed`
-- `json_serializable`
-- `retrofit_generator`
-- `drift`
-- `drift_flutter`
-- `drift_dev`
-- `shared_preferences`
-- `liquid_glass_widgets`
-- `cupertino_icons`
-- `cached_network_image`
-- `riverpod_paging_utils`
-- `visibility_detector`
-- `scrollable_positioned_list`
-- `path_provider`
-- `crypto`
-- `flutter_map`
-- `latlong2`
-- `geolocator`
-- `coordtransform_dart`
-- `flutter_lints`
-- `flutter_test`
-- `flutter_launcher_icons`
-
-## 3. 基线约束
+## 2. 技术选型
 
 - `pubspec.yaml` 是依赖事实源。依赖按需启用，禁止预装、同类重复或重复实现；Provider 手写，禁用 Riverpod 注解生成。
 - 网络层以 Retrofit 声明接口、Dio 执行请求；Dio 统一管理基础配置、超时、请求头、拦截器及错误转换。`pretty_dio_logger` 仅在调试环境启用并脱敏。
@@ -51,7 +18,7 @@
 - 网络图片使用 `cached_network_image` 处理缓存、占位和失败；分页使用 `riverpod_paging_utils`，并处理刷新、重试、去重及并发请求。
 - `visibility_detector` 仅用于可见性或曝光检测；按索引定位长列表时使用 `scrollable_positioned_list`。
 
-## 4. 架构
+## 3. 架构
 
 - 按功能组织：`features/<feature>/{domain,presentation}`；具体数据源置于 `data/<source>`；仅按复杂度增层。
 - `domain` 仅含实体、值对象、Repository 抽象；不得依赖基础设施。远端、数据库、键值存储、平台能力均经领域接口隔离。
@@ -60,7 +27,7 @@
 - 文件边界服从内聚与复用，禁止形式化分层。每文件至多一个页面/路由；页面专用组件、Provider、Notifier、无生成注解类型与页面同文件；仅跨页面/功能复用或需生成时拆分。
 - 生成注解类型禁止位于 UI，须归入 `application`、`domain` 或数据源层。
 
-## 5. Widget 与状态
+## 4. Widget 与状态
 
 - 页面/路由必须为 `HookConsumerWidget`；禁止 `StatefulWidget`、`ConsumerStatefulWidget`、`State`、`ConsumerState`、`setState`。无 Hook/Provider 的展示组件使用 `StatelessWidget`。
 - 禁止以局部变量保存 Widget/Widget 表达式；直接构建，复杂或复用结构抽取独立 Widget。
@@ -70,7 +37,7 @@
 - 单页 Provider 与页面同文件；基础设施 Provider 位于相应实现文件且先于实现类；仅多页共享状态置于独立 `application` 文件。
 - `build` 禁止 I/O；首次加载由 Provider/`useEffect` 触发，分页与操作由回调触发。资源由 Hook、`useEffect` 清理或 `ref.onDispose` 释放；异步后更新 Hook/Notifier 前分别检查 `context.mounted`/`ref.mounted`。
 
-## 6. 异步与数据
+## 5. 异步与数据
 
 - 异步 UI 覆盖加载、错误、空、成功及恢复路径；仅真实业务语义允许初始态；禁止空集合掩错或吞错。
 - 搜索、分页、详情须防重复请求及陈旧响应覆盖，采用序号、取消或等价机制。
@@ -78,7 +45,7 @@
 - Repository 协调远端、缓存、映射；Widget/Notifier 禁止解析 DTO 或拼装底层查询。
 - 生产日志禁止令牌、密钥、完整请求体、精确位置及其他敏感信息。
 
-## 7. Dart 与持久化
+## 6. Dart 与持久化
 
 - 手写标识符禁止前导下划线；生成物及生成器强制工厂除外。
 - 手写构造函数/函数/方法默认命名参数：必填 `required`，可选项有默认值或可空；框架重写、运算符、第三方/生成器签名、回调约束除外。
@@ -88,7 +55,7 @@
 - Drift schema 变更须升版并实现可验证前向迁移，禁止以删库迁移。
 - SharedPreferences 禁止存储密码、令牌、隐私、大对象或事务性数据。
 
-## 8. UI、平台与交付
+## 7. UI、平台与交付
 
 - Cupertino-first；除第三方/平台接口强制外禁止 Material。
 - 液态玻璃遵循 `liquid_glass_widgets` 初始化与分层：页面优先 `GlassScaffold`，底栏使用 `GlassTabBar`；玻璃仅用于导航、工具栏、浮动控制、交互控件，滚动内容使用非折射表面。
