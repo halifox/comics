@@ -23,6 +23,10 @@ final comicLibraryItemProvider = StreamProvider.autoDispose.family<ComicLibraryI
   return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
 });
 
+final comicLatestProgressProvider = StreamProvider.autoDispose.family<ComicReadingProgress?, String>((ref, pathWord) {
+  return ref.watch(libraryDatabaseProvider).watchLatestComicProgress(comicPathWord: pathWord);
+});
+
 class ComicDetailPage extends HookConsumerWidget {
   const ComicDetailPage({required this.comicId, required this.name, required this.cover, super.key});
 
@@ -34,6 +38,7 @@ class ComicDetailPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final info = ref.watch(comicInfoProvider(comicId));
     final libraryItemState = ref.watch(comicLibraryItemProvider(comicId));
+    final latestProgressState = ref.watch(comicLatestProgressProvider(comicId));
     final scrollController = useScrollController();
     final scrollOffset = useState(0.0);
 
@@ -105,9 +110,8 @@ class ComicDetailPage extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomBar: libraryItemState.when<Widget?>(
-        data: (libraryItem) {
-          final progress = libraryItem?.progress;
+      bottomBar: latestProgressState.when<Widget?>(
+        data: (progress) {
           if (progress == null) {
             return null;
           }
@@ -143,9 +147,9 @@ class ComicDetailPage extends HookConsumerWidget {
         loading: () => null,
         error: (error, stackTrace) => null,
       ),
-      bottomBarHeight: libraryItemState.when<double?>(
-        data: (libraryItem) {
-          if (libraryItem?.progress == null) {
+      bottomBarHeight: latestProgressState.when<double?>(
+        data: (progress) {
+          if (progress == null) {
             return null;
           }
 
@@ -192,8 +196,8 @@ class ComicDetailPage extends HookConsumerWidget {
                           24,
                           24,
                           24,
-                          libraryItemState.when(
-                            data: (libraryItem) => libraryItem?.progress == null ? 32 : 120,
+                          latestProgressState.when(
+                            data: (progress) => progress == null ? 32 : 120,
                             loading: () => 32,
                             error: (error, stackTrace) => 32,
                           ),

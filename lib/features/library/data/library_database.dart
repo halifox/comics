@@ -268,6 +268,28 @@ class LibraryDatabase extends _$LibraryDatabase {
 
   Future<void> clearReadingHistory() => delete(comicReadingProgresses).go();
 
+  Stream<ComicReadingProgress?> watchLatestComicProgress({
+    required String comicPathWord,
+  }) {
+    final query = select(comicGroupReadingProgresses)
+      ..where((row) => row.comicPathWord.equals(comicPathWord))
+      ..orderBy([(row) => OrderingTerm.desc(row.updatedAt)])
+      ..limit(1);
+
+    return query.watchSingleOrNull().map(
+      (row) => row == null
+          ? null
+          : ComicReadingProgress(
+              chapterId: row.chapterId,
+              chapterName: row.chapterName,
+              groupName: row.groupName,
+              groupPathWord: row.groupPathWord,
+              pageIndex: row.pageIndex,
+              updatedAt: row.updatedAt,
+            ),
+    );
+  }
+
   Stream<ComicLibraryItem?> watchComic({required String pathWord}) {
     final query = select(storedComics).join([
       leftOuterJoin(
