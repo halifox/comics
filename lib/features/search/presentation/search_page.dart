@@ -1,7 +1,6 @@
 import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/search/presentation/search_results_page.dart';
-import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,15 +11,19 @@ final searchHistoryProvider = StreamProvider<List<String>>((ref) {
 });
 
 class SearchPage extends HookConsumerWidget {
-  const SearchPage({required this.fieldFocused,required this.onDismiss, super.key});
+  const SearchPage({
+    required this.titleController,
+    required this.onDismiss,
+    required this.child,
+    super.key,
+  });
 
-  final bool fieldFocused;
+  final GlassLargeTitleController titleController;
   final VoidCallback onDismiss;
+  final Widget child;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleController = useGlassLargeTitleController();
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -39,9 +42,7 @@ class SearchPage extends HookConsumerWidget {
         headerScrollController: titleController.scrollController,
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: fieldFocused
-              ? SearchHistory(titleController: titleController)
-              : SearchCategoryGrid(titleController: titleController),
+          child: child,
         ),
       ),
     );
@@ -99,7 +100,7 @@ class SearchCategoryGrid extends StatelessWidget {
 }
 
 class SearchHistory extends ConsumerWidget {
-  const SearchHistory({required this.titleController});
+  const SearchHistory({super.key, required this.titleController});
 
   final GlassLargeTitleController titleController;
 
