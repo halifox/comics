@@ -12,29 +12,37 @@ final searchHistoryProvider = StreamProvider<List<String>>((ref) {
 });
 
 class SearchPage extends HookConsumerWidget {
-  const SearchPage({required this.fieldFocused, super.key});
+  const SearchPage({required this.fieldFocused,required this.onDismiss, super.key});
 
   final bool fieldFocused;
+  final VoidCallback onDismiss;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final titleController = useGlassLargeTitleController();
 
-    return GlassScaffold(
-      edgeToEdge: true,
-      contentAwareBrightness: true,
-      statusBarStyle: GlassStatusBarStyle.auto,
-      background: const AmbientGlowBackground(),
-      topEdgeFade: true,
-      bottomEdgeFade: true,
-      topEdgeFadeExtent: 64,
-      bottomEdgeFadeExtent: 64,
-      headerScrollController: titleController.scrollController,
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: fieldFocused
-            ? SearchHistory(titleController: titleController)
-            : SearchCategoryGrid(titleController: titleController),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        onDismiss();
+      },
+      child: GlassScaffold(
+        edgeToEdge: true,
+        contentAwareBrightness: true,
+        statusBarStyle: GlassStatusBarStyle.auto,
+        background: const AmbientGlowBackground(),
+        topEdgeFade: true,
+        bottomEdgeFade: true,
+        topEdgeFadeExtent: 64,
+        bottomEdgeFadeExtent: 64,
+        headerScrollController: titleController.scrollController,
+        body: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: fieldFocused
+              ? SearchHistory(titleController: titleController)
+              : SearchCategoryGrid(titleController: titleController),
+        ),
       ),
     );
   }

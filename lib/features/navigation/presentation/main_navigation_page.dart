@@ -1,8 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-
 import 'package:comics/features/discovery/presentation/home_page.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/library/presentation/comic_library_page.dart';
@@ -10,6 +5,10 @@ import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
 import 'package:comics/features/ranking/presentation/comic_ranking_page.dart';
 import 'package:comics/features/search/presentation/search_page.dart';
 import 'package:comics/features/search/presentation/search_results_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 enum MainNavigationTab {
   home(
@@ -74,7 +73,13 @@ class MainNavigationPage extends HookConsumerWidget {
     return Stack(
       children: [
         isSearching.value
-            ? SearchPage(fieldFocused: searchFieldFocused.value)
+            ? SearchPage(
+                fieldFocused: searchFieldFocused.value,
+                onDismiss: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  isSearching.value = false;
+                },
+              )
             : selectedTab.value.buildPage(
                 rankingPeriod: rankingPeriod.value,
                 rankingScrollResetToken: rankingScrollResetToken.value,
@@ -116,9 +121,7 @@ class MainNavigationPage extends HookConsumerWidget {
                   if (query.isEmpty) {
                     return;
                   }
-                  ref
-                      .read(libraryDatabaseProvider)
-                      .recordSearch(query: query);
+                  ref.read(libraryDatabaseProvider).recordSearch(query: query);
                   searchController.clear();
                   FocusManager.instance.primaryFocus?.unfocus();
                   Navigator.of(context).push(
@@ -159,7 +162,8 @@ class MainNavigationPage extends HookConsumerWidget {
                     activeIcon: Icon(tab.activeIcon),
                     label: tab.label,
                     glowColor:
-                        tab.glowColor ?? CupertinoTheme.of(context).primaryColor,
+                        tab.glowColor ??
+                        CupertinoTheme.of(context).primaryColor,
                   ),
               ],
             ),
