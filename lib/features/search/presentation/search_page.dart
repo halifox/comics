@@ -176,10 +176,7 @@ class SearchHistory extends ConsumerWidget {
                             ),
                           );
                         },
-                        trailing: Semantics(
-                          button: true,
-                          label: '删除搜索记录：$query',
-                          child: GlassIconButton(
+                        trailing: GlassIconButton(
                             icon: const Icon(
                               CupertinoIcons.trash,
                               color: CupertinoColors.systemRed,
@@ -187,7 +184,6 @@ class SearchHistory extends ConsumerWidget {
                             onPressed: () => ref
                                 .read(libraryDatabaseProvider)
                                 .removeSearch(query: query),
-                          ),
                         ),
                       ),
                   ],

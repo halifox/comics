@@ -76,19 +76,12 @@ class SearchResultsPage extends HookConsumerWidget {
         ),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: Semantics(
-          button: true,
-          label: '返回',
-          child: GlassIconButton(
+        leading: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
             onPressed: () => Navigator.of(context).pop(),
-          ),
         ),
         actions: [
-          Semantics(
-            button: true,
-            label: '搜索范围，当前${queryType.value.label}',
-            child: GlassPullDownButton(
+          GlassPullDownButton(
               icon: const Icon(CupertinoIcons.line_horizontal_3_decrease),
               menuWidth: 200,
               menuAlignment: GlassMenuAlignment.topRight,
@@ -103,7 +96,6 @@ class SearchResultsPage extends HookConsumerWidget {
                     onTap: () => queryType.value = option,
                   ),
               ],
-            ),
           ),
         ],
       ),

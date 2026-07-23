@@ -31,13 +31,9 @@ class ReaderSettingsPage extends HookConsumerWidget {
           ),
           centerTitle: false,
           largeTitleController: titleController,
-          leading: Semantics(
-            button: true,
-            label: '返回',
-            child: GlassIconButton(
+          leading: GlassIconButton(
               icon: const Icon(CupertinoIcons.chevron_back),
               onPressed: () => Navigator.of(context).pop(),
-            ),
           ),
         ),
         body: CustomScrollView(

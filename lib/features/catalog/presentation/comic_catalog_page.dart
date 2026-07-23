@@ -102,20 +102,13 @@ class ComicCatalogPage extends HookConsumerWidget {
         ),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: Semantics(
-          button: true,
-          label: '返回',
-          child: GlassIconButton(
+        leading: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
             onPressed: () => Navigator.of(context).pop(),
-          ),
         ),
         actions: showActions
             ? [
-                Semantics(
-                  button: true,
-                  label: '筛选范围，当前${scope.value.label}',
-                  child: GlassPullDownButton(
+                GlassPullDownButton(
                     icon: const Icon(
                       CupertinoIcons.line_horizontal_3_decrease,
                     ),
@@ -132,12 +125,8 @@ class ComicCatalogPage extends HookConsumerWidget {
                           onTap: () => scope.value = option,
                         ),
                     ],
-                  ),
                 ),
-                Semantics(
-                  button: true,
-                  label: '排序方式，当前${ordering.value.label}',
-                  child: GlassPullDownButton(
+                GlassPullDownButton(
                     icon: const Icon(CupertinoIcons.arrow_up_arrow_down),
                     menuWidth: 220,
                     menuAlignment: GlassMenuAlignment.topRight,
@@ -152,7 +141,6 @@ class ComicCatalogPage extends HookConsumerWidget {
                           onTap: () => ordering.value = option,
                         ),
                     ],
-                  ),
                 ),
               ]
             : const [],

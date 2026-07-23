@@ -33,10 +33,7 @@ class ComicLibraryPage extends HookConsumerWidget {
       headerScrollController: titleController.scrollController,
       header: GlassAppBar(
         actions: [
-          Semantics(
-            button: true,
-            label: '阅读历史',
-            child: GlassIconButton(
+          GlassIconButton(
               icon: const Icon(CupertinoIcons.clock),
               onPressed: () {
                 Navigator.of(context).push(
@@ -45,7 +42,6 @@ class ComicLibraryPage extends HookConsumerWidget {
                   ),
                 );
               },
-            ),
           ),
         ],
       ),

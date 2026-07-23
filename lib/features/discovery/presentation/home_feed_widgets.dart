@@ -218,11 +218,7 @@ class MoreComicsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: '查看更多$sectionTitle',
-      excludeSemantics: true,
-      child: GestureDetector(
+    return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: Align(
@@ -245,7 +241,6 @@ class MoreComicsCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
@@ -361,11 +356,7 @@ class ComicCoverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: name,
-      excludeSemantics: true,
-      child: GestureDetector(
+    return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: ClipRRect(
@@ -453,7 +444,6 @@ class ComicCoverCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

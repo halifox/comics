@@ -37,10 +37,7 @@ class HomeFeaturedAds extends HookWidget {
                 final comicId = comic.id;
                 final authors = comic.authorText;
 
-                return Semantics(
-                  button: comicId.isNotEmpty,
-                  label: comicName,
-                  child: GestureDetector(
+                return GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: comicId.isEmpty
                         ? null
@@ -129,7 +126,6 @@ class HomeFeaturedAds extends HookWidget {
                         ),
                       ],
                     ),
-                  ),
                 );
               },
             ),

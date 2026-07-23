@@ -98,27 +98,18 @@ class ComicDetailPage extends HookConsumerWidget {
       statusBarStyle: GlassStatusBarStyle.auto,
       background: const AmbientGlowBackground(),
       appBar: GlassAppBar(
-        leading: Semantics(
-          button: true,
-          label: '返回',
-          child: GlassIconButton(
+        leading: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
             onPressed: () => Navigator.of(context).pop(),
-          ),
         ),
         actions: [
-          Semantics(
-            button: true,
-            label: isFavorite ? '从书架移除' : '添加到书架',
-            toggled: isFavorite,
-            child: GlassIconButton(
+          GlassIconButton(
               icon: Icon(
                 isFavorite
                     ? CupertinoIcons.rectangle_stack_fill
                     : CupertinoIcons.rectangle_stack_badge_plus,
               ),
               onPressed: toggleFavorite,
-            ),
           ),
         ],
       ),

@@ -33,19 +33,12 @@ class ComicHistoryPage extends HookConsumerWidget {
         title: const Text('历史'),
         centerTitle: false,
         largeTitleController: titleController,
-        leading: Semantics(
-          button: true,
-          label: '返回',
-          child: GlassIconButton(
+        leading: GlassIconButton(
             icon: const Icon(CupertinoIcons.chevron_back),
             onPressed: () => Navigator.of(context).pop(),
-          ),
         ),
         actions: [
-          Semantics(
-            button: true,
-            label: '清空阅读历史',
-            child: GlassIconButton(
+          GlassIconButton(
               icon: const Icon(
                 CupertinoIcons.trash,
                 color: CupertinoColors.systemRed,
@@ -72,7 +65,6 @@ class ComicHistoryPage extends HookConsumerWidget {
                 }
                 await ref.read(libraryDatabaseProvider).clearReadingHistory();
               },
-            ),
           ),
         ],
       ),

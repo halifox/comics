@@ -83,10 +83,7 @@ class ComicRankingPage extends HookConsumerWidget {
       headerScrollController: titleController.scrollController,
       header: GlassAppBar(
         actions: [
-          Semantics(
-            button: true,
-            label: '排行周期，当前${period.value.label}',
-            child: GlassPullDownButton(
+          GlassPullDownButton(
               icon: const Icon(CupertinoIcons.calendar),
               menuWidth: 220,
               menuAlignment: GlassMenuAlignment.topRight,
@@ -104,7 +101,6 @@ class ComicRankingPage extends HookConsumerWidget {
                     },
                   ),
               ],
-            ),
           ),
         ],
       ),

@@ -230,19 +230,12 @@ class ChapterReaderPage extends HookConsumerWidget {
                     ),
                   ),
                   centerTitle: false,
-                  leading: Semantics(
-                    button: true,
-                    label: '返回',
-                    child: GlassIconButton(
+                  leading: GlassIconButton(
                       icon: const Icon(CupertinoIcons.chevron_back),
                       onPressed: () => Navigator.of(context).pop(),
-                    ),
                   ),
                   actions: [
-                    Semantics(
-                      button: true,
-                      label: '阅读设置',
-                      child: GlassIconButton(
+                    GlassIconButton(
                         icon: const Icon(CupertinoIcons.slider_horizontal_3),
                         onPressed: () {
                           Navigator.of(context).push(
@@ -251,7 +244,6 @@ class ChapterReaderPage extends HookConsumerWidget {
                             ),
                           );
                         },
-                      ),
                     ),
                   ],
                 ),
