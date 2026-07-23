@@ -15,20 +15,32 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'comic_chapter_list_page.dart';
 
-final comicInfoProvider = FutureProvider.autoDispose.family<ComicDetailModel, String>((ref, comicId) {
-  return ref.watch(comicsRepositoryProvider).getComicDetail(comicId: comicId);
-});
+final comicInfoProvider = FutureProvider.autoDispose
+    .family<ComicDetailModel, String>((ref, comicId) {
+      return ref
+          .watch(comicsRepositoryProvider)
+          .getComicDetail(comicId: comicId);
+    });
 
-final comicLibraryItemProvider = StreamProvider.autoDispose.family<ComicLibraryItem?, String>((ref, pathWord) {
-  return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
-});
+final comicLibraryItemProvider = StreamProvider.autoDispose
+    .family<ComicLibraryItem?, String>((ref, pathWord) {
+      return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
+    });
 
-final comicLatestProgressProvider = StreamProvider.autoDispose.family<ComicReadingProgress?, String>((ref, pathWord) {
-  return ref.watch(libraryDatabaseProvider).watchLatestComicProgress(comicPathWord: pathWord);
-});
+final comicLatestProgressProvider = StreamProvider.autoDispose
+    .family<ComicReadingProgress?, String>((ref, pathWord) {
+      return ref
+          .watch(libraryDatabaseProvider)
+          .watchLatestComicProgress(comicPathWord: pathWord);
+    });
 
 class ComicDetailPage extends HookConsumerWidget {
-  const ComicDetailPage({required this.comicId, required this.name, required this.cover, super.key});
+  const ComicDetailPage({
+    required this.comicId,
+    required this.name,
+    required this.cover,
+    super.key,
+  });
 
   final String comicId;
   final String name;
@@ -100,8 +112,11 @@ class ComicDetailPage extends HookConsumerWidget {
                 },
               ),
             ),
-            loading: () =>
-                const SizedBox(width: 44, height: 44, child: Center(child: GlassProgressIndicator.circular(size: 20))),
+            loading: () => const SizedBox(
+              width: 44,
+              height: 44,
+              child: Center(child: GlassProgressIndicator.circular(size: 20)),
+            ),
             error: (error, stackTrace) => GlassIconButton(
               icon: const Icon(CupertinoIcons.refresh),
               onPressed: () {
@@ -111,57 +126,56 @@ class ComicDetailPage extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomBar: latestProgressState.when<Widget?>(
-        data: (progress) {
-          if (progress == null) {
-            return null;
-          }
-
-          return info.when<Widget?>(
-            data: (detail) => ContinueReadingButton(
-              title: '继续上次阅读',
-              subtitle:
-                  '${progress.groupName} · ${progress.chapterName} · '
-                  '第 ${progress.pageIndex + 1} 页',
-              onTap: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute<void>(
-                    builder: (_) => ChapterReaderPage(
-                      comicId: detail.id,
-                      comicName: detail.title,
-                      comicCover: detail.coverUrl,
-                      comicAuthor: detail.authorText,
-                      groupName: progress.groupName,
-                      groupPathWord: progress.groupPathWord,
-                      chapterId: progress.chapterId,
-                      chapterName: progress.chapterName,
-                      initialPageIndex: progress.pageIndex,
+      bottomBar: info.whenOrNull(
+        data: (detail) {
+          return latestProgressState.whenOrNull(
+            data: (progress) {
+              if (progress == null) {
+                return null;
+              }
+              return ContinueReadingButton(
+                title: '继续上次阅读',
+                subtitle:
+                    '${progress.groupName} · ${progress.chapterName} · 第 ${progress.pageIndex + 1} 页',
+                onTap: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute<void>(
+                      builder: (_) => ChapterReaderPage(
+                        comicId: detail.id,
+                        comicName: detail.title,
+                        comicCover: detail.coverUrl,
+                        comicAuthor: detail.authorText,
+                        groupName: progress.groupName,
+                        groupPathWord: progress.groupPathWord,
+                        chapterId: progress.chapterId,
+                        chapterName: progress.chapterName,
+                        initialPageIndex: progress.pageIndex,
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-            loading: () => null,
-            error: (error, stackTrace) => null,
+                  );
+                },
+              );
+            },
           );
         },
-        loading: () => null,
-        error: (error, stackTrace) => null,
       ),
-      bottomBarHeight: latestProgressState.when<double?>(
+      bottomBarHeight: info.whenOrNull(
         data: (progress) {
-          if (progress == null) {
-            return null;
-          }
-
-          return info.when<double?>(data: (_) => 84, loading: () => null, error: (error, stackTrace) => null);
+          return latestProgressState.whenOrNull(
+            data: (progress) {
+              if (progress == null) {
+                return null;
+              }
+              return 84;
+            },
+          );
         },
-        loading: () => null,
-        error: (error, stackTrace) => null,
       ),
       body: CustomScrollView(
         controller: scrollController,
-        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         slivers: [
           SliverToBoxAdapter(
             child: ClipRect(
@@ -183,7 +197,8 @@ class ComicDetailPage extends HookConsumerWidget {
           info.when(
             data: (data) {
               final statusIcon = switch (data.statusText) {
-                String display when display == '已完結' => CupertinoIcons.checkmark_seal,
+                String display when display == '已完結' =>
+                  CupertinoIcons.checkmark_seal,
                 String display when display == '連載中' => CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
               };
@@ -191,7 +206,9 @@ class ComicDetailPage extends HookConsumerWidget {
                 builder: (context, constraints) {
                   return SliverToBoxAdapter(
                     child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: constraints.viewportMainAxisExtent),
+                      constraints: BoxConstraints(
+                        minHeight: constraints.viewportMainAxisExtent,
+                      ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(
                           24,
@@ -210,7 +227,9 @@ class ComicDetailPage extends HookConsumerWidget {
                             Text(
                               data.title,
                               style: TextStyle(
-                                color: CupertinoColors.label.resolveFrom(context),
+                                color: CupertinoColors.label.resolveFrom(
+                                  context,
+                                ),
                                 fontSize: 32,
                                 fontWeight: FontWeight.w800,
                                 height: 1.16,
@@ -220,7 +239,8 @@ class ComicDetailPage extends HookConsumerWidget {
                             Text(
                               data.brief,
                               style: TextStyle(
-                                color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                                color: CupertinoColors.secondaryLabel
+                                    .resolveFrom(context),
                                 fontSize: 15,
                                 height: 1.55,
                               ),
@@ -252,13 +272,21 @@ class ComicDetailPage extends HookConsumerWidget {
                               spacing: 8,
                               runSpacing: 8,
                               children: [
-                                GlassChip(icon: Icon(statusIcon), label: data.statusText, onTap: () {}),
+                                GlassChip(
+                                  icon: Icon(statusIcon),
+                                  label: data.statusText,
+                                  onTap: () {},
+                                ),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.calendar),
                                   label: data.updatedText,
                                   onTap: () {},
                                 ),
-                                GlassChip(icon: const Icon(CupertinoIcons.globe), label: data.regionText, onTap: () {}),
+                                GlassChip(
+                                  icon: const Icon(CupertinoIcons.globe),
+                                  label: data.regionText,
+                                  onTap: () {},
+                                ),
                               ],
                             ),
                             Wrap(
@@ -272,7 +300,10 @@ class ComicDetailPage extends HookConsumerWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                           CupertinoPageRoute<void>(
-                                            builder: (_) => ComicCatalogPage(title: theme.label, theme: theme.id),
+                                            builder: (_) => ComicCatalogPage(
+                                              title: theme.label,
+                                              theme: theme.id,
+                                            ),
                                           ),
                                         );
                                       },
@@ -283,7 +314,9 @@ class ComicDetailPage extends HookConsumerWidget {
                             Text(
                               '篇章',
                               style: TextStyle(
-                                color: CupertinoColors.label.resolveFrom(context),
+                                color: CupertinoColors.label.resolveFrom(
+                                  context,
+                                ),
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -322,8 +355,10 @@ class ComicDetailPage extends HookConsumerWidget {
               );
             },
             loading: () => const ContentStateSliver.loading(),
-            error: (error, stackTrace) =>
-                ContentStateSliver.error(error: error, onRetry: () => ref.invalidate(comicInfoProvider(comicId))),
+            error: (error, stackTrace) => ContentStateSliver.error(
+              error: error,
+              onRetry: () => ref.invalidate(comicInfoProvider(comicId)),
+            ),
           ),
         ],
       ),
