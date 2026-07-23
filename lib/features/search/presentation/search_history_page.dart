@@ -73,9 +73,7 @@ class SearchHistoryPage extends ConsumerWidget {
                           18,
                           16,
                           18,
-                          MediaQuery.paddingOf(context).bottom +
-                              MediaQuery.viewInsetsOf(context).bottom +
-                              72,
+                          MediaQuery.paddingOf(context).bottom + 72,
                         ),
                         child: Align(
                           alignment: Alignment.bottomCenter,
