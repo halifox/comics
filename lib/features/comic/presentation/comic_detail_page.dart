@@ -92,32 +92,6 @@ class ComicDetailPage extends HookConsumerWidget {
           );
     }
 
-    Future<void> handleFavoritePressed() async {
-      if (isFavorite) {
-        final shouldRemove = await GlassDialog.show<bool>(
-          context: context,
-          title: '移出书架？',
-          message: '确定要将《$name》从书架中移除吗？',
-          actions: [
-            GlassDialogAction(
-              label: '取消',
-              onPressed: () => Navigator.of(context).pop(false),
-            ),
-            GlassDialogAction(
-              label: '移除',
-              isDestructive: true,
-              onPressed: () => Navigator.of(context).pop(true),
-            ),
-          ],
-        );
-        if (shouldRemove != true || !context.mounted) {
-          return;
-        }
-      }
-
-      await toggleFavorite();
-    }
-
     return GlassScaffold(
       edgeToEdge: true,
       contentAwareBrightness: true,
@@ -143,7 +117,7 @@ class ComicDetailPage extends HookConsumerWidget {
                     ? CupertinoIcons.rectangle_stack_fill
                     : CupertinoIcons.rectangle_stack_badge_plus,
               ),
-              onPressed: handleFavoritePressed,
+              onPressed: toggleFavorite,
             ),
           ),
         ],
