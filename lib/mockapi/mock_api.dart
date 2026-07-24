@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final mockApiProvider = Provider((ref) => const MockApi());
 
-final mockComicsData = List<MockComicDto>.unmodifiable(buildMockComics());
+final mockComicsData = buildMockComics();
 
 class MockApi {
   const MockApi({this.latency = const Duration(milliseconds: 260)});

@@ -10,7 +10,7 @@ class JsonResponseRecorderInterceptor extends Interceptor {
   JsonResponseRecorderInterceptor({this.outputDirectory});
 
   final Directory? outputDirectory;
-  Future<void> writeQueue = Future<void>.value();
+  Future<void> writeQueue = Future.value();
 
   @override
   void onResponse(
@@ -170,13 +170,13 @@ class JsonResponseRecorderInterceptor extends Interceptor {
       return value.map((item) => normalizeValue(value: item)).toList();
     }
     if (value is FormData) {
-      return <String, Object?>{
-        'fields': <String, Object?>{
+      return {
+        'fields': {
           for (final field in value.fields) field.key: field.value,
         },
         'files': [
           for (final file in value.files)
-            <String, Object?>{
+            {
               'field': file.key,
               'filename': file.value.filename,
               'content_type': file.value.contentType?.toString(),

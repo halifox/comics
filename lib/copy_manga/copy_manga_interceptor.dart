@@ -66,7 +66,7 @@ class CopyMangaInterceptor extends Interceptor {
       return;
     }
 
-    final errorResponse = Response<dynamic>(
+    final errorResponse = Response(
       requestOptions: response.requestOptions,
       data: response.data,
       headers: response.headers,

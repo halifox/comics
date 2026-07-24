@@ -219,10 +219,8 @@ class ComicDetailPage extends HookConsumerWidget {
           info.when(
             data: (data) {
               final statusIcon = switch (data.statusText) {
-                final String display when display == '已完結' =>
-                  CupertinoIcons.checkmark_seal,
-                final String display when display == '連載中' =>
-                  CupertinoIcons.clock,
+                '已完結' => CupertinoIcons.checkmark_seal,
+                '連載中' => CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
               };
               return SliverLayoutBuilder(
