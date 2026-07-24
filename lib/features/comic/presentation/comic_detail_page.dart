@@ -12,27 +12,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import 'comic_chapter_list_page.dart';
 
-final comicInfoProvider = FutureProvider.autoDispose
-    .family<ComicDetailModel, String>((ref, comicId) {
-      return ref
-          .watch(comicsRepositoryProvider)
-          .getComicDetail(comicId: comicId);
-    });
+final comicInfoProvider = FutureProvider.autoDispose.family((
+  ref,
+  String comicId,
+) {
+  return ref.watch(comicsRepositoryProvider).getComicDetail(comicId: comicId);
+});
 
-final comicLibraryItemProvider = StreamProvider.autoDispose
-    .family<ComicLibraryItem?, String>((ref, pathWord) {
-      return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
-    });
+final comicLibraryItemProvider = StreamProvider.autoDispose.family((
+  ref,
+  String pathWord,
+) {
+  return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
+});
 
-final comicLatestProgressProvider = StreamProvider.autoDispose
-    .family<ComicReadingProgress?, String>((ref, pathWord) {
-      return ref
-          .watch(libraryDatabaseProvider)
-          .watchLatestComicProgress(comicPathWord: pathWord);
-    });
+final comicLatestProgressProvider = StreamProvider.autoDispose.family((
+  ref,
+  String pathWord,
+) {
+  return ref
+      .watch(libraryDatabaseProvider)
+      .watchLatestComicProgress(comicPathWord: pathWord);
+});
+
+final comicDetailToolbarIconColorProvider = FutureProvider.autoDispose.family((
+  ref,
+  String cover,
+) async {
+  final palette = await PaletteGenerator.fromImageProvider(
+    ResizeImage(CachedNetworkImageProvider(cover), width: 64, height: 96),
+    size: const Size(64, 96),
+    maximumColorCount: 12,
+  );
+  return palette.dominantColor?.bodyTextColor.withAlpha(255);
+});
 
 class ComicDetailPage extends HookConsumerWidget {
   const ComicDetailPage({
@@ -53,6 +70,9 @@ class ComicDetailPage extends HookConsumerWidget {
     final latestProgressState = ref.watch(comicLatestProgressProvider(comicId));
     final scrollController = useScrollController();
     final scrollOffset = useState(0.0);
+    final toolbarIconColor = ref
+        .watch(comicDetailToolbarIconColorProvider(cover))
+        .value;
 
     useEffect(() {
       void onScroll() {
@@ -86,7 +106,7 @@ class ComicDetailPage extends HookConsumerWidget {
       background: const AmbientGlowBackground(),
       appBar: GlassAppBar(
         leading: GlassIconButton(
-          icon: const Icon(CupertinoIcons.chevron_back),
+          icon: Icon(CupertinoIcons.chevron_back, color: toolbarIconColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
@@ -97,6 +117,7 @@ class ComicDetailPage extends HookConsumerWidget {
                   libraryItem?.isFavorite ?? false
                       ? CupertinoIcons.rectangle_stack_fill
                       : CupertinoIcons.rectangle_stack_badge_plus,
+                  color: toolbarIconColor,
                 ),
                 onPressed: () => toggleFavorite(detail: detail),
               ),
@@ -106,7 +127,7 @@ class ComicDetailPage extends HookConsumerWidget {
                 child: Center(child: GlassProgressIndicator.circular(size: 20)),
               ),
               error: (error, stackTrace) => GlassIconButton(
-                icon: const Icon(CupertinoIcons.refresh),
+                icon: Icon(CupertinoIcons.refresh, color: toolbarIconColor),
                 onPressed: () {
                   ref.invalidate(comicInfoProvider(comicId));
                 },
@@ -118,7 +139,7 @@ class ComicDetailPage extends HookConsumerWidget {
               child: Center(child: GlassProgressIndicator.circular(size: 20)),
             ),
             error: (error, stackTrace) => GlassIconButton(
-              icon: const Icon(CupertinoIcons.refresh),
+              icon: Icon(CupertinoIcons.refresh, color: toolbarIconColor),
               onPressed: () {
                 ref.invalidate(comicLibraryItemProvider(comicId));
               },
@@ -199,7 +220,8 @@ class ComicDetailPage extends HookConsumerWidget {
               final statusIcon = switch (data.statusText) {
                 final String display when display == '已完結' =>
                   CupertinoIcons.checkmark_seal,
-                final String display when display == '連載中' => CupertinoIcons.clock,
+                final String display when display == '連載中' =>
+                  CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
               };
               return SliverLayoutBuilder(
