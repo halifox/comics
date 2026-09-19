@@ -27,7 +27,7 @@ enum ComicSearchField {
 typedef ComicSearchQuery = ({String query, ComicSearchField field});
 
 final comicSearchResultsProvider =
-    AsyncNotifierProvider.autoDispose.family<
+    AsyncNotifierProvider.family<
       ComicSearchResultsNotifier,
       PagePagingData<ComicDto>,
       ComicSearchQuery

@@ -43,7 +43,7 @@ typedef ComicCatalogFilter = ({
 });
 
 final comicCatalogProvider =
-    AsyncNotifierProvider.autoDispose.family<
+    AsyncNotifierProvider.family<
       ComicCatalogNotifier,
       PagePagingData<ComicDto>,
       ComicCatalogFilter

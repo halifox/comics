@@ -9,7 +9,7 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'home_feed_widgets.dart';
 import 'new_release_page.dart';
 
-final homeProvider = FutureProvider.autoDispose(
+final homeProvider = FutureProvider(
   (ref) => ref.watch(comicsApiProvider).homeIndex2(),
 );
 

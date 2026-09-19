@@ -14,7 +14,7 @@ import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 typedef ComicChapterListQuery = ({String comicId, String groupPathWord});
 typedef ComicGroupProgressKey = ({String comicPathWord, String groupPathWord});
 
-final comicGroupProgressProvider = StreamProvider.autoDispose
+final comicGroupProgressProvider = StreamProvider
     .family<ComicReadingProgress?, ComicGroupProgressKey>((ref, key) {
       return ref
           .watch(libraryDatabaseProvider)
@@ -24,7 +24,7 @@ final comicGroupProgressProvider = StreamProvider.autoDispose
           );
     });
 
-final comicChapterProgressesProvider = StreamProvider.autoDispose
+final comicChapterProgressesProvider = StreamProvider
     .family<Map<String, ComicReadingProgress>, ComicGroupProgressKey>((
       ref,
       key,
@@ -37,7 +37,7 @@ final comicChapterProgressesProvider = StreamProvider.autoDispose
           );
     });
 
-final comicChapterListProvider = AsyncNotifierProvider.autoDispose
+final comicChapterListProvider = AsyncNotifierProvider
     .family<
       ComicChapterListNotifier,
       PagePagingData<ChapterDto>,

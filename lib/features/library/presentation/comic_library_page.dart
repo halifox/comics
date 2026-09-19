@@ -9,7 +9,7 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'comic_history_page.dart';
 
-final favoriteComicsProvider = StreamProvider.autoDispose((ref) {
+final favoriteComicsProvider = StreamProvider((ref) {
   return ref.watch(libraryDatabaseProvider).watchFavoriteComics();
 });
 

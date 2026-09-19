@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
-final newReleaseProvider = AsyncNotifierProvider.autoDispose(
+final newReleaseProvider = AsyncNotifierProvider(
   NewReleaseNotifier.new,
 );
 

@@ -29,7 +29,7 @@ typedef ComicRankingFilter = ({
 });
 
 final rankingProvider =
-    AsyncNotifierProvider.autoDispose.family<
+    AsyncNotifierProvider.family<
       ComicRankingNotifier,
       PagePagingData<RankedComicDto>,
       ComicRankingFilter
@@ -79,10 +79,10 @@ class ComicRankingPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audience = useState(ComicRankingAudience.male);
-    final period = useState(initialPeriod);
+    final period = initialPeriod;
     final provider = rankingProvider((
       audience: audience.value,
-      period: period.value,
+      period: period,
     ));
     final titleController = useGlassLargeTitleController();
 
@@ -106,12 +106,11 @@ class ComicRankingPage extends HookConsumerWidget {
               for (final option in ComicRankingPeriod.values)
                 GlassMenuItem(
                   title: option.label,
-                  isSelected: period.value == option,
-                  trailing: period.value == option
+                  isSelected: period == option,
+                  trailing: period == option
                       ? const Icon(CupertinoIcons.checkmark, size: 18)
                       : null,
                   onTap: () {
-                    period.value = option;
                     onPeriodChanged(option);
                   },
                 ),

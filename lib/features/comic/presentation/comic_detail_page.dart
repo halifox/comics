@@ -16,19 +16,19 @@ import 'package:palette_generator/palette_generator.dart';
 import 'comic_chapter_list_page.dart';
 import 'comic_author_names.dart';
 
-final comicInfoProvider = FutureProvider.autoDispose
+final comicInfoProvider = FutureProvider
     .family<ComicInfoResultDto, String>(
       (ref, comicId) => ref.watch(comicsApiProvider).comicInfo(comicId: comicId),
     );
 
-final comicLibraryItemProvider = StreamProvider.autoDispose.family((
+final comicLibraryItemProvider = StreamProvider.family((
   ref,
   String pathWord,
 ) {
   return ref.watch(libraryDatabaseProvider).watchComic(pathWord: pathWord);
 });
 
-final comicLatestProgressProvider = StreamProvider.autoDispose.family((
+final comicLatestProgressProvider = StreamProvider.family((
   ref,
   String pathWord,
 ) {
@@ -37,7 +37,7 @@ final comicLatestProgressProvider = StreamProvider.autoDispose.family((
       .watchLatestComicProgress(comicPathWord: pathWord);
 });
 
-final comicDetailToolbarIconColorProvider = FutureProvider.autoDispose.family((
+final comicDetailToolbarIconColorProvider = FutureProvider.family((
   ref,
   String cover,
 ) async {
