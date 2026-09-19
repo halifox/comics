@@ -76,6 +76,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - shorebird.yaml
 
   # To add assets to your application, add an assets section, like this:
   # assets:
