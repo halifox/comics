@@ -1,6 +1,7 @@
 import 'package:comics/features/navigation/presentation/main_navigation_page.dart';
 import 'package:comics/shared/application/shared_preferences_provider.dart';
 import 'package:comics/shared/presentation/theme/app_theme.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
@@ -26,19 +27,35 @@ void main() {
       await LiquidGlassWidgets.initialize();
       final sharedPreferences = await SharedPreferences.getInstance();
       runApp(
-        LiquidGlassWidgets.wrap(
-          adaptiveQuality: true,
-          child: ProviderScope(
-            overrides: [
-              sharedPreferencesProvider.overrideWithValue(sharedPreferences),
-            ],
-            retry: (retryCount, error) => null,
-            child: const ComicsApp(),
+        SentryWidget(
+          child: LiquidGlassWidgets.wrap(
+            adaptiveQuality: true,
+            child: ProviderScope(
+              overrides: [
+                sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+              ],
+              observers: [SentryProviderObserver()],
+              retry: (retryCount, error) => null,
+              child: const ComicsApp(),
+            ),
           ),
         ),
       );
     },
   );
+}
+
+base class SentryProviderObserver extends ProviderObserver {
+  @override
+  void providerDidFail(
+    ProviderObserverContext context,
+    Object error,
+    StackTrace stackTrace,
+  ) {
+    if (error is DioException) return;
+
+    Sentry.captureException(error, stackTrace: stackTrace);
+  }
 }
 
 class ComicsApp extends HookConsumerWidget {
