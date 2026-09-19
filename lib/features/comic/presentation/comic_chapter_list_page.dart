@@ -226,7 +226,6 @@ class ComicChapterListPage extends HookConsumerWidget {
                         final chapterProgress = chapterProgresses[chapter.uuid];
                         return ComicChapterTile(
                           chapter: chapter,
-                          progress: chapterProgress,
                           onTap: () {
                             Navigator.of(context).push(
                               CupertinoPageRoute(
@@ -275,12 +274,12 @@ class ComicChapterListPage extends HookConsumerWidget {
 
 class ComicChapterTile extends StatelessWidget {
   const ComicChapterTile({
-    required this.chapter, required this.onTap, super.key,
-    this.progress,
+    required this.chapter,
+    required this.onTap,
+    super.key,
   });
 
   final ChapterDto chapter;
-  final ComicReadingProgress? progress;
   final VoidCallback onTap;
 
   @override
@@ -290,13 +289,7 @@ class ComicChapterTile extends StatelessWidget {
       child: GlassCard(
         padding: EdgeInsets.zero,
         child: GlassListTile(
-          leading: Icon(
-            progress == null ? CupertinoIcons.book : CupertinoIcons.book_fill,
-          ),
           title: Text(chapter.name),
-          subtitle: progress == null
-              ? null
-              : Text('已读至第 ${progress!.pageIndex + 1} 页'),
           trailing: GlassListTile.chevron,
           onTap: onTap,
         ),
