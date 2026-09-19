@@ -1,5 +1,3 @@
-import 'package:comics/copy_manga/copy_manga.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/navigation/presentation/main_navigation_page.dart';
 import 'package:comics/shared/application/shared_preferences_provider.dart';
 import 'package:comics/shared/presentation/theme/app_theme.dart';
@@ -17,9 +15,6 @@ Future<void> main() async {
       adaptiveQuality: true,
       child: ProviderScope(
         overrides: [
-          comicsRepositoryProvider.overrideWith(
-            (ref) => ref.watch(copyMangaComicsRepositoryProvider),
-          ),
           sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         ],
         retry: (retryCount, error) => null,

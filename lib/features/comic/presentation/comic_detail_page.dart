@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/catalog/presentation/comic_catalog_page.dart';
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
@@ -15,13 +14,12 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import 'comic_chapter_list_page.dart';
+import 'comic_author_names.dart';
 
-final comicInfoProvider = FutureProvider.autoDispose.family((
-  ref,
-  String comicId,
-) {
-  return ref.watch(comicsRepositoryProvider).getComicDetail(comicId: comicId);
-});
+final comicInfoProvider = FutureProvider.autoDispose
+    .family<ComicInfoResultDto, String>(
+      (ref, comicId) => ref.watch(comicsApiProvider).comicInfo(comicId: comicId),
+    );
 
 final comicLibraryItemProvider = StreamProvider.autoDispose.family((
   ref,
@@ -55,13 +53,11 @@ final comicDetailToolbarIconColorProvider = FutureProvider.autoDispose.family((
 class ComicDetailPage extends HookConsumerWidget {
   const ComicDetailPage({
     required this.comicId,
-    required this.name,
     required this.cover,
     super.key,
   });
 
   final String comicId;
-  final String name;
   final String cover;
 
   @override
@@ -73,7 +69,11 @@ class ComicDetailPage extends HookConsumerWidget {
     final scrollOffset = useState(0.0);
     final toolbarIconColor = ref
         .watch(comicDetailToolbarIconColorProvider(cover))
-        .value;
+        .when(
+          data: (color) => color,
+          loading: () => null,
+          error: (error, stackTrace) => null,
+        );
 
     useEffect(() {
       void onScroll() {
@@ -86,15 +86,15 @@ class ComicDetailPage extends HookConsumerWidget {
       };
     }, [scrollController]);
 
-    Future<void> toggleFavorite({required ComicDetailModel detail}) async {
+    Future<void> toggleFavorite({required ComicInfoDto comic}) async {
       await ref
           .read(libraryDatabaseProvider)
           .toggleFavorite(
             comic: ComicMetadata(
-              pathWord: detail.id,
-              name: detail.title,
-              cover: detail.coverUrl,
-              author: detail.authorText,
+              pathWord: comic.pathWord,
+              name: comic.name,
+              cover: comic.cover,
+              author: comicAuthorNames(authors: comic.authors),
             ),
           );
     }
@@ -120,7 +120,7 @@ class ComicDetailPage extends HookConsumerWidget {
                       : CupertinoIcons.rectangle_stack_badge_plus,
                   color: toolbarIconColor,
                 ),
-                onPressed: () => toggleFavorite(detail: detail),
+                onPressed: () => toggleFavorite(comic: detail.comic),
               ),
               loading: () => const SizedBox(
                 width: 44,
@@ -148,9 +148,9 @@ class ComicDetailPage extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomBar: info.whenOrNull(
+      bottomBar: info.when(
         data: (detail) {
-          return latestProgressState.whenOrNull(
+          return latestProgressState.when(
             data: (progress) {
               if (progress == null) {
                 return null;
@@ -163,10 +163,12 @@ class ComicDetailPage extends HookConsumerWidget {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
                       builder: (_) => ChapterReaderPage(
-                        comicId: detail.id,
-                        comicName: detail.title,
-                        comicCover: detail.coverUrl,
-                        comicAuthor: detail.authorText,
+                        comicId: detail.comic.pathWord,
+                        comicName: detail.comic.name,
+                        comicCover: detail.comic.cover,
+                        comicAuthor: comicAuthorNames(
+                          authors: detail.comic.authors,
+                        ),
                         groupName: progress.groupName,
                         groupPathWord: progress.groupPathWord,
                         chapterId: progress.chapterId,
@@ -178,20 +180,28 @@ class ComicDetailPage extends HookConsumerWidget {
                 },
               );
             },
+            loading: () => null,
+            error: (error, stackTrace) => null,
           );
         },
+        loading: () => null,
+        error: (error, stackTrace) => null,
       ),
-      bottomBarHeight: info.whenOrNull(
-        data: (progress) {
-          return latestProgressState.whenOrNull(
+      bottomBarHeight: info.when(
+        data: (detail) {
+          return latestProgressState.when(
             data: (progress) {
               if (progress == null) {
                 return null;
               }
               return 84;
             },
+            loading: () => null,
+            error: (error, stackTrace) => null,
           );
         },
+        loading: () => null,
+        error: (error, stackTrace) => null,
       ),
       body: CustomScrollView(
         controller: scrollController,
@@ -218,7 +228,8 @@ class ComicDetailPage extends HookConsumerWidget {
           ),
           info.when(
             data: (data) {
-              final statusIcon = switch (data.statusText) {
+              final comic = data.comic;
+              final statusIcon = switch (comic.status.display) {
                 '已完結' => CupertinoIcons.checkmark_seal,
                 '連載中' => CupertinoIcons.clock,
                 _ => CupertinoIcons.info_circle,
@@ -246,7 +257,7 @@ class ComicDetailPage extends HookConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              data.title,
+                              comic.name,
                               style: TextStyle(
                                 color: CupertinoColors.label.resolveFrom(
                                   context,
@@ -258,7 +269,7 @@ class ComicDetailPage extends HookConsumerWidget {
                               ),
                             ),
                             Text(
-                              data.brief,
+                              comic.brief,
                               style: TextStyle(
                                 color: CupertinoColors.secondaryLabel
                                     .resolveFrom(context),
@@ -269,17 +280,17 @@ class ComicDetailPage extends HookConsumerWidget {
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
-                              children: data.authors
+                              children: comic.authors
                                   .map(
                                     (author) => GlassChip(
                                       icon: const Icon(CupertinoIcons.person),
-                                      label: author.label,
+                                      label: author.name,
                                       onTap: () {
                                         Navigator.of(context).push(
                                           CupertinoPageRoute(
                                             builder: (_) => ComicCatalogPage(
-                                              title: author.label,
-                                              author: author.id,
+                                              title: author.name,
+                                              author: author.pathWord,
                                               showActions: false,
                                             ),
                                           ),
@@ -295,17 +306,17 @@ class ComicDetailPage extends HookConsumerWidget {
                               children: [
                                 GlassChip(
                                   icon: Icon(statusIcon),
-                                  label: data.statusText,
+                                  label: comic.status.display,
                                   onTap: () {},
                                 ),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.calendar),
-                                  label: data.updatedText,
+                                  label: comic.datetimeUpdated,
                                   onTap: () {},
                                 ),
                                 GlassChip(
                                   icon: const Icon(CupertinoIcons.globe),
-                                  label: data.regionText,
+                                  label: comic.region.display,
                                   onTap: () {},
                                 ),
                               ],
@@ -313,17 +324,17 @@ class ComicDetailPage extends HookConsumerWidget {
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
-                              children: data.themes
+                              children: comic.themes
                                   .map(
                                     (theme) => GlassChip(
                                       icon: const Icon(CupertinoIcons.tag),
-                                      label: theme.label,
+                                      label: theme.name,
                                       onTap: () {
                                         Navigator.of(context).push(
                                           CupertinoPageRoute(
                                             builder: (_) => ComicCatalogPage(
-                                              title: theme.label,
-                                              theme: theme.id,
+                                              title: theme.name,
+                                              theme: theme.pathWord,
                                             ),
                                           ),
                                         );
@@ -344,20 +355,22 @@ class ComicDetailPage extends HookConsumerWidget {
                             ),
                             GlassGroupedSection(
                               margin: .zero,
-                              children: data.groups.map((e) {
+                              children: data.groups.values.map((group) {
                                 return GlassListTile(
-                                  subtitle: Text('${e.chapterCount}话'),
-                                  title: Text(e.title),
+                                  subtitle: Text('${group.count}话'),
+                                  title: Text(group.name),
                                   onTap: () {
                                     Navigator.of(context).push(
                                       CupertinoPageRoute(
                                         builder: (_) => ComicChapterListPage(
                                           comicId: comicId,
-                                          comicName: data.title,
-                                          comicCover: data.coverUrl,
-                                          comicAuthor: data.authorText,
-                                          groupName: e.title,
-                                          groupPathWord: e.id,
+                                          comicName: comic.name,
+                                          comicCover: comic.cover,
+                                          comicAuthor: comicAuthorNames(
+                                            authors: comic.authors,
+                                          ),
+                                          groupName: group.name,
+                                          groupPathWord: group.pathWord,
                                         ),
                                       ),
                                     );

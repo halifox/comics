@@ -1,5 +1,4 @@
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/chapter_reader_page.dart';
@@ -41,35 +40,33 @@ final comicChapterProgressesProvider = StreamProvider.autoDispose
 final comicChapterListProvider = AsyncNotifierProvider.autoDispose
     .family<
       ComicChapterListNotifier,
-      PagePagingData<ChapterSummaryModel>,
+      PagePagingData<ChapterDto>,
       ComicChapterListQuery
     >(ComicChapterListNotifier.new);
 
 class ComicChapterListNotifier
-    extends AsyncNotifier<PagePagingData<ChapterSummaryModel>>
-    with PagePagingNotifierMixin<ChapterSummaryModel> {
+    extends AsyncNotifier<PagePagingData<ChapterDto>>
+    with PagePagingNotifierMixin<ChapterDto> {
   ComicChapterListNotifier(this.query);
 
   static const pageSize = 100;
   final ComicChapterListQuery query;
 
   @override
-  Future<PagePagingData<ChapterSummaryModel>> build() => fetch(page: 1);
+  Future<PagePagingData<ChapterDto>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<ChapterSummaryModel>> fetch({required int page}) async {
+  Future<PagePagingData<ChapterDto>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsRepositoryProvider)
-        .getChapters(
-          comicId: query.comicId,
-          groupId: query.groupPathWord,
-          limit: pageSize,
-          offset: offset,
-        );
+    final result = await ref.read(comicsApiProvider).chapters(
+      comicId: query.comicId,
+      groupId: query.groupPathWord,
+      limit: pageSize,
+      offset: offset,
+    );
     return PagePagingData(
-      items: result.items,
-      hasMore: offset + result.items.length < result.total,
+      items: result.list,
+      hasMore: offset + result.list.length < result.total,
       page: page,
     );
   }
@@ -134,7 +131,7 @@ class ComicChapterListPage extends HookConsumerWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      bottomBar: groupProgressState.whenOrNull(
+      bottomBar: groupProgressState.when(
         data: (data) {
           if (data == null) return null;
           return ContinueReadingButton(
@@ -159,12 +156,16 @@ class ComicChapterListPage extends HookConsumerWidget {
             },
           );
         },
+        loading: () => null,
+        error: (error, stackTrace) => null,
       ),
-      bottomBarHeight: groupProgressState.whenOrNull(
+      bottomBarHeight: groupProgressState.when(
         data: (data) {
           if (data == null) return null;
           return 84;
         },
+        loading: () => null,
+        error: (error, stackTrace) => null,
       ),
       body: CustomScrollView(
         controller: titleController.scrollController,
@@ -222,7 +223,7 @@ class ComicChapterListPage extends HookConsumerWidget {
                         }
 
                         final chapter = data.items[index];
-                        final chapterProgress = chapterProgresses[chapter.id];
+                        final chapterProgress = chapterProgresses[chapter.uuid];
                         return ComicChapterTile(
                           chapter: chapter,
                           progress: chapterProgress,
@@ -236,8 +237,8 @@ class ComicChapterListPage extends HookConsumerWidget {
                                   comicAuthor: comicAuthor,
                                   groupName: groupName,
                                   groupPathWord: groupPathWord,
-                                  chapterId: chapter.id,
-                                  chapterName: chapter.title,
+                                  chapterId: chapter.uuid,
+                                  chapterName: chapter.name,
                                   initialPageIndex:
                                       chapterProgress?.pageIndex ?? 0,
                                 ),
@@ -278,7 +279,7 @@ class ComicChapterTile extends StatelessWidget {
     this.progress,
   });
 
-  final ChapterSummaryModel chapter;
+  final ChapterDto chapter;
   final ComicReadingProgress? progress;
   final VoidCallback onTap;
 
@@ -292,7 +293,7 @@ class ComicChapterTile extends StatelessWidget {
           leading: Icon(
             progress == null ? CupertinoIcons.book : CupertinoIcons.book_fill,
           ),
-          title: Text(chapter.title),
+          title: Text(chapter.name),
           subtitle: progress == null
               ? null
               : Text('已读至第 ${progress!.pageIndex + 1} 页'),

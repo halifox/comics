@@ -51,10 +51,6 @@ abstract class CopyMangaApi {
   Future<NetworkResultDto> network({@Query('platform') int platform = 3});
 
   /// 获取首页推荐、热门、最新及排行等分区内容。
-  @Deprecated('use homeIndex2()')
-  @GET('/api/v3/h5/homeIndex')
-  Future<HomeResultDto> homeIndex();
-
   @GET('/api/v3/h5/homeIndex2')
   Future<HomeResultDto> homeIndex2({@Query('platform') int platform = 3});
 

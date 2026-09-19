@@ -1,8 +1,9 @@
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/copy_manga/copy_manga_api.dart';
+import 'package:comics/copy_manga/copy_manga_dto.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
+import 'package:comics/features/comic/presentation/comic_author_names.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
-import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
+import 'package:comics/features/ranking/presentation/comic_ranking_period.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
 import 'package:comics/shared/presentation/widgets/cupertino_paging_sliver_view.dart';
@@ -12,38 +13,52 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
+enum ComicRankingAudience {
+  male(label: '男频', apiValue: 'male'),
+  female(label: '女频', apiValue: 'female');
+
+  const ComicRankingAudience({required this.label, required this.apiValue});
+
+  final String label;
+  final String apiValue;
+}
+
 typedef ComicRankingFilter = ({
   ComicRankingAudience audience,
   ComicRankingPeriod period,
 });
 
-final rankingProvider = AsyncNotifierProvider.family(ComicRankingNotifier.new);
+final rankingProvider =
+    AsyncNotifierProvider.autoDispose.family<
+      ComicRankingNotifier,
+      PagePagingData<RankedComicDto>,
+      ComicRankingFilter
+    >(ComicRankingNotifier.new);
 
 class ComicRankingNotifier
-    extends AsyncNotifier<PagePagingData<RankedComicModel>>
-    with PagePagingNotifierMixin<RankedComicModel> {
+    extends AsyncNotifier<PagePagingData<RankedComicDto>>
+    with PagePagingNotifierMixin<RankedComicDto> {
   ComicRankingNotifier(this.filter);
 
   static const pageSize = 18;
   final ComicRankingFilter filter;
 
   @override
-  Future<PagePagingData<RankedComicModel>> build() => fetch(page: 1);
+  Future<PagePagingData<RankedComicDto>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<RankedComicModel>> fetch({required int page}) async {
+  Future<PagePagingData<RankedComicDto>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsRepositoryProvider)
-        .getRanking(
-          limit: pageSize,
-          offset: offset,
-          audience: filter.audience,
-          period: filter.period,
-        );
+    final result = await ref.read(comicsApiProvider).ranks(
+      limit: pageSize,
+      offset: offset,
+      type: 1,
+      audienceType: filter.audience.apiValue,
+      dateType: filter.period.apiValue,
+    );
     return PagePagingData(
-      items: result.items,
-      hasMore: offset + result.items.length < result.total,
+      items: result.list,
+      hasMore: offset + result.list.length < result.total,
       page: page,
     );
   }
@@ -162,17 +177,16 @@ class ComicRankingPage extends HookConsumerWidget {
                     final item = data.items[index];
                     final comic = item.comic;
                     return ComicCoverCard(
-                      cover: comic.coverUrl,
-                      name: comic.title,
-                      author: comic.authorText,
-                      badge: item.rankLabel,
+                      cover: comic.cover,
+                      name: comic.name,
+                      author: comicAuthorNames(authors: comic.authors),
+                      badge: '#${item.sort}',
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
-                              comicId: comic.id,
-                              name: comic.title,
-                              cover: comic.coverUrl,
+                              comicId: comic.pathWord,
+                              cover: comic.cover,
                             ),
                           ),
                         );

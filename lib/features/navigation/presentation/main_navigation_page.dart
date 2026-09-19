@@ -1,7 +1,7 @@
 import 'package:comics/features/discovery/presentation/home_page.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/library/presentation/comic_library_page.dart';
-import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
+import 'package:comics/features/ranking/presentation/comic_ranking_period.dart';
 import 'package:comics/features/ranking/presentation/comic_ranking_page.dart';
 import 'package:comics/features/search/presentation/search_category_page.dart';
 import 'package:comics/features/search/presentation/search_history_page.dart';

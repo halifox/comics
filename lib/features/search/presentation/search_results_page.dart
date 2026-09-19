@@ -1,6 +1,7 @@
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/copy_manga/copy_manga_api.dart';
+import 'package:comics/copy_manga/copy_manga_dto.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
+import 'package:comics/features/comic/presentation/comic_author_names.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
@@ -11,37 +12,51 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
+enum ComicSearchField {
+  all(label: '全部', apiValue: ''),
+  name(label: '作品名', apiValue: 'name'),
+  author(label: '作者', apiValue: 'author'),
+  local(label: '汉化组', apiValue: 'local');
+
+  const ComicSearchField({required this.label, required this.apiValue});
+
+  final String label;
+  final String apiValue;
+}
+
 typedef ComicSearchQuery = ({String query, ComicSearchField field});
 
-final comicSearchResultsProvider = AsyncNotifierProvider.autoDispose.family(
-  ComicSearchResultsNotifier.new,
-);
+final comicSearchResultsProvider =
+    AsyncNotifierProvider.autoDispose.family<
+      ComicSearchResultsNotifier,
+      PagePagingData<ComicDto>,
+      ComicSearchQuery
+    >(
+      ComicSearchResultsNotifier.new,
+    );
 
-class ComicSearchResultsNotifier
-    extends AsyncNotifier<PagePagingData<ComicCardModel>>
-    with PagePagingNotifierMixin<ComicCardModel> {
+class ComicSearchResultsNotifier extends AsyncNotifier<PagePagingData<ComicDto>>
+    with PagePagingNotifierMixin<ComicDto> {
   ComicSearchResultsNotifier(this.query);
 
   static const pageSize = 18;
   final ComicSearchQuery query;
 
   @override
-  Future<PagePagingData<ComicCardModel>> build() => fetch(page: 1);
+  Future<PagePagingData<ComicDto>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<ComicCardModel>> fetch({required int page}) async {
+  Future<PagePagingData<ComicDto>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsRepositoryProvider)
-        .search(
-          limit: pageSize,
-          offset: offset,
-          query: query.query,
-          field: query.field,
-        );
+    final result = await ref.read(comicsApiProvider).search(
+      limit: pageSize,
+      offset: offset,
+      query: query.query,
+      queryType: query.field.apiValue,
+    );
     return PagePagingData(
-      items: result.items,
-      hasMore: offset + result.items.length < result.total,
+      items: result.list,
+      hasMore: offset + result.list.length < result.total,
       page: page,
     );
   }
@@ -144,16 +159,15 @@ class SearchResultsPage extends HookConsumerWidget {
 
                     final comic = data.items[index];
                     return ComicCoverCard(
-                      cover: comic.coverUrl,
-                      name: comic.title,
-                      author: comic.authorText,
+                      cover: comic.cover,
+                      name: comic.name,
+                      author: comicAuthorNames(authors: comic.authors),
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
-                              comicId: comic.id,
-                              name: comic.title,
-                              cover: comic.coverUrl,
+                              comicId: comic.pathWord,
+                              cover: comic.cover,
                             ),
                           ),
                         );

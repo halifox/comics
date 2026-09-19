@@ -9,7 +9,7 @@ import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 import 'comic_history_page.dart';
 
-final favoriteComicsProvider = StreamProvider((ref) {
+final favoriteComicsProvider = StreamProvider.autoDispose((ref) {
   return ref.watch(libraryDatabaseProvider).watchFavoriteComics();
 });
 
@@ -99,7 +99,6 @@ class ComicLibraryPage extends HookConsumerWidget {
                               CupertinoPageRoute(
                                 builder: (_) => ComicDetailPage(
                                   comicId: item.comic.pathWord,
-                                  name: item.comic.name,
                                   cover: item.comic.cover,
                                 ),
                               ),

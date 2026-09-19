@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/copy_manga/copy_manga.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/features/library/data/library_database.dart';
 import 'package:comics/features/reader/presentation/reader_settings_page.dart';
@@ -18,11 +17,12 @@ import '../application/reader_settings_provider.dart';
 typedef ChapterReaderQuery = ({String comicId, String chapterId});
 
 final chapterReaderProvider = FutureProvider.autoDispose
-    .family<ReaderChapterModel, ChapterReaderQuery>((ref, args) {
-      return ref
-          .watch(comicsRepositoryProvider)
-          .getChapter(comicId: args.comicId, chapterId: args.chapterId);
-    });
+    .family<ChapterContentResultDto, ChapterReaderQuery>(
+      (ref, args) => ref.watch(comicsApiProvider).chapter(
+        comicId: args.comicId,
+        chapterId: args.chapterId,
+      ),
+    );
 
 class ChapterReaderPage extends HookConsumerWidget {
   const ChapterReaderPage({
@@ -127,7 +127,7 @@ class ChapterReaderPage extends HookConsumerWidget {
                   ],
                 ),
                 data: (data) {
-                  final images = data.imageUrls;
+                  final images = chapterImageUrls(chapter: data.chapter);
                   if (images.isEmpty) {
                     return const CustomScrollView(
                       slivers: [
@@ -145,38 +145,35 @@ class ChapterReaderPage extends HookConsumerWidget {
                       .toInt();
                   final visiblePageNumber =
                       displayedPageIndex.value.clamp(0, images.length - 1) + 1;
-
-                  final reader = switch (settings.mode) {
-                    ReaderMode.continuous => ContinuousReader(
-                      images: images,
-                      initialPageIndex: restoredPageIndex,
-                      onPageChanged: onPageChanged,
-                      onToggleControls: () {
-                        controlsVisible.value = !controlsVisible.value;
-                      },
-                    ),
-                    ReaderMode.paged => PagedReader(
-                      images: images,
-                      initialPageIndex: restoredPageIndex,
-                      onPageChanged: onPageChanged,
-                      onToggleControls: () {
-                        controlsVisible.value = !controlsVisible.value;
-                      },
-                    ),
-                    ReaderMode.manga => PagedReader(
-                      images: images,
-                      initialPageIndex: restoredPageIndex,
-                      onPageChanged: onPageChanged,
-                      onToggleControls: () {
-                        controlsVisible.value = !controlsVisible.value;
-                      },
-                      reverse: true,
-                    ),
-                  };
+                  void toggleControls() {
+                    controlsVisible.value = !controlsVisible.value;
+                  }
 
                   return Stack(
                     children: [
-                      Positioned.fill(child: reader),
+                      Positioned.fill(
+                        child: switch (settings.mode) {
+                          ReaderMode.continuous => ContinuousReader(
+                            images: images,
+                            initialPageIndex: restoredPageIndex,
+                            onPageChanged: onPageChanged,
+                            onToggleControls: toggleControls,
+                          ),
+                          ReaderMode.paged => PagedReader(
+                            images: images,
+                            initialPageIndex: restoredPageIndex,
+                            onPageChanged: onPageChanged,
+                            onToggleControls: toggleControls,
+                          ),
+                          ReaderMode.manga => PagedReader(
+                            images: images,
+                            initialPageIndex: restoredPageIndex,
+                            onPageChanged: onPageChanged,
+                            onToggleControls: toggleControls,
+                            reverse: true,
+                          ),
+                        },
+                      ),
                       PositionedDirectional(
                         end: 12,
                         bottom: MediaQuery.paddingOf(context).bottom + 12,
@@ -523,7 +520,7 @@ class ChapterImage extends HookWidget {
       return null;
     }, [imageUrl]);
 
-    final image = CachedNetworkImage(
+    return CachedNetworkImage(
       imageUrl: imageUrl,
       width: double.infinity,
       height: expand ? double.infinity : null,
@@ -540,7 +537,6 @@ class ChapterImage extends HookWidget {
           ? const SizedBox.expand(child: CachedImageError())
           : const SizedBox(height: 320, child: CachedImageError()),
     );
-    return image;
   }
 }
 
@@ -556,4 +552,26 @@ void preloadFollowing({
       context,
     ).catchError((_) {});
   }
+}
+
+List<String> chapterImageUrls({required ChapterContentDto chapter}) {
+  final imageUrls = chapter.contents
+      .map((image) => image.url)
+      .toList(growable: false);
+  final words = chapter.words;
+  final hasValidOrder =
+      words.length == imageUrls.length &&
+      words.toSet().length == imageUrls.length &&
+      words.every((index) => index >= 0 && index < imageUrls.length);
+  if (!hasValidOrder) {
+    return imageUrls.where((url) => url.isNotEmpty).toList(growable: false);
+  }
+
+  final orderedImageUrls = List.filled(imageUrls.length, '');
+  for (var index = 0; index < imageUrls.length; index++) {
+    orderedImageUrls[words[index]] = imageUrls[index];
+  }
+  return orderedImageUrls
+      .where((url) => url.isNotEmpty)
+      .toList(growable: false);
 }

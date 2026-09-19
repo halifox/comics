@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/presentation/comic_author_names.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
-import 'package:comics/features/ranking/domain/comic_ranking_period.dart';
+import 'package:comics/features/ranking/presentation/comic_ranking_period.dart';
 import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,7 @@ class HomeFeedContent extends StatelessWidget {
     super.key,
   });
 
-  final HomeFeedModel data;
+  final HomeResultDto data;
   final VoidCallback onFinishedTap;
   final VoidCallback onNewReleaseTap;
   final ValueChanged<ComicRankingPeriod> onRankingPeriodSelected;
@@ -30,34 +31,65 @@ class HomeFeedContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverMainAxisGroup(
       slivers: [
-        HomeFeaturedAds(comics: data.featured),
-        HorizontalComicSection(title: '热门更新', comics: data.hot),
-        HorizontalComicSection(
+        HomeFeaturedAds(
+          comics: data.recommended.list
+              .map((item) => item.comic)
+              .toList(growable: false),
+        ),
+        HorizontalComicSection<HomeUpdateDto>(
+          title: '热门更新',
+          comics: data.hot,
+          comicIdOf: (item) => item.comic.pathWord,
+          comicNameOf: (item) => item.comic.name,
+          comicCoverOf: (item) => item.comic.cover,
+          comicAuthorsOf: (item) => item.comic.authors,
+        ),
+        HorizontalComicSection<HomeUpdateDto>(
           title: '全新上架',
           comics: data.latest,
+          comicIdOf: (item) => item.comic.pathWord,
+          comicNameOf: (item) => item.comic.name,
+          comicCoverOf: (item) => item.comic.cover,
+          comicAuthorsOf: (item) => item.comic.authors,
           onTitleTap: onNewReleaseTap,
         ),
-        HorizontalComicSection(
+        HorizontalComicSection<HomeComicDto>(
           title: '已完结',
-          comics: data.finished,
+          comics: data.finished.list,
+          comicIdOf: (item) => item.pathWord,
+          comicNameOf: (item) => item.name,
+          comicCoverOf: (item) => item.cover,
+          comicAuthorsOf: (item) => item.authors,
           onTitleTap: onFinishedTap,
         ),
-        HorizontalComicSection(
+        HorizontalComicSection<HomeRankItemDto>(
           title: '日榜',
-          comics: data.dayRanking.map((item) => item.comic).toList(),
-          badges: data.dayRanking.map((item) => item.rankLabel).toList(),
+          comics: data.rankDay.list,
+          comicIdOf: (item) => item.comic.pathWord,
+          comicNameOf: (item) => item.comic.name,
+          comicCoverOf: (item) => item.comic.cover,
+          comicAuthorsOf: (item) => item.comic.authors,
+          badgeOf: (item) => '${item.sort}',
           onTitleTap: () => onRankingPeriodSelected(ComicRankingPeriod.day),
         ),
-        HorizontalComicSection(
+        HorizontalComicSection<HomeRankItemDto>(
           title: '周榜',
-          comics: data.weekRanking.map((item) => item.comic).toList(),
-          badges: data.weekRanking.map((item) => item.rankLabel).toList(),
+          comics: data.rankWeek.list,
+          comicIdOf: (item) => item.comic.pathWord,
+          comicNameOf: (item) => item.comic.name,
+          comicCoverOf: (item) => item.comic.cover,
+          comicAuthorsOf: (item) => item.comic.authors,
+          badgeOf: (item) => '${item.sort}',
           onTitleTap: () => onRankingPeriodSelected(ComicRankingPeriod.week),
         ),
-        HorizontalComicSection(
+        HorizontalComicSection<HomeRankItemDto>(
           title: '月榜',
-          comics: data.monthRanking.map((item) => item.comic).toList(),
-          badges: data.monthRanking.map((item) => item.rankLabel).toList(),
+          comics: data.rankMonth.list,
+          comicIdOf: (item) => item.comic.pathWord,
+          comicNameOf: (item) => item.comic.name,
+          comicCoverOf: (item) => item.comic.cover,
+          comicAuthorsOf: (item) => item.comic.authors,
+          badgeOf: (item) => '${item.sort}',
           onTitleTap: () => onRankingPeriodSelected(ComicRankingPeriod.month),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 92)),
@@ -66,16 +98,26 @@ class HomeFeedContent extends StatelessWidget {
   }
 }
 
-class HorizontalComicSection extends HookWidget {
+class HorizontalComicSection<T> extends HookWidget {
   const HorizontalComicSection({
-    required this.title, required this.comics, super.key,
-    this.badges,
+    required this.title,
+    required this.comics,
+    required this.comicIdOf,
+    required this.comicNameOf,
+    required this.comicCoverOf,
+    required this.comicAuthorsOf,
+    super.key,
+    this.badgeOf,
     this.onTitleTap,
   });
 
   final String title;
-  final List<ComicCardModel> comics;
-  final List<String>? badges;
+  final List<T> comics;
+  final String Function(T) comicIdOf;
+  final String Function(T) comicNameOf;
+  final String Function(T) comicCoverOf;
+  final List<NamedPathDto> Function(T) comicAuthorsOf;
+  final String? Function(T)? badgeOf;
   final VoidCallback? onTitleTap;
 
   @override
@@ -146,6 +188,12 @@ class HorizontalComicSection extends HookWidget {
                   }
 
                   final comic = comics[index];
+                  final comicId = comicIdOf(comic);
+                  final comicName = comicNameOf(comic);
+                  final comicCover = comicCoverOf(comic);
+                  final authorText = comicAuthorNames(
+                    authors: comicAuthorsOf(comic),
+                  );
 
                   return AnimatedBuilder(
                     animation: pageController,
@@ -168,9 +216,10 @@ class HorizontalComicSection extends HookWidget {
                       );
                     },
                     child: ComicCoverCard(
-                      cover: comic.coverUrl,
-                      name: comic.title,
-                      author: comic.authorText,
+                      cover: comicCover,
+                      name: comicName,
+                      author: authorText,
+                      badge: badgeOf?.call(comic),
                       onTap: () async {
                         final page = pageController.hasClients
                             ? pageController.page ?? 0
@@ -186,13 +235,12 @@ class HorizontalComicSection extends HookWidget {
                           return;
                         }
 
-                        if (comic.id.isEmpty) return;
+                        if (comicId.isEmpty) return;
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (_) => ComicDetailPage(
-                              comicId: comic.id,
-                              name: comic.title,
-                              cover: comic.coverUrl,
+                              comicId: comicId,
+                              cover: comicCover,
                             ),
                           ),
                         );

@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-final comicHistoryProvider = StreamProvider((ref) {
+final comicHistoryProvider = StreamProvider.autoDispose((ref) {
   return ref.watch(libraryDatabaseProvider).watchReadingHistory();
 });
 
@@ -105,7 +105,6 @@ class ComicHistoryPage extends HookConsumerWidget {
                               CupertinoPageRoute(
                                 builder: (_) => ComicDetailPage(
                                   comicId: item.comic.pathWord,
-                                  name: item.comic.name,
                                   cover: item.comic.cover,
                                 ),
                               ),

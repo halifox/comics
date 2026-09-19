@@ -1,6 +1,7 @@
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/copy_manga/copy_manga_api.dart';
+import 'package:comics/copy_manga/copy_manga_dto.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
+import 'package:comics/features/comic/presentation/comic_author_names.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
 import 'package:comics/shared/presentation/widgets/ambient_glow_background.dart';
@@ -11,6 +12,29 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
+enum ComicCatalogScope {
+  all(label: '全部', apiValue: ''),
+  japan(label: '日漫', apiValue: 'japan'),
+  korea(label: '韩漫', apiValue: 'korea'),
+  west(label: '美漫', apiValue: 'west'),
+  finished(label: '已完结', apiValue: 'finish');
+
+  const ComicCatalogScope({required this.label, required this.apiValue});
+
+  final String label;
+  final String apiValue;
+}
+
+enum ComicCatalogOrdering {
+  updatedDescending(label: '最近更新', apiValue: '-datetime_updated'),
+  popularDescending(label: '热门更新', apiValue: '-popular');
+
+  const ComicCatalogOrdering({required this.label, required this.apiValue});
+
+  final String label;
+  final String apiValue;
+}
+
 typedef ComicCatalogFilter = ({
   String? theme,
   String? author,
@@ -19,38 +43,36 @@ typedef ComicCatalogFilter = ({
 });
 
 final comicCatalogProvider =
-    AsyncNotifierProvider.family<
+    AsyncNotifierProvider.autoDispose.family<
       ComicCatalogNotifier,
-      PagePagingData<ComicCardModel>,
+      PagePagingData<ComicDto>,
       ComicCatalogFilter
     >(ComicCatalogNotifier.new);
 
-class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicCardModel>>
-    with PagePagingNotifierMixin<ComicCardModel> {
+class ComicCatalogNotifier extends AsyncNotifier<PagePagingData<ComicDto>>
+    with PagePagingNotifierMixin<ComicDto> {
   ComicCatalogNotifier(this.filter);
 
   static const pageSize = 18;
   final ComicCatalogFilter filter;
 
   @override
-  Future<PagePagingData<ComicCardModel>> build() => fetch(page: 1);
+  Future<PagePagingData<ComicDto>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<ComicCardModel>> fetch({required int page}) async {
+  Future<PagePagingData<ComicDto>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsRepositoryProvider)
-        .getCatalog(
-          limit: pageSize,
-          offset: offset,
-          ordering: filter.ordering,
-          scope: filter.scope,
-          theme: filter.theme,
-          author: filter.author,
-        );
+    final result = await ref.read(comicsApiProvider).comics(
+      limit: pageSize,
+      offset: offset,
+      ordering: filter.ordering.apiValue,
+      theme: filter.theme,
+      top: filter.scope.apiValue,
+      author: filter.author,
+    );
     return PagePagingData(
-      items: result.items,
-      hasMore: offset + result.items.length < result.total,
+      items: result.list,
+      hasMore: offset + result.list.length < result.total,
       page: page,
     );
   }
@@ -188,16 +210,15 @@ class ComicCatalogPage extends HookConsumerWidget {
 
                     final comic = data.items[index];
                     return ComicCoverCard(
-                      cover: comic.coverUrl,
-                      name: comic.title,
-                      author: comic.authorText,
+                      cover: comic.cover,
+                      name: comic.name,
+                      author: comicAuthorNames(authors: comic.authors),
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
-                            builder: (_) => ComicDetailPage(
-                              comicId: comic.id,
-                              name: comic.title,
-                              cover: comic.coverUrl,
+                            builder: (routeContext) => ComicDetailPage(
+                              comicId: comic.pathWord,
+                              cover: comic.cover,
                             ),
                           ),
                         );

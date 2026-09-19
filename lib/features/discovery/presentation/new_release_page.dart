@@ -1,5 +1,5 @@
-import 'package:comics/features/comic/domain/comic_models.dart';
-import 'package:comics/features/comic/domain/comics_repository.dart';
+import 'package:comics/copy_manga/copy_manga.dart';
+import 'package:comics/features/comic/presentation/comic_author_names.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/features/discovery/presentation/home_feed_widgets.dart';
 import 'package:comics/shared/presentation/hooks/glass_large_title_hook.dart';
@@ -10,24 +10,27 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:riverpod_paging_utils/riverpod_paging_utils.dart';
 
-final newReleaseProvider = AsyncNotifierProvider(NewReleaseNotifier.new);
+final newReleaseProvider = AsyncNotifierProvider.autoDispose(
+  NewReleaseNotifier.new,
+);
 
-class NewReleaseNotifier extends AsyncNotifier<PagePagingData<NewReleaseModel>>
-    with PagePagingNotifierMixin<NewReleaseModel> {
+class NewReleaseNotifier extends AsyncNotifier<PagePagingData<HomeUpdateDto>>
+    with PagePagingNotifierMixin<HomeUpdateDto> {
   static const pageSize = 18;
 
   @override
-  Future<PagePagingData<NewReleaseModel>> build() => fetch(page: 1);
+  Future<PagePagingData<HomeUpdateDto>> build() => fetch(page: 1);
 
   @override
-  Future<PagePagingData<NewReleaseModel>> fetch({required int page}) async {
+  Future<PagePagingData<HomeUpdateDto>> fetch({required int page}) async {
     final offset = (page - 1) * pageSize;
-    final result = await ref
-        .read(comicsRepositoryProvider)
-        .getNewReleases(limit: pageSize, offset: offset);
+    final result = await ref.read(comicsApiProvider).newest(
+      limit: pageSize,
+      offset: offset,
+    );
     return PagePagingData(
-      items: result.items,
-      hasMore: offset + result.items.length < result.total,
+      items: result.list,
+      hasMore: offset + result.list.length < result.total,
       page: page,
     );
   }
@@ -105,19 +108,19 @@ class NewReleasePage extends HookConsumerWidget {
 
                     final entry = data.items[index];
                     final comic = entry.comic;
+                    final authors = comicAuthorNames(authors: comic.authors);
                     return ComicCoverCard(
-                      cover: comic.coverUrl,
-                      name: comic.title,
-                      author: comic.authorText,
-                      badge: entry.badge,
+                      cover: comic.cover,
+                      name: comic.name,
+                      author: authors,
+                      badge: entry.name.isEmpty ? null : entry.name,
                       onTap: () {
-                        if (comic.id.isEmpty) return;
+                        if (comic.pathWord.isEmpty) return;
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
-                              comicId: comic.id,
-                              name: comic.title,
-                              cover: comic.coverUrl,
+                              comicId: comic.pathWord,
+                              cover: comic.cover,
                             ),
                           ),
                         );

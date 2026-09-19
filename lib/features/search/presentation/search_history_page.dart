@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
-final searchHistoryProvider = StreamProvider((ref) {
+final searchHistoryProvider = StreamProvider.autoDispose((ref) {
   return ref.watch(libraryDatabaseProvider).watchSearchHistory();
 });
 

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comics/features/comic/domain/comic_models.dart';
+import 'package:comics/copy_manga/copy_manga_dto.dart';
+import 'package:comics/features/comic/presentation/comic_author_names.dart';
 import 'package:comics/features/comic/presentation/comic_detail_page.dart';
 import 'package:comics/shared/presentation/widgets/cached_image_feedback.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class HomeFeaturedAds extends HookWidget {
   const HomeFeaturedAds({required this.comics, super.key});
 
-  final List<ComicCardModel> comics;
+  final List<HomeComicDto> comics;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +34,9 @@ class HomeFeaturedAds extends HookWidget {
               onPageChanged: (index) => selectedIndex.value = index,
               itemBuilder: (context, index) {
                 final comic = comics[index];
-                final comicName = comic.title;
-                final comicId = comic.id;
-                final authors = comic.authorText;
+                final comicName = comic.name;
+                final comicId = comic.pathWord;
+                final authors = comicAuthorNames(authors: comic.authors);
 
                 return GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -46,8 +47,7 @@ class HomeFeaturedAds extends HookWidget {
                             CupertinoPageRoute(
                               builder: (_) => ComicDetailPage(
                                 comicId: comicId,
-                                name: comicName,
-                                cover: comic.coverUrl,
+                                cover: comic.cover,
                               ),
                             ),
                           );
@@ -56,7 +56,7 @@ class HomeFeaturedAds extends HookWidget {
                     fit: StackFit.expand,
                     children: [
                       CachedNetworkImage(
-                        imageUrl: comic.coverUrl,
+                        imageUrl: comic.cover,
                         fit: BoxFit.cover,
                         progressIndicatorBuilder: buildCachedImageLoading,
                         errorWidget: buildCachedImageError,
