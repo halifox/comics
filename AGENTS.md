@@ -20,12 +20,12 @@
 
 ## 3. 架构
 
-- 按功能组织：`features/<feature>/{domain,presentation}`；具体数据源置于 `data/<source>`；仅按复杂度增层。
-- `domain` 仅含实体、值对象、Repository 抽象；不得依赖基础设施。远端、数据库、键值存储、平台能力均经领域接口隔离。
-- `presentation` 仅依赖领域接口和通用 Provider；禁止引用 API、Remote DTO、Drift、SharedPreferences、具体实现或其 Provider。
-- API、DTO、拦截器、映射器、Repository 实现及装配 Provider 内聚于数据源目录；具体实现仅在组合根经 Provider override 注入。
+- 默认数据链路为 `API → DTO → UI`：API 请求返回一个与后端结构对应的 DTO，由 Provider/Notifier 管理请求状态并交给 UI 展示。UI 不直接调用 Dio/Retrofit；无需为了形式上的分层额外建立 Repository、领域实体或 UI DTO。
+- 按功能组织代码，优先使用 `features/<feature>/` 下的 API、DTO 与 presentation 文件；仅在代码量或复用确有需要时拆目录或增层。
+- Provider/Notifier 可以调用 API 并向页面提供 DTO；页面和组件可直接读取 DTO。仅在确有独立业务规则、多数据源协调或可复用数据访问逻辑时增加 Repository/领域模型，并避免为转层而转层。
+- API、DTO、Provider/Notifier 与页面专用 presentation 逻辑按功能内聚；公共 Dio 配置、拦截器等基础能力按需共享。具体实现不要求统一通过组合根 override 注入。
 - 文件边界服从内聚与复用，禁止形式化分层。每文件至多一个页面/路由；页面专用组件、Provider、Notifier、无生成注解类型与页面同文件；仅跨页面/功能复用或需生成时拆分。
-- 生成注解类型禁止位于 UI，须归入 `application`、`domain` 或数据源层。
+- 生成注解类型禁止位于 UI，须归入 API/DTO 或确有需要的数据层。
 
 ## 4. Widget 与状态
 
@@ -41,8 +41,8 @@
 
 - 异步 UI 覆盖加载、错误、空、成功及恢复路径；仅真实业务语义允许初始态；禁止空集合掩错或吞错。
 - 搜索、分页、详情须防重复请求及陈旧响应覆盖，采用序号、取消或等价机制。
-- 错误分层：数据层保留诊断信息；领域层稳定语义；UI 提供可理解、可恢复反馈。
-- Repository 协调远端、缓存、映射；Widget/Notifier 禁止解析 DTO 或拼装底层查询。
+- API/Dio 层保留诊断信息，Provider/Notifier 将请求结果或错误状态交给 UI；UI 提供可理解、可恢复反馈。无需为此额外创建领域错误类型。
+- Repository 仅在确有多数据源协调、缓存策略或可复用数据访问逻辑时引入；普通请求由 Provider/Notifier 调用 API 并传递 DTO，禁止为了层级而在 Remote DTO、Repository DTO、UI DTO/领域模型之间重复映射。Widget 不直接拼装底层网络请求。
 - 生产日志禁止令牌、密钥、完整请求体、精确位置及其他敏感信息。
 
 ## 6. Dart 与持久化
@@ -51,7 +51,7 @@
 - 手写构造函数/函数/方法默认命名参数：必填 `required`，可选项有默认值或可空；框架重写、运算符、第三方/生成器签名、回调约束除外。
 - 优先不可变对象和 `const`；状态变更使用 Freezed `copyWith` 或新实例。
 - Remote DTO 严格匹配后端字段名/类型，禁止容错类型和隐式转换；每字段显式声明同名亦不可省略的 `@JsonKey(name: ...)` 与类型匹配的 `@Default(...)`。
-- DTO 须显式映射为领域模型；无效数据须拒绝或报告，禁止伪造默认业务值。
+- API 响应 DTO 可直接供 UI 展示，禁止仅为分层而重复定义结构相同的 DTO 或映射为领域模型；确有独立业务语义时才建立领域模型，并在必要边界映射一次。无效数据须拒绝或报告，禁止伪造默认业务值。
 - Drift schema 变更须升版并实现可验证前向迁移，禁止以删库迁移。
 - SharedPreferences 禁止存储密码、令牌、隐私、大对象或事务性数据。
 
