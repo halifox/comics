@@ -66,7 +66,6 @@ class ComicDetailPage extends HookConsumerWidget {
     final libraryItemState = ref.watch(comicLibraryItemProvider(comicId));
     final latestProgressState = ref.watch(comicLatestProgressProvider(comicId));
     final scrollController = useScrollController();
-    final scrollOffset = useState(0.0);
     final toolbarIconColor = ref
         .watch(comicDetailToolbarIconColorProvider(cover))
         .when(
@@ -74,17 +73,6 @@ class ComicDetailPage extends HookConsumerWidget {
           loading: () => null,
           error: (error, stackTrace) => null,
         );
-
-    useEffect(() {
-      void onScroll() {
-        scrollOffset.value = scrollController.offset;
-      }
-
-      scrollController.addListener(onScroll);
-      return () {
-        scrollController.removeListener(onScroll);
-      };
-    }, [scrollController]);
 
     Future<void> toggleFavorite({required ComicInfoDto comic}) async {
       await ref
@@ -209,22 +197,26 @@ class ComicDetailPage extends HookConsumerWidget {
           parent: BouncingScrollPhysics(),
         ),
         slivers: [
-          SliverToBoxAdapter(
-            child: ClipRect(
-              child: SizedBox(
-                height: 500,
-                child: Transform.translate(
-                  offset: Offset(0, scrollOffset.value * .5),
-                  child: CachedNetworkImage(
-                    imageUrl: cover,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                    progressIndicatorBuilder: buildCachedImageLoading,
-                    errorWidget: buildCachedImageError,
+          SliverLayoutBuilder(
+            builder: (context, constraints) {
+              return SliverToBoxAdapter(
+                child: ClipRect(
+                  child: SizedBox(
+                    height: 500,
+                    child: Transform.translate(
+                      offset: Offset(0, constraints.scrollOffset * .5),
+                      child: CachedNetworkImage(
+                        imageUrl: cover,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                        progressIndicatorBuilder: buildCachedImageLoading,
+                        errorWidget: buildCachedImageError,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           info.when(
             data: (data) {
