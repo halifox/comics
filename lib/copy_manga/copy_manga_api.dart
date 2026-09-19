@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:sentry_dio/sentry_dio.dart';
 
 import 'copy_manga_dto.dart';
 import 'copy_manga_interceptor.dart';
@@ -18,6 +19,7 @@ final copyMangaDioProvider = Provider((ref) {
       validateStatus: (status) => status == 200,
     ),
   );
+  dio.addSentry();
   if (kDebugMode) {
     dio.interceptors.add(JsonResponseRecorderInterceptor());
   }
