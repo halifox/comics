@@ -1,0 +1,111 @@
+name: Build Android and iOS
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    name: Build Android arm64 APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        run: flutter build apk --release --target-platform android-arm64 --dart-define=SENTRY_DSN="$SENTRY_DSN"
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: comics-android-arm64
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+
+  ios:
+    name: Build unsigned iOS IPA
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Build iOS app without code signing
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        run: flutter build ios --release --no-codesign --dart-define=SENTRY_DSN="$SENTRY_DSN"
+
+      - name: Package unsigned IPA
+        working-directory: build/ios/iphoneos
+        run: |
+          mkdir -p Payload
+          mv Runner.app Payload/
+          /usr/bin/zip -qr comics-ios-unsigned.ipa Payload
+
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v7
+        with:
+          name: comics-ios-unsigned
+          path: build/ios/iphoneos/comics-ios-unsigned.ipa
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/')
+    needs:
+      - android
+      - ios
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Android APK
+        uses: actions/download-artifact@v8
+        with:
+          name: comics-android-arm64
+          path: release
+
+      - name: Download unsigned iOS IPA
+        uses: actions/download-artifact@v8
+        with:
+          name: comics-ios-unsigned
+          path: release
+
+      - name: Publish release with build artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" release/* --generate-notes --verify-tag --repo "$GITHUB_REPOSITORY"
