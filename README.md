@@ -37,28 +37,11 @@
   <img src="screenshots/screenshot_2.webp" width="24%" />
   <img src="screenshots/screenshot_11.webp" width="24%" />
   <img src="screenshots/screenshot_12.webp" width="24%" />
-</div>
-
-<details>
-<summary>查看更多截图</summary>
-
-<br>
-
-<div align="center">
   <img src="screenshots/screenshot_13.webp" width="24%" />
   <img src="screenshots/screenshot_14.webp" width="24%" />
   <img src="screenshots/screenshot_16.webp" width="24%" />
   <img src="screenshots/screenshot_15.webp" width="24%" />
-  <img src="screenshots/screenshot_3.webp" width="24%" />
-  <img src="screenshots/screenshot_4.webp" width="24%" />
-  <img src="screenshots/screenshot_5.webp" width="24%" />
-  <img src="screenshots/screenshot_6.webp" width="24%" />
-  <img src="screenshots/screenshot_7.webp" width="24%" />
-  <img src="screenshots/screenshot_8.webp" width="24%" />
-  <img src="screenshots/screenshot_10.webp" width="24%" />
-  <img src="screenshots/screenshot_9.webp" width="24%" />
 </div>
-</details>
 
 ## 安装
 
