@@ -135,6 +135,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: comics-android-arm64
+          retention-days: 1
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
 
@@ -172,6 +173,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: comics-ios-unsigned
+          retention-days: 1
           path: build/ios/iphoneos/comics-ios-unsigned.ipa
           if-no-files-found: error
 
