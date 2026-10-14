@@ -28,6 +28,9 @@ jobs:
   android:
     name: Build Android arm64 APK
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -52,84 +55,44 @@ jobs:
       - name: Configure Android release signing
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          python3 - <<'PY'
-          import base64
-          import os
-          from pathlib import Path
-
-          names = (
-              "ANDROID_KEYSTORE_BASE64", "ANDROID_KEYSTORE_PASSWORD",
-              "ANDROID_KEY_PASSWORD", "ANDROID_KEY_ALIAS",
-          )
-          if any(not os.environ.get(name) for name in names):
-              raise SystemExit("Missing Android release signing secrets")
-          os.umask(0o077)
-          keystore = Path(os.environ["RUNNER_TEMP"]) / "android-release.jks"
-          keystore.write_bytes(base64.b64decode(os.environ[names[0]], validate=True))
-
-          def escape(value):
-              return value.replace("\\", "\\\\").replace("\n", "\\n").replace("\r", "\\r").replace("=", "\\=").replace(":", "\\:").replace(" ", "\\ ")
-
-          properties = {
-              "storeFile": str(keystore),
-              "storePassword": os.environ["ANDROID_KEYSTORE_PASSWORD"],
-              "keyPassword": os.environ["ANDROID_KEY_PASSWORD"],
-              "keyAlias": os.environ["ANDROID_KEY_ALIAS"],
-          }
-          Path("android/key.properties").write_text(
-              "".join(f"{key}={escape(value)}\n" for key, value in properties.items())
-          )
-          PY
+          : "${ANDROID_KEYSTORE_BASE64:?Missing Android keystore secret}"
+          umask 077
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/android-release.jks"
 
       - name: Build APK
         env:
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-        run: flutter build apk --release --target-platform android-arm64 --dart-define=SENTRY_DSN="$SENTRY_DSN"
+          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/android-release.jks
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          : "${ANDROID_KEYSTORE_PASSWORD:?Missing Android keystore password}"
+          : "${ANDROID_KEY_PASSWORD:?Missing Android key password}"
+          : "${ANDROID_KEY_ALIAS:?Missing Android key alias}"
+          flutter build apk --release --target-platform android-arm64 --dart-define=SENTRY_DSN="$SENTRY_DSN"
 
       - name: Verify Android release signature
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          python3 - <<'PY'
-          import hashlib
-          import os
-          from pathlib import Path
-          import re
-          import subprocess
-
-          certificate = subprocess.run([
-              "keytool", "-exportcert", "-keystore",
-              str(Path(os.environ["RUNNER_TEMP"]) / "android-release.jks"),
-              "-alias", os.environ["ANDROID_KEY_ALIAS"],
-              "-storepass:env", "ANDROID_KEYSTORE_PASSWORD",
-          ], check=True, capture_output=True).stdout
-          expected = hashlib.sha256(certificate).hexdigest()
-          tools = sorted(Path(os.environ["ANDROID_HOME"]).glob("build-tools/*/apksigner"))
-          if not tools:
-              raise SystemExit("Android APK signature verifier unavailable")
-          verified = subprocess.run([
-              str(tools[-1]), "verify", "--verbose", "--print-certs",
-              "build/app/outputs/flutter-apk/app-release.apk",
-          ], check=True, capture_output=True, text=True)
-          actual = re.findall(
-              r"^.*certificate SHA-256 digest: ([0-9a-fA-F]{64})\s*$",
-              verified.stdout, re.MULTILINE,
-          )
-          if {digest.lower() for digest in actual} != {expected}:
-              print(f"Expected certificate SHA-256: {expected}")
-              print(f"Observed certificate SHA-256 digests: {actual}")
-              raise SystemExit("APK does not match the configured release signing certificate")
-          print(f"Verified release signing certificate SHA-256: {expected}")
-          PY
+          expected=$(keytool -exportcert -keystore "$RUNNER_TEMP/android-release.jks" \
+            -alias "$ANDROID_KEY_ALIAS" -storepass:env ANDROID_KEYSTORE_PASSWORD | sha256sum | cut -d ' ' -f 1)
+          apksigner=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -n 1)
+          : "${apksigner:?Android APK signature verifier unavailable}"
+          actual=$("$apksigner" verify --print-certs build/app/outputs/flutter-apk/app-release.apk \
+            | sed -n 's/^.*certificate SHA-256 digest: //p' | tr '[:upper:]' '[:lower:]' | sort -u)
+          if [ "$actual" != "$expected" ]; then
+            echo "APK does not match the configured release signing certificate" >&2
+            exit 1
+          fi
+          echo "Verified release signing certificate SHA-256: $actual"
 
       - name: Remove Android signing files
         if: always()
-        run: rm -f android/key.properties "$RUNNER_TEMP/android-release.jks"
+        run: rm -f "$RUNNER_TEMP/android-release.jks"
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v7
