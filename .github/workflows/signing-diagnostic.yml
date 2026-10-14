@@ -1,0 +1,32 @@
+name: Diagnose Android signing
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Inspect Android certificate output
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v1.1.0 --repo "$GITHUB_REPOSITORY" --pattern app-release.apk --dir "$RUNNER_TEMP"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          import subprocess
+          tools = sorted(Path(os.environ["ANDROID_HOME"]).glob("build-tools/*/apksigner"))
+          for tool in tools:
+              result = subprocess.run([
+                  str(tool), "verify", "--verbose", "--print-certs",
+                  str(Path(os.environ["RUNNER_TEMP"]) / "app-release.apk"),
+              ], capture_output=True, text=True)
+              print(f"Tool: {tool}; exit: {result.returncode}")
+              print(f"stdout: {result.stdout}")
+              print(f"stderr: {result.stderr}")
+          PY
