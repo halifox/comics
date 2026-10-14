@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1](https://github.com/halifox/comics/compare/v1.1.0...v1.1.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* **android:** use a persistent release signing key ([a8d5f48](https://github.com/halifox/comics/commit/a8d5f486957cf7d1c736995f6c84394e9e1aa814))
+* **ci:** parse Android SDK-range signing certificates ([224ab8f](https://github.com/halifox/comics/commit/224ab8f0bd51f65bb3e274a514ed7acea7b09df6))
+* **ci:** support Build Tools 37 certificate output ([aa74ae6](https://github.com/halifox/comics/commit/aa74ae634c254535eb7b7b0742ba7f1a77cd8c59))
+
 ## [1.1.0](https://github.com/halifox/comics/compare/v1.0.0...v1.1.0) (2026-10-14)
 
 
