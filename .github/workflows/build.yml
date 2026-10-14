@@ -42,6 +42,13 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+          cache: gradle
+          cache-dependency-path: |
+            pubspec.lock
+            android/*.gradle.kts
+            android/gradle.properties
+            android/app/build.gradle.kts
+            android/gradle/wrapper/gradle-wrapper.properties
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -71,7 +78,7 @@ jobs:
           : "${ANDROID_KEYSTORE_PASSWORD:?Missing Android keystore password}"
           : "${ANDROID_KEY_PASSWORD:?Missing Android key password}"
           : "${ANDROID_KEY_ALIAS:?Missing Android key alias}"
-          flutter build apk --release --target-platform android-arm64 --dart-define=SENTRY_DSN="$SENTRY_DSN"
+          flutter build apk --release --no-pub --target-platform android-arm64 --dart-define=SENTRY_DSN="$SENTRY_DSN"
 
       - name: Verify Android release signature
         env:
