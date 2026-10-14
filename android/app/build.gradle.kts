@@ -35,7 +35,13 @@ android {
 
     signingConfigs {
         create("release") {
-            if (signingPropertiesFile.exists()) {
+            val ciKeystore = System.getenv("ANDROID_KEYSTORE_PATH")
+            if (!ciKeystore.isNullOrBlank()) {
+                storeFile = file(ciKeystore)
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            } else if (signingPropertiesFile.exists()) {
                 storeFile = rootProject.file(signingProperties.getProperty("storeFile"))
                 storePassword = signingProperties.getProperty("storePassword")
                 keyAlias = signingProperties.getProperty("keyAlias")
