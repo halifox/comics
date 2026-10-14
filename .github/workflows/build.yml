@@ -28,6 +28,9 @@ jobs:
   android:
     name: Build Android arm64 APK
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
