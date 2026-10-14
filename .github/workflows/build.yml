@@ -116,8 +116,13 @@ jobs:
               str(tools[-1]), "verify", "--verbose", "--print-certs",
               "build/app/outputs/flutter-apk/app-release.apk",
           ], check=True, capture_output=True, text=True)
-          actual = re.findall(r"Signer #\d+ certificate SHA-256 digest: ([0-9a-fA-F]+)", verified.stdout)
-          if [digest.lower() for digest in actual] != [expected]:
+          actual = re.findall(
+              r"^Signer (?:#\d+|\([^\r\n]*\)) certificate SHA-256 digest: ([0-9a-fA-F]{64})\s*$",
+              verified.stdout, re.MULTILINE,
+          )
+          if {digest.lower() for digest in actual} != {expected}:
+              print(f"Expected certificate SHA-256: {expected}")
+              print(f"Observed certificate SHA-256 digests: {actual}")
               raise SystemExit("APK does not match the configured release signing certificate")
           print(f"Verified release signing certificate SHA-256: {expected}")
           PY
