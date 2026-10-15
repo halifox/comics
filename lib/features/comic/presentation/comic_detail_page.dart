@@ -54,11 +54,13 @@ class ComicDetailPage extends HookConsumerWidget {
   const ComicDetailPage({
     required this.comicId,
     required this.cover,
+    required this.heroTag,
     super.key,
   });
 
   final String comicId;
   final String cover;
+  final Object heroTag;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -205,12 +207,15 @@ class ComicDetailPage extends HookConsumerWidget {
                     height: 500,
                     child: Transform.translate(
                       offset: Offset(0, constraints.scrollOffset * .5),
-                      child: CachedNetworkImage(
-                        imageUrl: cover,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                        progressIndicatorBuilder: buildCachedImageLoading,
-                        errorWidget: buildCachedImageError,
+                      child: Hero(
+                        tag: heroTag,
+                        child: CachedNetworkImage(
+                          imageUrl: cover,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                          progressIndicatorBuilder: buildCachedImageLoading,
+                          errorWidget: buildCachedImageError,
+                        ),
                       ),
                     ),
                   ),

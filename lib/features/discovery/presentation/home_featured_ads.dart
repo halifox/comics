@@ -15,6 +15,10 @@ class HomeFeaturedAds extends HookWidget {
   Widget build(BuildContext context) {
     final pageController = usePageController();
     final selectedIndex = useState(0);
+    final heroTags = useMemoized(
+      () => List.generate(comics.length, (index) => Object()),
+      [comics],
+    );
     final height = MediaQuery.sizeOf(context).height * .56;
 
     if (comics.isEmpty) {
@@ -46,85 +50,89 @@ class HomeFeaturedAds extends HookWidget {
                           Navigator.of(context).push(
                             CupertinoPageRoute(
                               builder: (_) => ComicDetailPage(
+                                heroTag: heroTags[index],
                                 comicId: comicId,
                                 cover: comic.cover,
                               ),
                             ),
                           );
                         },
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: comic.cover,
-                        fit: BoxFit.cover,
-                        progressIndicatorBuilder: buildCachedImageLoading,
-                        errorWidget: buildCachedImageError,
-                      ),
-                      const DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: [0, .1, .7, 1],
-                            colors: [
-                              Color(0x12000000),
-                              Color(0x00000000),
-                              Color(0x00000000),
-                              Color(0x5F000000),
+                  child: Hero(
+                    tag: heroTags[index],
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: comic.cover,
+                          fit: BoxFit.cover,
+                          progressIndicatorBuilder: buildCachedImageLoading,
+                          errorWidget: buildCachedImageError,
+                        ),
+                        const DecoratedBox(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: [0, .1, .7, 1],
+                              colors: [
+                                Color(0x12000000),
+                                Color(0x00000000),
+                                Color(0x00000000),
+                                Color(0x5F000000),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 20,
+                          right: 20,
+                          bottom: 48,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                '编辑精选',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 1.2,
+                                ),
+                              ),
+                              if (comicName.isNotEmpty) ...[
+                                const SizedBox(height: 6),
+                                Text(
+                                  comicName,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w800,
+                                    height: 1.08,
+                                  ),
+                                ),
+                              ],
+                              if (authors.isNotEmpty) ...[
+                                const SizedBox(height: 8),
+                                Text(
+                                  authors,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
-                      ),
-                      Positioned(
-                        left: 20,
-                        right: 20,
-                        bottom: 48,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              '编辑精选',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1.2,
-                              ),
-                            ),
-                            if (comicName.isNotEmpty) ...[
-                              const SizedBox(height: 6),
-                              Text(
-                                comicName,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w800,
-                                  height: 1.08,
-                                ),
-                              ),
-                            ],
-                            if (authors.isNotEmpty) ...[
-                              const SizedBox(height: 8),
-                              Text(
-                                authors,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.3,
-                                ),
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

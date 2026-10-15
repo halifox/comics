@@ -220,7 +220,7 @@ class HorizontalComicSection<T> extends HookWidget {
                       name: comicName,
                       author: authorText,
                       badge: badgeOf?.call(comic),
-                      onTap: () async {
+                      onTap: (heroTag) async {
                         final page = pageController.hasClients
                             ? pageController.page ?? 0
                             : 0.0;
@@ -239,6 +239,7 @@ class HorizontalComicSection<T> extends HookWidget {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (_) => ComicDetailPage(
+                              heroTag: heroTag,
                               comicId: comicId,
                               cover: comicCover,
                             ),
@@ -387,7 +388,7 @@ class SectionHeader extends StatelessWidget {
   }
 }
 
-class ComicCoverCard extends StatelessWidget {
+class ComicCoverCard extends HookWidget {
   const ComicCoverCard({
     required this.cover,
     required this.name,
@@ -401,96 +402,100 @@ class ComicCoverCard extends StatelessWidget {
   final String name;
   final String author;
   final String? badge;
-  final VoidCallback onTap;
+  final ValueChanged<Object> onTap;
 
   @override
   Widget build(BuildContext context) {
+    final heroTag = useMemoized(Object.new);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(26),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            CachedNetworkImage(
-              imageUrl: cover,
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              progressIndicatorBuilder: buildCachedImageLoading,
-              errorWidget: buildCachedImageError,
-            ),
-            const DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0, .1, .7, 1],
-                  colors: [
-                    Color(0x12000000),
-                    Color(0x00000000),
-                    Color(0x00000000),
-                    Color(0x5F000000),
-                  ],
+      onTap: () => onTap(heroTag),
+      child: Hero(
+        tag: heroTag,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(26),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: cover,
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                progressIndicatorBuilder: buildCachedImageLoading,
+                errorWidget: buildCachedImageError,
+              ),
+              const DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0, .1, .7, 1],
+                    colors: [
+                      Color(0x12000000),
+                      Color(0x00000000),
+                      Color(0x00000000),
+                      Color(0x5F000000),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            if (badge != null)
-              Positioned(
-                top: 8,
-                right: 8,
-                child: GlassContainer(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 4,
-                  ),
-                  shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                  child: Text(
-                    badge!,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      fontFeatures: [FontFeature.tabularFigures()],
+              if (badge != null)
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GlassContainer(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
                     ),
-                  ),
-                ),
-              ),
-            Positioned(
-              left: 4,
-              right: 4,
-              bottom: 4,
-              child: GlassContainer(
-                padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
-                shape: const LiquidRoundedSuperellipse(borderRadius: 26),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                    child: Text(
+                      badge!,
                       style: const TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
+                        fontFeatures: [FontFeature.tabularFigures()],
                       ),
                     ),
-                    Text(
-                      author,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Color.fromARGB(153, 235, 235, 245),
-                        fontSize: 11,
+                  ),
+                ),
+              Positioned(
+                left: 4,
+                right: 4,
+                bottom: 4,
+                child: GlassContainer(
+                  padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
+                  shape: const LiquidRoundedSuperellipse(borderRadius: 26),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                      Text(
+                        author,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color.fromARGB(153, 235, 235, 245),
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

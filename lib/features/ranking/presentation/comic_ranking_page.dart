@@ -180,10 +180,11 @@ class ComicRankingPage extends HookConsumerWidget {
                       name: comic.name,
                       author: comicAuthorNames(authors: comic.authors),
                       badge: '#${item.sort}',
-                      onTap: () {
+                      onTap: (heroTag) {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
+                              heroTag: heroTag,
                               comicId: comic.pathWord,
                               cover: comic.cover,
                             ),
