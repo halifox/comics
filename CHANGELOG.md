@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/halifox/comics/compare/v1.2.0...v1.3.0) (2026-10-15)
+
+
+### Features
+
+* add Hero transitions for comic covers ([35cc672](https://github.com/halifox/comics/commit/35cc672d1132206d907c463d4126c2277f26f808))
+* add Hero transitions for comic covers ([cf7002f](https://github.com/halifox/comics/commit/cf7002fd0f494ca59c45c0b3fcd4f61fb2131509))
+
 ## [1.2.0](https://github.com/halifox/comics/compare/v1.1.1...v1.2.0) (2026-10-15)
 
 
