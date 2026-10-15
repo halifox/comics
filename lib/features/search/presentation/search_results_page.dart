@@ -162,10 +162,11 @@ class SearchResultsPage extends HookConsumerWidget {
                       cover: comic.cover,
                       name: comic.name,
                       author: comicAuthorNames(authors: comic.authors),
-                      onTap: () {
+                      onTap: (heroTag) {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (routeContext) => ComicDetailPage(
+                              heroTag: heroTag,
                               comicId: comic.pathWord,
                               cover: comic.cover,
                             ),

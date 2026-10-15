@@ -94,10 +94,11 @@ class ComicLibraryPage extends HookConsumerWidget {
                           cover: item.comic.cover,
                           name: item.comic.name,
                           author: item.comic.author,
-                          onTap: () {
+                          onTap: (heroTag) {
                             Navigator.of(context).push(
                               CupertinoPageRoute(
                                 builder: (_) => ComicDetailPage(
+                                  heroTag: heroTag,
                                   comicId: item.comic.pathWord,
                                   cover: item.comic.cover,
                                 ),
