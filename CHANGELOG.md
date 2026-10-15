@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/halifox/comics/compare/v1.1.1...v1.2.0) (2026-10-15)
+
+
+### Features
+
+* rename app to 哈狸漫画 and update branding ([89be857](https://github.com/halifox/comics/commit/89be857644810a9ba093448ad663df2be77464f1))
+* update app branding and README introduction ([f0864ad](https://github.com/halifox/comics/commit/f0864adf76d69289688bc569451e22dbba4c050d))
+
 ## [1.1.1](https://github.com/halifox/comics/compare/v1.1.0...v1.1.1) (2026-10-14)
 
 
