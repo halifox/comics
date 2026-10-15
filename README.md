@@ -1,10 +1,10 @@
 <div align="center">
 
-  <img src="assets/icon/app_icon.png" alt="Comics 应用图标" width="128" />
+  <img src="assets/icon/app_icon.png" alt="哈狸漫画 应用图标" width="128" />
 
-# Comics
+# 哈狸漫画
 
-一个第三方拷贝漫画阅读客户端，支持漫画发现、搜索、书架和多模式阅读。
+一款采用 iOS Liquid Glass 界面风格的拷贝漫画第三方客户端。
 
 [![Built with Flutter](https://img.shields.io/badge/built%20with-Flutter-02569B)](#从源码运行与构建)
 [![Android arm64](https://img.shields.io/badge/Android-arm64-3DDC84)](#安装)
