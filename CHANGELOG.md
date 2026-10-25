@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/halifox/comics/compare/v1.3.0...v1.3.1) (2026-10-25)
+
+
+### Bug Fixes
+
+* **ci:** use conventional Dependabot commit messages ([6f4f440](https://github.com/halifox/comics/commit/6f4f44079dc85abeb01818b50f1d4e53ae6b635f))
+* **ci:** use conventional Dependabot commit messages ([738f9f0](https://github.com/halifox/comics/commit/738f9f0703fc345e3e857b0d543340c210d6db25))
+
 ## [1.3.0](https://github.com/halifox/comics/compare/v1.2.0...v1.3.0) (2026-10-15)
 
 
